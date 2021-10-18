@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CoffeeManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CT_HoaDon">
+          <Key>
+            <PropertyRef Name="ma_hoa_don" />
+            <PropertyRef Name="ma_mon_an" />
+          </Key>
+          <Property Name="ma_hoa_don" Type="int" Nullable="false" />
+          <Property Name="ma_mon_an" Type="int" Nullable="false" />
+          <Property Name="so_luong" Type="int" />
+          <Property Name="tong_tien" Type="money" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="ma_hoa_don" />
+          </Key>
+          <Property Name="ma_hoa_don" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ngay_xuat_hoa_don" Type="datetime" />
+          <Property Name="tong_tien" Type="money" />
+        </EntityType>
+        <EntityType Name="LoaiMonAn">
+          <Key>
+            <PropertyRef Name="ma_loai_mon_an" />
+          </Key>
+          <Property Name="ma_loai_mon_an" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten_loai_mon_an" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MonAn">
+          <Key>
+            <PropertyRef Name="ma_mon_an" />
+          </Key>
+          <Property Name="ma_mon_an" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gia_tien" Type="money" />
+          <Property Name="ma_loai_mon_an" Type="int" />
+          <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TaiKhoanAdmin">
+          <Key>
+            <PropertyRef Name="ten_dang_nhap" />
+          </Key>
+          <Property Name="ten_dang_nhap" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="mat_khau" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__CT_HoaDon__ma_ho__2D27B809">
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
+          <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="ma_hoa_don" />
+            </Principal>
+            <Dependent Role="CT_HoaDon">
+              <PropertyRef Name="ma_hoa_don" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MonAn__ma_loai_m__2C3393D0">
+          <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
+          <End Role="MonAn" Type="Self.MonAn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMonAn">
+              <PropertyRef Name="ma_loai_mon_an" />
+            </Principal>
+            <Dependent Role="MonAn">
+              <PropertyRef Name="ma_loai_mon_an" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeManagerModelStoreContainer">
+          <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiMonAn" EntityType="Self.LoaiMonAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonAn" EntityType="Self.MonAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaiKhoanAdmin" EntityType="Self.TaiKhoanAdmin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CT_HoaDon__ma_ho__2D27B809" Association="Self.FK__CT_HoaDon__ma_ho__2D27B809">
+            <End Role="HoaDon" EntitySet="HoaDon" />
+            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MonAn__ma_loai_m__2C3393D0" Association="Self.FK__MonAn__ma_loai_m__2C3393D0">
+            <End Role="LoaiMonAn" EntitySet="LoaiMonAn" />
+            <End Role="MonAn" EntitySet="MonAn" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoffeeManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CT_HoaDon">
+          <Key>
+            <PropertyRef Name="ma_hoa_don" />
+            <PropertyRef Name="ma_mon_an" />
+          </Key>
+          <Property Name="ma_hoa_don" Type="Int32" Nullable="false" />
+          <Property Name="ma_mon_an" Type="Int32" Nullable="false" />
+          <Property Name="so_luong" Type="Int32" />
+          <Property Name="tong_tien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="HoaDon" Relationship="Self.FK__CT_HoaDon__ma_ho__2D27B809" FromRole="CT_HoaDon" ToRole="HoaDon" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="ma_hoa_don" />
+          </Key>
+          <Property Name="ma_hoa_don" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ngay_xuat_hoa_don" Type="DateTime" Precision="3" />
+          <Property Name="tong_tien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK__CT_HoaDon__ma_ho__2D27B809" FromRole="HoaDon" ToRole="CT_HoaDon" />
+        </EntityType>
+        <EntityType Name="LoaiMonAn">
+          <Key>
+            <PropertyRef Name="ma_loai_mon_an" />
+          </Key>
+          <Property Name="ma_loai_mon_an" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten_loai_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MonAns" Relationship="Self.FK__MonAn__ma_loai_m__2C3393D0" FromRole="LoaiMonAn" ToRole="MonAn" />
+        </EntityType>
+        <EntityType Name="MonAn">
+          <Key>
+            <PropertyRef Name="ma_mon_an" />
+          </Key>
+          <Property Name="ma_mon_an" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gia_tien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ma_loai_mon_an" Type="Int32" />
+          <Property Name="ten_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LoaiMonAn" Relationship="Self.FK__MonAn__ma_loai_m__2C3393D0" FromRole="MonAn" ToRole="LoaiMonAn" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TaiKhoanAdmin">
+          <Key>
+            <PropertyRef Name="ten_dang_nhap" />
+          </Key>
+          <Property Name="ten_dang_nhap" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mat_khau" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__CT_HoaDon__ma_ho__2D27B809">
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
+          <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="ma_hoa_don" />
+            </Principal>
+            <Dependent Role="CT_HoaDon">
+              <PropertyRef Name="ma_hoa_don" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MonAn__ma_loai_m__2C3393D0">
+          <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
+          <End Role="MonAn" Type="Self.MonAn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMonAn">
+              <PropertyRef Name="ma_loai_mon_an" />
+            </Principal>
+            <Dependent Role="MonAn">
+              <PropertyRef Name="ma_loai_mon_an" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" />
+          <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
+          <EntitySet Name="LoaiMonAns" EntityType="Self.LoaiMonAn" />
+          <EntitySet Name="MonAns" EntityType="Self.MonAn" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TaiKhoanAdmins" EntityType="Self.TaiKhoanAdmin" />
+          <AssociationSet Name="FK__CT_HoaDon__ma_ho__2D27B809" Association="Self.FK__CT_HoaDon__ma_ho__2D27B809">
+            <End Role="HoaDon" EntitySet="HoaDons" />
+            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MonAn__ma_loai_m__2C3393D0" Association="Self.FK__MonAn__ma_loai_m__2C3393D0">
+            <End Role="LoaiMonAn" EntitySet="LoaiMonAns" />
+            <End Role="MonAn" EntitySet="MonAns" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoffeeManagerModelStoreContainer" CdmEntityContainer="CoffeeManagerEntities">
+          <EntitySetMapping Name="CT_HoaDon">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.CT_HoaDon">
+              <MappingFragment StoreEntitySet="CT_HoaDon">
+                <ScalarProperty Name="ma_hoa_don" ColumnName="ma_hoa_don" />
+                <ScalarProperty Name="ma_mon_an" ColumnName="ma_mon_an" />
+                <ScalarProperty Name="so_luong" ColumnName="so_luong" />
+                <ScalarProperty Name="tong_tien" ColumnName="tong_tien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDons">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.HoaDon">
+              <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="ma_hoa_don" ColumnName="ma_hoa_don" />
+                <ScalarProperty Name="ngay_xuat_hoa_don" ColumnName="ngay_xuat_hoa_don" />
+                <ScalarProperty Name="tong_tien" ColumnName="tong_tien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiMonAns">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.LoaiMonAn">
+              <MappingFragment StoreEntitySet="LoaiMonAn">
+                <ScalarProperty Name="ma_loai_mon_an" ColumnName="ma_loai_mon_an" />
+                <ScalarProperty Name="ten_loai_mon_an" ColumnName="ten_loai_mon_an" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonAns">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.MonAn">
+              <MappingFragment StoreEntitySet="MonAn">
+                <ScalarProperty Name="ma_mon_an" ColumnName="ma_mon_an" />
+                <ScalarProperty Name="gia_tien" ColumnName="gia_tien" />
+                <ScalarProperty Name="ma_loai_mon_an" ColumnName="ma_loai_mon_an" />
+                <ScalarProperty Name="ten_mon_an" ColumnName="ten_mon_an" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaiKhoanAdmins">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.TaiKhoanAdmin">
+              <MappingFragment StoreEntitySet="TaiKhoanAdmin">
+                <ScalarProperty Name="ten_dang_nhap" ColumnName="ten_dang_nhap" />
+                <ScalarProperty Name="mat_khau" ColumnName="mat_khau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
