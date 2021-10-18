@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace first_db_demo.Models
+namespace CoffeeStoreManager.Models
 {
     public class DataProvider
     {

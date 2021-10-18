@@ -1,0 +1,21 @@
+﻿<Window x:Class="CoffeeStoreManager.Views.ManageFood.UpdateFoodWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
+        xmlns:ManageFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
+        DataContext="{StaticResource ManageFoodVM}"
+        mc:Ignorable="d"
+        Title="UpdateFoodWindow" Height="450" Width="800">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Margin="0 0 0 30" Text="Update food" FontSize="30"/>
+            <ManageFoodUC:UpdateFoodForm/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
+                <Button Content="Cancel" Margin="0 0 15 0"></Button>
+                <Button Content="Update"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

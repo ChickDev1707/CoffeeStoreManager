@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CoffeeStoreManager.Views.ManageFood;
 
-namespace CoffeeStoreManager
+namespace CoffeeStoreManager.Views.ManageFood
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UpdateFoodWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UpdateFoodWindow : Window
     {
-        public MainWindow()
+        public UpdateFoodWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Window manageFoodWindow = new ManageFoodWindow();
-            manageFoodWindow.Show();
         }
     }
 }

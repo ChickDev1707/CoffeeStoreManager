@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" Width="200" Height="200">
+            <Button Content="Manage Food" Width="100" AutomationProperties.Name="MangeFoodBtn" Click="Button_Click"></Button>
+        </StackPanel>
     </Grid>
 </Window>

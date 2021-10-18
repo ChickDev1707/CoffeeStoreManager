@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 
-namespace first_db_demo.ViewModels
+namespace CoffeeStoreManager.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {        
