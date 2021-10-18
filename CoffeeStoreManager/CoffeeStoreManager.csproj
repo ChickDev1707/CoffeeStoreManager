@@ -69,12 +69,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CoffeeManagerModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoffeeManagerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CoffeeManagerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Views\BaseViewModel.cs" />
+    <Compile Include="Models\CT_HoaDon.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataProvider.cs" />
+    <Compile Include="Models\HoaDon.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoaiMonAn.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MonAn.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaiKhoanAdmin.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,13 +150,21 @@
     <Content Include="Models\CoffeeManagerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CoffeeManagerModel.Context.cs</LastGenOutput>
+      <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\CoffeeManagerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
+      <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Views\Controls\" />
+    <Folder Include="Views\ManageFood\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
