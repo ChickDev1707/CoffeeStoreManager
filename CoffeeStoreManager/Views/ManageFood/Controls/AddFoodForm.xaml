@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
+             DataContext="{StaticResource FoodVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
@@ -20,15 +21,15 @@
             </Style>
         </StackPanel.Resources>
         <TextBlock Text="Ten mon: "/>
-        <TextBox Text="{Binding foodName}"/>
+        <TextBox Text="{Binding AddFormFoodName}"/>
         <TextBlock Text="Gia: "/>
-        <TextBox Text="{Binding foodPrice}"/>
+        <TextBox Text="{Binding AddFormFoodPrice}"/>
         <TextBlock Text="Loai mon: "/>
         <ComboBox   Text="Loai mon"
                     ItemsSource="{Binding FoodTypeList}" 
                     DisplayMemberPath="ten_loai_mon_an"
                     SelectedValuePath="ma_loai_mon_an"
-                    SelectedValue="{Binding foodType}"
+                    SelectedValue="{Binding AddFormFoodType}"
         >
         </ComboBox>
     </StackPanel>

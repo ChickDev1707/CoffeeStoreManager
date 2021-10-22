@@ -10,6 +10,7 @@ namespace CoffeeStoreManager.Models
     {
         public int STT { get; set; }
         public int ma_loai_mon_an { get; set; }
+        public int ma_mon_an { get; set; }
         public string ten_mon_an { get; set; }
         public Nullable<decimal> gia_tien { get; set; }
         public string loai_mon_an { get; set; }

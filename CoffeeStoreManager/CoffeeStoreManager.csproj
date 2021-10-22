@@ -41,6 +41,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.37\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -102,9 +105,19 @@
     </Compile>
     <Compile Include="Models\ViewFood.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ManageFoodViewModel.cs" />
+    <Compile Include="ViewModels\FoodTypeViewModel.cs" />
+    <Compile Include="ViewModels\FoodViewModel.cs" />
     <Compile Include="Views\ManageFood\Controls\AddFoodForm.xaml.cs">
       <DependentUpon>AddFoodForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageFood\AddFoodWindow.xaml.cs">
+      <DependentUpon>AddFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageFood\Controls\FoodTypePanel.xaml.cs">
+      <DependentUpon>FoodTypePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageFood\Controls\SearchBar.xaml.cs">
+      <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageFood\Controls\UpdateFoodForm.xaml.cs">
       <DependentUpon>UpdateFoodForm.xaml</DependentUpon>
@@ -132,6 +145,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManageFood\Controls\AddFoodForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageFood\AddFoodWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageFood\Controls\FoodTypePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageFood\Controls\SearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

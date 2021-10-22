@@ -4,21 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
-        DataContext="{StaticResource ManageFoodVM}"
+        DataContext="{StaticResource FoodVM}"
         xmlns:ManageFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="ManageFoodWindow" Height="450" Width="800">
     <Grid Margin="0 15 0 0">
         <TabControl >
             <TabItem Header="Mon an">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <ListView x:Name="ListOfFoodes" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}" SelectionMode="Single">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="0 15" Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Padding" Value="15 5"/>
+                                <Setter Property="Margin" Value="0 0 10 0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Command="{Binding OpenAddFoodWindow}" Content="Add"/>
+                        <Button Command="{Binding OpenUpdateFoodWindow}" Content="Update"/>
+                        <Button Command="{Binding DeleteFood}" Content="Delete"/>
+                        <Button Command="{Binding RefreshFoodList}" Content="Refresh"/>
+                        <ManageFoodUC:SearchBar/>
+                    </StackPanel>
+                    <ListView Grid.Row="1" x:Name="ListOfFoodes" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}" SelectionMode="Single" SelectionChanged="ListOfFoodes_SelectionChanged">
                         <ListView.View>
-
                             <GridView>
                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding Path=STT}"></GridViewColumn>
                                 <GridViewColumn Header="Ten mon" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
@@ -27,51 +40,10 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <StackPanel Grid.Column="1" Margin="15 0 15 0">
-
-                        <ManageFoodUC:AddFoodForm/>
-                        <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                            <Button Command="{Binding AddFood}" Content="Add food" CommandParameter="{Binding}"></Button>
-                            <Button Command="{Binding OpenUpdateWindow}" Margin="20 0 0 0" Content="Update"/>
-                        </StackPanel>
-                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Loai mon an">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <ListView x:Name="ListOfFoodTypes" ItemsSource="{Binding FoodTypeList}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="ma loai mon" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
-                                <GridViewColumn Header="ten loai mon" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <StackPanel Grid.Column="1" Margin="15 0 15 0">
-                        <StackPanel.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="FontSize" Value="20"/>
-                                <Setter Property="Margin" Value="0 0 0 10"/>
-                            </Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Padding" Value="10 5"/>
-                            </Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Padding" Value="10"/>
-                            </Style>
-                        </StackPanel.Resources>
-                        <TextBlock Text="Ten loai mon: " />
-                        <TextBox Text="{Binding foodTypeName}"/>
-
-                        <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                            <Button Command="{Binding AddFoodType}" Content="Add food type" CommandParameter="{Binding}"></Button>
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
+                <ManageFoodUC:FoodTypePanel/>
             </TabItem>
         </TabControl>
     </Grid>

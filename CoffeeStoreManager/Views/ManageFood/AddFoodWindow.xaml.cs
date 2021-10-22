@@ -15,19 +15,13 @@ using System.Windows.Shapes;
 namespace CoffeeStoreManager.Views.ManageFood
 {
     /// <summary>
-    /// Interaction logic for ManageFoodWindow.xaml
+    /// Interaction logic for AddFoodWindow.xaml
     /// </summary>
-    public partial class ManageFoodWindow : Window
+    public partial class AddFoodWindow : Window
     {
-        public ManageFoodWindow()
+        public AddFoodWindow()
         {
             InitializeComponent();
-
-        }
-
-        private void ListOfFoodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

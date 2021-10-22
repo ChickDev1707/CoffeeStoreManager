@@ -2,5 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ViewModel="clr-namespace:CoffeeStoreManager.ViewModels"
                     >
-    <ViewModel:ManageFoodViewModel x:Key="ManageFoodVM"></ViewModel:ManageFoodViewModel>
+    <ViewModel:FoodViewModel x:Key="FoodVM"></ViewModel:FoodViewModel>
+    <ViewModel:FoodTypeViewModel x:Key="FoodTypeVM"></ViewModel:FoodTypeViewModel>
 </ResourceDictionary>
