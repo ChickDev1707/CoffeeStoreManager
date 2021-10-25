@@ -123,6 +123,12 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FoodTypeViewModel.cs" />
     <Compile Include="ViewModels\FoodViewModel.cs" />
+    <Compile Include="Views\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageEmployee\ManageEmployeeMain.xaml.cs">
+      <DependentUpon>ManageEmployeeMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManageFood\Controls\AddFoodForm.xaml.cs">
       <DependentUpon>AddFoodForm.xaml</DependentUpon>
     </Compile>
@@ -138,14 +144,17 @@
     <Compile Include="Views\ManageFood\Controls\UpdateFoodForm.xaml.cs">
       <DependentUpon>UpdateFoodForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManageFood\ManageFoodWindow.xaml.cs">
-      <DependentUpon>ManageFoodWindow.xaml</DependentUpon>
+    <Compile Include="Views\ManageFood\ManageFoodMain.xaml.cs">
+      <DependentUpon>ManageFoodMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageFood\UpdateFoodWindow.xaml.cs">
       <DependentUpon>UpdateFoodWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MangeSource\ManageSourceWindow.xaml.cs">
-      <DependentUpon>ManageSourceWindow.xaml</DependentUpon>
+    <Compile Include="Views\MangeSource\ManageSourceMain.xaml.cs">
+      <DependentUpon>ManageSourceMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistic\StatisticMain.xaml.cs">
+      <DependentUpon>StatisticMain.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +169,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\ViewModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageEmployee\ManageEmployeeMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,7 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManageFood\ManageFoodWindow.xaml">
+    <Page Include="Views\ManageFood\ManageFoodMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,7 +208,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MangeSource\ManageSourceWindow.xaml">
+    <Page Include="Views\MangeSource\ManageSourceMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistic\StatisticMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

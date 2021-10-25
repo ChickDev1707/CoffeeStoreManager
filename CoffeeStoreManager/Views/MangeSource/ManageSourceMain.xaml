@@ -1,14 +1,16 @@
-﻿<Window x:Class="CoffeeStoreManager.Views.MangeSource.ManageSourceWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+﻿<Page x:Class="CoffeeStoreManager.Views.MangeSource.ManageSourceMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
-        xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource"
-        mc:Ignorable="d"
-        DataContext="{StaticResource AddSourceVM}"
-        Title="ManageSourceWindow" Height="450" Width="800">
+      mc:Ignorable="d" 
+      DataContext="{StaticResource AddSourceVM}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ManageSourceMain">
+
     <Grid Margin="10">
         <ScrollViewer>
             <StackPanel x:Name="ItemsContianer">
@@ -58,10 +60,10 @@
                 </ItemsControl>
                 <Button Width="100" Content="Add Item" Command="{Binding AddItem}"></Button>
             </StackPanel>
-            
+
         </ScrollViewer>
         <!--<StackPanel Width="500" x:Name="Wrapper">
             
         </StackPanel>-->
     </Grid>
-</Window>
+</Page>

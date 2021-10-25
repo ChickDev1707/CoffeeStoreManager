@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.ManageFood
+namespace CoffeeStoreManager.Views.ManageEmployee
 {
     /// <summary>
-    /// Interaction logic for ManageFoodWindow.xaml
+    /// Interaction logic for ManageEmployeeMain.xaml
     /// </summary>
-    public partial class ManageFoodWindow : Window
+    public partial class ManageEmployeeMain : Page
     {
-        public ManageFoodWindow()
+        public ManageEmployeeMain()
         {
             InitializeComponent();
-
-        }
-
-        private void ListOfFoodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

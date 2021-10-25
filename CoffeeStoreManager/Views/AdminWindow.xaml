@@ -1,0 +1,38 @@
+﻿<Window x:Class="CoffeeStoreManager.Views.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="720" Width="1150">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="Header" Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="header" FontSize="25"/>
+        </StackPanel>
+        <StackPanel x:Name="LeftSideBar" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Admin" FontSize="40" FontWeight="Bold"/>
+            <StackPanel x:Name="PageBtnContainer" Margin="0 30 0 0">
+                <Button Content="Food" x:Name="FoodNavBtn" Click="FoodNavBtn_Click"/>
+                <Button Content="Employee" x:Name="EmployeeNavBtn" Click="EmployeeNavBtn_Click"/>
+                <Button Content="Source" x:Name="SourceNavBtn" Click="SourceNavBtn_Click"/>
+                <Button Content="Statistic" x:Name="StatisticNavBtn" Click="StatisticNavBtn_Click"/>
+
+            </StackPanel>
+        </StackPanel>
+        <Frame x:Name="Main" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.MangeSource
+namespace CoffeeStoreManager.Views.Statistic
 {
     /// <summary>
-    /// Interaction logic for ManageSourceWindow.xaml
+    /// Interaction logic for StatisticMain.xaml
     /// </summary>
-    public partial class ManageSourceWindow : Window
+    public partial class StatisticMain : Page
     {
-        public ManageSourceWindow()
+        public StatisticMain()
         {
             InitializeComponent();
         }

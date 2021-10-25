@@ -4,12 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1150">
     <Grid>
-        <StackPanel VerticalAlignment="Center" Width="200" Height="200">
-            <Button Content="Manage Food" Margin="0 0 0 10" Width="100" AutomationProperties.Name="MangeFoodBtn" Click="OpenManageFoodWindow"></Button>
-            <Button x:Name="ManageSourceBtn" Content="Manage Source" Width="100" AutomationProperties.Name="MangeFoodBtn" Click="OpenManageSourceWindow"></Button>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Click="OpenAdminWindow" Header="Admin"/>
+                <MenuItem Header="help"></MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <!--quan ly ban caffe (Tai)-->
+            <TextBlock Text="Quan ly ban cafffe (Tai)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+        </Grid>
     </Grid>
 </Window>
