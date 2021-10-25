@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="720" Width="1150">
     <Grid>
         <StackPanel VerticalAlignment="Center" Width="200" Height="200">
-            <Button Content="Manage Food" Width="100" AutomationProperties.Name="MangeFoodBtn" Click="Button_Click"></Button>
+            <Button Content="Manage Food" Margin="0 0 0 10" Width="100" AutomationProperties.Name="MangeFoodBtn" Click="OpenManageFoodWindow"></Button>
+            <Button x:Name="ManageSourceBtn" Content="Manage Source" Width="100" AutomationProperties.Name="MangeFoodBtn" Click="OpenManageSourceWindow"></Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -23,12 +23,7 @@ namespace CoffeeStoreManager.ViewModels
 
         public string SearchKey { get => searchKey; set { searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         
-        //public string UpdateFormFoodName { get => updateFormFoodName; set { updateFormFoodName = value; OnPropertyChanged(nameof(updateFormFoodName)); } }
-        //public int UpdateFormFoodPrice { get => updateFormFoodPrice; set { updateFormFoodPrice = value; OnPropertyChanged(nameof(updateFormFoodPrice)); } }
-        //public int UpdateFormFoodType { get => updateFormFoodType; set { updateFormFoodType = value; OnPropertyChanged(nameof(updateFormFoodType)); } }
-        //public string UpdateFormFoodTypeName { get => updateFormFoodTypeName; set { updateFormFoodTypeName = value; OnPropertyChanged(nameof(updateFormFoodTypeName)); } }
-
-
+        
         private ObservableCollection<ViewFood> foodList;
         private ObservableCollection<LoaiMonAn> foodTypeList;
         private string addFormFoodName;
@@ -36,11 +31,7 @@ namespace CoffeeStoreManager.ViewModels
         private int addFormFoodType;
         private string addFormFoodTypeName;
 
-        //private string updateFormFoodName;
-        //private int updateFormFoodPrice;
-        //private int updateFormFoodType;
-        //private string updateFormFoodTypeName;
-
+        
         private ViewFood selectedFood;
         private string searchKey;
         public ICommand AddFood { get; set; }

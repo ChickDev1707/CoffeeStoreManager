@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CoffeeStoreManager.Views.ManageFood;
+using CoffeeStoreManager.Views.MangeSource;
 
 namespace CoffeeStoreManager
 {
@@ -26,10 +27,15 @@ namespace CoffeeStoreManager
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OpenManageFoodWindow(object sender, RoutedEventArgs e)
         {
             Window manageFoodWindow = new ManageFoodWindow();
             manageFoodWindow.Show();
+        }
+        private void OpenManageSourceWindow(object sender, RoutedEventArgs e)
+        {
+            Window mangeSourceWindow = new ManageSourceWindow();
+            mangeSourceWindow.Show();
         }
     }
 }
