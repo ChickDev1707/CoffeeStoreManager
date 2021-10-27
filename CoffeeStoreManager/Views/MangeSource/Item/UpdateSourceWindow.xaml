@@ -1,0 +1,36 @@
+﻿<Window x:Class="CoffeeStoreManager.Views.MangeSource.Item.UpdateSourceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Item"
+        
+        DataContext="{StaticResource SourceVM}"
+        mc:Ignorable="d"
+        Title="UpdateSourceWindow" Height="300" Width="600">
+    <Grid>
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Margin" Value="0 0 0 10"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="10 5"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Update phieu nhap" FontSize="25"/>
+            <TextBlock Text="nha cung cap: "/>
+            <TextBox Text="{Binding SelectedSourceItem.nha_cung_cap}"/>
+            <TextBlock Text="ngay nhap: "/>
+            <DatePicker Text="{Binding SelectedSourceItem.ngay_nhap}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancel" />
+                <Button Command="{Binding UpdateSource}" Content="Update" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

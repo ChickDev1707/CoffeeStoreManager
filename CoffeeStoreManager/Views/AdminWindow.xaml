@@ -33,6 +33,6 @@
 
             </StackPanel>
         </StackPanel>
-        <Frame x:Name="Main" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="Main" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

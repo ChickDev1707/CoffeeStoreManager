@@ -42,7 +42,7 @@ namespace CoffeeStoreManager.ViewModels
         public ICommand Search { get; set; }
         public ICommand DeleteFood { get; set; }
         public ICommand RefreshFoodList { get; set; }
-        
+
 
         public FoodViewModel()
         {

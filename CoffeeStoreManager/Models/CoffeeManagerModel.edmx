@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CoffeeManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CoffeeManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CT_HoaDon">
           <Key>
             <PropertyRef Name="ma_hoa_don" />
@@ -12,6 +12,17 @@
           </Key>
           <Property Name="ma_hoa_don" Type="int" Nullable="false" />
           <Property Name="ma_mon_an" Type="int" Nullable="false" />
+          <Property Name="so_luong" Type="int" />
+          <Property Name="tong_tien" Type="money" />
+        </EntityType>
+        <EntityType Name="CT_PhieuNhapHang">
+          <Key>
+            <PropertyRef Name="ma_ct_phieu_nhap_hang" />
+          </Key>
+          <Property Name="ma_ct_phieu_nhap_hang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ma_phieu_nhap_hang" Type="int" />
+          <Property Name="ten_mat_hang" Type="varchar" MaxLength="100" />
+          <Property Name="gia_tien" Type="money" />
           <Property Name="so_luong" Type="int" />
           <Property Name="tong_tien" Type="money" />
         </EntityType>
@@ -38,6 +49,14 @@
           <Property Name="gia_tien" Type="money" />
           <Property Name="ma_loai_mon_an" Type="int" />
           <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PhieuNhapHang">
+          <Key>
+            <PropertyRef Name="ma_phieu_nhap_hang" />
+          </Key>
+          <Property Name="ma_phieu_nhap_hang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ngay_nhap" Type="datetime" />
+          <Property Name="nha_cung_cap" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -68,6 +87,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__CT_PhieuN__ma_ph__4BAC3F29">
+          <End Role="PhieuNhapHang" Type="Self.PhieuNhapHang" Multiplicity="0..1" />
+          <End Role="CT_PhieuNhapHang" Type="Self.CT_PhieuNhapHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuNhapHang">
+              <PropertyRef Name="ma_phieu_nhap_hang" />
+            </Principal>
+            <Dependent Role="CT_PhieuNhapHang">
+              <PropertyRef Name="ma_phieu_nhap_hang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__MonAn__ma_loai_m__2C3393D0">
           <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
           <End Role="MonAn" Type="Self.MonAn" Multiplicity="*" />
@@ -82,22 +113,27 @@
         </Association>
         <EntityContainer Name="CoffeeManagerModelStoreContainer">
           <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CT_PhieuNhapHang" EntityType="Self.CT_PhieuNhapHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiMonAn" EntityType="Self.LoaiMonAn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonAn" EntityType="Self.MonAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhieuNhapHang" EntityType="Self.PhieuNhapHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoanAdmin" EntityType="Self.TaiKhoanAdmin" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CT_HoaDon__ma_ho__2D27B809" Association="Self.FK__CT_HoaDon__ma_ho__2D27B809">
             <End Role="HoaDon" EntitySet="HoaDon" />
             <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
           </AssociationSet>
+          <AssociationSet Name="FK__CT_PhieuN__ma_ph__4BAC3F29" Association="Self.FK__CT_PhieuN__ma_ph__4BAC3F29">
+            <End Role="PhieuNhapHang" EntitySet="PhieuNhapHang" />
+            <End Role="CT_PhieuNhapHang" EntitySet="CT_PhieuNhapHang" />
+          </AssociationSet>
           <AssociationSet Name="FK__MonAn__ma_loai_m__2C3393D0" Association="Self.FK__MonAn__ma_loai_m__2C3393D0">
             <End Role="LoaiMonAn" EntitySet="LoaiMonAn" />
             <End Role="MonAn" EntitySet="MonAn" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CoffeeManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -195,7 +231,46 @@
             <End Role="LoaiMonAn" EntitySet="LoaiMonAns" />
             <End Role="MonAn" EntitySet="MonAns" />
           </AssociationSet>
+          <EntitySet Name="CT_PhieuNhapHang" EntityType="CoffeeManagerModel.CT_PhieuNhapHang" />
+          <EntitySet Name="PhieuNhapHangs" EntityType="CoffeeManagerModel.PhieuNhapHang" />
+          <AssociationSet Name="FK__CT_PhieuN__ma_ph__4BAC3F29" Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29">
+            <End Role="PhieuNhapHang" EntitySet="PhieuNhapHangs" />
+            <End Role="CT_PhieuNhapHang" EntitySet="CT_PhieuNhapHang" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CT_PhieuNhapHang">
+          <Key>
+            <PropertyRef Name="ma_ct_phieu_nhap_hang" />
+          </Key>
+          <Property Name="ma_ct_phieu_nhap_hang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ma_phieu_nhap_hang" Type="Int32" />
+          <Property Name="ten_mat_hang" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="gia_tien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="so_luong" Type="Int32" />
+          <Property Name="tong_tien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="PhieuNhapHang" Relationship="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" FromRole="CT_PhieuNhapHang" ToRole="PhieuNhapHang" />
+        </EntityType>
+        <EntityType Name="PhieuNhapHang">
+          <Key>
+            <PropertyRef Name="ma_phieu_nhap_hang" />
+          </Key>
+          <Property Name="ma_phieu_nhap_hang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ngay_nhap" Type="DateTime" Precision="3" />
+          <Property Name="nha_cung_cap" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CT_PhieuNhapHang" Relationship="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" FromRole="PhieuNhapHang" ToRole="CT_PhieuNhapHang" />
+        </EntityType>
+        <Association Name="FK__CT_PhieuN__ma_ph__4BAC3F29">
+          <End Type="CoffeeManagerModel.PhieuNhapHang" Role="PhieuNhapHang" Multiplicity="0..1" />
+          <End Type="CoffeeManagerModel.CT_PhieuNhapHang" Role="CT_PhieuNhapHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuNhapHang">
+              <PropertyRef Name="ma_phieu_nhap_hang" />
+            </Principal>
+            <Dependent Role="CT_PhieuNhapHang">
+              <PropertyRef Name="ma_phieu_nhap_hang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -255,6 +330,27 @@
               <MappingFragment StoreEntitySet="TaiKhoanAdmin">
                 <ScalarProperty Name="ten_dang_nhap" ColumnName="ten_dang_nhap" />
                 <ScalarProperty Name="mat_khau" ColumnName="mat_khau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CT_PhieuNhapHang">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.CT_PhieuNhapHang">
+              <MappingFragment StoreEntitySet="CT_PhieuNhapHang">
+                <ScalarProperty Name="tong_tien" ColumnName="tong_tien" />
+                <ScalarProperty Name="so_luong" ColumnName="so_luong" />
+                <ScalarProperty Name="gia_tien" ColumnName="gia_tien" />
+                <ScalarProperty Name="ten_mat_hang" ColumnName="ten_mat_hang" />
+                <ScalarProperty Name="ma_phieu_nhap_hang" ColumnName="ma_phieu_nhap_hang" />
+                <ScalarProperty Name="ma_ct_phieu_nhap_hang" ColumnName="ma_ct_phieu_nhap_hang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhieuNhapHangs">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.PhieuNhapHang">
+              <MappingFragment StoreEntitySet="PhieuNhapHang">
+                <ScalarProperty Name="nha_cung_cap" ColumnName="nha_cung_cap" />
+                <ScalarProperty Name="ngay_nhap" ColumnName="ngay_nhap" />
+                <ScalarProperty Name="ma_phieu_nhap_hang" ColumnName="ma_phieu_nhap_hang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

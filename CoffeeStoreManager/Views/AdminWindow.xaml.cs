@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using CoffeeStoreManager.Views.ManageEmployee;
 using CoffeeStoreManager.Views.ManageFood;
-using CoffeeStoreManager.Views.MangeSource;
+using CoffeeStoreManager.Views.MangeSource.Item;
 using CoffeeStoreManager.Views.Statistic;
 
 namespace CoffeeStoreManager.Views

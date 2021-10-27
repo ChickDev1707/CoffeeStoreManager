@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
       mc:Ignorable="d" 
       DataContext="{StaticResource FoodVM}"
-      xmlns:ManageFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
-        
+      xmlns:SharedUC="clr-namespace:CoffeeStoreManager.Views.SharedControls"
+      xmlns:MangeFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageFoodMain">
 
@@ -30,10 +30,10 @@
                         <Button Command="{Binding OpenUpdateFoodWindow}" Content="Update"/>
                         <Button Command="{Binding DeleteFood}" Content="Delete"/>
                         <Button Command="{Binding RefreshFoodList}" Content="Refresh"/>
-                        <ManageFoodUC:SearchBar/>
+                        <SharedUC:SearchBar/>
                     </StackPanel>
-                    <ListView Grid.Row="1" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}" >
-                        <ListView.View>
+                    <ListView Grid.Row="1" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}">
+                       <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding Path=STT}"></GridViewColumn>
                                 <GridViewColumn Header="Ten mon" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
@@ -45,7 +45,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Loai mon an">
-                <ManageFoodUC:FoodTypePanel/>
+                <MangeFoodUC:FoodTypePanel/>
             </TabItem>
         </TabControl>
     </Grid>

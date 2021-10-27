@@ -13,6 +13,9 @@
         <EntityTypeShape EntityType="CoffeeManagerModel.TaiKhoanAdmin" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__2D27B809" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeManagerModel.FK__MonAn__ma_loai_m__2C3393D0" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.CT_PhieuNhapHang" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuNhapHang" Width="1.5" PointX="0.75" PointY="7.25" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
