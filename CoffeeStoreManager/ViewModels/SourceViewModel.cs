@@ -77,6 +77,7 @@ namespace CoffeeStoreManager.ViewModels
         }
         void loadSourceList()
         {
+
             var db = DataProvider.Ins.DB;
             var sqlString = "select p.ma_phieu_nhap_hang, nha_cung_cap, ngay_nhap, count(*) as so_luong_mat_hang, sum(ct.tong_tien) as tong_tien " +
                             "from PhieuNhapHang as p, CT_PhieuNhapHang as ct " +
