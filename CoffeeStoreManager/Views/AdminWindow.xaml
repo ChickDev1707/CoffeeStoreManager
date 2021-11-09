@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="720" Width="1150">
+        Title="AdminWindow" Height="720" Width="1150"
+        DataContext="{StaticResource AccountVM}">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
@@ -17,6 +19,18 @@
         </Grid.RowDefinitions>
         <StackPanel x:Name="Header" Grid.Row="0" Grid.Column="1">
             <TextBlock Text="header" FontSize="25"/>
+            <StackPanel Width="110" HorizontalAlignment="Right" Margin="0 -30" Height="75">
+                <Image Source="{Binding Source}"  Width="75" Height="75" HorizontalAlignment="Left"></Image>
+                <Button  x:Name="AccountNavBtn" Width="48" Height="30" HorizontalAlignment="Right" Margin="0 -30 0 0"
+                    Click="AccountNavBtn_Click" Foreground="White" >
+                    <Button.Background>
+                        <ImageBrush ImageSource="492324-200.png"/>
+                    </Button.Background>
+                    <Button.BorderBrush>
+                        <ImageBrush/>
+                    </Button.BorderBrush>
+                </Button>
+            </StackPanel>
         </StackPanel>
         <StackPanel x:Name="LeftSideBar" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
             <StackPanel.Resources>

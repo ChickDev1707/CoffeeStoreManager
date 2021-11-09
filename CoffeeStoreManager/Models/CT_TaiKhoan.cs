@@ -12,15 +12,13 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CT_HoaDon
+    public partial class CT_TaiKhoan
     {
-        public int ma_hoa_don { get; set; }
-        public int ma_mon_an { get; set; }
-        public Nullable<int> so_luong { get; set; }
-        public Nullable<decimal> tong_tien { get; set; }
-        public string ten_mon_an { get; set; }
-        public Nullable<decimal> gia_tien { get; set; }
-    
-        public virtual HoaDon HoaDon { get; set; }
+        public int id { get; set; }
+        public string ho_ten { get; set; }
+        public string dia_chi { get; set; }
+        public string gmail { get; set; }
+        public string so_dien_thoai { get; set; }
+        public string image_source { get; set; }
     }
 }
