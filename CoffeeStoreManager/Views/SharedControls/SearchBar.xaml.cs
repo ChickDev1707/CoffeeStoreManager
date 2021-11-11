@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.ManageFood.Controls
+namespace CoffeeStoreManager.Views.SharedControls
 {
     /// <summary>
     /// Interaction logic for SearchBar.xaml

@@ -47,6 +47,11 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.37\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.SfBusyIndicator.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfInput.Wpf, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfScheduler.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfSkinManager.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.Wpf, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -66,6 +71,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />
@@ -92,6 +100,8 @@
     </ApplicationDefinition>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Compile Include="Models\CaLamPartTime.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CoffeeManagerModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -111,6 +121,9 @@
     <Compile Include="Models\CT_HoaDon.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CT_PhieuNhapHang.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\HoaDon.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
@@ -121,10 +134,10 @@
     <Compile Include="Models\MonAn.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+    <Compile Include="Models\NhanVien.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+    <Compile Include="Models\PhieuNhapHang.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -135,6 +148,7 @@
     </Compile>
     <Compile Include="Models\ViewFood.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="Models\ViewSource.cs" />
     <Compile Include="ViewModels\AddSourceViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FoodTypeViewModel.cs" />
@@ -150,6 +164,10 @@
     <Compile Include="Views\Account\PasswordChangeWindow.xaml.cs">
       <DependentUpon>PasswordChangeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\PartTimeScheduleViewModel.cs" />
+    <Compile Include="ViewModels\PartTimeShiftEditorViewModel.cs" />
+    <Compile Include="ViewModels\SourceDetailViewModel.cs" />
+    <Compile Include="ViewModels\SourceViewModel.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -165,7 +183,26 @@
     <Compile Include="Views\ManageFood\Controls\FoodTypePanel.xaml.cs">
       <DependentUpon>FoodTypePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManageFood\Controls\SearchBar.xaml.cs">
+    <Compile Include="Views\MangeSource\Detail\AddDetailWindow.xaml.cs">
+      <DependentUpon>AddDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MangeSource\Detail\SourceDetailPage.xaml.cs">
+      <DependentUpon>SourceDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MangeSource\Detail\UpdateDetailWindow.xaml.cs">
+      <DependentUpon>UpdateDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MangeSource\Item\UpdateSourceWindow.xaml.cs">
+      <DependentUpon>UpdateSourceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartTimeScheduler\PartTimeSchedulerMain.xaml.cs">
+      <DependentUpon>PartTimeSchedulerMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartTimeScheduler\PartTimeShiftEditorWindow.xaml.cs">
+      <DependentUpon>PartTimeShiftEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartTimeShift.cs" />
+    <Compile Include="Views\SharedControls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageFood\Controls\UpdateFoodForm.xaml.cs">
@@ -177,7 +214,10 @@
     <Compile Include="Views\ManageFood\UpdateFoodWindow.xaml.cs">
       <DependentUpon>UpdateFoodWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MangeSource\ManageSourceMain.xaml.cs">
+    <Compile Include="Views\MangeSource\Item\AddSourceWindow.xaml.cs">
+      <DependentUpon>AddSourceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MangeSource\Item\ManageSourceMain.xaml.cs">
       <DependentUpon>ManageSourceMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistic\StatisticMain.xaml.cs">
@@ -235,7 +275,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManageFood\Controls\SearchBar.xaml">
+    <Page Include="Views\MangeSource\Detail\AddDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MangeSource\Detail\SourceDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MangeSource\Detail\UpdateDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MangeSource\Item\UpdateSourceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PartTimeScheduler\PartTimeSchedulerMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PartTimeScheduler\PartTimeShiftEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SharedControls\SearchBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -251,7 +315,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MangeSource\ManageSourceMain.xaml">
+    <Page Include="Views\MangeSource\Item\AddSourceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MangeSource\Item\ManageSourceMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,8 +378,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\SharedControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

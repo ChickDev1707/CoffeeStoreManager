@@ -1,0 +1,47 @@
+﻿<Page x:Class="CoffeeStoreManager.Views.MangeSource.Detail.SourceDetailPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Detail"
+      xmlns:SharedUC="clr-namespace:CoffeeStoreManager.Views.SharedControls"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SourceDetailPage">
+
+    <Grid Margin="10" Background="#FFE5E5E5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0 15" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="15 5"/>
+                    <Setter Property="Margin" Value="0 0 10 0"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Click="OpenAddWindow" Content="Add"/>
+            <Button Click="OpenUpdateWindow" Content="Update"/>
+            <Button Command="{Binding DeleteDetail}" Content="Delete"/>
+            <Button Command="{Binding RefreshDetail}" Content="Refresh"/>
+            <SharedUC:SearchBar/>
+        </StackPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
+                    <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
+                    <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
+                    <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien}"></GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right">
+            <Button Padding="20 10" Content="Back" Click="Back_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

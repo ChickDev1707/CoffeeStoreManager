@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource FoodVM}"
@@ -16,26 +15,8 @@
 
             <ManageFoodUC:AddFoodForm/>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
-                <Button Command="{Binding AddFood}" Content="Add food" CommandParameter="{Binding}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:CallMethodAction MethodName="Close"
-                                                TargetObject="{Binding RelativeSource={RelativeSource
-                                                  Mode=FindAncestor,
-                                                  AncestorType=Window}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Button>
-                <Button Margin="20 0 0 0" Content="Cancel">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:CallMethodAction MethodName="Close"
-                                                TargetObject="{Binding RelativeSource={RelativeSource
-                                                  Mode=FindAncestor,
-                                                  AncestorType=Window}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Button>
+                <Button Command="{Binding AddFood}" Content="Add food" CommandParameter="{Binding}"></Button>
+                <Button Margin="20 0 0 0" Content="Cancel"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>
