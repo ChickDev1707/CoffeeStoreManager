@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using CoffeeStoreManager.Views.ManageEmployee;
 using CoffeeStoreManager.Views.ManageFood;
 using CoffeeStoreManager.Views.MangeSource.Item;
+using CoffeeStoreManager.Views.PartTimeScheduler;
 using CoffeeStoreManager.Views.Statistic;
 
 namespace CoffeeStoreManager.Views
@@ -38,6 +39,11 @@ namespace CoffeeStoreManager.Views
             Main.Content = Pages.StatisticPage;
 
         }
+        private void PartTimeSchedulerNavBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = Pages.PartTimeSchedulerPage;
+
+        }
     }
     static class Pages
     {
@@ -46,12 +52,14 @@ namespace CoffeeStoreManager.Views
         public static Page EmployeePage { get => pages[1]; }
         public static Page SourcePage { get => pages[2]; }
         public static Page StatisticPage { get => pages[3]; }
+        public static Page PartTimeSchedulerPage { get => pages[4]; }
         static Pages()
         {
             pages.Add(new ManageFoodMain());
             pages.Add(new ManageEmployeeMain());
             pages.Add(new ManageSourceMain());
             pages.Add(new StatisticMain());
+            pages.Add(new PartTimeSchedulerMain());
         }
 
     }

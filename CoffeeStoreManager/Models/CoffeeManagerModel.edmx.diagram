@@ -16,6 +16,9 @@
         <EntityTypeShape EntityType="CoffeeManagerModel.CT_PhieuNhapHang" Width="1.5" PointX="3" PointY="7" />
         <EntityTypeShape EntityType="CoffeeManagerModel.PhieuNhapHang" Width="1.5" PointX="0.75" PointY="7.25" />
         <AssociationConnector Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.NhanVien" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.CaLamPartTime" Width="1.5" PointX="10.625" PointY="0.875" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__CaLamPart__ma_nh__6754599E" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

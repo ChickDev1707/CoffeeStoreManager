@@ -7,5 +7,5 @@
     <ViewModel:AddSourceViewModel x:Key="AddSourceVM"></ViewModel:AddSourceViewModel>
     <ViewModel:SourceViewModel x:Key="SourceVM"></ViewModel:SourceViewModel>
     <ViewModel:SourceDetailViewModel x:Key="SourceDetailVM"></ViewModel:SourceDetailViewModel>
-    
+    <ViewModel:PartTimeScheduleViewModel x:Key="PartTimeScheduleVM"></ViewModel:PartTimeScheduleViewModel>
 </ResourceDictionary>

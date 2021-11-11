@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Views.ManageFood;
@@ -51,7 +52,7 @@ namespace CoffeeStoreManager.ViewModels
             OpenAddFoodWindow = new RelayCommand<object>((p) => { return true; }, (p) => { openAddFoodWindow(p); });
 
             OpenUpdateFoodWindow = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateFoodWindow(p); });
-            UpdateSelectedFood = new RelayCommand<object>((p) => { return true; }, (p) => { updateSlectedFood(p); });
+            UpdateSelectedFood = new RelayCommand<Window>((p) => { return true; }, (p) => { updateSlectedFood(p); });
             Search = new RelayCommand<object>((p) => { return true; }, (p) => { search(p); });
             DeleteFood = new RelayCommand<object>((p) => { return true; }, (p) => { deleteFood(p); });
             RefreshFoodList = new RelayCommand<object>((p) => { return true; }, (p) => { refreshFoodList(p); });
@@ -154,13 +155,15 @@ namespace CoffeeStoreManager.ViewModels
             var window = new UpdateFoodWindow();
             window.ShowDialog();
         }
-        private void updateSlectedFood(object p)
+        private void updateSlectedFood(Window window)
         {
             var dbSelectedFood = DataProvider.Ins.DB.MonAns.SingleOrDefault(food => food.ma_mon_an == SelectedFood.ma_mon_an);
             dbSelectedFood.ten_mon_an = selectedFood.ten_mon_an;
             dbSelectedFood.ma_loai_mon_an = selectedFood.ma_loai_mon_an;
             dbSelectedFood.gia_tien = selectedFood.gia_tien;
             DataProvider.Ins.DB.SaveChanges();
+
+            if (window != null) window.Close();
         }
 
     }

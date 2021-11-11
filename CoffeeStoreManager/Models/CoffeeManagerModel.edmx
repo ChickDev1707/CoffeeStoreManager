@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CoffeeManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CaLamPartTime">
+          <Key>
+            <PropertyRef Name="ma_ca_partTime" />
+          </Key>
+          <Property Name="ma_ca_partTime" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ma_nhan_vien" Type="int" />
+          <Property Name="ngay_lam" Type="datetime" />
+          <Property Name="gio_bat_dau" Type="time" Precision="7" />
+          <Property Name="gio_ket_thuc" Type="time" Precision="7" />
+          <Property Name="so_gio_lam" Type="int" />
+        </EntityType>
         <EntityType Name="CT_HoaDon">
           <Key>
             <PropertyRef Name="ma_hoa_don" />
@@ -50,6 +61,18 @@
           <Property Name="ma_loai_mon_an" Type="int" />
           <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="ma_nhan_vien" />
+          </Key>
+          <Property Name="ma_nhan_vien" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ma_loai" Type="int" />
+          <Property Name="ho_ten" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ngay_vao_lam" Type="datetime" Nullable="false" />
+          <Property Name="sdt" Type="varchar" MaxLength="20" />
+          <Property Name="so_ngay_nghi" Type="int" />
+          <Property Name="dia_chi" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="PhieuNhapHang">
           <Key>
             <PropertyRef Name="ma_phieu_nhap_hang" />
@@ -75,6 +98,18 @@
           <Property Name="ten_dang_nhap" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="mat_khau" Type="varchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK__CaLamPart__ma_nh__6754599E">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="CaLamPartTime" Type="Self.CaLamPartTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ma_nhan_vien" />
+            </Principal>
+            <Dependent Role="CaLamPartTime">
+              <PropertyRef Name="ma_nhan_vien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__CT_HoaDon__ma_ho__2D27B809">
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
           <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
@@ -112,14 +147,20 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CoffeeManagerModelStoreContainer">
+          <EntitySet Name="CaLamPartTime" EntityType="Self.CaLamPartTime" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CT_PhieuNhapHang" EntityType="Self.CT_PhieuNhapHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiMonAn" EntityType="Self.LoaiMonAn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonAn" EntityType="Self.MonAn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuNhapHang" EntityType="Self.PhieuNhapHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoanAdmin" EntityType="Self.TaiKhoanAdmin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CaLamPart__ma_nh__6754599E" Association="Self.FK__CaLamPart__ma_nh__6754599E">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="CaLamPartTime" EntitySet="CaLamPartTime" />
+          </AssociationSet>
           <AssociationSet Name="FK__CT_HoaDon__ma_ho__2D27B809" Association="Self.FK__CT_HoaDon__ma_ho__2D27B809">
             <End Role="HoaDon" EntitySet="HoaDon" />
             <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
@@ -237,6 +278,12 @@
             <End Role="PhieuNhapHang" EntitySet="PhieuNhapHangs" />
             <End Role="CT_PhieuNhapHang" EntitySet="CT_PhieuNhapHang" />
           </AssociationSet>
+          <EntitySet Name="NhanViens" EntityType="CoffeeManagerModel.NhanVien" />
+          <EntitySet Name="CaLamPartTimes" EntityType="CoffeeManagerModel.CaLamPartTime" />
+          <AssociationSet Name="FK__CaLamPart__ma_nh__6754599E" Association="CoffeeManagerModel.FK__CaLamPart__ma_nh__6754599E">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="CaLamPartTime" EntitySet="CaLamPartTimes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CT_PhieuNhapHang">
           <Key>
@@ -268,6 +315,43 @@
             </Principal>
             <Dependent Role="CT_PhieuNhapHang">
               <PropertyRef Name="ma_phieu_nhap_hang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="ma_nhan_vien" />
+          </Key>
+          <Property Name="ma_nhan_vien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ma_loai" Type="Int32" />
+          <Property Name="ho_ten" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ngay_vao_lam" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sdt" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="so_ngay_nghi" Type="Int32" />
+          <Property Name="dia_chi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CaLamPartTimes" Relationship="CoffeeManagerModel.FK__CaLamPart__ma_nh__6754599E" FromRole="NhanVien" ToRole="CaLamPartTime" />
+        </EntityType>
+        <EntityType Name="CaLamPartTime">
+          <Key>
+            <PropertyRef Name="ma_ca_partTime" />
+          </Key>
+          <Property Name="ma_ca_partTime" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ma_nhan_vien" Type="Int32" />
+          <Property Name="ngay_lam" Type="DateTime" Precision="3" />
+          <Property Name="gio_ket_thuc" Type="Time" Precision="7" />
+          <Property Name="so_gio_lam" Type="Int32" />
+          <NavigationProperty Name="NhanVien" Relationship="CoffeeManagerModel.FK__CaLamPart__ma_nh__6754599E" FromRole="CaLamPartTime" ToRole="NhanVien" />
+          <Property Name="gio_bat_dau" Type="Time" Precision="7" />
+        </EntityType>
+        <Association Name="FK__CaLamPart__ma_nh__6754599E">
+          <End Type="CoffeeManagerModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="CoffeeManagerModel.CaLamPartTime" Role="CaLamPartTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="ma_nhan_vien" />
+            </Principal>
+            <Dependent Role="CaLamPartTime">
+              <PropertyRef Name="ma_nhan_vien" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -351,6 +435,31 @@
                 <ScalarProperty Name="nha_cung_cap" ColumnName="nha_cung_cap" />
                 <ScalarProperty Name="ngay_nhap" ColumnName="ngay_nhap" />
                 <ScalarProperty Name="ma_phieu_nhap_hang" ColumnName="ma_phieu_nhap_hang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="dia_chi" ColumnName="dia_chi" />
+                <ScalarProperty Name="so_ngay_nghi" ColumnName="so_ngay_nghi" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="ngay_vao_lam" ColumnName="ngay_vao_lam" />
+                <ScalarProperty Name="ho_ten" ColumnName="ho_ten" />
+                <ScalarProperty Name="ma_loai" ColumnName="ma_loai" />
+                <ScalarProperty Name="ma_nhan_vien" ColumnName="ma_nhan_vien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaLamPartTimes">
+            <EntityTypeMapping TypeName="CoffeeManagerModel.CaLamPartTime">
+              <MappingFragment StoreEntitySet="CaLamPartTime">
+                <ScalarProperty Name="gio_bat_dau" ColumnName="gio_bat_dau" />
+                <ScalarProperty Name="so_gio_lam" ColumnName="so_gio_lam" />
+                <ScalarProperty Name="gio_ket_thuc" ColumnName="gio_ket_thuc" />
+                <ScalarProperty Name="ngay_lam" ColumnName="ngay_lam" />
+                <ScalarProperty Name="ma_nhan_vien" ColumnName="ma_nhan_vien" />
+                <ScalarProperty Name="ma_ca_partTime" ColumnName="ma_ca_partTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
