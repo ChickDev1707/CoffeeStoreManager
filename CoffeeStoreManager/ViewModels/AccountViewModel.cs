@@ -47,7 +47,7 @@ namespace CoffeeStoreManager.ViewModels
         
         public AccountViewModel()
         {
-            var select = from s in DataProvider.Ins.DB.CT_TaiKhoan select s;
+            var select = from s in DataProvider.Ins.DB.TaiKhoanAdmins select s;
             foreach (var data in select)
             {
                 Id = 1;
@@ -74,7 +74,7 @@ namespace CoffeeStoreManager.ViewModels
         }
         void SaveAccount(object p)
         {
-            var change = DataProvider.Ins.DB.CT_TaiKhoan.SingleOrDefault(x => x.id == 1);
+            var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ma_tai_khoan == 1);
             change.ho_ten = Name;
             change.dia_chi = Address;
             change.gmail = Gmail;
@@ -98,7 +98,7 @@ namespace CoffeeStoreManager.ViewModels
                 Source = bitmap.ToString();
 
                 //Lưu hình ảnh vào database
-                var imageChange = DataProvider.Ins.DB.CT_TaiKhoan.SingleOrDefault(x => x.id == Id);
+                var imageChange = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ma_tai_khoan == Id);
                 imageChange.image_source = Source;
                 DataProvider.Ins.DB.SaveChanges();
             }

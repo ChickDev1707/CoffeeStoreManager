@@ -33,7 +33,6 @@ namespace CoffeeStoreManager.Models
         public virtual DbSet<MonAn> MonAns { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoanAdmin> TaiKhoanAdmins { get; set; }
-        public virtual DbSet<CT_TaiKhoan> CT_TaiKhoan { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
