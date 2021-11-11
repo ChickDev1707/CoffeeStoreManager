@@ -13,10 +13,10 @@ namespace CoffeeStoreManager.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CoffeeManagerEntities : DbContext
+    public partial class CoffeeManagerEntities1 : DbContext
     {
-        public CoffeeManagerEntities()
-            : base("name=CoffeeManagerEntities")
+        public CoffeeManagerEntities1()
+            : base("name=CoffeeManagerEntities1")
         {
         }
     
@@ -25,10 +25,19 @@ namespace CoffeeStoreManager.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BanAn> BanAns { get; set; }
+        public virtual DbSet<CT_CaLamPartTime> CT_CaLamPartTime { get; set; }
         public virtual DbSet<CT_HoaDon> CT_HoaDon { get; set; }
+        public virtual DbSet<CT_LichLamPartTime> CT_LichLamPartTime { get; set; }
+        public virtual DbSet<CT_PhieuNhapHang> CT_PhieuNhapHang { get; set; }
+        public virtual DbSet<CT_TaiKhoan> CT_TaiKhoan { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
+        public virtual DbSet<LichLamPartTime> LichLamPartTimes { get; set; }
         public virtual DbSet<LoaiMonAn> LoaiMonAns { get; set; }
+        public virtual DbSet<LoaiNhanVien> LoaiNhanViens { get; set; }
         public virtual DbSet<MonAn> MonAns { get; set; }
+        public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoanAdmin> TaiKhoanAdmins { get; set; }
     }

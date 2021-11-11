@@ -5,4 +5,5 @@
     <ViewModel:FoodViewModel x:Key="FoodVM"></ViewModel:FoodViewModel>
     <ViewModel:FoodTypeViewModel x:Key="FoodTypeVM"></ViewModel:FoodTypeViewModel>
     <ViewModel:AddSourceViewModel x:Key="AddSourceVM"></ViewModel:AddSourceViewModel>
+    <ViewModel:MainViewModel x:Key="MainVM"></ViewModel:MainViewModel>
 </ResourceDictionary>

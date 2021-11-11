@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BanAn.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CoffeeManagerModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,17 +102,41 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CT_CaLamPartTime.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CT_HoaDon.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CT_LichLamPartTime.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CT_PhieuNhapHang.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CT_TaiKhoan.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\HoaDon.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LichLamPartTime.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoaiMonAn.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoaiNhanVien.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MonAn.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NhanVien.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhieuNhapHang.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -118,11 +145,13 @@
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewBill.cs" />
     <Compile Include="Models\ViewFood.cs" />
     <Compile Include="ViewModels\AddSourceViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FoodTypeViewModel.cs" />
     <Compile Include="ViewModels\FoodViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -252,22 +281,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\SharedControls\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\CoffeeManagerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CoffeeManagerModel.Context.cs</LastGenOutput>
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
+      <LastGenOutput>CoffeeManagerModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\CoffeeManagerModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\SharedControls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,20 +12,19 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class HoaDon
+    public partial class LichLamPartTime
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HoaDon()
+        public LichLamPartTime()
         {
-            this.CT_HoaDon = new HashSet<CT_HoaDon>();
+            this.CT_LichLamPartTime = new HashSet<CT_LichLamPartTime>();
         }
     
-        public int ma_hoa_don { get; set; }
-        public Nullable<System.DateTime> ngay_xuat_hoa_don { get; set; }
-        public Nullable<decimal> tong_tien { get; set; }
-        public Nullable<int> ma_ban_an { get; set; }
+        public int ma_lich_partTime { get; set; }
+        public Nullable<System.DateTime> ngay_bat_dau { get; set; }
+        public Nullable<System.DateTime> ngay_ket_thuc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
+        public virtual ICollection<CT_LichLamPartTime> CT_LichLamPartTime { get; set; }
     }
 }
