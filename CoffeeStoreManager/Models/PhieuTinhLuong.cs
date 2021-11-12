@@ -12,15 +12,10 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TaiKhoanAdmin
+    public partial class PhieuTinhLuong
     {
-        public int ma_tai_khoan { get; set; }
-        public string ten_dang_nhap { get; set; }
-        public string mat_khau { get; set; }
-        public string ho_ten { get; set; }
-        public string dia_chi { get; set; }
-        public string gmail { get; set; }
-        public string so_dien_thoai { get; set; }
-        public string image_source { get; set; }
+        public int ma_phieu_tinh_luong { get; set; }
+        public Nullable<System.DateTime> ngay_tinh_luong { get; set; }
+        public Nullable<decimal> tong_tien { get; set; }
     }
 }
