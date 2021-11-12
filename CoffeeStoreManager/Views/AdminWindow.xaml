@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="AdminWindow" Height="720" Width="1150">
     <Grid>
         <Grid.ColumnDefinitions>

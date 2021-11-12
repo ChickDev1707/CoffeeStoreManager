@@ -12,12 +12,15 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class CT_PhieuNhapHang
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int ma_ct_phieu_nhap_hang { get; set; }
+        public Nullable<int> ma_phieu_nhap_hang { get; set; }
+        public string ten_mat_hang { get; set; }
+        public Nullable<decimal> gia_tien { get; set; }
+        public Nullable<int> so_luong { get; set; }
+        public Nullable<decimal> tong_tien { get; set; }
+    
+        public virtual PhieuNhapHang PhieuNhapHang { get; set; }
     }
 }

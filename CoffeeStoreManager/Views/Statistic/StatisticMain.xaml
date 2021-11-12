@@ -3,13 +3,35 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.Statistic"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{StaticResource StatisticVM}"
       Title="StatisticMain">
-
     <Grid>
-        <TextBlock Text="Statistic main page" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Column="0" ItemsSource="{Binding DataComboboxMonth}" 
+                  SelectedIndex="{Binding SelectedMonth}"
+                  />
+            <ComboBox Grid.Column="1" ItemsSource="{Binding DataComboboxYear}" 
+                  SelectedIndex="{Binding SelectedYear}"
+                  />
+            <Button Grid.Column="2" Content="Xem biểu đồ tăng trưởng" Command="{Binding OpenStatisticChart}"></Button>
+            <Button Grid.Column="3" Content="Xuất file excel"></Button>
+        </Grid>
+
 
     </Grid>
 </Page>

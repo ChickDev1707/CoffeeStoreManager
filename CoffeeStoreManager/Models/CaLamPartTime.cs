@@ -12,13 +12,15 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MonAn
+    public partial class CaLamPartTime
     {
-        public int ma_mon_an { get; set; }
-        public string ten_mon_an { get; set; }
-        public Nullable<decimal> gia_tien { get; set; }
-        public Nullable<int> ma_loai_mon_an { get; set; }
+        public int ma_ca_partTime { get; set; }
+        public Nullable<int> ma_nv { get; set; }
+        public Nullable<System.DateTime> ngay_lam { get; set; }
+        public Nullable<System.TimeSpan> gio_bat_dau { get; set; }
+        public Nullable<System.TimeSpan> gio_ket_thuc { get; set; }
+        public Nullable<int> so_gio_lam { get; set; }
     
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
     }
 }

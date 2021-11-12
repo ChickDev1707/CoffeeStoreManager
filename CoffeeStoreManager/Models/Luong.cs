@@ -12,13 +12,10 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MonAn
+    public partial class Luong
     {
-        public int ma_mon_an { get; set; }
-        public string ten_mon_an { get; set; }
-        public Nullable<decimal> gia_tien { get; set; }
-        public Nullable<int> ma_loai_mon_an { get; set; }
-    
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
+        public int ma_tinh_luong { get; set; }
+        public Nullable<System.DateTime> ngay_tinh_luong { get; set; }
+        public Nullable<decimal> tong_tien_luong { get; set; }
     }
 }

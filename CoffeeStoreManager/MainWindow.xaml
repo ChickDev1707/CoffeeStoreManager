@@ -19,7 +19,6 @@
             </Menu>
         </DockPanel>
         <Grid Grid.Row="1">
-            <!--quan ly ban caffe (Tai)-->
             <TextBlock Text="Quan ly ban cafffe (Tai)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
         </Grid>
     </Grid>

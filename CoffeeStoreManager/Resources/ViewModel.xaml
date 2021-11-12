@@ -5,4 +5,8 @@
     <ViewModel:FoodViewModel x:Key="FoodVM"></ViewModel:FoodViewModel>
     <ViewModel:FoodTypeViewModel x:Key="FoodTypeVM"></ViewModel:FoodTypeViewModel>
     <ViewModel:AddSourceViewModel x:Key="AddSourceVM"></ViewModel:AddSourceViewModel>
+    <ViewModel:EmployeeViewModel x:Key="ManageEmployeeVM"></ViewModel:EmployeeViewModel>
+    <ViewModel:EmployeeTypeViewModel x:Key="EmployeeTypeVM"></ViewModel:EmployeeTypeViewModel>
+    <ViewModel:StatisticViewModel x:Key="StatisticVM"></ViewModel:StatisticViewModel>
+    <ViewModel:StatisticChartViewModel x:Key="StatisticChartVM"></ViewModel:StatisticChartViewModel>
 </ResourceDictionary>
