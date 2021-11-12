@@ -13,10 +13,10 @@ namespace CoffeeStoreManager.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CoffeeManagerEntities1 : DbContext
+    public partial class CoffeeManagerEntities2 : DbContext
     {
-        public CoffeeManagerEntities1()
-            : base("name=CoffeeManagerEntities1")
+        public CoffeeManagerEntities2()
+            : base("name=CoffeeManagerEntities2")
         {
         }
     
@@ -38,6 +38,8 @@ namespace CoffeeStoreManager.Models
         public virtual DbSet<MonAn> MonAns { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
+        public virtual DbSet<PhieuUuDai> PhieuUuDais { get; set; }
+        public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoanAdmin> TaiKhoanAdmins { get; set; }
     }
