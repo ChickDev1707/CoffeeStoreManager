@@ -21,14 +21,16 @@ namespace CoffeeStoreManager.Models
         }
     
         public int ma_nhan_vien { get; set; }
-        public Nullable<int> ma_loai { get; set; }
         public string ho_ten { get; set; }
         public System.DateTime ngay_vao_lam { get; set; }
         public string sdt { get; set; }
         public Nullable<int> so_ngay_nghi { get; set; }
         public string dia_chi { get; set; }
+        public Nullable<int> ma_loai_nhan_vien { get; set; }
+        public Nullable<System.DateTime> ngay_sinh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CaLamPartTime> CaLamPartTimes { get; set; }
+        public virtual LoaiNhanVien LoaiNhanVien { get; set; }
     }
 }

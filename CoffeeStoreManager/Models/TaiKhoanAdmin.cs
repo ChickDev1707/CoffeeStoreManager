@@ -14,7 +14,13 @@ namespace CoffeeStoreManager.Models
     
     public partial class TaiKhoanAdmin
     {
+        public int ma_tai_khoan { get; set; }
         public string ten_dang_nhap { get; set; }
         public string mat_khau { get; set; }
+        public string ho_ten { get; set; }
+        public string dia_chi { get; set; }
+        public string gmail { get; set; }
+        public string so_dien_thoai { get; set; }
+        public string image_source { get; set; }
     }
 }

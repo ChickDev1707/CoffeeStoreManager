@@ -17,9 +17,9 @@ namespace CoffeeStoreManager.Models
         public int ma_ca_partTime { get; set; }
         public Nullable<int> ma_nhan_vien { get; set; }
         public System.DateTime ngay_lam { get; set; }
+        public System.TimeSpan gio_bat_dau { get; set; }
         public System.TimeSpan gio_ket_thuc { get; set; }
         public Nullable<int> so_gio_lam { get; set; }
-        public System.TimeSpan gio_bat_dau { get; set; }
     
         public virtual NhanVien NhanVien { get; set; }
 

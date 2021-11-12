@@ -122,6 +122,9 @@
     <Compile Include="Models\LoaiMonAn.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoaiNhanVien.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MonAn.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
@@ -129,6 +132,15 @@
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PhieuNhapHang.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhieuTinhLuong.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhieuUuDai.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuyDinh.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">

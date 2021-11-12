@@ -25,15 +25,19 @@ namespace CoffeeStoreManager.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CaLamPartTime> CaLamPartTimes { get; set; }
         public virtual DbSet<CT_HoaDon> CT_HoaDon { get; set; }
+        public virtual DbSet<CT_PhieuNhapHang> CT_PhieuNhapHang { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
         public virtual DbSet<LoaiMonAn> LoaiMonAns { get; set; }
+        public virtual DbSet<LoaiNhanVien> LoaiNhanViens { get; set; }
         public virtual DbSet<MonAn> MonAns { get; set; }
+        public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
+        public virtual DbSet<PhieuTinhLuong> PhieuTinhLuongs { get; set; }
+        public virtual DbSet<PhieuUuDai> PhieuUuDais { get; set; }
+        public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoanAdmin> TaiKhoanAdmins { get; set; }
-        public virtual DbSet<CT_PhieuNhapHang> CT_PhieuNhapHang { get; set; }
-        public virtual DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
-        public virtual DbSet<NhanVien> NhanViens { get; set; }
-        public virtual DbSet<CaLamPartTime> CaLamPartTimes { get; set; }
     }
 }
