@@ -12,21 +12,19 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MonAn
+    public partial class LoaiNhanVien
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MonAn()
+        public LoaiNhanVien()
         {
-            this.QuyDinhs = new HashSet<QuyDinh>();
+            this.NhanViens = new HashSet<NhanVien>();
         }
     
-        public int ma_mon_an { get; set; }
-        public string ten_mon_an { get; set; }
-        public Nullable<decimal> gia_tien { get; set; }
-        public Nullable<int> ma_loai_mon_an { get; set; }
+        public int ma_loai_nhan_vien { get; set; }
+        public string ten_loai_nhan_vien { get; set; }
+        public Nullable<decimal> tien_luong { get; set; }
     
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuyDinh> QuyDinhs { get; set; }
+        public virtual ICollection<NhanVien> NhanViens { get; set; }
     }
 }

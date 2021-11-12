@@ -8,4 +8,8 @@
     <ViewModel:FoodTypeViewModel x:Key="FoodTypeVM"></ViewModel:FoodTypeViewModel>
     <ViewModel:AddSourceViewModel x:Key="AddSourceVM"></ViewModel:AddSourceViewModel>
     <ViewModel:AccountViewModel x:Key="AccountVM"></ViewModel:AccountViewModel>
+    <ViewModel:MainViewModel x:Key="MainVM"></ViewModel:MainViewModel>
+    <ViewModel:SourceViewModel x:Key="SourceVM"></ViewModel:SourceViewModel>
+    <ViewModel:SourceDetailViewModel x:Key="SourceDetailVM"></ViewModel:SourceDetailViewModel>
+    <ViewModel:PartTimeScheduleViewModel x:Key="PartTimeScheduleVM"></ViewModel:PartTimeScheduleViewModel>
 </ResourceDictionary>
