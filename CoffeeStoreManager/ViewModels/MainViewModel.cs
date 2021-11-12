@@ -9,10 +9,6 @@ using System.Windows.Media;
 
 namespace CoffeeStoreManager.ViewModels
 {
-    public class EmptyTable
-    {
-        public string emptytable { get; set; }
-    }
     public class MainViewModel: BaseViewModel
     {
         public bool IsLoaded = false;
@@ -441,5 +437,9 @@ namespace CoffeeStoreManager.ViewModels
                 LoadEmptyTable();
             });
         }
+    }
+    public class EmptyTable
+    {
+        public string emptytable { get; set; }
     }
 }
