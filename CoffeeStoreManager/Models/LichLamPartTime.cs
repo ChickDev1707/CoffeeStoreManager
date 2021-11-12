@@ -12,21 +12,19 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MonAn
+    public partial class LichLamPartTime
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MonAn()
+        public LichLamPartTime()
         {
-            this.QuyDinhs = new HashSet<QuyDinh>();
+            this.CT_LichLamPartTime = new HashSet<CT_LichLamPartTime>();
         }
     
-        public int ma_mon_an { get; set; }
-        public string ten_mon_an { get; set; }
-        public Nullable<decimal> gia_tien { get; set; }
-        public Nullable<int> ma_loai_mon_an { get; set; }
+        public int ma_lich_partTime { get; set; }
+        public Nullable<System.DateTime> ngay_bat_dau { get; set; }
+        public Nullable<System.DateTime> ngay_ket_thuc { get; set; }
     
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuyDinh> QuyDinhs { get; set; }
+        public virtual ICollection<CT_LichLamPartTime> CT_LichLamPartTime { get; set; }
     }
 }

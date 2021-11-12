@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
+        DataContext="{StaticResource MainVM}"
         Title="MainWindow" Height="720" Width="1150">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,8 +21,71 @@
             </Menu>
         </DockPanel>
         <Grid Grid.Row="1">
-            <!--quan ly ban caffe (Tai)-->
-            <TextBlock Text="Quan ly ban cafffe (Tai)" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="394" />
+                <ColumnDefinition Width="715" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Width="359" >
+                <WrapPanel Margin="0,45,34.8,0.6" Width="359">
+                    <Button x:Name="btnTable1" Content="Bàn 1" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable1}" Background="White"></Button>
+                    <Button x:Name="btnTable2" Content="Bàn 2" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable2}" Background="White"></Button>
+                    <Button x:Name="btnTable3" Content="Bàn 3" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable3}" Background="White"></Button>
+                    <Button x:Name="btnTable4" Content="Bàn 4" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable4}" Background="White"></Button>
+                    <Button x:Name="btnTable5" Content="Bàn 5" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable5}" Background="White"></Button>
+                    <Button x:Name="btnTable6" Content="Bàn 6" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable6}" Background="White"></Button>
+                    <Button x:Name="btnTable7" Content="Bàn 7" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable7}" Background="White"></Button>
+                    <Button x:Name="btnTable8" Content="Bàn 8" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable8}" Background="White"></Button>
+                    <Button x:Name="btnTable9" Content="Bàn 9" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable9}" Background="White"></Button>
+                </WrapPanel>
+                <Label Content="Danh sách bàn của quán" HorizontalAlignment="Left" Height="30" Margin="15,10,0,0" VerticalAlignment="Top" Width="170" FontFamily="Times New Roman" FontWeight="Bold" FontSize="14"/>
+            </Grid>
+            <Grid Grid.Column="1" Margin="3.6,4,-27.6,-0.4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="405"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <ComboBox x:Name="cbbTypeofFood" 
+                          DisplayMemberPath="ten_loai_mon_an" 
+                          ItemsSource="{Binding LoaiMonAn}" 
+                          SelectedItem="{Binding SelectedLoaiMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          Margin="30,25,430,90">
+                    </ComboBox>
+                    <ComboBox x:Name="cbbNameFood" 
+                          DisplayMemberPath="ten_mon_an" 
+                          ItemsSource="{Binding MonAn}" 
+                          SelectedItem="{Binding SelectedMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          Margin="30,90,430,25" >
+                    </ComboBox>
+                    <Button Command="{Binding AddCommand}" 
+                        Content="Thêm" Margin="353,90,277,25.4"/>
+                    <xctk:IntegerUpDown Name="myUpDownControl" Margin="360,23,284,90.4"  Text="{Binding so_luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" />
+                    <Button Command="{Binding DeleteCommand}" 
+                        Content="Xóa" Margin="502,90,128,25.4"/>
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <ScrollViewer>
+                        <ListView ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Width="720" Height="405" >
+                            <ListView.View >
+                                <GridView>
+                                    <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" ></GridViewColumn>
+                                    <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien}" Width="150"></GridViewColumn>
+                                    <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding so_luong}" Width="135"></GridViewColumn>
+                                    <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien}" Width="135"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+                <Grid Grid.Row="2" Margin="1,0,0,0.4">
+                    <Button Command="{Binding ChangeTableCommand}" 
+                        Content="Chuyển bàn" Margin="97,30,529,40.8"/>
+                    <Button Command="{Binding CheckOutCommand}" 
+                        Content="Thanh toán" Margin="606,30,23,40.8"/>
+                    <ComboBox x:Name="cbbTableEmpty" DisplayMemberPath="emptytable" ItemsSource="{Binding EmptyTables}" SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="12,30,657,40.8" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
