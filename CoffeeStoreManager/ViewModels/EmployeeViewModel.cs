@@ -323,7 +323,7 @@ namespace CoffeeStoreManager.ViewModels
                 viewE.ma_nv = list[i].ma_nv;
                 viewE.ho_ten = list[i].ho_va_ten;
                 viewE.ngay_vao_lam = list[i].ngay_vao_lam;
-                viewE.Sngay_vao_lam = String.Format("{0:dd/MM/yyyy}", list[i].ngay_vao_lam);  // "03/09/2008"
+                viewE.Sngay_vao_lam = String.Format("{0:dd/MM/yyyy}", list[i].ngay_vao_lam); 
                 viewE.tien_luong = lnv.tien_luong;
                 if (maloainv == 1)
                 {
