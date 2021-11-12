@@ -3,12 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CoffeeStoreManager"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:CoffeeStoreManager" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1150"
         DataContext="{StaticResource MainVM}"
-        Title="MainWindow" Height="720" Width="1150">
+        x:Name="mainWindow">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" 
+                                   CommandParameter="{Binding ElementName=mainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
