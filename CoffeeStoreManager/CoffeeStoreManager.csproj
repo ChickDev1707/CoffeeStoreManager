@@ -139,6 +139,12 @@
     <Compile Include="Models\PhieuNhapHang.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhieuUuDai.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuyDinh.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
