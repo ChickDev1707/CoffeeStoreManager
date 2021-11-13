@@ -5,7 +5,9 @@ using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Views.ManageFood;
 using System.Windows.Controls;
 using System.Windows.Media;
-
+using System.Windows;
+using System;
+using CoffeeStoreManager.Views;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -13,30 +15,7 @@ namespace CoffeeStoreManager.ViewModels
     {
         public bool IsLoaded = false;
         public ICommand LoadedWindowCommand { get; set; }
-        LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-        {
-            IsLoaded = true;
-            if (p == null)
-                return;
-            p.Hide();
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.ShowDialog();
-
-            if (loginWindow.DataContext == null)
-                return;
-            var loginVM = loginWindow.DataContext as LoginViewModel;
-
-            if (loginVM.IsLogin)
-            {
-                loginWindow.Close();
-                p.Show();
-            }
-            else
-            {
-                p.Close();
-            }
-        }
-        );
+        
         private ObservableCollection<LoaiMonAn> _LoaiMonAn;
         public ObservableCollection<LoaiMonAn> LoaiMonAn
         {
@@ -238,6 +217,32 @@ namespace CoffeeStoreManager.ViewModels
         }
         public MainViewModel()
         {
+            LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                    IsLoaded = true;
+                    if (p == null)
+                        return;
+                    p.Hide();
+                    LoginWindow loginWindow = new LoginWindow();
+                    loginWindow.ShowDialog();
+
+                    if (loginWindow.DataContext == null)
+                        return;
+                    var loginVM = loginWindow.DataContext as LoginViewModel;
+
+                    if (loginVM.IsLogin)
+                    {
+                        AdminWindow adminWindow = new AdminWindow();
+                        adminWindow.Show();
+                        loginWindow.Hide();
+                    }
+                    else
+                    {
+                        p.Show();
+                        loginWindow.Close();
+                    }
+                }
+            );
             DateTime? today = DateTime.Now;
             BillDetail = new ObservableCollection<ViewBill>();
             LoaiMonAn = new ObservableCollection<LoaiMonAn>(DataProvider.Ins.DB.LoaiMonAns);
