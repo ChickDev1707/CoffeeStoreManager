@@ -11,4 +11,8 @@
     <ViewModel:SourceViewModel x:Key="SourceVM"></ViewModel:SourceViewModel>
     <ViewModel:SourceDetailViewModel x:Key="SourceDetailVM"></ViewModel:SourceDetailViewModel>
     <ViewModel:PartTimeScheduleViewModel x:Key="PartTimeScheduleVM"></ViewModel:PartTimeScheduleViewModel>
+    <ViewModel:EmployeeViewModel x:Key="ManageEmployeeVM"></ViewModel:EmployeeViewModel>
+    <ViewModel:EmployeeTypeViewModel x:Key="EmployeeTypeVM"></ViewModel:EmployeeTypeViewModel>
+    <ViewModel:StatisticViewModel x:Key="StatisticVM"></ViewModel:StatisticViewModel>
+    <ViewModel:StatisticChartViewModel x:Key="StatisticChartVM"></ViewModel:StatisticChartViewModel>
 </ResourceDictionary>

@@ -158,12 +158,14 @@
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewFood.cs" />
+    <Compile Include="Models\ViewSource.cs" />
     <Compile Include="Models\ViewBill.cs" />
+    <Compile Include="Models\LineChartModel.cs" />
+    <Compile Include="Models\ViewEmployee.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="Models\ViewFood.cs" />
-    <Compile Include="Models\ViewSource.cs" />
     <Compile Include="ViewModels\AddSourceViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FoodTypeViewModel.cs" />
@@ -172,11 +174,30 @@
     <Compile Include="ViewModels\PartTimeShiftEditorViewModel.cs" />
     <Compile Include="ViewModels\SourceDetailViewModel.cs" />
     <Compile Include="ViewModels\SourceViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeTypeViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
+    <Compile Include="ViewModels\StatisticChartViewModel.cs" />
+    <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManageEmployee\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageEmployee\Controls\AddEmployee.xaml.cs">
+      <DependentUpon>AddEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageEmployee\Controls\EmployeeType.xaml.cs">
+      <DependentUpon>EmployeeType.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ManageEmployee\ManageEmployeeMain.xaml.cs">
       <DependentUpon>ManageEmployeeMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageEmployee\SalaryWindow.xaml.cs">
+      <DependentUpon>SalaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageEmployee\UpdateEmployeeWindow.xaml.cs">
+      <DependentUpon>UpdateEmployeeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageFood\Controls\AddFoodForm.xaml.cs">
       <DependentUpon>AddFoodForm.xaml</DependentUpon>
@@ -261,7 +282,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ManageEmployee\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageEmployee\Controls\AddEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageEmployee\Controls\EmployeeType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ManageEmployee\ManageEmployeeMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageEmployee\SalaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageEmployee\UpdateEmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

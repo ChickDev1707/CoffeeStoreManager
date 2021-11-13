@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="CoffeeStoreManager.Views.ManageEmployee.Controls.AddEmployee"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee.Controls"
+             mc:Ignorable="d" 
+             DataContext="{StaticResource ManageEmployeeVM}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Margin" Value="0 0 0 10"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="10 5"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Ho va ten:"/>
+            <TextBox Text="{Binding AddEmployeeHovaten}"/>
+            <TextBlock Text="So dien thoai"/>
+            <TextBox Text="{Binding AddEmployeeSdt}"/>
+            <TextBlock Text="Dia chi: "/>
+            <TextBox   Text="{Binding AddEmployeeDiachi}"/>
+            <TextBlock Text="Ngay vao lam: "/>
+            <DatePicker   Text="{Binding AddEmployeeNgayvaolam}"/>
+            <TextBlock Text="Loai nhan vien "/>
+            <ComboBox  
+                ItemsSource="{Binding FoodTypeList}" 
+                    DisplayMemberPath="ten_loai_mon_an"
+                    SelectedValuePath="ma_loai_mon_an"
+                    SelectedValue="{Binding AddFormFoodType}">
+
+            </ComboBox>
+            <Button Content="Add" Command="{Binding AddEmployee}"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

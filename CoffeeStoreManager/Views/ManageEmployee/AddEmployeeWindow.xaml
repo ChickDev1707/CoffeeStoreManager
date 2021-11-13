@@ -1,0 +1,50 @@
+﻿<Window x:Class="CoffeeStoreManager.Views.ManageEmployee.AddEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{StaticResource ManageEmployeeVM}"
+        Title="AddEmployeeWindow" Height="500" Width="800">
+    <Grid>
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Margin" Value="0 0 0 10"/>
+                </Style>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="10 5"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Ho va ten:"/>
+            <TextBox Text="{Binding AddEmployeeHovaten}"/>
+            <TextBlock Text="So dien thoai"/>
+            <TextBox Text="{Binding AddEmployeeSdt}"/>
+            <TextBlock Text="Dia chi: "/>
+            <TextBox Text="{Binding AddEmployeeDiachi,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Ngay sinh (month / day / year ) "/>
+            <DatePicker  SelectedDate="{Binding AddEmployeeNgaySinh}"/>
+            <TextBlock Text="Ngay vao lam (month / day / year ) "/>
+            <DatePicker  SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
+            <TextBlock Text="Loai nhan vien "/>
+            <ComboBox  
+                ItemsSource="{Binding EmployeeTypeList}" 
+                    DisplayMemberPath="ten_loai_nhan_vien"
+                    SelectedValuePath="ma_loai_nhan_vien"
+                    SelectedValue="{Binding AddEmployeeMaloainhanvien}">
+
+            </ComboBox>
+            <Button Content="Add" Command="{Binding AddEmployee}"
+                     CommandParameter="{Binding}">
+               
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

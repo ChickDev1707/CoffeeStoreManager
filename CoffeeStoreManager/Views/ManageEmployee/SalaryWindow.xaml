@@ -1,0 +1,34 @@
+﻿<Window x:Class="CoffeeStoreManager.Views.ManageEmployee.SalaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{StaticResource ManageEmployeeVM}"
+        Title="SalaryWindow" Height="450" Width="800">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--<ComboBox Grid.Column="0" ItemsSource="{Binding DataCbxMonth}" SelectedIndex="{Binding SelectedMonth}"></ComboBox>-->
+            <!--<ComboBox Grid.Column="1" ItemsSource="{Binding DataCbxYear}" SelectedIndex="{Binding SelectedYear}"></ComboBox>-->
+        </Grid>
+        <Button Margin="0 10 0 0" Content="Tính Lương" Command="{Binding LoadSalary}"></Button>
+        <ListView ItemsSource="{Binding SalaryEmployeeList}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding Path=ho_ten}"></GridViewColumn>
+                    <GridViewColumn Header="Ngày vào làm" DisplayMemberBinding="{Binding Path=Sngay_vao_lam}"></GridViewColumn>
+                    <GridViewColumn Header="Số ngày nghỉ" DisplayMemberBinding="{Binding Path=so_ngay_nghi}"></GridViewColumn>
+                    <GridViewColumn Header="Số giờ làm" DisplayMemberBinding="{Binding Path=so_gio_lam}"></GridViewColumn>
+                    <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong}" ></GridViewColumn>
+                    <GridViewColumn Header="Lương nhận" DisplayMemberBinding="{Binding Path=luong_nhan}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </StackPanel>
+</Window>
