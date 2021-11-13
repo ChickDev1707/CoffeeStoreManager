@@ -140,6 +140,7 @@
     <Compile Include="Models\MonAn.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MonthReport.cs" />
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
@@ -166,6 +167,7 @@
     <Compile Include="Models\ViewBill.cs" />
     <Compile Include="Models\LineChartModel.cs" />
     <Compile Include="Models\ViewEmployee.cs" />
+    <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -173,6 +175,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\FoodTypeViewModel.cs" />
     <Compile Include="ViewModels\FoodViewModel.cs" />
+    <Compile Include="ViewModels\MonthReportViewModel.cs" />
     <Compile Include="ViewModels\PartTimeScheduleViewModel.cs" />
     <Compile Include="ViewModels\PartTimeShiftEditorViewModel.cs" />
     <Compile Include="ViewModels\SourceDetailViewModel.cs" />
@@ -222,6 +225,9 @@
     </Compile>
     <Compile Include="Views\MangeSource\Item\UpdateSourceWindow.xaml.cs">
       <DependentUpon>UpdateSourceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MonthReport\MonthReportMain.xaml.cs">
+      <DependentUpon>MonthReportMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages.cs" />
     <Compile Include="Views\PartTimeScheduler\PartTimeSchedulerMain.xaml.cs">
@@ -280,6 +286,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Utils.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\ViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -337,6 +347,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MangeSource\Item\UpdateSourceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MonthReport\MonthReportMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

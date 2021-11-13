@@ -42,6 +42,11 @@ namespace CoffeeStoreManager.Views
             Main.Content = Pages.PartTimeSchedulerPage;
 
         }
+        private void MonthReportNavBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = Pages.MonthReportPage;
+
+        }
     }
     
 }

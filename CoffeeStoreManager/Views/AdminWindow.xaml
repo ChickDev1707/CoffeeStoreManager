@@ -45,6 +45,7 @@
                 <Button Content="Source" x:Name="SourceNavBtn" Click="SourceNavBtn_Click"/>
                 <Button Content="Statistic" x:Name="StatisticNavBtn" Click="StatisticNavBtn_Click"/>
                 <Button Content="PartTime Scheduler" x:Name="PartTimeSchedulerNavBtn" Click="PartTimeSchedulerNavBtn_Click"/>
+                <Button Content="Month report" x:Name="MonthReportNavBtn" Click="MonthReportNavBtn_Click"/>
 
             </StackPanel>
         </StackPanel>
