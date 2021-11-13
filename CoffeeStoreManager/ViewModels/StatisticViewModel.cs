@@ -90,9 +90,9 @@ namespace CoffeeStoreManager.ViewModels
      
         void openChart(object p )
         {
-            //var window = new StatisticChartWindow();
-            //window.ShowDialog();
+            var window = new StatisticChartWindow();
+            window.ShowDialog();
         }
-      
+
     }
 }

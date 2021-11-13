@@ -63,7 +63,7 @@ namespace CoffeeStoreManager.ViewModels
         private void loadPartTimeEmployeesSelector()
         {
             //partTimeEmployees = new List<NhanVien>();
-            var employeesData = DataProvider.Ins.DB.NhanViens.Where(employee => employee.ma_loai_nhan_vien == 0).ToList();
+            var employeesData = DataProvider.Ins.DB.NhanViens.Where(employee => employee.ma_loai_nhan_vien == 1).ToList();
             PartTimeEmployeeList = new ObservableCollection<NhanVien>(employeesData);
         }
         private void loadEditorWithExistedCell(ScheduleAppointment shift)
