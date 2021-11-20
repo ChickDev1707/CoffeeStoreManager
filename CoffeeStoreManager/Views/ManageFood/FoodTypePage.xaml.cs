@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.ManageFood.Controls
+namespace CoffeeStoreManager.Views.ManageFood
 {
     /// <summary>
-    /// Interaction logic for UpdateFoodForm.xaml
+    /// Interaction logic for FoodTypePage.xaml
     /// </summary>
-    public partial class UpdateFoodForm : UserControl
+    public partial class FoodTypePage : Page
     {
-        public UpdateFoodForm()
+        public FoodTypePage()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

@@ -3,11 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:inputLayout="http://schemas.syncfusion.com/wpf"
+
              xmlns:local="clr-namespace:CoffeeStoreManager.Views.SharedControls"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="400">
-    <DockPanel >
-        <TextBox Text="{Binding SearchKey}" Width="300"/>
-        <Button Command="{Binding Search}" Content="Search"/>
+             d:DesignHeight="50" d:DesignWidth="600">
+    <UserControl.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </UserControl.Resources>
+    <DockPanel Width="400">
+        <TextBox
+            DockPanel.Dock="Left"
+            materialDesign:HintAssist.Hint="Từ khóa"
+            Width="280"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <Button
+                Command="{Binding Search}"
+                Style="{StaticResource IconBtn}">
+            <DockPanel>
+                <materialDesign:PackIcon Kind="DatabaseSearch" />
+                <TextBlock Text="Tìm kiếm"/>
+            </DockPanel>
+        </Button>
     </DockPanel>
 </UserControl>

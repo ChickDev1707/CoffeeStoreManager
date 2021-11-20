@@ -3,21 +3,98 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
-        
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+
+        FontSize="14"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource FoodVM}"
         mc:Ignorable="d"
-        xmlns:ManageFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
-        Title="AddFoodWindow" Height="400" Width="600">
-    <Grid>
-        <StackPanel Grid.Column="1" Margin="15 0 15 0">
-
-            <ManageFoodUC:AddFoodForm/>
+        Title="AddFoodWindow" Height="500" Width="800">
+    <Border Padding="20">
+        <StackPanel>
+            <TextBlock Text="Thêm món ăn" Style="{StaticResource PageTitle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Border Style="{StaticResource MainBorder}">
+                        <StackPanel>
+                            <Image Source="{Binding FoodImagePath}" Width="200" Height="240"/>
+                        </StackPanel>
+                    </Border>
+                    <Separator Height="15" Background="Transparent"/>
+                    <Button Command="{Binding UploadFoodImage}" Content="Thêm ảnh"/>
+                </StackPanel>
+                <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
+                    <StackPanel>
+                        <TextBlock Text="Chi tiết món ăn " Margin="0 0 0 15" FontSize="18" FontWeight="DemiBold"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                Text="{Binding AddFormFoodName}"
+                                materialDesign:HintAssist.Hint="Tên món"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <ComboBox
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Width="130"
+                                Margin="20 0 0 0"
+                                materialDesign:HintAssist.Hint="Loại món"
+                                ItemsSource="{Binding FoodTypeList}" 
+                                DisplayMemberPath="ten_loai_mon_an"
+                                SelectedValuePath="ma_loai_mon_an"
+                                SelectedValue="{Binding AddFormFoodType}"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        </Grid>
+                        <TextBox
+                            Text="{Binding AddFormFoodPrice}"
+                            Margin="0 0 0 10"
+                            materialDesign:HintAssist.Hint="Giá tiền"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            Text="{Binding AddFormFoodIngredient}"
+                            Margin="0 0 0 10"
+                            materialDesign:HintAssist.Hint="Nguyên liệu"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            Text="{Binding AddFormFoodDescription}"
+                            Margin="0 0 0 10"
+                            Height="100"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Mô tả"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
-                <Button Command="{Binding AddFood}" Content="Add food" CommandParameter="{Binding}"></Button>
-                <Button Margin="20 0 0 0" Content="Cancel"></Button>
+                <Button Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Margin="20 0 0 0" Content="Thoát">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

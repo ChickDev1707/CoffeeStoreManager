@@ -4,37 +4,76 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
-      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{StaticResource FoodVM}"
       xmlns:SharedUC="clr-namespace:CoffeeStoreManager.Views.SharedControls"
-      xmlns:MangeFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls" 
       d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" 
       Title="ManageFoodMain">
-
-    <Grid>
-        <TabControl >
-            <TabItem Header="Mon an">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Margin="0 15" Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style TargetType="Button">
-                                <Setter Property="Padding" Value="15 5"/>
-                                <Setter Property="Margin" Value="0 0 10 0"/>
-                            </Style>
-                        </StackPanel.Resources>
-                        <Button Command="{Binding OpenAddFoodWindow}" Content="Add"/>
-                        <Button Command="{Binding OpenUpdateFoodWindow}" Content="Update"/>
-                        <Button Command="{Binding DeleteFood}" Content="Delete"/>
-                        <Button Command="{Binding RefreshFoodList}" Content="Refresh"/>
-                        <SharedUC:SearchBar/>
-                    </StackPanel>
-                    <ListView Grid.Row="1" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}">
-                       <ListView.View>
-                            <GridView>
+    <Page.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Page.Resources>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Menu món ăn"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Button
+                    Command="{Binding RefreshFoodList}"
+                    Style="{StaticResource IconBtn}"
+                    ToolTip="Làm mới danh sách món ăn">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Refresh" />
+                            <TextBlock Text="Làm mới"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    Command="{Binding OpenAddFoodWindow}"
+                    Style="{StaticResource IconBtn}"
+                    ToolTip="Thêm món ăn">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Add" />
+                            <TextBlock Text="Thêm món"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    Command="{Binding OpenUpdateFoodWindow}"
+                    Style="{StaticResource IconBtn}"
+                    ToolTip="Cập nhật món ăn">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="SquareEditOutline" />
+                            <TextBlock Text="Sửa món"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    Command="{Binding DeleteFood}"
+                    Style="{StaticResource IconBtn}"
+                    ToolTip="Xóa món ăn">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="TrashCanOutline" />
+                            <TextBlock Text="Xóa món"/>
+                        </DockPanel>
+                    </Button>
+                </StackPanel>
+                <SharedUC:SearchBar HorizontalAlignment="Right"/>
+            </DockPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Style="{StaticResource MainBorder}">
+                    <ListView HorizontalAlignment="Stretch" FontSize="14" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}"
+                        VerticalContentAlignment="Top"  
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        ScrollViewer.CanContentScroll="False"
+                        >
+                        <ListView.View>
+                            <GridView >
                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding Path=STT}"></GridViewColumn>
                                 <GridViewColumn Header="Ten mon" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
                                 <GridViewColumn Header="Gia" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
@@ -42,11 +81,40 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Loai mon an">
-                <MangeFoodUC:FoodTypePanel/>
-            </TabItem>
-        </TabControl>
-    </Grid>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource MainBorder}">
+                    <Expander
+                        ExpandDirection="Right">
+                        <Expander.Header>
+                            <TextBlock
+                                Text="Xem chi tiết"
+                                RenderTransformOrigin=".5,.5">
+                                <TextBlock.LayoutTransform>
+                                    <RotateTransform Angle="90" />
+                                </TextBlock.LayoutTransform>
+                            </TextBlock>
+                        </Expander.Header>
+                        <StackPanel Width="180" Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="8,24,16,24">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="Margin" Value="0 0 0 5"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="Chi tiết món ăn" FontSize="18" Margin="0 0 0 10"/>
+                            <Border Margin="0 0 0 15" Style="{StaticResource MainBorder}">
+                                <Image HorizontalAlignment="Center" Height="180" Width="150" Source="{Binding SelectedFood.anh}"/>
+                            </Border>
+                            <TextBlock FontWeight="DemiBold"><materialDesign:PackIcon Kind="InfoOutline"/> Thêm chi tiết</TextBlock>
+                            <TextBlock Text="{Binding Path=SelectedFood.ten_mon_an, StringFormat='Tên món: {0}'}" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding SelectedFood.loai_mon_an, StringFormat='Loại món: {0}'}"/>
+                            <TextBlock Text="{Binding SelectedFood.gia_tien, StringFormat='Giá tiền: {0}'}" FontSize="18" Foreground="red"/>
+                            <TextBlock Text="{Binding SelectedFood.nguyen_lieu, StringFormat='Nguyên liệu: {0}'}"/>
+                            <TextBlock Text="{Binding SelectedFood.mo_ta, StringFormat='Mô tả: {0}'}"/>
+                        </StackPanel>
+                    </Expander>
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Page>

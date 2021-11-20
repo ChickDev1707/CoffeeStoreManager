@@ -1,0 +1,72 @@
+﻿<Page x:Class="CoffeeStoreManager.Views.ManageFood.FoodTypePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+      mc:Ignorable="d" 
+      DataContext="{StaticResource FoodTypeVM}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FoodTypePage">
+    <Page.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Page.Resources>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Loại món ăn"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource MainBorder}">
+                <ListView FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding FoodTypeList}" SelectedItem="{Binding SelectedType}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ma loai mon" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
+                            <GridViewColumn Header="ten loai mon" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+            <Border Margin="20 0 0 0" Grid.Column="1" Style="{StaticResource MainBorder}">
+                <StackPanel  Margin="20 0 20 0">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="Margin" Value="0 0 0 5"/>
+                        </Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <Setter Property="Margin" Value="0 0 0 10"/>
+                            <Setter Property="FontSize" Value="16"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="Quản lý loại món" FontWeight="Bold" FontSize="20" Margin="0 10 0 10"/>
+                    <StackPanel Margin="0 0 0 20">
+                        <TextBlock Text="Thêm loại món" />
+                        <TextBox 
+                            Text="{Binding AddFormFoodTypeName}"
+                            materialDesign:HintAssist.Hint="Tên loại món mới"
+                            />
+                        <Button Command="{Binding AddType}" Content="Thêm loại" CommandParameter="{Binding}"></Button>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Cập nhật loại món" />
+                        <TextBox 
+                            Text="{Binding SelectedType.ten_loai_mon_an}"
+                            materialDesign:HintAssist.Hint="Tên loại"
+                            />
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button Command="{Binding DeleteType}" HorizontalAlignment="Right" Margin="0 0 15 0">Xóa</Button>
+                            <Button Command="{Binding UpdateFoodType}" Content="Cập nhật" CommandParameter="{Binding}"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Page>

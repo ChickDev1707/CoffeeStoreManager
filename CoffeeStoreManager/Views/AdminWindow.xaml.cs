@@ -1,6 +1,8 @@
 ﻿
+using System.Drawing;
 using System.Windows;
-
+using System.Windows.Media;
+using Syncfusion.UI.Xaml.NavigationDrawer;
 
 namespace CoffeeStoreManager.Views
 {
@@ -12,41 +14,24 @@ namespace CoffeeStoreManager.Views
         public AdminWindow()
         {
             InitializeComponent();
-        }
-        private void FoodNavBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = Pages.FoodPage;
-        }
-
-        private void EmployeeNavBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = Pages.EmployeePage;
+            Style = (Style)FindResource("WindowStyle");
 
         }
-        private void SourceNavBtn_Click(object sender, RoutedEventArgs e)
+        
+        private void navigationDrawer_ItemClicked(object sender, Syncfusion.UI.Xaml.NavigationDrawer.NavigationItemClickedEventArgs e)
         {
-            Main.Content = Pages.SourcePage;
+            switch (e.Item.Name)
+            {
+                case "NavFoodList":
+                    Main.Content = Pages.FoodListPage;
+                    break;
+                case "NavFoodType":
+                    Main.Content = Pages.FoodTypePage;
+                    break;
 
+            }
         }
-        private void StatisticNavBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = Pages.StatisticPage;
 
-        }      
-        private void AccountNavBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = Pages.AccountPage;
-        }
-        private void PartTimeSchedulerNavBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = Pages.PartTimeSchedulerPage;
-
-        }
-        private void MonthReportNavBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = Pages.MonthReportPage;
-
-        }
     }
     
 }

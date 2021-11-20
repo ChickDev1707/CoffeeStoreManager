@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
@@ -68,6 +68,9 @@
           <Property Name="gia_tien" Type="money" />
           <Property Name="ma_loai_mon_an" Type="int" />
           <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
+          <Property Name="nguyen_lieu" Type="varchar" MaxLength="500" />
+          <Property Name="mo_ta" Type="varchar" MaxLength="500" />
+          <Property Name="anh" Type="image" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -367,6 +370,9 @@
           <Property Name="gia_tien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ma_loai_mon_an" Type="Int32" />
           <Property Name="ten_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nguyen_lieu" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="mo_ta" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="anh" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="LoaiMonAn" Relationship="CoffeeManagerModel.FK__MonAn__ma_loai_m__2C3393D0" FromRole="MonAn" ToRole="LoaiMonAn" />
           <NavigationProperty Name="QuyDinhs" Relationship="CoffeeManagerModel.FK__QuyDinh__san_pha__151B244E" FromRole="MonAn" ToRole="QuyDinh" />
         </EntityType>
@@ -519,7 +525,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -588,6 +594,9 @@
           <EntitySetMapping Name="MonAns">
             <EntityTypeMapping TypeName="CoffeeManagerModel.MonAn">
               <MappingFragment StoreEntitySet="MonAn">
+                <ScalarProperty Name="anh" ColumnName="anh" />
+                <ScalarProperty Name="mo_ta" ColumnName="mo_ta" />
+                <ScalarProperty Name="nguyen_lieu" ColumnName="nguyen_lieu" />
                 <ScalarProperty Name="ten_mon_an" ColumnName="ten_mon_an" />
                 <ScalarProperty Name="ma_loai_mon_an" ColumnName="ma_loai_mon_an" />
                 <ScalarProperty Name="gia_tien" ColumnName="gia_tien" />
