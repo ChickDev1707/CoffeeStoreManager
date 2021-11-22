@@ -12,6 +12,9 @@
         DataContext="{StaticResource FoodVM}"
         mc:Ignorable="d"
         Title="AddFoodWindow" Height="500" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Window.Resources>
     <Border Padding="20">
         <StackPanel>
             <TextBlock Text="Thêm món ăn" Style="{StaticResource PageTitle}"/>
@@ -74,7 +77,7 @@
                 </Border>
             </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
-                <Button Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding}">
+                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
@@ -84,7 +87,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Margin="20 0 0 0" Content="Thoát">
+                <Button Style="{StaticResource PrimaryBtn}" Margin="20 0 0 0" Content="Thoát">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"

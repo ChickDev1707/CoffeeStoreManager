@@ -53,7 +53,7 @@
                         <Image Source="../Resources/Assets/Images/category.png"/>
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
-                <syncfusion:NavigationItem Header="Lịch làm part-time">
+                <syncfusion:NavigationItem x:Name="NavPartTimeScheduler" Header="Lịch làm part-time">
                     <syncfusion:NavigationItem.Icon >
                         <Image Source="../Resources/Assets/Images/calendar.png"/>
                     </syncfusion:NavigationItem.Icon>

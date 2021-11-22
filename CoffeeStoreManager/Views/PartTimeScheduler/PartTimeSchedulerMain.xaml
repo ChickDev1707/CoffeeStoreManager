@@ -9,16 +9,19 @@
       
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PartTimeSchedulerMain">
-    <Grid>
-        <syncfusion:SfScheduler ItemsSource="{Binding ShiftList, Mode=TwoWay}" x:Name="scheduler" AppointmentEditorOpening="Scheduler_AppointmentEditorOpening" HorizontalAlignment="Left" ViewType="Week" VerticalAlignment="Top">
-            <syncfusion:SfScheduler.AppointmentMapping>
-                <syncfusion:AppointmentMapping
-                    Id="Ma_ca_partTime"
-                    Subject="Ten_nhan_vien"
-                    StartTime="Bat_dau"
-                    EndTime="Ket_thuc"
-                />
-            </syncfusion:SfScheduler.AppointmentMapping>
-        </syncfusion:SfScheduler>
-    </Grid>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Lịch làm việc nhân viên part-time"/>
+        <Grid>
+            <syncfusion:SfScheduler ItemsSource="{Binding ShiftList, Mode=TwoWay}" x:Name="scheduler" AppointmentEditorOpening="Scheduler_AppointmentEditorOpening" HorizontalAlignment="Left" ViewType="Week" VerticalAlignment="Top">
+                <syncfusion:SfScheduler.AppointmentMapping>
+                    <syncfusion:AppointmentMapping
+                        Id="Ma_ca_partTime"
+                        Subject="Ten_nhan_vien"
+                        StartTime="Bat_dau"
+                        EndTime="Ket_thuc"
+                    />
+                </syncfusion:SfScheduler.AppointmentMapping>
+            </syncfusion:SfScheduler>
+        </Grid>
+    </DockPanel>
 </Page>
