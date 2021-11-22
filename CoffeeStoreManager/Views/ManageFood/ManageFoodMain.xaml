@@ -13,7 +13,7 @@
     <Page.Resources>
         <ResourceDictionary Source="../Style/Button.xaml"/>
     </Page.Resources>
-    <DockPanel>
+    <DockPanel >
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Menu món ăn"/>
         <Grid>
             <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <Button
                     Command="{Binding RefreshFoodList}"
-                    Style="{StaticResource IconBtn}"
+                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Làm mới danh sách món ăn">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Refresh" />
@@ -33,7 +33,7 @@
                     </Button>
                     <Button
                     Command="{Binding OpenAddFoodWindow}"
-                    Style="{StaticResource IconBtn}"
+                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Thêm món ăn">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Add" />
@@ -42,7 +42,7 @@
                     </Button>
                     <Button
                     Command="{Binding OpenUpdateFoodWindow}"
-                    Style="{StaticResource IconBtn}"
+                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Cập nhật món ăn">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="SquareEditOutline" />
@@ -51,7 +51,7 @@
                     </Button>
                     <Button
                     Command="{Binding DeleteFood}"
-                    Style="{StaticResource IconBtn}"
+                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Xóa món ăn">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="TrashCanOutline" />

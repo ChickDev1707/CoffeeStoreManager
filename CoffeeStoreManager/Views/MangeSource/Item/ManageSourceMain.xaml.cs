@@ -14,6 +14,8 @@ namespace CoffeeStoreManager.Views.MangeSource.Item
         public ManageSourceMain()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
+
         }
         private void Detail_Click(object sender, RoutedEventArgs e)
         {

@@ -28,7 +28,9 @@ namespace CoffeeStoreManager.Views
                 case "NavFoodType":
                     Main.Content = Pages.FoodTypePage;
                     break;
-
+                case "NavSource":
+                    Main.Content = Pages.SourcePage;
+                    break;
             }
         }
 

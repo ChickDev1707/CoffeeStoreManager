@@ -20,7 +20,7 @@
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         <Button
                 Command="{Binding Search}"
-                Style="{StaticResource IconBtn}">
+                Style="{StaticResource IconTextBtn}">
             <DockPanel>
                 <materialDesign:PackIcon Kind="DatabaseSearch" />
                 <TextBlock Text="Tìm kiếm"/>

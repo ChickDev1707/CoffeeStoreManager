@@ -30,6 +30,7 @@ namespace CoffeeStoreManager.Views
             pages.Add(new FoodTypePage());
             //food
             pages.Add(new ManageEmployeeMain());
+            pages.Add(null);
             //employee type page
             pages.Add(new PartTimeSchedulerMain());
             //employee
