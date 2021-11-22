@@ -21,6 +21,8 @@ namespace CoffeeStoreManager.Views.MangeSource.Detail
             sourceMainRef = sourceMain;
             detailVm = new SourceDetailViewModel(sourceItemKey);
             this.DataContext = detailVm;
+            Style = (Style)FindResource("WindowStyle");
+
         }
         private void Back_Click(object sender, RoutedEventArgs e)
         {
