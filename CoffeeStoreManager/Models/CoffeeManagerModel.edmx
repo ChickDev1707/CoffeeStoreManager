@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
@@ -23,6 +23,8 @@
           </Key>
           <Property Name="ma_hoa_don" Type="int" Nullable="false" />
           <Property Name="ma_mon_an" Type="int" Nullable="false" />
+          <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
+          <Property Name="gia_tien" Type="money" />
           <Property Name="so_luong" Type="int" />
           <Property Name="thanh_tien" Type="money" />
         </EntityType>
@@ -44,6 +46,7 @@
           <Property Name="ma_hoa_don" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ngay_xuat_hoa_don" Type="datetime" />
           <Property Name="tong_tien" Type="money" />
+          <Property Name="ma_ban_an" Type="int" />
         </EntityType>
         <EntityType Name="LoaiMonAn">
           <Key>
@@ -65,9 +68,9 @@
             <PropertyRef Name="ma_mon_an" />
           </Key>
           <Property Name="ma_mon_an" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
           <Property Name="gia_tien" Type="money" />
           <Property Name="ma_loai_mon_an" Type="int" />
-          <Property Name="ten_mon_an" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -114,7 +117,6 @@
           <Property Name="so_ban" Type="int" />
           <Property Name="tuoi_toi_thieu_nv" Type="int" />
           <Property Name="tuoi_toi_da_nv" Type="int" />
-          <Property Name="ngay_tinh_luong" Type="datetime" />
           <Property Name="san_pham_uu_dai" Type="int" />
           <Property Name="count_uu_dai" Type="int" />
           <Property Name="muc_tien_nhan_uu_dai" Type="money" />
@@ -142,7 +144,7 @@
           <Property Name="so_dien_thoai" Type="varchar" MaxLength="100" />
           <Property Name="image_source" Type="varchar" MaxLength="200" />
         </EntityType>
-        <Association Name="FK__CaLamPart__ma_nh__14270015">
+        <Association Name="FK__CaLamPart__ma_nh__403A8C7D">
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
           <End Role="CaLamPartTime" Type="Self.CaLamPartTime" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +156,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_HoaDon__ma_ho__2D27B809">
+        <Association Name="FK__CT_HoaDon__ma_ho__571DF1D5">
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
           <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
@@ -166,7 +168,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_PhieuN__ma_ph__4BAC3F29">
+        <Association Name="FK__CT_PhieuN__ma_ph__3E52440B">
           <End Role="PhieuNhapHang" Type="Self.PhieuNhapHang" Multiplicity="0..1" />
           <End Role="CT_PhieuNhapHang" Type="Self.CT_PhieuNhapHang" Multiplicity="*" />
           <ReferentialConstraint>
@@ -178,7 +180,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MonAn__ma_loai_m__2C3393D0">
+        <Association Name="FK__MonAn__ma_loai_m__3C69FB99">
           <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
           <End Role="MonAn" Type="Self.MonAn" Multiplicity="*" />
           <ReferentialConstraint>
@@ -190,7 +192,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NhanVien__ma_loa__0B91BA14">
+        <Association Name="FK__NhanVien__ma_loa__3F466844">
           <End Role="LoaiNhanVien" Type="Self.LoaiNhanVien" Multiplicity="0..1" />
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
           <ReferentialConstraint>
@@ -202,12 +204,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__QuyDinh__san_pha__151B244E">
-          <End Role="MonAn" Type="Self.MonAn" Multiplicity="0..1" />
+        <Association Name="FK__QuyDinh__san_pha__59FA5E80">
+          <End Role="LoaiMonAn" Type="Self.LoaiMonAn" Multiplicity="0..1" />
           <End Role="QuyDinh" Type="Self.QuyDinh" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MonAn">
-              <PropertyRef Name="ma_mon_an" />
+            <Principal Role="LoaiMonAn">
+              <PropertyRef Name="ma_loai_mon_an" />
             </Principal>
             <Dependent Role="QuyDinh">
               <PropertyRef Name="san_pham_uu_dai" />
@@ -229,28 +231,28 @@
           <EntitySet Name="QuyDinh" EntityType="Self.QuyDinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoanAdmin" EntityType="Self.TaiKhoanAdmin" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CaLamPart__ma_nh__14270015" Association="Self.FK__CaLamPart__ma_nh__14270015">
+          <AssociationSet Name="FK__CaLamPart__ma_nh__403A8C7D" Association="Self.FK__CaLamPart__ma_nh__403A8C7D">
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="CaLamPartTime" EntitySet="CaLamPartTime" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_HoaDon__ma_ho__2D27B809" Association="Self.FK__CT_HoaDon__ma_ho__2D27B809">
+          <AssociationSet Name="FK__CT_HoaDon__ma_ho__571DF1D5" Association="Self.FK__CT_HoaDon__ma_ho__571DF1D5">
             <End Role="HoaDon" EntitySet="HoaDon" />
             <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_PhieuN__ma_ph__4BAC3F29" Association="Self.FK__CT_PhieuN__ma_ph__4BAC3F29">
+          <AssociationSet Name="FK__CT_PhieuN__ma_ph__3E52440B" Association="Self.FK__CT_PhieuN__ma_ph__3E52440B">
             <End Role="PhieuNhapHang" EntitySet="PhieuNhapHang" />
             <End Role="CT_PhieuNhapHang" EntitySet="CT_PhieuNhapHang" />
           </AssociationSet>
-          <AssociationSet Name="FK__MonAn__ma_loai_m__2C3393D0" Association="Self.FK__MonAn__ma_loai_m__2C3393D0">
+          <AssociationSet Name="FK__MonAn__ma_loai_m__3C69FB99" Association="Self.FK__MonAn__ma_loai_m__3C69FB99">
             <End Role="LoaiMonAn" EntitySet="LoaiMonAn" />
             <End Role="MonAn" EntitySet="MonAn" />
           </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__ma_loa__0B91BA14" Association="Self.FK__NhanVien__ma_loa__0B91BA14">
+          <AssociationSet Name="FK__NhanVien__ma_loa__3F466844" Association="Self.FK__NhanVien__ma_loa__3F466844">
             <End Role="LoaiNhanVien" EntitySet="LoaiNhanVien" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
-          <AssociationSet Name="FK__QuyDinh__san_pha__151B244E" Association="Self.FK__QuyDinh__san_pha__151B244E">
-            <End Role="MonAn" EntitySet="MonAn" />
+          <AssociationSet Name="FK__QuyDinh__san_pha__59FA5E80" Association="Self.FK__QuyDinh__san_pha__59FA5E80">
+            <End Role="LoaiMonAn" EntitySet="LoaiMonAn" />
             <End Role="QuyDinh" EntitySet="QuyDinh" />
           </AssociationSet>
         </EntityContainer>
@@ -273,29 +275,29 @@
           <EntitySet Name="QuyDinhs" EntityType="CoffeeManagerModel.QuyDinh" />
           <EntitySet Name="sysdiagrams" EntityType="CoffeeManagerModel.sysdiagram" />
           <EntitySet Name="TaiKhoanAdmins" EntityType="CoffeeManagerModel.TaiKhoanAdmin" />
-          <AssociationSet Name="FK__CaLamPart__ma_nh__14270015" Association="CoffeeManagerModel.FK__CaLamPart__ma_nh__14270015">
+          <AssociationSet Name="FK__CaLamPart__ma_nh__403A8C7D" Association="CoffeeManagerModel.FK__CaLamPart__ma_nh__403A8C7D">
             <End Role="NhanVien" EntitySet="NhanViens" />
             <End Role="CaLamPartTime" EntitySet="CaLamPartTimes" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_HoaDon__ma_ho__2D27B809" Association="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__2D27B809">
+          <AssociationSet Name="FK__CT_HoaDon__ma_ho__571DF1D5" Association="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__571DF1D5">
             <End Role="HoaDon" EntitySet="HoaDons" />
             <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
           </AssociationSet>
-          <AssociationSet Name="FK__CT_PhieuN__ma_ph__4BAC3F29" Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29">
+          <AssociationSet Name="FK__CT_PhieuN__ma_ph__3E52440B" Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__3E52440B">
             <End Role="PhieuNhapHang" EntitySet="PhieuNhapHangs" />
             <End Role="CT_PhieuNhapHang" EntitySet="CT_PhieuNhapHang" />
           </AssociationSet>
-          <AssociationSet Name="FK__MonAn__ma_loai_m__2C3393D0" Association="CoffeeManagerModel.FK__MonAn__ma_loai_m__2C3393D0">
+          <AssociationSet Name="FK__MonAn__ma_loai_m__3C69FB99" Association="CoffeeManagerModel.FK__MonAn__ma_loai_m__3C69FB99">
             <End Role="LoaiMonAn" EntitySet="LoaiMonAns" />
             <End Role="MonAn" EntitySet="MonAns" />
           </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__ma_loa__0B91BA14" Association="CoffeeManagerModel.FK__NhanVien__ma_loa__0B91BA14">
+          <AssociationSet Name="FK__QuyDinh__san_pha__59FA5E80" Association="CoffeeManagerModel.FK__QuyDinh__san_pha__59FA5E80">
+            <End Role="LoaiMonAn" EntitySet="LoaiMonAns" />
+            <End Role="QuyDinh" EntitySet="QuyDinhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__ma_loa__3F466844" Association="CoffeeManagerModel.FK__NhanVien__ma_loa__3F466844">
             <End Role="LoaiNhanVien" EntitySet="LoaiNhanViens" />
             <End Role="NhanVien" EntitySet="NhanViens" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QuyDinh__san_pha__151B244E" Association="CoffeeManagerModel.FK__QuyDinh__san_pha__151B244E">
-            <End Role="MonAn" EntitySet="MonAns" />
-            <End Role="QuyDinh" EntitySet="QuyDinhs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CaLamPartTime">
@@ -308,7 +310,7 @@
           <Property Name="gio_bat_dau" Type="Time" Precision="7" />
           <Property Name="gio_ket_thuc" Type="Time" Precision="7" />
           <Property Name="so_gio_lam" Type="Int32" />
-          <NavigationProperty Name="NhanVien" Relationship="CoffeeManagerModel.FK__CaLamPart__ma_nh__14270015" FromRole="CaLamPartTime" ToRole="NhanVien" />
+          <NavigationProperty Name="NhanVien" Relationship="CoffeeManagerModel.FK__CaLamPart__ma_nh__403A8C7D" FromRole="CaLamPartTime" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="CT_HoaDon">
           <Key>
@@ -317,9 +319,11 @@
           </Key>
           <Property Name="ma_hoa_don" Type="Int32" Nullable="false" />
           <Property Name="ma_mon_an" Type="Int32" Nullable="false" />
+          <Property Name="ten_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="gia_tien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="so_luong" Type="Int32" />
           <Property Name="thanh_tien" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="HoaDon" Relationship="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__2D27B809" FromRole="CT_HoaDon" ToRole="HoaDon" />
+          <NavigationProperty Name="HoaDon" Relationship="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__571DF1D5" FromRole="CT_HoaDon" ToRole="HoaDon" />
         </EntityType>
         <EntityType Name="CT_PhieuNhapHang">
           <Key>
@@ -331,7 +335,7 @@
           <Property Name="gia_tien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="so_luong" Type="Int32" />
           <Property Name="tong_tien" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="PhieuNhapHang" Relationship="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" FromRole="CT_PhieuNhapHang" ToRole="PhieuNhapHang" />
+          <NavigationProperty Name="PhieuNhapHang" Relationship="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__3E52440B" FromRole="CT_PhieuNhapHang" ToRole="PhieuNhapHang" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -340,7 +344,8 @@
           <Property Name="ma_hoa_don" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ngay_xuat_hoa_don" Type="DateTime" Precision="3" />
           <Property Name="tong_tien" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="CT_HoaDon" Relationship="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__2D27B809" FromRole="HoaDon" ToRole="CT_HoaDon" />
+          <Property Name="ma_ban_an" Type="Int32" />
+          <NavigationProperty Name="CT_HoaDon" Relationship="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__571DF1D5" FromRole="HoaDon" ToRole="CT_HoaDon" />
         </EntityType>
         <EntityType Name="LoaiMonAn">
           <Key>
@@ -348,7 +353,8 @@
           </Key>
           <Property Name="ma_loai_mon_an" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ten_loai_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MonAns" Relationship="CoffeeManagerModel.FK__MonAn__ma_loai_m__2C3393D0" FromRole="LoaiMonAn" ToRole="MonAn" />
+          <NavigationProperty Name="MonAns" Relationship="CoffeeManagerModel.FK__MonAn__ma_loai_m__3C69FB99" FromRole="LoaiMonAn" ToRole="MonAn" />
+          <NavigationProperty Name="QuyDinhs" Relationship="CoffeeManagerModel.FK__QuyDinh__san_pha__59FA5E80" FromRole="LoaiMonAn" ToRole="QuyDinh" />
         </EntityType>
         <EntityType Name="LoaiNhanVien">
           <Key>
@@ -357,18 +363,17 @@
           <Property Name="ma_loai_nhan_vien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ten_loai_nhan_vien" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="tien_luong" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="NhanViens" Relationship="CoffeeManagerModel.FK__NhanVien__ma_loa__0B91BA14" FromRole="LoaiNhanVien" ToRole="NhanVien" />
+          <NavigationProperty Name="NhanViens" Relationship="CoffeeManagerModel.FK__NhanVien__ma_loa__3F466844" FromRole="LoaiNhanVien" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="MonAn">
           <Key>
             <PropertyRef Name="ma_mon_an" />
           </Key>
           <Property Name="ma_mon_an" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="gia_tien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ma_loai_mon_an" Type="Int32" />
-          <Property Name="ten_mon_an" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="LoaiMonAn" Relationship="CoffeeManagerModel.FK__MonAn__ma_loai_m__2C3393D0" FromRole="MonAn" ToRole="LoaiMonAn" />
-          <NavigationProperty Name="QuyDinhs" Relationship="CoffeeManagerModel.FK__QuyDinh__san_pha__151B244E" FromRole="MonAn" ToRole="QuyDinh" />
+          <NavigationProperty Name="LoaiMonAn" Relationship="CoffeeManagerModel.FK__MonAn__ma_loai_m__3C69FB99" FromRole="MonAn" ToRole="LoaiMonAn" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -382,8 +387,8 @@
           <Property Name="dia_chi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ma_loai_nhan_vien" Type="Int32" />
           <Property Name="ngay_sinh" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CaLamPartTimes" Relationship="CoffeeManagerModel.FK__CaLamPart__ma_nh__14270015" FromRole="NhanVien" ToRole="CaLamPartTime" />
-          <NavigationProperty Name="LoaiNhanVien" Relationship="CoffeeManagerModel.FK__NhanVien__ma_loa__0B91BA14" FromRole="NhanVien" ToRole="LoaiNhanVien" />
+          <NavigationProperty Name="CaLamPartTimes" Relationship="CoffeeManagerModel.FK__CaLamPart__ma_nh__403A8C7D" FromRole="NhanVien" ToRole="CaLamPartTime" />
+          <NavigationProperty Name="LoaiNhanVien" Relationship="CoffeeManagerModel.FK__NhanVien__ma_loa__3F466844" FromRole="NhanVien" ToRole="LoaiNhanVien" />
         </EntityType>
         <EntityType Name="PhieuNhapHang">
           <Key>
@@ -393,7 +398,7 @@
           <Property Name="ngay_nhap" Type="DateTime" Precision="3" />
           <Property Name="nha_cung_cap" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="tong_tien" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="CT_PhieuNhapHang" Relationship="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" FromRole="PhieuNhapHang" ToRole="CT_PhieuNhapHang" />
+          <NavigationProperty Name="CT_PhieuNhapHang" Relationship="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__3E52440B" FromRole="PhieuNhapHang" ToRole="CT_PhieuNhapHang" />
         </EntityType>
         <EntityType Name="PhieuTinhLuong">
           <Key>
@@ -418,11 +423,10 @@
           <Property Name="so_ban" Type="Int32" />
           <Property Name="tuoi_toi_thieu_nv" Type="Int32" />
           <Property Name="tuoi_toi_da_nv" Type="Int32" />
-          <Property Name="ngay_tinh_luong" Type="DateTime" Precision="3" />
           <Property Name="san_pham_uu_dai" Type="Int32" />
           <Property Name="count_uu_dai" Type="Int32" />
           <Property Name="muc_tien_nhan_uu_dai" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="MonAn" Relationship="CoffeeManagerModel.FK__QuyDinh__san_pha__151B244E" FromRole="QuyDinh" ToRole="MonAn" />
+          <NavigationProperty Name="LoaiMonAn" Relationship="CoffeeManagerModel.FK__QuyDinh__san_pha__59FA5E80" FromRole="QuyDinh" ToRole="LoaiMonAn" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -447,7 +451,7 @@
           <Property Name="so_dien_thoai" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="image_source" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK__CaLamPart__ma_nh__14270015">
+        <Association Name="FK__CaLamPart__ma_nh__403A8C7D">
           <End Type="CoffeeManagerModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
           <End Type="CoffeeManagerModel.CaLamPartTime" Role="CaLamPartTime" Multiplicity="*" />
           <ReferentialConstraint>
@@ -459,7 +463,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_HoaDon__ma_ho__2D27B809">
+        <Association Name="FK__CT_HoaDon__ma_ho__571DF1D5">
           <End Type="CoffeeManagerModel.HoaDon" Role="HoaDon" Multiplicity="1" />
           <End Type="CoffeeManagerModel.CT_HoaDon" Role="CT_HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
@@ -471,7 +475,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CT_PhieuN__ma_ph__4BAC3F29">
+        <Association Name="FK__CT_PhieuN__ma_ph__3E52440B">
           <End Type="CoffeeManagerModel.PhieuNhapHang" Role="PhieuNhapHang" Multiplicity="0..1" />
           <End Type="CoffeeManagerModel.CT_PhieuNhapHang" Role="CT_PhieuNhapHang" Multiplicity="*" />
           <ReferentialConstraint>
@@ -483,7 +487,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MonAn__ma_loai_m__2C3393D0">
+        <Association Name="FK__MonAn__ma_loai_m__3C69FB99">
           <End Type="CoffeeManagerModel.LoaiMonAn" Role="LoaiMonAn" Multiplicity="0..1" />
           <End Type="CoffeeManagerModel.MonAn" Role="MonAn" Multiplicity="*" />
           <ReferentialConstraint>
@@ -495,7 +499,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NhanVien__ma_loa__0B91BA14">
+        <Association Name="FK__QuyDinh__san_pha__59FA5E80">
+          <End Type="CoffeeManagerModel.LoaiMonAn" Role="LoaiMonAn" Multiplicity="0..1" />
+          <End Type="CoffeeManagerModel.QuyDinh" Role="QuyDinh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiMonAn">
+              <PropertyRef Name="ma_loai_mon_an" />
+            </Principal>
+            <Dependent Role="QuyDinh">
+              <PropertyRef Name="san_pham_uu_dai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__ma_loa__3F466844">
           <End Type="CoffeeManagerModel.LoaiNhanVien" Role="LoaiNhanVien" Multiplicity="0..1" />
           <End Type="CoffeeManagerModel.NhanVien" Role="NhanVien" Multiplicity="*" />
           <ReferentialConstraint>
@@ -507,19 +523,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__QuyDinh__san_pha__151B244E">
-          <End Type="CoffeeManagerModel.MonAn" Role="MonAn" Multiplicity="0..1" />
-          <End Type="CoffeeManagerModel.QuyDinh" Role="QuyDinh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonAn">
-              <PropertyRef Name="ma_mon_an" />
-            </Principal>
-            <Dependent Role="QuyDinh">
-              <PropertyRef Name="san_pham_uu_dai" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -542,6 +546,8 @@
               <MappingFragment StoreEntitySet="CT_HoaDon">
                 <ScalarProperty Name="thanh_tien" ColumnName="thanh_tien" />
                 <ScalarProperty Name="so_luong" ColumnName="so_luong" />
+                <ScalarProperty Name="gia_tien" ColumnName="gia_tien" />
+                <ScalarProperty Name="ten_mon_an" ColumnName="ten_mon_an" />
                 <ScalarProperty Name="ma_mon_an" ColumnName="ma_mon_an" />
                 <ScalarProperty Name="ma_hoa_don" ColumnName="ma_hoa_don" />
               </MappingFragment>
@@ -562,6 +568,7 @@
           <EntitySetMapping Name="HoaDons">
             <EntityTypeMapping TypeName="CoffeeManagerModel.HoaDon">
               <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="ma_ban_an" ColumnName="ma_ban_an" />
                 <ScalarProperty Name="tong_tien" ColumnName="tong_tien" />
                 <ScalarProperty Name="ngay_xuat_hoa_don" ColumnName="ngay_xuat_hoa_don" />
                 <ScalarProperty Name="ma_hoa_don" ColumnName="ma_hoa_don" />
@@ -588,9 +595,9 @@
           <EntitySetMapping Name="MonAns">
             <EntityTypeMapping TypeName="CoffeeManagerModel.MonAn">
               <MappingFragment StoreEntitySet="MonAn">
-                <ScalarProperty Name="ten_mon_an" ColumnName="ten_mon_an" />
                 <ScalarProperty Name="ma_loai_mon_an" ColumnName="ma_loai_mon_an" />
                 <ScalarProperty Name="gia_tien" ColumnName="gia_tien" />
+                <ScalarProperty Name="ten_mon_an" ColumnName="ten_mon_an" />
                 <ScalarProperty Name="ma_mon_an" ColumnName="ma_mon_an" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -642,7 +649,6 @@
                 <ScalarProperty Name="muc_tien_nhan_uu_dai" ColumnName="muc_tien_nhan_uu_dai" />
                 <ScalarProperty Name="count_uu_dai" ColumnName="count_uu_dai" />
                 <ScalarProperty Name="san_pham_uu_dai" ColumnName="san_pham_uu_dai" />
-                <ScalarProperty Name="ngay_tinh_luong" ColumnName="ngay_tinh_luong" />
                 <ScalarProperty Name="tuoi_toi_da_nv" ColumnName="tuoi_toi_da_nv" />
                 <ScalarProperty Name="tuoi_toi_thieu_nv" ColumnName="tuoi_toi_thieu_nv" />
                 <ScalarProperty Name="so_ban" ColumnName="so_ban" />
