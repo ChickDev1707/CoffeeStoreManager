@@ -14,5 +14,5 @@
     <ViewModel:EmployeeViewModel x:Key="ManageEmployeeVM"></ViewModel:EmployeeViewModel>
     <ViewModel:EmployeeTypeViewModel x:Key="EmployeeTypeVM"></ViewModel:EmployeeTypeViewModel>
     <ViewModel:StatisticViewModel x:Key="StatisticVM"></ViewModel:StatisticViewModel>
-    <ViewModel:StatisticChartViewModel x:Key="StatisticChartVM"></ViewModel:StatisticChartViewModel>
+    <!--<kViewModel:StatisticChartViewModel x:Key="StatisticChartVM"></ViewModel:StatisticChartViewModel>-->
 </ResourceDictionary>

@@ -57,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -155,9 +156,6 @@
     <Compile Include="Models\QuyDinh.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
@@ -166,6 +164,8 @@
     <Compile Include="Models\ViewBill.cs" />
     <Compile Include="Models\LineChartModel.cs" />
     <Compile Include="Models\ViewEmployee.cs" />
+    <Compile Include="Models\ViewStatistic.cs" />
+    <Compile Include="Models\ViewTypeEmployee.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -179,7 +179,6 @@
     <Compile Include="ViewModels\SourceViewModel.cs" />
     <Compile Include="ViewModels\EmployeeTypeViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <Compile Include="ViewModels\StatisticChartViewModel.cs" />
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
@@ -257,9 +256,6 @@
     </Compile>
     <Compile Include="Views\Account\AccountChangeWindow.xaml.cs">
       <DependentUpon>AccountChangeWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Statistic\StatisticChartWindow.xaml.cs">
-      <DependentUpon>StatisticChartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Statistic\StatisticMain.xaml.cs">
       <DependentUpon>StatisticMain.xaml</DependentUpon>
@@ -384,10 +380,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Statistic\StatisticChartWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Statistic\StatisticMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -428,21 +420,52 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Views\492324-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\CoffeeManagerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CoffeeManagerModel.Context.cs</LastGenOutput>
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
+      <LastGenOutput>CoffeeManagerModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\CoffeeManagerModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Views\492324-200.png" />
+    <Resource Include="Resources\Imgs\EmptyList.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
