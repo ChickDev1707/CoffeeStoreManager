@@ -14,8 +14,17 @@ namespace CoffeeStoreManager.Models
     
     public partial class LoaiNhanVien
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LoaiNhanVien()
+        {
+            this.NhanViens = new HashSet<NhanVien>();
+        }
+    
         public int ma_loai_nhan_vien { get; set; }
         public string ten_loai_nhan_vien { get; set; }
         public Nullable<decimal> tien_luong { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NhanVien> NhanViens { get; set; }
     }
 }
