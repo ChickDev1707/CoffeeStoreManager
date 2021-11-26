@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.Background>
-                <ImageBrush ImageSource="Resources/Images/LoginImage.png" />
+                <ImageBrush ImageSource="Resources/Assets/Images/login-image.png" />
             </Grid.Background>
 
         </Grid>

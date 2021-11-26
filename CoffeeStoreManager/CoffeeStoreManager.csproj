@@ -57,6 +57,8 @@
     <Reference Include="Syncfusion.SfInput.Wpf, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.SfScheduler.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.SfSkinManager.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfNavigationDrawer.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfTextInputLayout.WPF, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Wpf, Version=19.3460.0.43, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -178,6 +180,10 @@
     <Compile Include="Models\ViewEmployee.cs" />
     <Compile Include="Models\ViewTypeEmployee.cs" />
     <Compile Include="Models\ViewStatistic.cs" />
+    <Compile Include="Models\PartTimeShift.cs" />
+    <Compile Include="Models\MonthReport.cs" />
+    <Compile Include="Resources\Utils\ImageConverterUtil.cs" />
+    <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -191,10 +197,10 @@
     <Compile Include="ViewModels\SourceViewModel.cs" />
     <Compile Include="ViewModels\EmployeeTypeViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <!-- <Compile Include="ViewModels\StatisticChartViewModel.cs" /> -->
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="ViewModels\RegulationViewModel.cs" />
     <Compile Include="ViewModels\DiscountViewModel.cs" />
+    <Compile Include="ViewModels\MonthReportViewModel.cs" />
 
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
@@ -239,7 +245,9 @@
     <Compile Include="Views\PartTimeScheduler\PartTimeShiftEditorWindow.xaml.cs">
       <DependentUpon>PartTimeShiftEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\PartTimeShift.cs" />
+    <Compile Include="Views\Statistic\MonthReport\MonthReportMain.xaml.cs">
+      <DependentUpon>MonthReportMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SharedControls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
     </Compile>
@@ -264,9 +272,6 @@
     <Compile Include="Views\Account\AccountChangeWindow.xaml.cs">
       <DependentUpon>AccountChangeWindow.xaml</DependentUpon>
     </Compile>
-    <!-- <Compile Include="Views\Statistic\StatisticChartWindow.xaml.cs">
-      <DependentUpon>StatisticChartWindow.xaml</DependentUpon>
-    </Compile> -->
     <Compile Include="Views\Statistic\StatisticMain.xaml.cs">
       <DependentUpon>StatisticMain.xaml</DependentUpon>
     </Compile>
@@ -275,6 +280,12 @@
     </Compile>
     <Compile Include="Views\Discount_Bill\DiscountWindow.xaml.cs">
       <DependentUpon>DiscountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManageFood\FoodTypePage.xaml.cs">
+      <DependentUpon>FoodTypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistic\MonthReport\MonthReportMain.xaml.cs">
+      <DependentUpon>MonthReportMain.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -388,10 +399,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <!-- <Page Include="Views\Statistic\StatisticChartWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page> -->
     <Page Include="Views\Statistic\StatisticMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -401,6 +408,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Discount_Bill\DiscountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Style\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManageFood\FoodTypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistic\MonthReport\MonthReportMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -450,6 +473,21 @@
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Assets\Images\down-angle.png" />
+    <Resource Include="Resources\Assets\Images\user.png" />
+    <Resource Include="Resources\Assets\Images\admin.png" />
+    <Resource Include="Resources\Assets\Images\calendar.png" />
+    <Resource Include="Resources\Assets\Images\adjustment.png" />
+    <Resource Include="Resources\Assets\Images\product-design.png" />
+    <Resource Include="Resources\Assets\Images\growth.png" />
+    <Resource Include="Resources\Assets\Images\stats.png" />
+    <Resource Include="Resources\Assets\Images\category.png" />
+    <Resource Include="Resources\Assets\Images\list.png" />
+    <Resource Include="Resources\Assets\Images\businessman.png" />
+    <Resource Include="Resources\Assets\Images\boxes.png" />
+    <Resource Include="Resources\Assets\Images\food.png" />
+    <Resource Include="Resources\Assets\Images\coffee-cup.png" />
+    <Resource Include="Resources\Assets\Images\login-image.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
