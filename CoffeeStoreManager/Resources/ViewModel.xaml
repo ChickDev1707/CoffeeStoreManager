@@ -16,4 +16,5 @@
     <ViewModel:StatisticViewModel x:Key="StatisticVM"></ViewModel:StatisticViewModel>
     <ViewModel:StatisticChartViewModel x:Key="StatisticChartVM"></ViewModel:StatisticChartViewModel>
     <ViewModel:RegulationViewModel x:Key="RegulationVM"></ViewModel:RegulationViewModel>
+    <ViewModel:MonthReportViewModel x:Key="MonthReportVM"></ViewModel:MonthReportViewModel>
 </ResourceDictionary>

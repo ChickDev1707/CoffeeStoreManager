@@ -41,6 +41,8 @@
                 <Button Content="Statistic" x:Name="StatisticNavBtn" Click="StatisticNavBtn_Click"/>
                 <Button Content="PartTime Scheduler" x:Name="PartTimeSchedulerNavBtn" Click="PartTimeSchedulerNavBtn_Click"/>
                 <Button Content="Regulation" x:Name="RegulationNavBtn" Click="RegulationNavBtn_Click"></Button>
+                <Button Content="Month report" x:Name="MonthReportNavBtn" Click="MonthReportNavBtn_Click"/>
+
             </StackPanel>
         </StackPanel>
         <Frame x:Name="Main" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden"/>
