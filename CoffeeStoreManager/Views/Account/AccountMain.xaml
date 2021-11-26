@@ -3,44 +3,79 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.Account"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="White"
+     FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="AccountMain"
-      Background="White"
+      
       DataContext="{StaticResource AccountVM}">
 
 
     <StackPanel>
-        <Image x:Name="mainImage" Source="{Binding Source}" RenderTransformOrigin="0.493,0.359" 
-               HorizontalAlignment="Center" Width="150" Margin="0 20">
-        </Image>
-        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontSize="20" Foreground="Blue" FontWeight="Bold"></TextBlock>
+        <StackPanel Height="200">
 
-        <StackPanel Margin="200 20">
-            <StackPanel Orientation="Horizontal" Margin="0 3">
-                <TextBlock Text="Địa chỉ: " FontSize="20" FontWeight="Bold"></TextBlock>
-                <TextBlock x:Name="Addresstxb"  FontSize="20" 
-                           Text="{Binding Address}"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 3">
-                <TextBlock Text="Gmail: " FontSize="20" FontWeight="Bold"></TextBlock>
-                <TextBlock x:Name="Gmailtxb"  FontSize="20"
-                           Text="{Binding Gmail}"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 3">
-                <TextBlock Text="SĐT: " FontSize="20" FontWeight="Bold"></TextBlock>
-                <TextBlock x:Name="Phonetxb"  FontSize="20"
-                           Text="{Binding Phone}"></TextBlock>
-            </StackPanel>
+            <DockPanel Height="180" Width="180" Margin="0 20 0 20">
+                <Grid>
+                    <Button
+                    Style="{StaticResource MaterialDesignFloatingActionAccentButton}" 
+                    BorderBrush="Black" Width="180" Height="180" Background="{x:Null}">
+                        <Image Source="{Binding Source}" Stretch="UniformToFill"></Image>
+
+                    </Button>
+                    <Button x:Name="PictureChangeBtn"
+                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                     Command="{Binding SavePictureCommand}">
+                        <materialDesign:PackIcon Kind="Camera" Height="24" Width="24"/>
+                    </Button>
+                </Grid>
+            </DockPanel>
         </StackPanel>
 
-        <Button x:Name="AccountChangeBtn" Margin="300 10" Height="30" Background="White" Content="Chỉnh sửa thông tin" Foreground="BlueViolet" FontSize="15" BorderBrush="White"
-                Command="{Binding OpenAccountChange}"></Button>
-        <Button x:Name="PictureChangeBtn" Margin="300 10" Height="30" Background="White" Content="Thay ảnh đại diện" Foreground="BlueViolet" FontSize="15" BorderBrush="White"
-                Command="{Binding SavePictureCommand}"></Button>
-        <Button x:Name="PasswordChangeBtn" Margin="300 10" Height="30" Background="White" Content="Đổi mật khẩu" Foreground="BlueViolet" FontSize="15" BorderBrush="White"
-                Command="{Binding OpenPasswordChange}"></Button>
+        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF9500FF" Margin="0 5"/>
+        <StackPanel Margin="200 20" Height="Auto" Width="Auto">
+            <DockPanel Margin="0 10" >
+                <materialDesign:PackIcon Kind="Home" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
+                <TextBlock x:Name="Addresstxb"  FontSize="25" Width="Auto"
+                           Text="{Binding Address}"></TextBlock>
+            </DockPanel>
+            <DockPanel Margin="0 10" >
+                <materialDesign:PackIcon Kind="Email" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
+                <TextBlock x:Name="Gmailtxb"  FontSize="25" Width="Auto"
+                           Text="{Binding Gmail}"></TextBlock>
+            </DockPanel>
+            <DockPanel Margin="0 10">
+                <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
+                <TextBlock x:Name="Phonetxb"  FontSize="25" Width="Auto"
+                           Text="{Binding Phone}"></TextBlock>
+            </DockPanel>
+        </StackPanel>
+        <Button x:Name="AccountChangeBtn"
+            Style="{StaticResource MaterialDesignRaisedLightButton}"
+            Width="200" Margin="0 10"
+            Command="{Binding OpenAccountChange}">
+            <DockPanel>
+                <materialDesign:PackIcon Kind="AccountEdit" />
+                <TextBlock Text="Chỉnh sửa trang cá nhân"></TextBlock>
+            </DockPanel>
+        </Button>
+        <Button x:Name="PasswordChangeBtn"
+            Style="{StaticResource MaterialDesignRaisedLightButton}"
+            Width="200"
+            Command="{Binding OpenPasswordChange}">
+            <DockPanel>
+                <materialDesign:PackIcon Kind="KeyVariant" />
+                <TextBlock Text="Đổi mật khẩu"></TextBlock>
+            </DockPanel>
+        </Button>
 
     </StackPanel>
 </Page>

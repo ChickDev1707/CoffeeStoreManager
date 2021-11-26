@@ -18,6 +18,7 @@ namespace CoffeeStoreManager.Models
         public LoaiMonAn()
         {
             this.MonAns = new HashSet<MonAn>();
+            this.QuyDinhs = new HashSet<QuyDinh>();
         }
     
         public int ma_loai_mon_an { get; set; }
@@ -25,5 +26,7 @@ namespace CoffeeStoreManager.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonAn> MonAns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuyDinh> QuyDinhs { get; set; }
     }
 }

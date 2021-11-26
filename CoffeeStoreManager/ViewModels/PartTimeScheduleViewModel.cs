@@ -83,6 +83,6 @@ namespace CoffeeStoreManager.ViewModels
             PartTimeShift target = ShiftList.FirstOrDefault(s => s.Ma_ca_partTime == shiftId);
             ShiftList.Remove(target);
         }
-            
+       
     }
 }

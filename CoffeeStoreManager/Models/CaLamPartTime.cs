@@ -22,7 +22,6 @@ namespace CoffeeStoreManager.Models
         public Nullable<int> so_gio_lam { get; set; }
     
         public virtual NhanVien NhanVien { get; set; }
-
         public static CaLamPartTime fromShift(PartTimeShift shift)
         {
             var hourDiff = shift.Ket_thuc.TimeOfDay.Hours - shift.Bat_dau.TimeOfDay.Hours;
