@@ -14,7 +14,19 @@ namespace CoffeeStoreManager.Models
     
     public partial class LoaiMonAn
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LoaiMonAn()
+        {
+            this.MonAns = new HashSet<MonAn>();
+            this.QuyDinhs = new HashSet<QuyDinh>();
+        }
+    
         public int ma_loai_mon_an { get; set; }
         public string ten_loai_mon_an { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MonAn> MonAns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuyDinh> QuyDinhs { get; set; }
     }
 }

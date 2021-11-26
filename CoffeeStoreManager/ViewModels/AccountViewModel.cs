@@ -74,13 +74,19 @@ namespace CoffeeStoreManager.ViewModels
         }
         void SaveAccount(object p)
         {
-            var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ma_tai_khoan == 1);
-            change.ho_ten = Name;
-            change.dia_chi = Address;
-            change.gmail = Gmail;
-            change.so_dien_thoai = Phone;
-            DataProvider.Ins.DB.SaveChanges();
-            
+            if (Phone.All(char.IsDigit) == false)
+            {
+                System.Windows.MessageBox.Show("Số điện thoại không hơp lệ");
+            }
+            else
+            {
+                var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ma_tai_khoan == 1);
+                change.ho_ten = Name;
+                change.dia_chi = Address;
+                change.gmail = Gmail;
+                change.so_dien_thoai = Phone;
+                DataProvider.Ins.DB.SaveChanges();
+            }          
         }
         void SavePicture(object p)
         {

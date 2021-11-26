@@ -21,5 +21,7 @@ namespace CoffeeStoreManager.Models
         public string nguyen_lieu { get; set; }
         public string mo_ta { get; set; }
         public byte[] anh { get; set; }
+    
+        public virtual LoaiMonAn LoaiMonAn { get; set; }
     }
 }

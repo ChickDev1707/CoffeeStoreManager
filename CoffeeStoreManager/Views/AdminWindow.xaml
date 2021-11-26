@@ -22,13 +22,8 @@
             <StackPanel Width="110" HorizontalAlignment="Right" Margin="0 -30" Height="75">
                 <Image Source="{Binding Source}"  Width="75" Height="75" HorizontalAlignment="Left"></Image>
                 <Button  x:Name="AccountNavBtn" Width="48" Height="30" HorizontalAlignment="Right" Margin="0 -30 0 0"
-                    Click="AccountNavBtn_Click" Foreground="White" >
-                    <Button.Background>
-                        <ImageBrush ImageSource="492324-200.png"/>
-                    </Button.Background>
-                    <Button.BorderBrush>
-                        <ImageBrush/>
-                    </Button.BorderBrush>
+                    Click="AccountNavBtn_Click" >
+                    
                 </Button>
             </StackPanel>
         </StackPanel>
@@ -45,7 +40,7 @@
                 <Button Content="Source" x:Name="SourceNavBtn" Click="SourceNavBtn_Click"/>
                 <Button Content="Statistic" x:Name="StatisticNavBtn" Click="StatisticNavBtn_Click"/>
                 <Button Content="PartTime Scheduler" x:Name="PartTimeSchedulerNavBtn" Click="PartTimeSchedulerNavBtn_Click"/>
-
+                <Button Content="Regulation" x:Name="RegulationNavBtn" Click="RegulationNavBtn_Click"></Button>
             </StackPanel>
         </StackPanel>
         <Frame x:Name="Main" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden"/>
