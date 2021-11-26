@@ -1,4 +1,5 @@
 ﻿
+using System.Windows;
 using System.Windows.Controls;
 
 
@@ -12,6 +13,8 @@ namespace CoffeeStoreManager.Views.ManageFood
         public ManageFoodMain()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

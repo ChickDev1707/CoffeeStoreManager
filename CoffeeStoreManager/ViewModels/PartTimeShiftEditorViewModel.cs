@@ -28,11 +28,11 @@ namespace CoffeeStoreManager.ViewModels
         public ICommand SavePartTimeShift { get; set; }
         public ICommand DeletePartTimeShift { get; set; }
 
-        PartTimeScheduleViewModel scheduleVm;
         ScheduleAppointment shift;
         DateTime selectedCellDateTime;
         bool isNullCell;
 
+        PartTimeScheduleViewModel scheduleVm;
         public PartTimeShiftEditorViewModel(PartTimeScheduleViewModel scheduleVM, ScheduleAppointment appointment, DateTime cellDateTime)
         {
             this.scheduleVm = scheduleVM;

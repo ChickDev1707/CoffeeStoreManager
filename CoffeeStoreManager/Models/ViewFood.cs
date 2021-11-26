@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CoffeeStoreManager.Models
 {
     class ViewFood
@@ -14,5 +9,10 @@ namespace CoffeeStoreManager.Models
         public string ten_mon_an { get; set; }
         public Nullable<decimal> gia_tien { get; set; }
         public string loai_mon_an { get; set; }
+
+        public string nguyen_lieu { get; set; }
+        public string mo_ta { get; set; }
+        public byte[] anh { get; set; }
+
     }
 }

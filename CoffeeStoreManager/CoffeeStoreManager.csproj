@@ -217,14 +217,8 @@
     <Compile Include="Views\ManageEmployee\UpdateEmployeeWindow.xaml.cs">
       <DependentUpon>UpdateEmployeeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ManageFood\Controls\AddFoodForm.xaml.cs">
-      <DependentUpon>AddFoodForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ManageFood\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ManageFood\Controls\FoodTypePanel.xaml.cs">
-      <DependentUpon>FoodTypePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MangeSource\Detail\AddDetailWindow.xaml.cs">
       <DependentUpon>AddDetailWindow.xaml</DependentUpon>
@@ -248,9 +242,6 @@
     <Compile Include="Models\PartTimeShift.cs" />
     <Compile Include="Views\SharedControls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ManageFood\Controls\UpdateFoodForm.xaml.cs">
-      <DependentUpon>UpdateFoodForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageFood\ManageFoodMain.xaml.cs">
       <DependentUpon>ManageFoodMain.xaml</DependentUpon>
@@ -337,15 +328,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ManageFood\Controls\AddFoodForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ManageFood\AddFoodWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManageFood\Controls\FoodTypePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -374,10 +357,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SharedControls\SearchBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManageFood\Controls\UpdateFoodForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

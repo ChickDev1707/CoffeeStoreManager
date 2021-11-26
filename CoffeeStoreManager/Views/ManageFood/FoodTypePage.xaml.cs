@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.Statistic
+namespace CoffeeStoreManager.Views.ManageFood
 {
     /// <summary>
-    /// Interaction logic for StatisticMainWindow.xaml
+    /// Interaction logic for FoodTypePage.xaml
     /// </summary>
-    public partial class StatisticMainWindow : Page
+    public partial class FoodTypePage : Page
     {
-        public StatisticMainWindow()
+        public FoodTypePage()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

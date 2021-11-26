@@ -11,6 +11,8 @@ namespace CoffeeStoreManager.Views.MangeSource.Item
         public UpdateSourceWindow()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

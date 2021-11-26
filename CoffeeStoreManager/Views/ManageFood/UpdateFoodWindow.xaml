@@ -1,25 +1,99 @@
 ﻿<Window x:Class="CoffeeStoreManager.Views.ManageFood.UpdateFoodWindow"
-        x:Name="updateFoodWind"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        FontSize="14"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
-        xmlns:ManageFoodUC="clr-namespace:CoffeeStoreManager.Views.ManageFood.Controls"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource FoodVM}"
         mc:Ignorable="d"
-        Title="UpdateFoodWindow" Height="400" Width="600">
-    <Grid Margin="20">
+        Title="UpdateFoodWindow" Height="500" Width="800">
+    <Border Padding="20">
         <StackPanel>
-            <TextBlock Margin="0 0 0 30" Text="Update food" FontSize="30"/>
-            <ManageFoodUC:UpdateFoodForm/>
+            <TextBlock Text="Cập nhật món ăn" Style="{StaticResource PageTitle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Border Style="{StaticResource MainBorder}">
+                        <StackPanel>
+                            <Image Source="{Binding UpdateFoodImagePath}" Width="200" Height="240"/>
+                        </StackPanel>
+                    </Border>
+                    <Separator Height="15" Background="Transparent"/>
+                    <Button Command="{Binding UpdateFormUpLoadImage}" Content="Thêm ảnh"/>
+                </StackPanel>
+                <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
+                    <StackPanel>
+                        <TextBlock Text="Chi tiết món ăn " Margin="0 0 0 15" FontSize="18" FontWeight="DemiBold"/>
+                        <Grid Margin="0 0 0 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                Text="{Binding SelectedFood.ten_mon_an}"
+                                materialDesign:HintAssist.Hint="Tên món"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <ComboBox
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Width="130"
+                                Margin="20 0 0 0"
+                                materialDesign:HintAssist.Hint="Loại món"
+                                ItemsSource="{Binding FoodTypeList}" 
+                                DisplayMemberPath="ten_loai_mon_an"
+                                SelectedValuePath="ma_loai_mon_an"
+                                SelectedValue="{Binding SelectedFood.ma_loai_mon_an}"
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        </Grid>
+                        <TextBox
+                            Text="{Binding SelectedFood.gia_tien}"
+                            Margin="0 0 0 10"
+                            materialDesign:HintAssist.Hint="Giá tiền"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            Text="{Binding SelectedFood.nguyen_lieu}"
+                            Margin="0 0 0 10"
+                            materialDesign:HintAssist.Hint="Nguyên liệu"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox
+                            Text="{Binding SelectedFood.mo_ta}"
+                            Margin="0 0 0 10"
+                            Height="100"
+                            TextWrapping="Wrap"
+                            materialDesign:HintAssist.Hint="Mô tả"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
-                <Button Command="{Binding UpdateSelectedFood}" CommandParameter="{Binding ElementName=updateFoodWind}" Content="Update" Margin="0 0 15 0"></Button>
-                <Button Content="Cancel"></Button>
+                <Button Command="{Binding UpdateSelectedFood}" Content="Cập nhật món" CommandParameter="{Binding}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Margin="20 0 0 0" Content="Thoát">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

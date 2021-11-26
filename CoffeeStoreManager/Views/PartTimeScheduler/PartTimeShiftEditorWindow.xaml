@@ -5,50 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.PartTimeScheduler"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
-        mc:Ignorable="d"
-        Title="PartTimeShiftEditorWindow" Height="300" Width="500">
-    <Window.Resources>
-        <syncfusion:ReminderTimeIntervalConverter x:Key="ReminderTimeIntervalConverter"/>
-    </Window.Resources>
-    <Grid>
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         
-        <Grid Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Margin="5" Grid.ColumnSpan="2" Orientation="Vertical">
-                <Label Content="Employee" />
-                <ComboBox x:Name="EmployeesSelector" ItemsSource="{Binding PartTimeEmployeeList}" SelectedItem="{Binding SelectedPartTimeEmployee}" DisplayMemberPath="ho_ten" SelectedValuePath="ma_nhan_vien" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="25"/>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Margin="5" Grid.ColumnSpan="2" Orientation="Vertical">
-                <Label Content="Date" />
-                <syncfusion:SfDatePicker Value="{Binding ShiftDate, Mode =TwoWay}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Margin="5" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Vertical">
-                <Label Content="Shift Time" />
-                <Grid HorizontalAlignment="Right" Width="232">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <syncfusion:SfTimePicker Value="{Binding ShiftFrom, Mode=TwoWay}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <GridSplitter Grid.Column="1" IsEnabled="False"/>
-                    <syncfusion:SfTimePicker Value="{Binding ShiftTo, Mode=TwoWay}" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                </Grid>
-            </StackPanel>
-            <Grid Grid.Row="4" Grid.ColumnSpan="4">
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="PartTimeShiftEditorWindow" Height="350" Width="530">
+    <Window.Resources>
+        <ResourceDictionary>
+            <syncfusion:ReminderTimeIntervalConverter x:Key="ReminderTimeIntervalConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Padding="20">
+        <StackPanel>
+            <TextBlock Style="{StaticResource PageTitle}" Text="Thêm/sửa lịch làm"/>
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -57,24 +34,63 @@
                     <ColumnDefinition />
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
+                <StackPanel Grid.Row="0" Margin="0 0 0 15" Grid.ColumnSpan="2" Orientation="Vertical">
+                    <Label Content="Nhân viên"/>
+                    <ComboBox x:Name="EmployeesSelector" ItemsSource="{Binding PartTimeEmployeeList}" SelectedItem="{Binding SelectedPartTimeEmployee}" DisplayMemberPath="ho_ten" SelectedValuePath="ma_nhan_vien" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="25"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="5" Grid.ColumnSpan="2" Orientation="Vertical">
+                    <Label Content="Ngày làm" />
+                    <DatePicker
+                        Width="100"
+                        SelectedDate="{Binding ShiftDate, Mode =TwoWay}" VerticalAlignment="Top" HorizontalAlignment="Left"
+                    />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="5" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Vertical">
+                    <Label Content="Ca làm" />
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <syncfusion:SfTimePicker Value="{Binding ShiftFrom, Mode=TwoWay}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <GridSplitter Grid.Column="1" IsEnabled="False"/>
+                        <syncfusion:SfTimePicker Value="{Binding ShiftTo, Mode=TwoWay}" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="0 40 0 0" Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource PrimaryBtn}" x:Name="Cancel" Content="Thoát">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Margin="20 0 0 0" Style="{StaticResource PrimaryBtn}" x:Name="Delete" Content="Xóa" Command="{Binding DeletePartTimeShift}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Margin="20 0 0 0" Style="{StaticResource PrimaryBtn}" x:Name="Save" Content="Lưu" Command="{Binding SavePartTimeShift}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
             </Grid>
-            <StackPanel Orientation="Horizontal" Margin="5" Grid.Row="7" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="Save" Height="30" Grid.Column="0" Content="Save" Command="{Binding SavePartTimeShift}"/>
-                    <GridSplitter Grid.Column="1" IsEnabled="False"/>
-                    <Button x:Name="Delete" Height="30" Grid.Column="2" Content="Delete" Command="{Binding DeletePartTimeShift}"/>
-                    <GridSplitter Grid.Column="3" IsEnabled="False"/>
-                    <Button x:Name="Cancel" Height="30" Grid.Column="4" Content="Cancel"/>
-                </Grid>
-            </StackPanel>
-        </Grid>
-    </Grid>
+        </StackPanel>
+    </Border>
 </Window>

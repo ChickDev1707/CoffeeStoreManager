@@ -18,8 +18,10 @@ namespace CoffeeStoreManager.Views.PartTimeScheduler
             InitializeComponent();
             PartTimeShiftEditorViewModel editorVm = new PartTimeShiftEditorViewModel(scheduleVM, appointment, cellDateTime);
             this.DataContext = editorVm;
+            Style = (Style)FindResource("WindowStyle");
+
         }
-        
+
     }
     
 }

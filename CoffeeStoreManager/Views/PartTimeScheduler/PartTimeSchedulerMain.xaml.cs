@@ -1,4 +1,5 @@
 ﻿
+using System.Windows;
 using System.Windows.Controls;
 using CoffeeStoreManager.ViewModels;
 using Syncfusion.UI.Xaml.Scheduler;
@@ -16,6 +17,8 @@ namespace CoffeeStoreManager.Views.PartTimeScheduler
             InitializeComponent();
             vm = new PartTimeScheduleViewModel();
             this.DataContext = vm;
+            Style = (Style)FindResource("WindowStyle");
+
         }
         private void Scheduler_AppointmentEditorOpening(object sender, AppointmentEditorOpeningEventArgs e)
         {

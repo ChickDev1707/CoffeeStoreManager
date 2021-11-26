@@ -4,35 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Detail"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        WindowStartupLocation="CenterScreen" 
         
         mc:Ignorable="d"
-        Title="UpdateDetailWindow" Height="450" Width="800">
-    <Grid>
+        Title="UpdateDetailWindow" Height="340" Width="500">
+    <Window.Resources>
+        <ResourceDictionary Source="../../Style/Button.xaml"/>
+    </Window.Resources>
+    <Border Padding="20">
         <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Margin" Value="0 0 0 10"/>
-                </Style>
-                <Style TargetType="Button">
-                    <Setter Property="Padding" Value="10 5"/>
-                </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="Padding" Value="10"/>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock Text="Update chi tiet" FontSize="25"/>
-            <TextBlock Text="ten mat hang: "/>
-            <TextBox Text="{Binding SelectedDetailItem.ten_mat_hang}"/>
-            <TextBlock Text="so luong: "/>
-            <xctk:IntegerUpDown Value="{Binding SelectedDetailItem.so_luong}"/>
-            <TextBlock Text="gia: "/>
-            <xctk:IntegerUpDown Value="{Binding SelectedDetailItem.gia_tien}"/>
+            <TextBlock Style="{StaticResource PageTitle}" Text="Cập nhật chi tiết nguồn hàng"/>
+            <TextBox
+                Margin="0 0 0 20"
+                Text="{Binding SelectedDetailItem.ten_mat_hang}"
+                materialDesign:HintAssist.Hint="Tên mặt hàng"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Grid Margin="0 0 0 40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type syncfusion:UpDown}">
+                        <Setter Property="Height" Value="25"/>
+                        <Setter Property="NumberDecimalDigits" Value="0"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0 0 0 5"/>
+                    </Style>
+                </Grid.Resources>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Số lượng: "/>
+                    <syncfusion:UpDown 
+                        Value="{Binding SelectedDetailItem.so_luong}"
+                    />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Giá tiền: "/>
+                    <syncfusion:UpDown 
+                        Value="{Binding SelectedDetailItem.gia_tien}"
+                    />
+                </StackPanel>
+            </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Cancel" />
-                <Button Command="{Binding UpdateDetail}" Content="Update" />
+                <Button Style="{StaticResource PrimaryBtn}" Content="Cancel" Margin="0 0 20 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Thoát">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateDetail}" Content="Cập nhật">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

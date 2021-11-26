@@ -3,34 +3,53 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Item"
-        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+        WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource SourceVM}"
         mc:Ignorable="d"
-        Title="UpdateSourceWindow" Height="300" Width="600">
-    <Grid>
+        Title="UpdateSourceWindow" Height="300" Width="450">
+    <Window.Resources>
+        <ResourceDictionary Source="../../Style/Button.xaml"/>
+    </Window.Resources>
+    <Border Padding="20">
         <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Margin" Value="0 0 0 10"/>
-                </Style>
-                <Style TargetType="Button">
-                    <Setter Property="Padding" Value="10 5"/>
-                </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="Padding" Value="10"/>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock Text="Update phieu nhap" FontSize="25"/>
-            <TextBlock Text="nha cung cap: "/>
-            <TextBox Text="{Binding SelectedSourceItem.nha_cung_cap}"/>
-            <TextBlock Text="ngay nhap: "/>
-            <DatePicker Text="{Binding SelectedSourceItem.ngay_nhap}"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Cancel" />
-                <Button Command="{Binding UpdateSource}" Content="Update" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Cập nhật phiếu nhập hàng"/>
+            <TextBox
+                Margin="0 0 0 10"
+                Text="{Binding SelectedSourceItem.nha_cung_cap}"
+                materialDesign:HintAssist.Hint="Nhà cung cấp"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <DatePicker
+                SelectedDate="{Binding SelectedSourceItem.ngay_nhap}"
+                HorizontalAlignment="Left"
+                Width="130"
+                materialDesign:HintAssist.Hint="Ngày nhập"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <StackPanel Margin="0 40 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource PrimaryBtn}"  Content="Thoát" Margin="0 0 15 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateSource}" Content="Cập nhật">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

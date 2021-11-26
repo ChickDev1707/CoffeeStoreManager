@@ -1,50 +1,120 @@
-﻿<Window x:Class="CoffeeStoreManager.Views.AdminWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="CoffeeStoreManager.Views.AdminWindow"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="720" Width="1150"
+        WindowStartupLocation="CenterScreen"
+        Title="AdminWindow" Height="750" Width="1250"
         DataContext="{StaticResource AccountVM}">
+    <DockPanel>
+        <syncfusion:SfNavigationDrawer x:Name="navigationDrawer" DisplayMode="Expanded" ItemClicked="navigationDrawer_ItemClicked">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel x:Name="Header" Grid.Row="0" Grid.Column="1">
-            <TextBlock Text="header" FontSize="25"/>
-            <StackPanel Width="110" HorizontalAlignment="Right" Margin="0 -30" Height="75">
-                <Image Source="{Binding Source}"  Width="75" Height="75" HorizontalAlignment="Left"></Image>
-                <Button  x:Name="AccountNavBtn" Width="48" Height="30" HorizontalAlignment="Right" Margin="0 -30 0 0"
-                    Click="AccountNavBtn_Click" >
-                    
-                </Button>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel x:Name="LeftSideBar" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Padding" Value="10"/>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock Text="Admin" FontSize="40" FontWeight="Bold"/>
-            <StackPanel x:Name="PageBtnContainer" Margin="0 30 0 0">
-                <Button Content="Food" x:Name="FoodNavBtn" Click="FoodNavBtn_Click"/>
-                <Button Content="Employee" x:Name="EmployeeNavBtn" Click="EmployeeNavBtn_Click"/>
-                <Button Content="Source" x:Name="SourceNavBtn" Click="SourceNavBtn_Click"/>
-                <Button Content="Statistic" x:Name="StatisticNavBtn" Click="StatisticNavBtn_Click"/>
-                <Button Content="PartTime Scheduler" x:Name="PartTimeSchedulerNavBtn" Click="PartTimeSchedulerNavBtn_Click"/>
-                <Button Content="Regulation" x:Name="RegulationNavBtn" Click="RegulationNavBtn_Click"></Button>
-                <Button Content="Month report" x:Name="MonthReportNavBtn" Click="MonthReportNavBtn_Click"/>
-
-            </StackPanel>
-        </StackPanel>
-        <Frame x:Name="Main" x:FieldModifier="public" Grid.Row="1" Grid.Column="1" NavigationUIVisibility="Hidden"/>
-    </Grid>
+            <syncfusion:NavigationItem Header="Coffee Store" ItemType="Button" FontSize="26" Height="70">
+                <syncfusion:NavigationItem.Icon>
+                    <Image Source="../Resources/Assets/Images/coffee-cup.png"/>
+                </syncfusion:NavigationItem.Icon>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem ItemType="Separator" />
+            <syncfusion:NavigationItem
+                    Header="Món ăn"
+                    x:Name="NavFood"
+                    IsExpanded="True">
+                <syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/food.png"/>
+                </syncfusion:NavigationItem.Icon>
+                <syncfusion:NavigationItem x:Name="NavFoodList" Header="Danh sách">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/list.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem x:Name="NavFoodType" Header="Loại món ăn">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/category.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Nhân viên"
+                    x:Name="NavEmployee"
+                    IsExpanded="True">
+                <syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/businessman.png"/>
+                </syncfusion:NavigationItem.Icon>
+                <syncfusion:NavigationItem Header="Danh sách">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/list.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem Header="Loại nhân viên">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/category.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem x:Name="NavPartTimeScheduler" Header="Lịch làm part-time">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/calendar.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Nguồn hàng"
+                    x:Name="NavSource">
+                <syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/boxes.png"/>
+                </syncfusion:NavigationItem.Icon>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Thống kê"
+                    x:Name="NavStatistic"
+                    IsExpanded="True">
+                <syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/stats.png"/>
+                </syncfusion:NavigationItem.Icon>
+                <syncfusion:NavigationItem Header="Doanh thu">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/growth.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+                <syncfusion:NavigationItem x:Name="NavStatisticFoodType" Header="Loại món ăn">
+                    <syncfusion:NavigationItem.Icon >
+                        <Image Source="../Resources/Assets/Images/product-design.png"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+            </syncfusion:NavigationItem>
+            <syncfusion:NavigationItem
+                    Header="Quy định"
+                    x:Name="NavRule">
+                <syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/adjustment.png"/>
+                </syncfusion:NavigationItem.Icon>
+            </syncfusion:NavigationItem>
+            <syncfusion:SfNavigationDrawer.ContentView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Padding="20 10" Background="#F2F2F2">
+                        <DockPanel x:Name="Header">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Resources/Assets/Images/admin.png"/>
+                                <TextBlock Text="Admin window" FontWeight="Bold" FontSize="25" VerticalAlignment="Center" Margin="20 0 0 0"/>
+                            </StackPanel>
+                            <Button x:Name="AccountNavBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Padding="0" Height="40" Background="White" BorderThickness="0" >
+                                <StackPanel Orientation="Horizontal" Width="130">
+                                    <Image Margin="5 0 0 0" Width="28" Height="28" Source="../Resources/Assets/Images/user.png"/>
+                                    <TextBlock Margin="10 0 0 0" FontWeight="Bold" VerticalAlignment="Center" Text="Admin" Foreground="Black"/>
+                                    <Image Margin="5 0 0 0" Width="18" Height="18" Source="../Resources/Assets/Images/down-angle.png"/>
+                                </StackPanel>
+                            </Button>
+                        </DockPanel>
+                    </Border>
+                    <Frame Padding="30 10" Grid.Row="1" x:Name="Main" x:FieldModifier="public" NavigationUIVisibility="Hidden"/>
+                </Grid>
+            </syncfusion:SfNavigationDrawer.ContentView>
+        </syncfusion:SfNavigationDrawer>
+    </DockPanel>
 </Window>

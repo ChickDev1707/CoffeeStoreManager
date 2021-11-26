@@ -13,6 +13,8 @@ namespace CoffeeStoreManager.Views.MangeSource.Detail
         {
             InitializeComponent();
             this.DataContext = vm;
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

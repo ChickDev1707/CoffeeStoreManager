@@ -5,43 +5,76 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Detail"
       xmlns:SharedUC="clr-namespace:CoffeeStoreManager.Views.SharedControls"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SourceDetailPage">
-
-    <Grid Margin="10" Background="#FFE5E5E5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <StackPanel Margin="0 15" Orientation="Horizontal">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Padding" Value="15 5"/>
-                    <Setter Property="Margin" Value="0 0 10 0"/>
-                </Style>
-            </StackPanel.Resources>
-            <Button Click="OpenAddWindow" Content="Add"/>
-            <Button Click="OpenUpdateWindow" Content="Update"/>
-            <Button Command="{Binding DeleteDetail}" Content="Delete"/>
-            <Button Command="{Binding RefreshDetail}" Content="Refresh"/>
-            <SharedUC:SearchBar/>
-        </StackPanel>
-        <ListView Grid.Row="1" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
-                    <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
-                    <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
-                    <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien}"></GridViewColumn>
-
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Right">
-            <Button Padding="20 10" Content="Back" Click="Back_Click"/>
-        </StackPanel>
-    </Grid>
+    <Page.Resources>
+        <ResourceDictionary Source="../../Style/Button.xaml"/>
+    </Page.Resources>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Chi tiết nguồn hàng"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Button
+                    Command="{Binding RefreshDetail}"
+                    Style="{StaticResource IconTextBtn}"
+                    ToolTip="Làm mới chi tiết nguồn hàng">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Refresh" />
+                            <TextBlock Text="Làm mới"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    Click="OpenAddWindow"
+                    Style="{StaticResource IconTextBtn}"
+                    ToolTip="Thêm chi tiết nguồn hàng">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Add" />
+                            <TextBlock Text="Thêm"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    Click="OpenUpdateWindow"
+                    Style="{StaticResource IconTextBtn}"
+                    ToolTip="Cập nhật chi tiết nguồn hàng">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="SquareEditOutline" />
+                            <TextBlock Text="Sửa"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    Command="{Binding DeleteDetail}"
+                    Style="{StaticResource IconTextBtn}"
+                    ToolTip="Xóa chi tiết">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="TrashCanOutline" />
+                            <TextBlock Text="Xóa"/>
+                        </DockPanel>
+                    </Button>
+                </StackPanel>
+                <SharedUC:SearchBar HorizontalAlignment="Right"/>
+            </DockPanel>
+            <ListView Grid.Row="1" FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
+                        <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
+                        <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
+                        <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel Grid.Row="2" Margin="0 0 20 20" HorizontalAlignment="Right">
+                <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Back" Click="Back_Click"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Page>
