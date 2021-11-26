@@ -18,10 +18,11 @@ namespace CoffeeStoreManager.Models
         public Nullable<int> so_ban { get; set; }
         public Nullable<int> tuoi_toi_thieu_nv { get; set; }
         public Nullable<int> tuoi_toi_da_nv { get; set; }
+        public Nullable<System.DateTime> ngay_tinh_luong { get; set; }
         public Nullable<int> san_pham_uu_dai { get; set; }
         public Nullable<int> count_uu_dai { get; set; }
         public Nullable<decimal> muc_tien_nhan_uu_dai { get; set; }
     
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
+        public virtual MonAn MonAn { get; set; }
     }
 }
