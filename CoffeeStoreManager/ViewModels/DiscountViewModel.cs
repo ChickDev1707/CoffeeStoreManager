@@ -82,8 +82,8 @@ namespace CoffeeStoreManager.ViewModels
                     ma_hoa_don = bill.ma_hoa_don,
                     ma_mon_an = billdetail[i].ma_mon_an,
                     so_luong = billdetail[i].so_luong,
-                    gia_tien = billdetail[i].gia_tien,
-                    thanh_tien = billdetail[i].so_luong * billdetail[i].gia_tien
+                    //gia_tien = billdetail[i].gia_tien,
+                    //thanh_tien = billdetail[i].so_luong * billdetail[i].gia_tien
                 };
                 DataProvider.Ins.DB.CT_HoaDon.Add(item);
                 DataProvider.Ins.DB.SaveChanges();
@@ -228,7 +228,7 @@ namespace CoffeeStoreManager.ViewModels
                             ma_hoa_don = bill[bill.Count() - 1].ma_hoa_don,
                             ma_mon_an = SelectedDiscountFood.ma_mon_an,
                             so_luong = 1,
-                            gia_tien = 0,
+                            //gia_tien = 0,
                             thanh_tien = 0
                         };
                         DataProvider.Ins.DB.CT_HoaDon.Add(item);
@@ -252,7 +252,7 @@ namespace CoffeeStoreManager.ViewModels
                             ma_hoa_don = bill[bill.Count() - 1].ma_hoa_don,
                             ma_mon_an = SelectedDiscountFood.ma_mon_an,
                             so_luong = 1,
-                            gia_tien = 0,
+                            //gia_tien = 0,
                             thanh_tien = 0
                         };
                         DataProvider.Ins.DB.CT_HoaDon.Add(item);
@@ -277,7 +277,7 @@ namespace CoffeeStoreManager.ViewModels
                             ma_hoa_don = bill[bill.Count() - 1].ma_hoa_don,
                             ma_mon_an = SelectedDiscountFood.ma_mon_an,
                             so_luong = 1,
-                            gia_tien = 0,
+                            //gia_tien = 0,
                             thanh_tien = 0
                         };
                         DataProvider.Ins.DB.CT_HoaDon.Add(item);

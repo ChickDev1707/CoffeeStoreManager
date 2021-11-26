@@ -51,7 +51,7 @@ namespace CoffeeStoreManager.ViewModels
                 MaxAge = (int)data.tuoi_toi_da_nv;
                 SpecialOfferCount = (int)data.count_uu_dai;
                 SpecialOfferMoney = (decimal)data.muc_tien_nhan_uu_dai;
-                var select1 = DataProvider.Ins.DB.LoaiMonAns.Where(x => x.ma_loai_mon_an == data.san_pham_uu_dai);
+                var select1 = DataProvider.Ins.DB.LoaiMonAns.Where(x => x.ma_loai_mon_an == data.loai_san_pham_uu_dai);
                 foreach (var data1 in select1)
                 {
                     SpecialOffer = data1.ten_loai_mon_an;
@@ -73,7 +73,7 @@ namespace CoffeeStoreManager.ViewModels
                 change.so_ban = NumberOfTable;
                 change.tuoi_toi_thieu_nv = MinAge;
                 change.tuoi_toi_da_nv = MaxAge;
-                change.san_pham_uu_dai = SelectedFoodType.ma_loai_mon_an;
+                change.loai_san_pham_uu_dai = SelectedFoodType.ma_loai_mon_an;
                 change.count_uu_dai = SpecialOfferCount;
                 change.muc_tien_nhan_uu_dai = SpecialOfferMoney;
                 MessageBox.Show("Lưu thành công!");

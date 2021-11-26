@@ -17,10 +17,10 @@ namespace CoffeeStoreManager.Models
             }
             set => _ins = value; 
         }
-        public CoffeeManagerEntities3 DB { get; set; }
+        public CoffeeManagerEntities DB { get; set; }
         private DataProvider()
         {
-            DB = new CoffeeManagerEntities3();
+            DB = new CoffeeManagerEntities();
         }
     }
 }
