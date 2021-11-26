@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using CoffeeStoreManager.ViewModels;
 using Syncfusion.UI.Xaml.Scheduler;

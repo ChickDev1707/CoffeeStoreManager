@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows;
 using CoffeeStoreManager.Views;
+using CoffeeStoreManager.ViewModels;
+using CoffeeStoreManager.Views.Discount_Bill;
+
 
 namespace CoffeeStoreManager
 {
@@ -19,5 +22,12 @@ namespace CoffeeStoreManager
             Window adminWindow = new AdminWindow();
             adminWindow.Show();
         }
+
+        /*private void OpenDiscountWindow(object sender, RoutedEventArgs e)
+        {
+            MainViewModel mainVM = new MainViewModel();
+            Window discountWindow = new DiscountWindow(mainVM);
+            discountWindow.Show();
+        }*/
     }
 }
