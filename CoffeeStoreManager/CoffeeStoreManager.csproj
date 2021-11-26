@@ -234,7 +234,7 @@
     <Compile Include="Views\MangeSource\Item\UpdateSourceWindow.xaml.cs">
       <DependentUpon>UpdateSourceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MonthReport\MonthReportMain.xaml.cs">
+    <Compile Include="Views\Statistic\MonthReport\MonthReportMain.xaml.cs">
       <DependentUpon>MonthReportMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages.cs" />
@@ -355,7 +355,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MonthReport\MonthReportMain.xaml">
+    <Page Include="Views\Statistic\MonthReport\MonthReportMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -39,7 +39,7 @@ namespace CoffeeStoreManager.Views
             pages.Add(new StatisticMain());
             pages.Add(new MonthReportMain());
             //statistic
-
+            pages.Add(null);
             //regulation
             pages.Add(new AccountMain());
             //account

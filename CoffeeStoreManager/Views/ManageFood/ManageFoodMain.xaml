@@ -13,7 +13,7 @@
     <Page.Resources>
         <ResourceDictionary Source="../Style/Button.xaml"/>
     </Page.Resources>
-    <DockPanel >
+    <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Menu món ăn"/>
         <Grid>
             <Grid.RowDefinitions>

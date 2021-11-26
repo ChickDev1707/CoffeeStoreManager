@@ -34,6 +34,9 @@ namespace CoffeeStoreManager.Views
                 case "NavSource":
                     Main.Content = Pages.SourcePage;
                     break;
+                case "NavStatisticFoodType":
+                    Main.Content = Pages.StatisticFoodTypePage;
+                    break;
             }
         }
 

@@ -78,7 +78,7 @@
                         <Image Source="../Resources/Assets/Images/growth.png"/>
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
-                <syncfusion:NavigationItem Header="Loại món ăn">
+                <syncfusion:NavigationItem x:Name="NavStatisticFoodType" Header="Loại món ăn">
                     <syncfusion:NavigationItem.Icon >
                         <Image Source="../Resources/Assets/Images/product-design.png"/>
                     </syncfusion:NavigationItem.Icon>
