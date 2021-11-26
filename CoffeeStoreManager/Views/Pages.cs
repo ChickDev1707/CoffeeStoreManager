@@ -31,11 +31,8 @@ namespace CoffeeStoreManager.Views
             pages.Add(new StatisticMain());
             pages.Add(new AccountMain());
             pages.Add(new PartTimeSchedulerMain());
-<<<<<<< HEAD
             pages.Add(new RegulationMain());
-=======
             pages.Add(new MonthReportMain());
->>>>>>> 090946e... add demo month report
         }
 
     }
