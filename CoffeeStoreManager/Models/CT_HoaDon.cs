@@ -19,7 +19,8 @@ namespace CoffeeStoreManager.Models
         public Nullable<decimal> gia_tien { get; set; }
         public Nullable<int> so_luong { get; set; }
         public Nullable<decimal> thanh_tien { get; set; }
-
+    
         public virtual HoaDon HoaDon { get; set; }
+        public virtual MonAn MonAn { get; set; }
     }
 }

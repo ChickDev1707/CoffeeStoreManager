@@ -1,0 +1,56 @@
+﻿<Window x:Class="CoffeeStoreManager.Views.Discount_Bill.DiscountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.Discount_Bill"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{StaticResource DiscountVM}"
+        Title="Ưu đãi khách hàng" Height="342.8" Width="353.6"
+        x:Name="discountWindow">
+    <Grid Background="#FFE5E5E5">
+        <Button Content="Tra cứu" 
+                HorizontalAlignment="Left" 
+                Height="37" Margin="181,55,0,0" 
+                VerticalAlignment="Top" Width="67" 
+                Background="#FFDD97A6"
+                Command="{Binding FindIDCustomerCommand}"/>
+        <Label Content="Mã khách hàng:" 
+               HorizontalAlignment="Left" Height="31" Margin="54,14,0,0" 
+               VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="IdFirst" HorizontalAlignment="Left" 
+                 Height="28" Margin="147,15,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="{Binding IdFirst, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 VerticalAlignment="Top" Width="129"/>
+        <Label Content="Mã khách hàng:" 
+               HorizontalAlignment="Left" Height="31" Margin="55,142,0,0" VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="149,144,0,0" TextWrapping="Wrap" Text="{Binding IdResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="129"/>
+        <Label Content="Số lần đã mua:" HorizontalAlignment="Left" Height="31" Margin="56,181,0,0" VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="150,183,0,0" TextWrapping="Wrap" Text="{Binding NumberResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="129"/>
+        <Button Content="Thêm" 
+                HorizontalAlignment="Left" 
+                Height="37" Margin="263,55,0,0" 
+                VerticalAlignment="Top" Width="67" 
+                Background="#FFDD97A6"
+                Command="{Binding AddCustomerCommand}"
+                CommandParameter="{Binding ElementName=discountWindow}"/>
+        <Label Content="Danh sách món được ưu đãi:" HorizontalAlignment="Left" Height="27" Margin="55,228,0,0" VerticalAlignment="Top" Width="168"/>
+        <ComboBox Margin="64,262,145.2,21.8"
+                  DisplayMemberPath="ten_mon_an" 
+                  ItemsSource="{Binding DiscountFood}" 
+                  SelectedItem="{Binding SelectedDiscountFood, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="Chọn ưu đãi" 
+                HorizontalAlignment="Left" 
+                Height="31" Margin="227,265,0,0" 
+                VerticalAlignment="Top" Width="77" 
+                Background="#FFDD97A6"
+                Command="{Binding SeleteDiscountCommand}"
+                CommandParameter="{Binding ElementName=discountWindow}"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,104,0,0" VerticalAlignment="Top" Width="353"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,222,0,0" VerticalAlignment="Top" Width="353.6"/>
+        <Label Content="Kết quả tra cứu: " HorizontalAlignment="Left" Height="31" Margin="55,116,0,0" VerticalAlignment="Top" Width="136"/>
+
+    </Grid>
+</Window>

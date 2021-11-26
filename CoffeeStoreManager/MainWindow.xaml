@@ -11,7 +11,7 @@
         Title="MainWindow" Height="720" Width="1150"
         DataContext="{StaticResource MainVM}"
         x:Name="mainWindow">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -49,23 +49,35 @@
                     <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" >
-                    <ComboBox x:Name="cbbTypeofFood" 
+                    <!--<ComboBox x:Name="cbbTypeofFood" 
                           DisplayMemberPath="ten_loai_mon_an" 
                           ItemsSource="{Binding LoaiMonAn}" 
                           SelectedItem="{Binding SelectedLoaiMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          Margin="30,25,430,90">
-                    </ComboBox>
+                          Margin="55,27.5,480,87.5">
+                        
+                    </ComboBox> -->
                     <ComboBox x:Name="cbbNameFood" 
                           DisplayMemberPath="ten_mon_an" 
                           ItemsSource="{Binding MonAn}" 
                           SelectedItem="{Binding SelectedMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          Margin="30,90,430,25" >
+                          Margin="55,53,480,62.4" >
                     </ComboBox>
                     <Button Command="{Binding AddCommand}" 
-                        Content="Thêm" Margin="353,90,277,25.4"/>
-                    <xctk:IntegerUpDown Name="myUpDownControl" Margin="360,23,284,90.4"  Text="{Binding so_luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" />
+                        Content="Thêm" Margin="353,90,277,25.4">
+                        
+                    </Button>
+                    <xctk:IntegerUpDown Name="myUpDownControl" Margin="360,27.5,284,87.5"  Text="{Binding so_luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" />
                     <Button Command="{Binding DeleteCommand}" 
                         Content="Xóa" Margin="502,90,128,25.4"/>
+                    <!--<Label Content="Loại món ăn: " 
+                        HorizontalAlignment="Left" Height="37" Margin="58,1,0,0" 
+                        VerticalAlignment="Top" Width="134" FontSize="14"/>-->
+                    <Label Content="Tên món ăn: " 
+                        HorizontalAlignment="Left" Height="37" Margin="57,27,0,0" 
+                        VerticalAlignment="Top" Width="134" FontSize="14"/>
+                    <Label Content="Số lượng: " 
+                        HorizontalAlignment="Left" Height="37" Margin="360,0,0,0" 
+                        VerticalAlignment="Top" Width="134" FontSize="14"/>
                 </Grid>
                 <Grid Grid.Row="1" >
                     <ScrollViewer>
@@ -83,10 +95,25 @@
                 </Grid>
                 <Grid Grid.Row="2" Margin="1,0,0,0.4">
                     <Button Command="{Binding ChangeTableCommand}" 
-                        Content="Chuyển bàn" Margin="97,30,529,40.8"/>
+                            Content="Chuyển bàn" Margin="97,30,529,40.8"></Button>
                     <Button Command="{Binding CheckOutCommand}" 
-                        Content="Thanh toán" Margin="606,30,23,40.8"/>
-                    <ComboBox x:Name="cbbTableEmpty" DisplayMemberPath="emptytable" ItemsSource="{Binding EmptyTables}" SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="12,30,657,40.8" />
+                            Content="Thanh toán" Margin="609,45,20,24.8" />
+                    <ComboBox x:Name="cbbTableEmpty" 
+                              DisplayMemberPath="emptytable" 
+                              ItemsSource="{Binding EmptyTables}" 
+                              SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="12,30,657,40.8" />
+                    <Label Content="Tổng tiền: " 
+                           HorizontalAlignment="Left" Height="37" Margin="451,19,0,0" 
+                           VerticalAlignment="Top" Width="134"/>
+                    <Label Content="{Binding totalmoney}" 
+                           HorizontalAlignment="Left" Height="36" Margin="452,44,0,0" 
+                           VerticalAlignment="Top" Width="124"
+                           Background="#FFE5E5E5"
+                           BorderBrush="Black"/>
+                    <Label Content="Bàn trống: " 
+                        HorizontalAlignment="Left" Height="37" Margin="9,5,0,0" 
+                        VerticalAlignment="Top" Width="134" FontSize="14"/>
                 </Grid>
             </Grid>
         </Grid>

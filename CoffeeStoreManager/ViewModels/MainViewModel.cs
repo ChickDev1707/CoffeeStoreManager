@@ -2,12 +2,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
-using CoffeeStoreManager.Views.ManageFood;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System;
 using CoffeeStoreManager.Views;
+using CoffeeStoreManager.Views.Discount_Bill;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -37,6 +37,8 @@ namespace CoffeeStoreManager.ViewModels
                 OnPropertyChanged(nameof(SelectedLoaiMonAn));
             }
         }
+        /*private int _typefood;
+        public int typefood { get => _typefood; set { _typefood = value; OnPropertyChanged(nameof(typefood)); } }*/
         private ObservableCollection<MonAn> _MonAn;
         public ObservableCollection<MonAn> MonAn
         {
@@ -90,7 +92,9 @@ namespace CoffeeStoreManager.ViewModels
             }
         }
         private int _number;
-        public int number { get => _number; set { _number = value; OnPropertyChanged(nameof(_number)); } }
+        public int number { get => _number; set { _number = value; OnPropertyChanged(nameof(number)); } }
+        private decimal? _totalmoney;
+        public decimal? totalmoney { get => _totalmoney; set { _totalmoney = value; OnPropertyChanged(nameof(totalmoney)); } }
         private ObservableCollection<EmptyTable> _EmptyTables;
         public ObservableCollection<EmptyTable> EmptyTables
         {
@@ -98,7 +102,7 @@ namespace CoffeeStoreManager.ViewModels
             set
             {
                 _EmptyTables = value;
-                OnPropertyChanged(nameof(_EmptyTables));
+                OnPropertyChanged(nameof(EmptyTables));
             }
         }
         private EmptyTable _SelectedEmptyTable;
@@ -108,7 +112,7 @@ namespace CoffeeStoreManager.ViewModels
             set
             {
                 _SelectedEmptyTable = value;
-                OnPropertyChanged(nameof(_SelectedEmptyTable));
+                OnPropertyChanged(nameof(SelectedEmptyTable));
             }
         }
         public ICommand AddCommand { get; set; }
@@ -116,6 +120,7 @@ namespace CoffeeStoreManager.ViewModels
         public ICommand CheckOutCommand { get; set; }
         public ICommand ChooseTableCommand { get; set; }
         public ICommand ChangeTableCommand { get; set; }
+        public ICommand DiscountCommand { get; set; }
         void LoadFood()
         {
             ObservableCollection<MonAn> food = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns); ;
@@ -144,6 +149,7 @@ namespace CoffeeStoreManager.ViewModels
             Tables[number - 1].viewbilloftable.Add(viewbill);
             Tables[number - 1].billoftable.Add(billdetail);
             Tables[number - 1].status = true;
+            SumMoney();
         }
         void UpdateViewBill(int i, int so_luong)
         {
@@ -173,14 +179,26 @@ namespace CoffeeStoreManager.ViewModels
                 Tables[number - 1].viewbilloftable.Add(viewbill);
                 Tables[number - 1].billoftable.Add(billdetail);
             }
+            SumMoney();
         }
-        void LoadListTables(int number)
+        void LoadListBill(int number)
         {
             BillDetail.Clear();
+            totalmoney = 0;
             foreach (ViewBill item in Tables[number - 1].viewbilloftable)
             {
                 BillDetail.Add(item);
             }
+            SumMoney();
+        }
+        decimal? SumMoney()
+        {
+            totalmoney = 0;
+            foreach (ViewBill item in BillDetail)
+            {
+                totalmoney += item.thanh_tien;
+            }
+            return totalmoney;
         }
         int FindMonAn(int ma_mon_an)
         {
@@ -219,33 +237,32 @@ namespace CoffeeStoreManager.ViewModels
         {
             LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                    IsLoaded = true;
-                    if (p == null)
-                        return;
-                    p.Hide();
-                    LoginWindow loginWindow = new LoginWindow();
-                    loginWindow.ShowDialog();
+                IsLoaded = true;
+                if (p == null)
+                    return;
+                p.Hide();
+                LoginWindow loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
 
-                    if (loginWindow.DataContext == null)
-                        return;
-                    var loginVM = loginWindow.DataContext as LoginViewModel;
+                if (loginWindow.DataContext == null)
+                    return;
+                var loginVM = loginWindow.DataContext as LoginViewModel;
 
-                    if (loginVM.IsLogin)
-                    {
-                        AdminWindow adminWindow = new AdminWindow();
-                        adminWindow.Show();
-                        loginWindow.Hide();
-                    }
-                    else
-                    {
-                        p.Show();
-                        loginWindow.Close();
-                    }
+                if (loginVM.IsLogin)
+                {
+                    AdminWindow adminWindow = new AdminWindow();
+                    adminWindow.Show();
+                    loginWindow.Hide();
                 }
-            );
+                else
+                {
+                    p.Show();
+                    loginWindow.Close();
+                }
+            });
             DateTime? today = DateTime.Now;
             BillDetail = new ObservableCollection<ViewBill>();
-            LoaiMonAn = new ObservableCollection<LoaiMonAn>(DataProvider.Ins.DB.LoaiMonAns);
+            //LoaiMonAn = new ObservableCollection<LoaiMonAn>(DataProvider.Ins.DB.LoaiMonAns);
             MonAn = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns);
             Tables = new ObservableCollection<Table>()
             {
@@ -260,12 +277,13 @@ namespace CoffeeStoreManager.ViewModels
                 new Table() {tablenumber = 9 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()}
             };
             EmptyTables = new ObservableCollection<EmptyTable>();
+            totalmoney = 0;
             LoadEmptyTable();
 
             // Thêm món vào hóa đơn (chưa lưu vào database) 
             AddCommand = new RelayCommand<object>((p) =>
             {
-                if (SelectedLoaiMonAn == null || SelectedMonAn == null || so_luong == 0 || number == 0)
+                if (SelectedMonAn == null || so_luong == 0 || number == 0)
                     return false;
                 return true;
             }, (p) =>
@@ -331,6 +349,11 @@ namespace CoffeeStoreManager.ViewModels
                 Tables[number - 1].status = false;
                 number = 0;
                 LoadEmptyTable();
+                if (totalmoney >= 150000)
+                {
+                    DiscountWindow discountWindow = new DiscountWindow();
+                    discountWindow.ShowDialog();
+                }
             });
 
             // Chọn bàn
@@ -372,7 +395,7 @@ namespace CoffeeStoreManager.ViewModels
                 if (Tables[number - 1].status == false && p.Background == Brushes.White)
                 {
                     p.Background = Brushes.LightBlue;
-                    LoadListTables(number);
+                    LoadListBill(number);
                 }
                 else if (Tables[number - 1].status == false && p.Background == Brushes.LightBlue)
                 {
@@ -380,17 +403,19 @@ namespace CoffeeStoreManager.ViewModels
                     BillDetail.Clear();
                     number = 0;
                 }
-                else if (Tables[number - 1].status == true && (p.Background == Brushes.LightBlue || p.Background == Brushes.White)) 
+                else if (Tables[number - 1].status == true && (p.Background == Brushes.LightBlue || p.Background == Brushes.White))
                 {
                     p.Background = Brushes.Yellow;
-                    LoadListTables(number);
+                    LoadListBill(number);
                 }
-                else if(Tables[number - 1].status == false && p.Background == Brushes.Yellow)
+                else if (Tables[number - 1].status == false && p.Background == Brushes.Yellow)
                 {
                     p.Background = Brushes.White;
-                    LoadListTables(number);
+                    LoadListBill(number);
                     number = 0;
                 }
+                else
+                    LoadListBill(number);
                 LoadEmptyTable();
             });
 
