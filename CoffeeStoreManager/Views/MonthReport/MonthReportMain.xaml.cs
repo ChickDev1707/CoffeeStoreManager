@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.Statistic
+namespace CoffeeStoreManager.Views.MonthReport
 {
     /// <summary>
-    /// Interaction logic for StatisticChartWindow.xaml
+    /// Interaction logic for MonthReportMain.xaml
     /// </summary>
-    public partial class StatisticChartWindow : Window
+    public partial class MonthReportMain : Page
     {
-        public StatisticChartWindow()
+        public MonthReportMain()
         {
             InitializeComponent();
         }

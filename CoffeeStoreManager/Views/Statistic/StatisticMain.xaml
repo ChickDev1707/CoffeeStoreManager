@@ -21,17 +21,80 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
             <ComboBox Grid.Column="0" ItemsSource="{Binding DataComboboxMonth}" 
                   SelectedIndex="{Binding SelectedMonth}"
                   />
             <ComboBox Grid.Column="1" ItemsSource="{Binding DataComboboxYear}" 
-                  SelectedIndex="{Binding SelectedYear}"
+     SelectedValue="{Binding SelectedYear}"
                   />
-            <Button Grid.Column="2" Content="Xem biểu đồ tăng trưởng" Command="{Binding OpenStatisticChart}"></Button>
-            <Button Grid.Column="3" Content="Xuất file excel"></Button>
+            <Button Grid.Column="2" Content="Xem bảng thống kê" Command="{Binding LoadDataLv}"></Button>
+            <Button Grid.Column="3" Content="Xuất file excel" Command="{Binding ExportFileExcel}" CommandParameter="{Binding ElementName=dtg}"></Button>
         </Grid>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Bảng thống kê doanh thu">
 
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">BẢNG THỐNG KÊ DOANH THU CỦA QUÁN</Label>
+                        <DataGrid Height="Auto" Grid.Row="1" Name="dtg" Visibility="Hidden" ItemsSource="{Binding DataListView}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Thời gian" Binding="{Binding thoi_gian}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tiền thu được từ hóa đơn" Binding="{Binding tien_hoa_don}" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tiền nhập nguyên liệu"  Binding="{Binding tien_nguon_hang}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tổng" Binding="{Binding tong}" ></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ListView  Grid.Row="1" x:Name="ListViewStatistic"  ItemsSource="{Binding DataListView}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="100" Header="Thời gian" DisplayMemberBinding="{Binding thoi_gian}"></GridViewColumn>
+                                    <GridViewColumn Width="200" Header="Tiền thu được từ hóa đơn" DisplayMemberBinding="{Binding tien_hoa_don}"></GridViewColumn>
+                                    <GridViewColumn Width="200" Header="Tiền nhập nguyên liệu" DisplayMemberBinding="{Binding tien_nguon_hang}"></GridViewColumn>
+                                    <GridViewColumn Width="100" Header="Tổng" DisplayMemberBinding="{Binding tong}">
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="510"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Tổng tiền</TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding TotalFee}"></TextBlock>
+                        </Grid>
+                        <TextBlock Grid.Row="3" Text="{Binding TotalSalary}"></TextBlock>
+                    </Grid>
+                    <Image Stretch="Fill"  Visibility="{Binding CheckData}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="\Resources\Imgs\EmptyList.jpg"></Image>
+                </Grid>
+            </TabItem>
+            <TabItem Header=" Xem biểu đồ tăng trưởng trong năm" Margin="-2,-2,-2,2">
+                <chart:SfChart Visibility="{Binding CheckSelected}" Margin="10,30,0,30" Grid.Row="1" Width="774"  FontSize="20" Foreground="#888" Header="BIỂU ĐỒ DOANH THU" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                    <chart:SfChart.PrimaryAxis >
+                        <chart:CategoryAxis FontSize="12"></chart:CategoryAxis>
+                    </chart:SfChart.PrimaryAxis>
+                    <chart:SfChart.SecondaryAxis>
+                        <chart:NumericalAxis Header="Đơn vị(nghìn VNĐ)" FontSize="11"></chart:NumericalAxis>
+                    </chart:SfChart.SecondaryAxis>
+                    <chart:LineSeries
+                ItemsSource="{Binding DataLineChart}" 
+                    Interior="Black"
+                    XBindingPath="Month"
+                    YBindingPath="Value">
+                    </chart:LineSeries>
+                </chart:SfChart>
+            </TabItem>
+        </TabControl>
     </Grid>
+
+
 </Page>

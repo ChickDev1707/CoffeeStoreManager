@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c73ca50c356e4982906643965291d650" Name="Diagram1">
-        <EntityTypeShape EntityType="CoffeeManagerModel.CaLamPartTime" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.CT_HoaDon" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.CT_PhieuNhapHang" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.HoaDon" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.LoaiMonAn" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.LoaiNhanVien" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.MonAn" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.NhanVien" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuNhapHang" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuTinhLuong" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuUuDai" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.QuyDinh" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoffeeManagerModel.TaiKhoanAdmin" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__CaLamPart__ma_nh__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__Bill_Deta__ma_ho__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__Bill_Deta__ma_mo__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__MonAn__ma_loai_m__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__QuyDinh__san_pha__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="CoffeeManagerModel.FK__NhanVien__ma_loa__5165187F" ManuallyRouted="false" />
+      <Diagram DiagramId="8ba39232e27a40d3b2fdd7aec37bbe92" Name="Diagram1">
+        <EntityTypeShape EntityType="CoffeeManagerModel.CaLamPartTime" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.CT_HoaDon" Width="1.5" PointX="10" PointY="4.875" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.CT_PhieuNhapHang" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.HoaDon" Width="1.5" PointX="7.75" PointY="5" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.LoaiMonAn" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.LoaiNhanVien" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.MonAn" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.NhanVien" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuNhapHang" Width="1.5" PointX="7.75" PointY="1.125" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuTinhLuong" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.PhieuUuDai" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.QuyDinh" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.sysdiagram" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CoffeeManagerModel.TaiKhoanAdmin" Width="1.5" PointX="4.75" PointY="8.75" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__CaLamPart__ma_nh__14270015" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__CT_HoaDon__ma_ho__2D27B809" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__CT_PhieuN__ma_ph__4BAC3F29" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__MonAn__ma_loai_m__2C3393D0" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__NhanVien__ma_loa__0B91BA14" />
+        <AssociationConnector Association="CoffeeManagerModel.FK__QuyDinh__san_pha__151B244E" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

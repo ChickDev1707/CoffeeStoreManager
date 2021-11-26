@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using CoffeeStoreManager.ViewModels;
 using Syncfusion.UI.Xaml.Scheduler;
@@ -20,15 +20,15 @@ namespace CoffeeStoreManager.Models {
 
         public static PartTimeShift fromDbShift(CaLamPartTime dbShift)
         {
-            DateTime? start = dbShift.ngay_lam + dbShift.gio_bat_dau;
-            DateTime? end = dbShift.ngay_lam + dbShift.gio_ket_thuc;
+            DateTime start = (DateTime)(dbShift.ngay_lam + dbShift.gio_bat_dau);
+            DateTime end = (DateTime)(dbShift.ngay_lam + dbShift.gio_ket_thuc);
             return new PartTimeShift()
             {
                 Ma_ca_partTime = dbShift.ma_ca_partTime,
                 Ma_nhan_vien = dbShift.ma_nhan_vien,
-                Ten_nhan_vien = dbShift.NhanVien.ho_ten,
-                Bat_dau = (DateTime)start,
-                Ket_thuc = (DateTime)end
+                //Ten_nhan_vien = dbShift.NhanVien.ho_ten,
+                Bat_dau = start,
+                Ket_thuc = end
             };
         }
     }

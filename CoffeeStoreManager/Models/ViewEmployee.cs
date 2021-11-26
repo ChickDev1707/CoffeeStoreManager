@@ -12,10 +12,12 @@ namespace CoffeeStoreManager.Models
         public int ma_nv { get; set; }
         public string ho_ten { get; set; }
         public DateTime ngay_vao_lam { get; set; }
-       
-        public string Sngay_vao_lam { get; set; } //set format cho ngay vao lam de hien thi
-        public Nullable<decimal> tien_luong { get; set; }
-        public Nullable<decimal> luong_nhan { get; set; }
+
+        //set format cho ngay vao lam de hien thi
+        public string Sngay_vao_lam { get; set; }
+        public bool check_selected_item { get; set; }
+        public string tien_luong { get; set; }
+        public string luong_nhan { get; set; }
         public string so_ngay_nghi { get; set; }
         public string so_gio_lam { get; set; }
         public string sdt { get; set; }

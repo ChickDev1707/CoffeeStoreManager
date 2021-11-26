@@ -136,7 +136,7 @@ namespace CoffeeStoreManager.ViewModels
         }
         void AddViewBill(int number)
         {
-            var billdetail = new CT_HoaDon() { ma_mon_an = SelectedMonAn.ma_mon_an, gia_tien = SelectedMonAn.gia_tien, so_luong = so_luong, thanh_tien = SelectedMonAn.gia_tien * so_luong };
+            var billdetail = new CT_HoaDon() { ma_mon_an = SelectedMonAn.ma_mon_an, so_luong = so_luong, thanh_tien = SelectedMonAn.gia_tien * so_luong };
             var viewbill = new ViewBill()
             {
                 ma_mon_an = billdetail.ma_mon_an,
@@ -164,7 +164,6 @@ namespace CoffeeStoreManager.ViewModels
             var billdetail = new CT_HoaDon()
             {
                 ma_mon_an = BillDetail[i].ma_mon_an,
-                gia_tien = BillDetail[i].gia_tien,
                 so_luong = BillDetail[i].so_luong + so_luong,
                 thanh_tien = SelectedMonAn.gia_tien * (BillDetail[i].so_luong + so_luong)
             };
@@ -334,7 +333,7 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     tong_tien = tong_tien + BillDetail[i].thanh_tien;
                 }
-                var bill = new HoaDon() { ma_ban_an = number, tong_tien = tong_tien, ngay_xuat_hoa_don = today };
+                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today };
                 DataProvider.Ins.DB.HoaDons.Add(bill);
                 DataProvider.Ins.DB.SaveChanges();
                 for (int i = 0; i < Tables[number - 1].billoftable.Count(); i++)

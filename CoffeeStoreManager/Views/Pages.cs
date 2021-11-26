@@ -6,6 +6,7 @@ using CoffeeStoreManager.Views.ManageEmployee;
 using CoffeeStoreManager.Views.ManageFood;
 using CoffeeStoreManager.Views.MangeSource.Item;
 using CoffeeStoreManager.Views.PartTimeScheduler;
+using CoffeeStoreManager.Views.Regulation;
 using CoffeeStoreManager.Views.Statistic;
 
 namespace CoffeeStoreManager.Views
@@ -19,6 +20,8 @@ namespace CoffeeStoreManager.Views
         public static Page StatisticPage { get => pages[3]; }
         public static Page AccountPage { get => pages[4]; }
         public static Page PartTimeSchedulerPage { get => pages[5]; }
+        public static Page RegulationPage { get => pages[6]; }
+        public static Page MonthReportPage { get => pages[6]; }
         static Pages()
         {
             pages.Add(new ManageFoodMain());
@@ -27,6 +30,8 @@ namespace CoffeeStoreManager.Views
             pages.Add(new StatisticMain());
             pages.Add(new AccountMain());
             pages.Add(new PartTimeSchedulerMain());
+            pages.Add(new RegulationMain());
+            //pages.Add(new MonthReportMain());
         }
 
     }
