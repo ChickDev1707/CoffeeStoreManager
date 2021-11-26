@@ -2,15 +2,12 @@ using CoffeeStoreManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using CoffeeStoreManager.Views.Statistic;
 using System.Globalization;
 using System.Windows.Controls;
 using Microsoft.Office.Interop.Excel;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CoffeeStoreManager.ViewModels
 {

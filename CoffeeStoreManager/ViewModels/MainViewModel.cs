@@ -131,7 +131,7 @@ namespace CoffeeStoreManager.ViewModels
         }
         void AddViewBill(int number)
         {
-            var billdetail = new CT_HoaDon() { ma_mon_an = SelectedMonAn.ma_mon_an, gia_tien = SelectedMonAn.gia_tien, so_luong = so_luong, thanh_tien = SelectedMonAn.gia_tien * so_luong };
+            var billdetail = new CT_HoaDon() { ma_mon_an = SelectedMonAn.ma_mon_an, so_luong = so_luong, thanh_tien = SelectedMonAn.gia_tien * so_luong };
             var viewbill = new ViewBill()
             {
                 ma_mon_an = billdetail.ma_mon_an,
@@ -158,7 +158,6 @@ namespace CoffeeStoreManager.ViewModels
             var billdetail = new CT_HoaDon()
             {
                 ma_mon_an = BillDetail[i].ma_mon_an,
-                gia_tien = BillDetail[i].gia_tien,
                 so_luong = BillDetail[i].so_luong + so_luong,
                 thanh_tien = SelectedMonAn.gia_tien * (BillDetail[i].so_luong + so_luong)
             };

@@ -5,7 +5,6 @@ using CoffeeStoreManager.Views.Account;
 using CoffeeStoreManager.Views.ManageEmployee;
 using CoffeeStoreManager.Views.ManageFood;
 using CoffeeStoreManager.Views.MangeSource.Item;
-using CoffeeStoreManager.Views.MonthReport;
 using CoffeeStoreManager.Views.PartTimeScheduler;
 using CoffeeStoreManager.Views.Regulation;
 using CoffeeStoreManager.Views.Statistic;
@@ -32,7 +31,7 @@ namespace CoffeeStoreManager.Views
             pages.Add(new AccountMain());
             pages.Add(new PartTimeSchedulerMain());
             pages.Add(new RegulationMain());
-            pages.Add(new MonthReportMain());
+            //pages.Add(new MonthReportMain());
         }
 
     }
