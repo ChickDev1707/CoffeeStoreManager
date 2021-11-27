@@ -9,7 +9,6 @@
 
         FontSize="14"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource FoodVM}"
         mc:Ignorable="d"
         Title="AddFoodWindow" Height="500" Width="800">
     <Window.Resources>
@@ -41,7 +40,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox
-                                Text="{Binding AddFormFoodName}"
+                                Text="{Binding FoodName}"
                                 materialDesign:HintAssist.Hint="Tên món"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                             <ComboBox
@@ -53,21 +52,21 @@
                                 ItemsSource="{Binding FoodTypeList}" 
                                 DisplayMemberPath="ten_loai_mon_an"
                                 SelectedValuePath="ma_loai_mon_an"
-                                SelectedValue="{Binding AddFormFoodType}"
+                                SelectedValue="{Binding FoodType}"
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         </Grid>
                         <TextBox
-                            Text="{Binding AddFormFoodPrice}"
+                            Text="{Binding FoodPrice}"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Giá tiền"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            Text="{Binding AddFormFoodIngredient}"
+                            Text="{Binding FoodIngredient}"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Nguyên liệu"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            Text="{Binding AddFormFoodDescription}"
+                            Text="{Binding FoodDescription}"
                             Margin="0 0 0 10"
                             Height="100"
                             TextWrapping="Wrap"

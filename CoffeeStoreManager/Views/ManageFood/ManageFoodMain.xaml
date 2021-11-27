@@ -77,7 +77,7 @@
                                 <GridViewColumn Header="STT" DisplayMemberBinding="{Binding Path=STT}"></GridViewColumn>
                                 <GridViewColumn Header="Ten mon" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
                                 <GridViewColumn Header="Gia" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
-                                <GridViewColumn Header="Loai mon an" DisplayMemberBinding="{Binding Path=loai_mon_an}"></GridViewColumn>
+                                <GridViewColumn Header="Loai mon an" DisplayMemberBinding="{Binding Path=LoaiMonAn.ten_loai_mon_an}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -107,7 +107,7 @@
                             </Border>
                             <TextBlock FontWeight="DemiBold"><materialDesign:PackIcon Kind="InfoOutline"/> Thêm chi tiết</TextBlock>
                             <TextBlock Text="{Binding Path=SelectedFood.ten_mon_an, StringFormat='Tên món: {0}'}" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding SelectedFood.loai_mon_an, StringFormat='Loại món: {0}'}"/>
+                            <TextBlock Text="{Binding SelectedFood.LoaiMonAn.ten_loai_mon_an, StringFormat='Loại món: {0}'}"/>
                             <TextBlock Text="{Binding SelectedFood.gia_tien, StringFormat='Giá tiền: {0}'}" FontSize="18" Foreground="red"/>
                             <TextBlock Text="{Binding SelectedFood.nguyen_lieu, StringFormat='Nguyên liệu: {0}'}"/>
                             <TextBlock Text="{Binding SelectedFood.mo_ta, StringFormat='Mô tả: {0}'}"/>

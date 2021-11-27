@@ -173,7 +173,6 @@
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewFood.cs" />
     <Compile Include="Models\ViewSource.cs" />
     <Compile Include="Models\ViewBill.cs" />
     <Compile Include="Models\LineChartModel.cs" />
@@ -184,6 +183,7 @@
     <Compile Include="Models\MonthReport.cs" />
     <Compile Include="Resources\Utils\ImageConverterUtil.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
+    <Compile Include="ViewModels\AddFoodViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -201,7 +201,7 @@
     <Compile Include="ViewModels\RegulationViewModel.cs" />
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MonthReportViewModel.cs" />
-
+    <Compile Include="ViewModels\UpdateFoodViewModel.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>

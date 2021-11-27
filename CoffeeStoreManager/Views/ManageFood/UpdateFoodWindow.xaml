@@ -8,9 +8,9 @@
         FontSize="14"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource FoodVM}"
         mc:Ignorable="d"
         Title="UpdateFoodWindow" Height="500" Width="800">
+    
     <Border Padding="20">
         <StackPanel>
             <TextBlock Text="Cập nhật món ăn" Style="{StaticResource PageTitle}"/>
@@ -22,11 +22,11 @@
                 <StackPanel Grid.Column="0">
                     <Border Style="{StaticResource MainBorder}">
                         <StackPanel>
-                            <Image Source="{Binding UpdateFoodImagePath}" Width="200" Height="240"/>
+                            <Image Source="{Binding FoodImage}" Width="200" Height="240"/>
                         </StackPanel>
                     </Border>
                     <Separator Height="15" Background="Transparent"/>
-                    <Button Command="{Binding UpdateFormUpLoadImage}" Content="Thêm ảnh"/>
+                    <Button Command="{Binding UpLoadFoodImage}" Content="Thêm ảnh"/>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
                     <StackPanel>
@@ -37,7 +37,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox
-                                Text="{Binding SelectedFood.ten_mon_an}"
+                                Text="{Binding FoodName}"
                                 materialDesign:HintAssist.Hint="Tên món"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                             <ComboBox
@@ -49,21 +49,21 @@
                                 ItemsSource="{Binding FoodTypeList}" 
                                 DisplayMemberPath="ten_loai_mon_an"
                                 SelectedValuePath="ma_loai_mon_an"
-                                SelectedValue="{Binding SelectedFood.ma_loai_mon_an}"
+                                SelectedValue="{Binding FoodType}"
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         </Grid>
                         <TextBox
-                            Text="{Binding SelectedFood.gia_tien}"
+                            Text="{Binding FoodPrice}"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Giá tiền"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            Text="{Binding SelectedFood.nguyen_lieu}"
+                            Text="{Binding FoodIngredient}"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Nguyên liệu"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <TextBox
-                            Text="{Binding SelectedFood.mo_ta}"
+                            Text="{Binding FoodDescription}"
                             Margin="0 0 0 10"
                             Height="100"
                             TextWrapping="Wrap"

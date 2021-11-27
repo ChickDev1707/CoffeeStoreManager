@@ -5,6 +5,8 @@
     <ViewModel:MainViewModel x:Key="MainVM"></ViewModel:MainViewModel>
     <ViewModel:LoginViewModel x:Key="LoginVM"></ViewModel:LoginViewModel>
     <ViewModel:FoodViewModel x:Key="FoodVM"></ViewModel:FoodViewModel>
+    <ViewModel:AddFoodViewModel x:Key="AddFoodVM"></ViewModel:AddFoodViewModel>
+    <ViewModel:UpdateFoodViewModel x:Key="UpdateFoodVM"></ViewModel:UpdateFoodViewModel>
     <ViewModel:FoodTypeViewModel x:Key="FoodTypeVM"></ViewModel:FoodTypeViewModel>
     <ViewModel:AddSourceViewModel x:Key="AddSourceVM"></ViewModel:AddSourceViewModel>
     <ViewModel:AccountViewModel x:Key="AccountVM"></ViewModel:AccountViewModel>

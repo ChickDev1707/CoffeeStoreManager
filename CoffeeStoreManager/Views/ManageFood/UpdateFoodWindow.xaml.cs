@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using CoffeeStoreManager.ViewModels;
 
 namespace CoffeeStoreManager.Views.ManageFood
 {
@@ -19,9 +9,12 @@ namespace CoffeeStoreManager.Views.ManageFood
     /// </summary>
     public partial class UpdateFoodWindow : Window
     {
-        public UpdateFoodWindow()
+        public UpdateFoodWindow(FoodViewModel foodVm)
         {
             InitializeComponent();
+            UpdateFoodViewModel updateFoodVm = new UpdateFoodViewModel(foodVm);
+            this.DataContext = updateFoodVm;
+
         }
     }
 }
