@@ -15,9 +15,9 @@ namespace CoffeeStoreManager.Models
     public partial class MonAn
     {
         public int ma_mon_an { get; set; }
+        public string ten_mon_an { get; set; }
         public Nullable<decimal> gia_tien { get; set; }
         public Nullable<int> ma_loai_mon_an { get; set; }
-        public string ten_mon_an { get; set; }
         public string nguyen_lieu { get; set; }
         public string mo_ta { get; set; }
         public byte[] anh { get; set; }

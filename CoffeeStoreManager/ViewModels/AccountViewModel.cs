@@ -38,7 +38,6 @@ namespace CoffeeStoreManager.ViewModels
         public ICommand OpenAccountChange { get; set; }
         public ICommand SaveAccountCommand { get; set; }
         public ICommand SavePictureCommand { get; set; }
-        public ICommand OpenPasswordChange { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand NewPasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
@@ -61,7 +60,6 @@ namespace CoffeeStoreManager.ViewModels
             OpenAccountChange = new RelayCommand<object>((p) => { return true; }, (p) => { openAccountChangeWindow(p); });
             SaveAccountCommand = new RelayCommand<object>((p) => { return true; }, (p) => { SaveAccount(p); });
             SavePictureCommand = new RelayCommand<object>((p) => { return true; }, (p) => { SavePicture(p); });
-            OpenPasswordChange = new RelayCommand<object>((p) => { return true; }, (p) => { openPasswordChangeWindow(p); });
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
             NewPasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { NewPassword = p.Password; });
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
@@ -108,11 +106,6 @@ namespace CoffeeStoreManager.ViewModels
                 imageChange.image_source = Source;
                 DataProvider.Ins.DB.SaveChanges();
             }
-        }
-        void openPasswordChangeWindow(object p)
-        {
-            var window = new PasswordChangeWindow();
-            window.ShowDialog();
         }
         void SavePassword(object p)
         {

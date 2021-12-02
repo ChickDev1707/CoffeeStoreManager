@@ -37,9 +37,16 @@ namespace CoffeeStoreManager.Views
                 case "NavStatisticFoodType":
                     Main.Content = Pages.StatisticFoodTypePage;
                     break;
+                case "NavRule":
+                    Main.Content = Pages.RegulationPage;
+                    break;
             }
         }
 
+        private void AccountNavBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = Pages.AccountPage;
+        }
     }
     
 }

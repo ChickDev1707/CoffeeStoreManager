@@ -23,6 +23,7 @@ namespace CoffeeStoreManager.Views.Regulation
         public RegulationMain()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
         }
     }
 }

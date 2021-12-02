@@ -464,8 +464,8 @@ public EmployeeViewModel()
 
                     CaLamPartTime calam = DataProvider.Ins.DB.CaLamPartTimes.
                         Where(t => t.ma_nhan_vien == manv &&
-                                   now.Year == t.ngay_lam.Year &&
-                                    now.Month == t.ngay_lam.Month).FirstOrDefault();
+                                   now.Year == t.ngay_lam.Value.Year &&
+                                    now.Month == t.ngay_lam.Value.Month).FirstOrDefault();
                     if (calam != null)
                     {
                         viewE.so_gio_lam = calam.so_gio_lam.ToString();
