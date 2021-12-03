@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         
         mc:Ignorable="d"
-        Title="Chỉnh sửa trang cá nhân" Height="550" Width="800"
+        Title="Chỉnh sửa trang cá nhân" Height="510" Width="800"
         DataContext="{StaticResource AccountVM}"
         x:Name="accountChangeWindow" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -35,7 +35,7 @@
                     </StackPanel>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
-                    <StackPanel Margin="10 0 40 0">
+                    <StackPanel Margin="10 0 20 0">
                         <StackPanel.Resources>
                             <Style TargetType="DockPanel">
                                 <Setter Property="Margin" Value="0 10"/>
@@ -74,8 +74,8 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 30 40 0">
-                <Button Style="{StaticResource PrimaryBtn}" Margin="20 0 0 0" Content="Thoát">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 30 20 0">
+                <Button Style="{StaticResource PrimaryBtn}" Margin="0 0 20 0" Content="Thoát">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
