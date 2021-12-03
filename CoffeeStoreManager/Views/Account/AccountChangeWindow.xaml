@@ -3,73 +3,100 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CoffeeStoreManager.Views.Account" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:CoffeeStoreManager.Views.Account" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="White"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        
         mc:Ignorable="d"
         Title="Chỉnh sửa trang cá nhân" Height="550" Width="800"
         DataContext="{StaticResource AccountVM}"
         x:Name="accountChangeWindow" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Window.Resources>
+    <Border Padding="20">
+        <StackPanel>
+            <TextBlock Text="Chỉnh sửa thông tin cá nhân" Style="{StaticResource PageTitle}"/>
 
-    <StackPanel>
-        <StackPanel Height="200">
-
-            <DockPanel Height="180" Width="180" Margin="0 20 0 20">
-               
-                    <Button
-                    Style="{StaticResource MaterialDesignFloatingActionAccentButton}" 
-                    BorderBrush="Black" Width="180" Height="180" Background="{x:Null}">
-                        <Image Source="{Binding Source}" Stretch="UniformToFill"></Image>
-
-                    </Button>
-                    
-                
-            </DockPanel>
-        </StackPanel>
-
-        <TextBox Text="{Binding Name}" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"/>
-        <StackPanel Margin="200 20" Height="Auto" Width="Auto">
-            <DockPanel Margin="0 10" >
-                <materialDesign:PackIcon Kind="Home" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                <TextBox x:Name="Addresstxt"  FontSize="25" Width="Auto"
-                           Text="{Binding Address}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="0 10" >
-                <materialDesign:PackIcon Kind="Email" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                <TextBox x:Name="Gmailtxt"  FontSize="25" Width="Auto"
-                           Text="{Binding Gmail}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="0 10">
-                <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                <TextBox x:Name="Phonetxb"  FontSize="25" Width="Auto"
-                           Text="{Binding Phone}"></TextBox>
-            </DockPanel>
-        </StackPanel>
-        <Button 
-            Style="{StaticResource MaterialDesignRaisedLightButton}"
-            Width="200" Margin="0 10"
-            Command="{Binding SaveAccountCommand}"
-            CommandParameter="{Binding ElementName=accountChangeWindow}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
-                    <i1:CallMethodAction MethodName="Close"
-                                                TargetObject="{Binding RelativeSource={RelativeSource
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <StackPanel Grid.Column="0">
+                        <Border Style="{StaticResource MainBorder}">
+                            <StackPanel>
+                                <Image Source="{Binding Source}" Width="200" Height="240"/>
+                            </StackPanel>
+                        </Border>
+                        <Separator Height="15" Background="Transparent"/>
+                        <Button Command="{Binding UploadFoodImage}" Content="Thêm ảnh"/>
+                    </StackPanel>
+                </StackPanel>
+                <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
+                    <StackPanel Margin="10 0 40 0">
+                        <StackPanel.Resources>
+                            <Style TargetType="DockPanel">
+                                <Setter Property="Margin" Value="0 10"/>
+                                <Style.Resources>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Width" Value="30"/>
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="Margin" Value="0 0 10 0"/>
+                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkBrush}"/>
+                                  
+                                    </Style>
+                                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock Text="Thông tin" Margin="0 0 0 15" FontSize="18" FontWeight="DemiBold"/>
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="User" />
+                            <TextBox Text="{Binding Name}" materialDesign:HintAssist.Hint="Tên"></TextBox>
+                        </DockPanel>
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Email" />
+                            <TextBox Text="{Binding Gmail}" materialDesign:HintAssist.Hint="Email"></TextBox>
+                        </DockPanel>
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Phone" />
+                            <TextBox Text="{Binding Phone}" materialDesign:HintAssist.Hint="Số điện thoại"></TextBox>
+                        </DockPanel>
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="AddressMarker" />
+                            <TextBox Text="{Binding Address}" materialDesign:HintAssist.Hint="Địa chỉ"></TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 30 40 0">
+                <Button Style="{StaticResource PrimaryBtn}" Margin="20 0 0 0" Content="Thoát">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
                                                   Mode=FindAncestor,
                                                   AncestorType=Window}}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <DockPanel>
-                <materialDesign:PackIcon Kind="ContentSave" Margin="0 0 10 0"/>
-                <TextBlock Text="Lưu thay đổi"></TextBlock>
-            </DockPanel>
-        </Button>
-        
-
-    </StackPanel>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding SaveAccountCommand}" Content="Lưu thông tin">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
 </Window>
+ 

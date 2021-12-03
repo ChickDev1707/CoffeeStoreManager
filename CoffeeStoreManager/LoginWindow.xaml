@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Border Padding="35">
-                <Image Source="./Resources/Assets/Images/Coffee-shop-bro.png" />
+                <Image Source="./Resources/Assets/Images/Coffee-shop.png" />
             </Border>
         </Grid>
         <Grid Grid.Column="1">

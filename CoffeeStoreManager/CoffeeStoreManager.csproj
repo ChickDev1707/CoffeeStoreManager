@@ -467,9 +467,7 @@
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
     <Resource Include="Resources\Assets\Images\logout.png" />
-    <Resource Include="Resources\Assets\Images\information.png" />
     <Resource Include="Resources\Assets\Images\info.png" />
-    <Resource Include="Resources\Assets\Images\Coffee-shop-bro.png" />
     <Resource Include="Resources\Assets\Images\Coffee-shop.png" />
     <Resource Include="Resources\Assets\Images\wallpapers-image.png" />
     <Resource Include="Resources\Assets\Images\down-angle.png" />
