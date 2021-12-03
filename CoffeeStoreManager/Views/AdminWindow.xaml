@@ -43,12 +43,12 @@
                 <syncfusion:NavigationItem.Icon >
                     <Image Source="../Resources/Assets/Images/businessman.png"/>
                 </syncfusion:NavigationItem.Icon>
-                <syncfusion:NavigationItem Header="Danh sách">
+                <syncfusion:NavigationItem Header="Danh sách" x:Name="NavEmployeeList">
                     <syncfusion:NavigationItem.Icon >
                         <Image Source="../Resources/Assets/Images/list.png"/>
                     </syncfusion:NavigationItem.Icon>
                 </syncfusion:NavigationItem>
-                <syncfusion:NavigationItem Header="Loại nhân viên">
+                <syncfusion:NavigationItem Header="Loại nhân viên" x:Name="NavEmployeeType">
                     <syncfusion:NavigationItem.Icon >
                         <Image Source="../Resources/Assets/Images/category.png"/>
                     </syncfusion:NavigationItem.Icon>
@@ -73,7 +73,7 @@
                 <syncfusion:NavigationItem.Icon >
                     <Image Source="../Resources/Assets/Images/stats.png"/>
                 </syncfusion:NavigationItem.Icon>
-                <syncfusion:NavigationItem Header="Doanh thu">
+                <syncfusion:NavigationItem Header="Doanh thu" x:Name="NavStatisticRevenue">
                     <syncfusion:NavigationItem.Icon >
                         <Image Source="../Resources/Assets/Images/growth.png"/>
                     </syncfusion:NavigationItem.Icon>

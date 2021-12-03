@@ -7,43 +7,82 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource ManageEmployeeVM}"
-        Title="AddEmployeeWindow" Height="500" Width="800">
+        Name="AddWindow"
+        Title="AddEmployeeWindow" Height="370" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Window.Resources>
     <Grid>
         <StackPanel>
             <StackPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Margin" Value="0 0 0 10"/>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="Margin" Value="20 0 0 0"/>
+                    <Setter Property="Padding" Value="0 0 0 5"/>
                 </Style>
                 <Style TargetType="Button">
                     <Setter Property="Padding" Value="10 5"/>
                 </Style>
-                <Style TargetType="TextBox">
-                    <Setter Property="Padding" Value="10"/>
+                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                    <Setter Property="FontSize" Value="14"></Setter>
+                    <Setter Property="Margin" Value="10 0 20 0"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <TextBlock Text="Ho va ten:"/>
-            <TextBox Text="{Binding AddEmployeeHovaten}"/>
-            <TextBlock Text="So dien thoai"/>
-            <TextBox Text="{Binding AddEmployeeSdt}"/>
-            <TextBlock Text="Dia chi: "/>
-            <TextBox Text="{Binding AddEmployeeDiachi,UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Text="Ngay sinh (month / day / year ) "/>
-            <DatePicker  SelectedDate="{Binding AddEmployeeNgaySinh}"/>
-            <TextBlock Text="Ngay vao lam (month / day / year ) "/>
-            <DatePicker  SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
-            <TextBlock Text="Loai nhan vien "/>
-            <ComboBox  
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Họ và tên"/>
+                <TextBox Grid.Column="1" Text="{Binding AddEmployeeHovaten}"/>
+            </Grid>
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Số điện thoại"/>
+                <TextBox  Grid.Column="1" Text="{Binding AddEmployeeSdt}"/>
+            </Grid>
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Địa chỉ"/>
+                <TextBox Grid.Column="1" Text="{Binding AddEmployeeDiachi,UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="20 0 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Margin="0 0 0 0" Grid.Row="0" Content="Ngày sinh( tháng/ngày/năm )"/>
+                    <DatePicker Grid.Row="1" SelectedDate="{Binding AddEmployeeNgaySinh}"/>
+                </Grid>
+                <Grid Grid.Column="1" Margin="10 0 20 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Margin="0 0 0 0" Grid.Row="0" Content="Ngày vào làm( tháng/ngày/năm )"/>
+                    <DatePicker Grid.Row="1" SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
+                </Grid>
+            </Grid>
+            <Label Margin="20 10 0 0" FontSize="18" Content="Loại nhân viên"/>
+            <ComboBox  Margin="20 0 20 20"
                 ItemsSource="{Binding EmployeeTypeList}" 
                     DisplayMemberPath="ten_loai_nhan_vien"
                     SelectedValuePath="ma_loai_nhan_vien"
                     SelectedValue="{Binding AddEmployeeMaloainhanvien}">
-
             </ComboBox>
-            <Button Content="Add" Command="{Binding AddEmployee}"
-                     CommandParameter="{Binding}">
-               
+            <Button Margin="20 0 20 0" Style="{StaticResource PrimaryBtn}" Content="Thêm" Command="{Binding AddEmployee}"
+                     CommandParameter="{Binding ElementName=AddWindow}">
             </Button>
         </StackPanel>
     </Grid>

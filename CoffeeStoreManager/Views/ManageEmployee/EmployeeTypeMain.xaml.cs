@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoffeeStoreManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CoffeeStoreManager.Views.ManageEmployee.Controls
+namespace CoffeeStoreManager.Views.ManageEmployee
 {
     /// <summary>
-    /// Interaction logic for AddEmployeeType.xaml
+    /// Interaction logic for EmployeeTypeMain.xaml
     /// </summary>
-    public partial class AddEmployeeType : UserControl
+    public partial class EmployeeTypeMain : Page
     {
-        public AddEmployeeType()
+        public EmployeeTypeMain()
         {
             InitializeComponent();
         }

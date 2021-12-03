@@ -28,11 +28,20 @@ namespace CoffeeStoreManager.Views
                 case "NavFoodType":
                     Main.Content = Pages.FoodTypePage;
                     break;
+                case "NavEmployeeList":
+                    Main.Content = Pages.EmployeePage;
+                    break;
+                case "NavEmployeeType":
+                    Main.Content = Pages.EmployeeTypePage;
+                    break;
                 case "NavPartTimeScheduler":
                     Main.Content = Pages.PartTimeSchedulerPage;
                     break;
                 case "NavSource":
                     Main.Content = Pages.SourcePage;
+                    break;
+                case "NavStatisticRevenue":
+                    Main.Content = Pages.StatisticRevenuePage;
                     break;
                 case "NavStatisticFoodType":
                     Main.Content = Pages.StatisticFoodTypePage;

@@ -9,49 +9,75 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageEmployeeMain"
+     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{StaticResource ManageEmployeeVM}"
       >
-
-    <Grid>
-        <TabControl >
-            <TabItem Header="nhan vien" IsSelected="{Binding IsSelectedTab}">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Margin="0 15" Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Padding" Value="15 5"/>
-                                <Setter Property="Margin" Value="0 0 10 0"/>
-                            </Style>
-                        </StackPanel.Resources>
-                        <TextBox Name="txb" Width="300" Margin="0 4 15 4">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="KeyUp">
-                                    <i:InvokeCommandAction Command="{Binding Find}" CommandParameter="{Binding ElementName=txb}">
-
-                                    </i:InvokeCommandAction>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBox>
-                        <Button Command="{Binding OpenAddEmployee}" Content="Add"/>
-                        <Button Command="{Binding OpenUpdateEmployee}" Content="Update"/>
-                        <Button Command="{Binding DeleteEmployee}" Content="Delete"/>
-                        <Button Command="{Binding OpenSalaryWindow}" Content="Salary"/>
-                        <Button x:Name="k" Command="{Binding IncAbsentDay}" CommandParameter="{Binding ElementName=k k}" Content="++"/>
-                        <Button Command="{Binding DecAbsentDay}" Content="--" RenderTransformOrigin="4.619,0.517"/>
-
-                    </StackPanel>
-
-                    <ListView  SelectionMode="Multiple"   Name="lv" Grid.Row="1" ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedNhanVien}" >
-
+    <Page.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Page.Resources>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách nhân viên"/>
+        <Grid>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="0 15" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Padding" Value="15 5"/>
+                            <Setter Property="Margin" Value="0 0 10 0"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBox Name="txb" Width="360" Margin="0 4 15 4"
+                                materialDesign:HintAssist.Hint="Tìm kiếm"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                         <i:Interaction.Triggers>
-                            <!-- Thay doi su xuat hien cua checkbox-->
+                            <i:EventTrigger EventName="KeyUp">
+                                <i:InvokeCommandAction Command="{Binding Find}" CommandParameter="{Binding ElementName=txb}">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
 
-                            <!--<i:EventTrigger EventName="MouseDoubleClick" >
+                    <!--button-->
+                    <!--#region -->
+                    <Button Command="{Binding OpenAddEmployee}" Style="{StaticResource IconTextBtn}">
+
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="Add" />
+                            <TextBlock Text="Thêm"/>
+                        </DockPanel>
+                    </Button>
+                    <Button  Command="{Binding OpenUpdateEmployee}" Margin="10 0 0 0" Style="{StaticResource IconTextBtn}">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="SquareEditOutline" />
+                            <TextBlock Text="Sửa"/>
+                        </DockPanel>
+                    </Button>
+                    <Button Command="{Binding DeleteEmployee}" Margin="20 0 0 0" Style="{StaticResource IconTextBtn}">
+
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="TrashCanOutline" />
+                            <TextBlock Text="Xóa"/>
+                        </DockPanel>
+                    </Button>
+                    <Button Style="{StaticResource PrimaryBtn}" Command="{Binding OpenSalaryWindow}" Margin="20 0 0 0" Content="Tính lương"/>
+                    <Button Style="{StaticResource PrimaryBtn}" ToolTip="Tăng số ngày nghỉ" x:Name="k" Command="{Binding IncAbsentDay}" Margin="20 0 0 0" CommandParameter="{Binding ElementName=k k}" Content="++"/>
+                    <Button Style="{StaticResource PrimaryBtn}" ToolTip="Giảm số ngày nghỉ" Command="{Binding DecAbsentDay}" Content="--" Margin="20 0 0 0" RenderTransformOrigin="4.619,0.517"/>
+                    <!--#endregion-->
+                </StackPanel>
+
+                <Border Style="{StaticResource MainBorder}" Grid.Row="1" Margin="0 20 0 0">
+                    
+                <ListView  FontSize="14" SelectionMode="Multiple" Name="lv"  ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedNhanVien}" >
+
+                    <i:Interaction.Triggers>
+                        <!-- Thay doi su xuat hien cua checkbox-->
+
+                        <!--<i:EventTrigger EventName="MouseDoubleClick" >
                                 <i:InvokeCommandAction 
                                         Command="{Binding  CheckListItem}"
                                         CommandParameter="{Binding ElementName=lv, Path = SelectedItem}"/>
@@ -59,22 +85,27 @@
 
 
 
-                            <i:EventTrigger EventName="SelectionChanged" >
-                                <i:InvokeCommandAction 
+                        <i:EventTrigger EventName="SelectionChanged" >
+                            <i:InvokeCommandAction 
                                         Command="{Binding CheckItem}" 
                                     CommandParameter="{Binding ElementName=lv,Mode=OneWay}"
                                     >
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="{Binding WidthCheckCol}">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <CheckBox x:Name="cb"  IsChecked="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListViewItem},Path=IsSelected}" >
-                                                    <!--<i:Interaction.Triggers>
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="{Binding WidthCheckCol}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <CheckBox x:Name="cb" Visibility="Hidden" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListViewItem},Path=IsSelected}" >
+                                                <!--<i:Interaction.Triggers>
                                                         <i:EventTrigger  EventName ="MouseDoubleClick" >
                                                             <i:ChangePropertyAction  
                                                                     PropertyName="IsChecked" Value=" False"
@@ -82,42 +113,37 @@
                                                             </i:ChangePropertyAction>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>-->
-                                                </CheckBox>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                    <Grid>
-                                        <CheckBox Visibility="Hidden">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="SelectionChanged" >
-                                                    <i:InvokeCommandAction 
+                                            </CheckBox>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                                <Grid>
+                                    <CheckBox Visibility="Hidden">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged" >
+                                                <i:InvokeCommandAction 
                                                             Command="{Binding CheckItem}" 
                                                             CommandParameter= "{Binding ElementName =lv,Mode=OneWay}"
                                                             >
-                                                    </i:InvokeCommandAction>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </CheckBox>
-                                    </Grid>
-                                </GridViewColumn>
-                                <GridViewColumn  Header="STT" DisplayMemberBinding="{Binding STT}">
-                                </GridViewColumn>
-                                <GridViewColumn Header="Ho va ten" DisplayMemberBinding="{Binding ho_ten}"/>
-                                <GridViewColumn Header="SDT" DisplayMemberBinding="{Binding sdt}"/>
-                                <GridViewColumn Header="Dia chi" DisplayMemberBinding="{Binding dia_chi}"/>
-                                <GridViewColumn Header="So ngay nghi" DisplayMemberBinding="{Binding so_ngay_nghi}"/>
-                                <GridViewColumn Header="Loai nhan vien" DisplayMemberBinding="{Binding loai_nhan_vien}"/>
-                                <GridViewColumn Header="Tien luong" DisplayMemberBinding="{Binding tien_luong}"/>
+                                                </i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </CheckBox>
+                                </Grid>
+                            </GridViewColumn>
+                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding ho_ten}"/>
+                                <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding sdt}"/>
+                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding dia_chi}"/>
+                                <GridViewColumn Header="Số ngày nghỉ" DisplayMemberBinding="{Binding so_ngay_nghi}"/>
+                                <GridViewColumn Header="Loại nhân viên" DisplayMemberBinding="{Binding loai_nhan_vien}"/>
+                                <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding tien_luong}"/>
                             </GridView>
                         </ListView.View>
-                    </ListView>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Loai nhan vien">
-                <ManageEmployeeUC:AddEmployeeType/>
-            </TabItem>
-        </TabControl>
-    </Grid>
-
+                </ListView>
+                </Border>
+            </Grid>
+        </Grid>
+    </DockPanel>
 
 </Page>
