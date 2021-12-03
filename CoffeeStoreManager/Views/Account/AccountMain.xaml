@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:CoffeeStoreManager.Views.Account"
+      xmlns:local="clr-namespace:CoffeeStoreManager.Views.Account" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
      TextElement.FontSize="13"
@@ -13,69 +13,164 @@
      Background="White"
      FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="AccountMain"
       
       DataContext="{StaticResource AccountVM}">
 
+    <!--<Page.Resources>
+        <ResourceDictionary Source="../../Style/Button.xaml"/>
+    </Page.Resources>-->
+    <DockPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="350"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Source="/CoffeeStoreManager;component/Resources/Assets/Images/wallpapers-image.png" Stretch="Fill" Height="250" VerticalAlignment="Top"/>
+            <Grid Grid.Row="0" >
 
-    <StackPanel>
-        <StackPanel Height="200">
-
-            <DockPanel Height="180" Width="180" Margin="0 20 0 20">
-                <Grid>
-                    <Button
+                <DockPanel Height="220" Width="220" Margin="100 0 15 0" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Grid>
+                        <Button
                     Style="{StaticResource MaterialDesignFloatingActionAccentButton}" 
-                    BorderBrush="Black" Width="180" Height="180" Background="{x:Null}">
-                        <Image Source="{Binding Source}" Stretch="UniformToFill"></Image>
+                    BorderBrush="Black" Width="150" Height="150" Background="{x:Null}">
+                            <Image Source="{Binding Source}" Stretch="UniformToFill"></Image>
 
-                    </Button>
-                    <Button x:Name="PictureChangeBtn"
-                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        </Button>
+                        <Button x:Name="PictureChangeBtn"
+                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 10 30 30"
                      Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                      Command="{Binding SavePictureCommand}">
-                        <materialDesign:PackIcon Kind="Camera" Height="24" Width="24"/>
-                    </Button>
-                </Grid>
-            </DockPanel>
-        </StackPanel>
-
-        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF9500FF" Margin="0 5"/>
-        <StackPanel Margin="200 20" Height="Auto" Width="Auto">
-            <DockPanel Margin="0 10" >
-                <materialDesign:PackIcon Kind="Home" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                <TextBlock x:Name="Addresstxb"  FontSize="25" Width="Auto"
-                           Text="{Binding Address}"></TextBlock>
-            </DockPanel>
-            <DockPanel Margin="0 10" >
-                <materialDesign:PackIcon Kind="Email" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                <TextBlock x:Name="Gmailtxb"  FontSize="25" Width="Auto"
-                           Text="{Binding Gmail}"></TextBlock>
-            </DockPanel>
-            <DockPanel Margin="0 10">
-                <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                <TextBlock x:Name="Phonetxb"  FontSize="25" Width="Auto"
-                           Text="{Binding Phone}"></TextBlock>
-            </DockPanel>
-        </StackPanel>
-        <Button x:Name="AccountChangeBtn"
+                            <materialDesign:PackIcon Kind="Camera" Height="24" Width="24"/>
+                        </Button>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                   Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="#FF9500FF"></TextBlock>
+                    </Grid>
+                </DockPanel>
+                <Button x:Name="AccountChangeBtn" VerticalAlignment="Bottom" HorizontalAlignment="Right"
             Style="{StaticResource MaterialDesignRaisedLightButton}"
-            Width="200" Margin="0 10"
+            Width="200" Margin="50 0 25 50"
             Command="{Binding OpenAccountChange}">
-            <DockPanel>
-                <materialDesign:PackIcon Kind="AccountEdit" />
-                <TextBlock Text="Chỉnh sửa trang cá nhân"></TextBlock>
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="AccountEdit" />
+                        <TextBlock Text="Chỉnh sửa trang cá nhân"></TextBlock>
+                    </DockPanel>
+                </Button>
+            </Grid>
+            <DockPanel Grid.Row="1" Margin="0 30 0 0">
+                <StackPanel
+                    DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    Margin="0 0 0 0">
+                    <RadioButton x:Name="infoBtn"
+                        Style="{StaticResource MaterialDesignTabRadioButton}"
+                        IsChecked="True"
+                        Content="Thông tin">
+                    </RadioButton>
+                    <RadioButton x:Name="passBtn"
+                        Style="{StaticResource MaterialDesignTabRadioButton}"
+                        IsChecked="False"
+                        Content="Mật khẩu">
+                    </RadioButton>
+                </StackPanel>
+                <Border Style="{StaticResource MainBorder}" Padding="10">
+                    <Grid>
+                        <Grid>
+                            <StackPanel Margin="20 10 20 10">
+                                <DockPanel Margin="0 10" >
+                                    <materialDesign:PackIcon Kind="Home" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
+                                    <TextBlock x:Name="Addresstxb"  FontSize="25" Width="Auto"
+                                                Text="{Binding Address}"></TextBlock>
+                                </DockPanel>
+                                <DockPanel Margin="0 10" >
+                                    <materialDesign:PackIcon Kind="Email" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
+                                    <TextBlock x:Name="Gmailtxb"  FontSize="25" Width="Auto"
+                                                Text="{Binding Gmail}"></TextBlock>
+                                </DockPanel>
+                                <DockPanel Margin="0 10" >
+                                    <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" Margin="0 0 10 0" Foreground="#FF9500FF"/>
+                                    <TextBlock x:Name="Phonetxb"  FontSize="25" Width="Auto"
+                                                Text="{Binding Phone}"></TextBlock>
+                                </DockPanel>
+                            </StackPanel>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=infoBtn}" Value="False">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+                        <Grid Margin="300 0 300 0 ">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" >
+                                <PasswordBox x:Name="txtPassword" Width="250" HorizontalAlignment="Left" FontSize="14"
+                                    materialDesign:HintAssist.Hint="Mật khẩu cũ"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                                                    CommandParameter="{Binding ElementName=txtPassword}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
+                            </Grid>
+                            <Grid Grid.Row="1" >
+                                <PasswordBox  x:Name="txtNewPassword" Width="250" HorizontalAlignment="Left" FontSize="14"
+                                    materialDesign:HintAssist.Hint="Mật khẩu mới"
+                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding NewPasswordChangedCommand}" 
+                                                 CommandParameter="{Binding ElementName=txtNewPassword}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
+                            </Grid>
+                            <Grid Grid.Row="2" >
+                                <PasswordBox x:Name="txtRePassword" Width="250" HorizontalAlignment="Left" FontSize="14"
+                                    materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới"
+                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}" 
+                                                CommandParameter="{Binding ElementName=txtRePassword}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Button HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Width="120" Content="Lưu mật khẩu"
+                            Command="{Binding SavePasswordCommand}"
+                                CommandParameter="{Binding ElementName=passwordChangeWindow}">
+                                </Button>
+                            </Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=passBtn}" Value="False">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+                    </Grid> 
+                </Border>
             </DockPanel>
-        </Button>
-        <Button x:Name="PasswordChangeBtn"
-            Style="{StaticResource MaterialDesignRaisedLightButton}"
-            Width="200"
-            Command="{Binding OpenPasswordChange}">
-            <DockPanel>
-                <materialDesign:PackIcon Kind="KeyVariant" />
-                <TextBlock Text="Đổi mật khẩu"></TextBlock>
-            </DockPanel>
-        </Button>
 
-    </StackPanel>
+        </Grid>
+
+
+    </DockPanel>
 </Page>

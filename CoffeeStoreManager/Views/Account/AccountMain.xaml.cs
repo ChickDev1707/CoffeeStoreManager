@@ -23,6 +23,7 @@ namespace CoffeeStoreManager.Views.Account
         public AccountMain()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
         }
 
     }

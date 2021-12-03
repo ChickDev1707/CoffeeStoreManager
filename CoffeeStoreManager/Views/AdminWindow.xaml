@@ -103,7 +103,7 @@
                                 <Image Source="../Resources/Assets/Images/admin.png"/>
                                 <TextBlock Text="Admin window" FontWeight="Bold" FontSize="25" VerticalAlignment="Center" Margin="20 0 0 0"/>
                             </StackPanel>
-                            <Button x:Name="AccountNavBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Padding="0" Height="40" Background="White" BorderThickness="0" >
+                            <Button x:Name="AccountNavBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Padding="0" Height="40" Background="White" BorderThickness="0" Click="AccountNavBtn_Click" >
                                 <StackPanel Orientation="Horizontal" Width="130">
                                     <Image Margin="5 0 0 0" Width="28" Height="28" Source="../Resources/Assets/Images/user.png"/>
                                     <TextBlock Margin="10 0 0 0" FontWeight="Bold" VerticalAlignment="Center" Text="Admin" Foreground="Black"/>
