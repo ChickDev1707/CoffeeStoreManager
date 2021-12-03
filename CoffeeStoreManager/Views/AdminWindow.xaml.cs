@@ -43,7 +43,7 @@ namespace CoffeeStoreManager.Views
             }
         }
 
-        private void AccountNavBtn_Click(object sender, RoutedEventArgs e)
+        private void AccountInfo_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = Pages.AccountPage;
         }
