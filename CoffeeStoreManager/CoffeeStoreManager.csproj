@@ -466,6 +466,7 @@
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Assets\Images\coffee-shop-icon.png" />
     <Resource Include="Resources\Assets\Images\logout.png" />
     <Resource Include="Resources\Assets\Images\info.png" />
     <Resource Include="Resources\Assets\Images\Coffee-shop.png" />
