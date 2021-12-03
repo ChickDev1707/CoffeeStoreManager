@@ -5,27 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions" xmlns:i2="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="White"
-     FontFamily="{DynamicResource MaterialDesignFont}"
+        UseLayoutRounding="True"
         mc:Ignorable="d"
-        Title="Đăng nhập" Height="400" Width="720"
+        Title="Đăng nhập" Height="500" Width="850"
         DataContext="{StaticResource LoginVM}"
         x:Name="loginWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="450"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <Grid.Background>
-                <ImageBrush ImageSource="Resources/Assets/Images/login-image.png" />
-            </Grid.Background>
-
+            <Border Padding="35">
+                <Image Source="./Resources/Assets/Images/Coffee-shop-bro.png" />
+            </Border>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -33,99 +26,81 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Text="Welcome to" FontWeight="Bold" FontSize="24" FontFamily="VNI-Park">
-                        <TextBlock.Foreground>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0.5"/>
-                                <GradientStop Color="#FF4B00FF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </TextBlock.Foreground>
-                    </TextBlock>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Text="Coffee Store Manager" Foreground="#FF9500FF" FontSize="30" FontFamily="Lucida Calligraphy">
-                    </TextBlock>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="1" Margin="0 20">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <DockPanel Margin="50 0 50 0">
-                        <materialDesign:PackIcon Kind="Account" Height="40" Width="40" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                        <TextBox
-                            materialDesign:HintAssist.Hint="Tên đăng nhập" FontSize="15" 
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="ĐĂNG NHẬP" FontWeight="Bold" FontSize="30" FontFamily="VNI-Park" >
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Text="Trang Admin quản lý quán cafe" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontWeight="DemiBold" FontSize="25" >
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Margin="40 0 40 0" Grid.Row="1" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="materialDesign:PackIcon">
+                        <Setter Property="Width" Value="35"/>
+                        <Setter Property="Height" Value="35"/>
+                        <Setter Property="Margin" Value="0 0 10 0"/>
+                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkBrush}"/>
+                    </Style>
+                </StackPanel.Resources>
+                <DockPanel Margin="0 0 0 30">
+                    <materialDesign:PackIcon Kind="Account" />
+                    <TextBox
+                            materialDesign:HintAssist.Hint="Tên đăng nhập" FontSize="16" 
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding Username}"/>
-                    </DockPanel>
-                </Grid>
-                <Grid Grid.Row="1" >
-                    <DockPanel Margin="50 0 50 0">
-                        <materialDesign:PackIcon Kind="Lock" Height="40" Width="40" Margin="0 0 10 0" Foreground="#FF9500FF"/>
-                        <PasswordBox 
+                </DockPanel>
+                <DockPanel >
+                    <materialDesign:PackIcon Kind="Lock" />
+                    <PasswordBox 
                             x:Name="txtPassword"
-                            materialDesign:HintAssist.Hint="Mật khẩu" FontSize="15"
+                            materialDesign:HintAssist.Hint="Mật khẩu" FontSize="16"
                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PasswordChanged">
-                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
                                    CommandParameter="{Binding ElementName=txtPassword}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </PasswordBox>
-                    </DockPanel>
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Button
-                         Style="{StaticResource MaterialDesignRaisedButton}"
-                         Width="120" Height="45"
-                         ToolTip="Resource name: MaterialDesignRaisedButton"                         
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                </DockPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="0 0 40 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Width" Value="120"/>
+                        <Setter Property="Height" Value="40"/>
+                        
+                    </Style>
+                </StackPanel.Resources>
+                <Button
+                         Margin="0 0 20 0"
                          Command="{Binding LoginCommand}"
                          CommandParameter="{Binding ElementName=loginWindow}">
-                        _Đăng nhập
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i1:CallMethodAction MethodName="Close"
+                    Đăng nhập
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i1:CallMethodAction MethodName="Close"
                                                 TargetObject="{Binding RelativeSource={RelativeSource
                                                   Mode=FindAncestor,
                                                   AncestorType=Window}}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Button
-                        Style="{StaticResource MaterialDesignRaisedLightButton}"
-                        Width="120" Height="45"
-                        ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        _Thoát
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i1:CallMethodAction MethodName="Close"
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Background="{DynamicResource SecondaryHueMidBrush}">
+                    Thoát
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i1:CallMethodAction MethodName="Close"
                                                 TargetObject="{Binding RelativeSource={RelativeSource
                                                   Mode=FindAncestor,
                                                   AncestorType=Window}}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                </Grid>
-            </Grid>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+            
         </Grid>
     </Grid>
 </Window>

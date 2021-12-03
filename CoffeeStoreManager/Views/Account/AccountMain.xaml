@@ -148,12 +148,12 @@
                                 </PasswordBox>
                             </Grid>
                             <Grid Grid.Row="3">
-                                <Button HorizontalAlignment="Right"
+                                <!--<Button HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignRaisedLightButton}"
                             Width="120" Content="Lưu mật khẩu"
                             Command="{Binding SavePasswordCommand}"
                                 CommandParameter="{Binding ElementName=passwordChangeWindow}">
-                                </Button>
+                                </Button>-->
                             </Grid>
                             <Grid.Style>
                                 <Style TargetType="Grid">
