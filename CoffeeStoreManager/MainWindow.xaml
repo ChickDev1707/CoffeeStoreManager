@@ -14,106 +14,189 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="44.8"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}" Header="Admin"/>
-                <MenuItem Header="help"></MenuItem>
+        <DockPanel Grid.Row="0" Margin="0,0,0,6.8">
+            <Menu DockPanel.Dock="Top" Margin="0" Height="44">
+                <MenuItem Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}" Header="Admin" Height="45" FontSize="16"/>
+                <MenuItem Header="Help" Height="40" RenderTransformOrigin="0.552,1.379" FontSize="16"></MenuItem>
             </Menu>
         </DockPanel>
-        <Grid Grid.Row="1">
+        <Grid Margin="0,4.2,0,-4.6" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="394" />
                 <ColumnDefinition Width="715" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Width="359" >
-                <WrapPanel Margin="0,45,34.8,0.6" Width="359">
-                    <Button x:Name="btnTable1" Content="Bàn 1" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable1}" Background="White"></Button>
-                    <Button x:Name="btnTable2" Content="Bàn 2" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable2}" Background="White"></Button>
-                    <Button x:Name="btnTable3" Content="Bàn 3" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable3}" Background="White"></Button>
-                    <Button x:Name="btnTable4" Content="Bàn 4" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable4}" Background="White"></Button>
-                    <Button x:Name="btnTable5" Content="Bàn 5" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable5}" Background="White"></Button>
-                    <Button x:Name="btnTable6" Content="Bàn 6" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable6}" Background="White"></Button>
-                    <Button x:Name="btnTable7" Content="Bàn 7" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable7}" Background="White"></Button>
-                    <Button x:Name="btnTable8" Content="Bàn 8" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable8}" Background="White"></Button>
-                    <Button x:Name="btnTable9" Content="Bàn 9" Height="70" Width="70" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable9}" Background="White"></Button>
+            <Grid Grid.Column="0" Margin="2,0" >
+                <Label HorizontalAlignment="Center" VerticalAlignment="Top"  >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Images/coffee-cup.png" Height="47" Width="81" />
+                        <TextBlock Text="Quán cà phê ánh nắng" FontWeight="Bold" FontSize="25" VerticalAlignment="Center" Height="45" Width="264"/>
+                    </StackPanel>
+                </Label>
+                <WrapPanel Margin="0,111,2,5.6">
+                    <Button x:Name="btnTable1" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable1}" Background="White" Foreground="Black"  >
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 1" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable2" Height="99" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable2}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 2" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable3" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable3}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 3" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable4" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable4}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 4" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable5" Height="99" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable5}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 5" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable6" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable6}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 6" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable7" Height="98" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable7}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 7" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable8" Height="98" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable8}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 8" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTable9" Height="98" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable9}" Background="White" Foreground="Black">
+                        <StackPanel Orientation="Vertical" Height="62" Width="66" >
+                            <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                            <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 9" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </WrapPanel>
-                <Label Content="Danh sách bàn của quán" HorizontalAlignment="Left" Height="30" Margin="15,10,0,0" VerticalAlignment="Top" Width="170" FontFamily="Times New Roman" FontWeight="Bold" FontSize="14"/>
+                <Label Content="Danh sách bàn của quán" HorizontalAlignment="Left" Height="30" Margin="35,76,0,0" VerticalAlignment="Top" Width="188" FontFamily="Times New Roman" FontWeight="Bold" FontSize="16"/>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1.5" Margin="0,71,-2.6,0" VerticalAlignment="Top" Width="393"/>
             </Grid>
-            <Grid Grid.Column="1" Margin="3.6,4,-27.6,-0.4">
+            <Grid Margin="394,-1,-36.6,10" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150"></RowDefinition>
-                    <RowDefinition Height="405"></RowDefinition>
+                    <RowDefinition Height="332.8"></RowDefinition>
                     <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" >
-                    <!--<ComboBox x:Name="cbbTypeofFood" 
+                <Grid Margin="2,0" Height="148" VerticalAlignment="Bottom" >
+                    <Border BorderBrush="DarkGray" BorderThickness="0.5" Margin="0,0,-0.2,-0.4">
+                        <Grid>
+                            <!--<ComboBox x:Name="cbbTypeofFood" 
                           DisplayMemberPath="ten_loai_mon_an" 
                           ItemsSource="{Binding LoaiMonAn}" 
                           SelectedItem="{Binding SelectedLoaiMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                           Margin="55,27.5,480,87.5">
                         
                     </ComboBox> -->
-                    <ComboBox x:Name="cbbNameFood" 
-                          DisplayMemberPath="ten_mon_an" 
-                          ItemsSource="{Binding MonAn}" 
-                          SelectedItem="{Binding SelectedMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          Margin="55,53,480,62.4" >
-                    </ComboBox>
-                    <Button Command="{Binding AddCommand}" 
-                        Content="Thêm" Margin="353,90,277,25.4">
-                        
-                    </Button>
-                    <xctk:IntegerUpDown Name="myUpDownControl" Margin="360,27.5,284,87.5"  Text="{Binding so_luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" />
-                    <Button Command="{Binding DeleteCommand}" 
-                        Content="Xóa" Margin="502,90,128,25.4"/>
-                    <!--<Label Content="Loại món ăn: " 
+                            <ComboBox x:Name="cbbNameFood" 
+                                      Height="35"
+                                      DisplayMemberPath="ten_mon_an" 
+                                      ItemsSource="{Binding MonAn}" 
+                                      SelectedItem="{Binding SelectedMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      Margin="30,48,505.8,54" />
+
+                            <Button Command="{Binding AddCommand}" 
+                                    Margin="445,78,183.8,14" Height="45" FontWeight="Bold">
+                                <StackPanel Orientation="Horizontal" Height="Auto" Width="Auto" >
+                                    <Image Source="/Resources/Images/online-order.png" Margin="0" Width="31" Height="28" HorizontalAlignment="Center"/>
+                                    <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Thêm" Foreground="Black" FontSize="16" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <xctk:IntegerUpDown Name="myUpDownControl" 
+                                                Margin="290,48,353.8,54"  
+                                                Text="{Binding so_luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                TextAlignment="Left" 
+                                                Height="35"/>
+                            <Button Command="{Binding DeleteCommand}" 
+                                    Margin="580,78,48.8,14" Height="45" FontSize="16">
+                                <StackPanel Orientation="Horizontal" Height="Auto" Width="Auto" >
+                                    <Image Source="/Resources/Images/delete-order.png" Margin="0" Width="31" Height="28" HorizontalAlignment="Center"/>
+                                    <TextBlock FontWeight="Bold" VerticalAlignment="Center" Text="Xóa" Foreground="Black" FontSize="16" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <!--<Label Content="Loại món ăn: " 
                         HorizontalAlignment="Left" Height="37" Margin="58,1,0,0" 
                         VerticalAlignment="Top" Width="134" FontSize="14"/>-->
-                    <Label Content="Tên món ăn: " 
-                        HorizontalAlignment="Left" Height="37" Margin="57,27,0,0" 
-                        VerticalAlignment="Top" Width="134" FontSize="14"/>
-                    <Label Content="Số lượng: " 
-                        HorizontalAlignment="Left" Height="37" Margin="360,0,0,0" 
-                        VerticalAlignment="Top" Width="134" FontSize="14"/>
+                            <Label Content="Tên món ăn: " 
+                                   HorizontalAlignment="Left" Height="30" Margin="31,15,0,0" 
+                                   VerticalAlignment="Top" Width="134" FontSize="14"/>
+                            <Label Content="Số lượng: " 
+                                   HorizontalAlignment="Left" Height="30" Margin="290,10,0,0" 
+                                   VerticalAlignment="Top" Width="105" FontSize="14"/>
+                            <Label Content="Bàn số:" 
+                                HorizontalAlignment="Left" Height="30" Margin="634,14,0,0" 
+                                VerticalAlignment="Top" Width="55" FontSize="14"/>
+                            <Label Content="{Binding number}" 
+                                HorizontalAlignment="Center" Margin="694,14,23.2,102.4" Width="30"
+                                Background="#FFE5E5E5"
+                                BorderBrush="Black" FontSize="14"/>
+                        </Grid>
+                    </Border>
                 </Grid>
-                <Grid Grid.Row="1" >
-                    <ScrollViewer>
-                        <ListView ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Width="720" Height="405" >
-                            <ListView.View >
-                                <GridView>
-                                    <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" ></GridViewColumn>
-                                    <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien}" Width="150"></GridViewColumn>
-                                    <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding so_luong}" Width="135"></GridViewColumn>
-                                    <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien}" Width="135"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
+                <Grid Margin="2,0" Grid.Row="1" >
+                    <Border BorderBrush="DarkGray" BorderThickness="0.5" Margin="0,0,-0.2,-0.4">
+                        <ScrollViewer Margin="0">
+                            <ListView ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" Width="730" Height="334" >
+                                <ListView.View >
+                                    <GridView>
+                                        <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" ></GridViewColumn>
+                                        <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien}" Width="150"></GridViewColumn>
+                                        <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding so_luong}" Width="135"></GridViewColumn>
+                                        <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien}" Width="135"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </Border>
                 </Grid>
-                <Grid Grid.Row="2" Margin="1,0,0,0.4">
-                    <Button Command="{Binding ChangeTableCommand}" 
-                            Content="Chuyển bàn" Margin="97,30,529,40.8"></Button>
-                    <Button Command="{Binding CheckOutCommand}" 
-                            Content="Thanh toán" Margin="609,45,20,24.8" />
-                    <ComboBox x:Name="cbbTableEmpty" 
-                              DisplayMemberPath="emptytable" 
-                              ItemsSource="{Binding EmptyTables}" 
-                              SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                              Margin="12,30,657,40.8" />
-                    <Label Content="Tổng tiền: " 
-                           HorizontalAlignment="Left" Height="37" Margin="451,19,0,0" 
-                           VerticalAlignment="Top" Width="134"/>
-                    <Label Content="{Binding totalmoney}" 
-                           HorizontalAlignment="Left" Height="36" Margin="452,44,0,0" 
-                           VerticalAlignment="Top" Width="124"
-                           Background="#FFE5E5E5"
-                           BorderBrush="Black"/>
-                    <Label Content="Bàn trống: " 
-                        HorizontalAlignment="Left" Height="37" Margin="9,5,0,0" 
-                        VerticalAlignment="Top" Width="134" FontSize="14"/>
+                <Grid Grid.Row="2" Margin="2,0">
+                    <Border BorderBrush="DarkGray" BorderThickness="0.5" Margin="0,0,-0.2,-5.4">
+                        <Grid Margin="0">
+                            <Button Command="{Binding ChangeTableCommand}" 
+                                    Content="Chuyển bàn"  Height="45" Margin="116,60,523.2,4.6"/>
+                            <Button Command="{Binding CheckOutCommand}" 
+                                    Content="Thanh toán" Margin="547,60,71.8,4.6" Height="45" />
+                            <ComboBox x:Name="cbbTableEmpty" 
+                                      DisplayMemberPath="emptytable" 
+                                      ItemsSource="{Binding EmptyTables}" 
+                                      SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      Margin="160,28,508.2,94.6" 
+                                      Height="35"/>
+                            <Label Content="Tổng tiền: " 
+                                   HorizontalAlignment="Left" Height="30" Margin="504,33,0,0" 
+                                   VerticalAlignment="Top" Width="69"/>
+                            <Label Content="{Binding totalmoney}" 
+                                   HorizontalAlignment="Left" Height="35" Margin="585,30,0,0" 
+                                   VerticalAlignment="Top" Width="124"
+                                   Background="#FFE5E5E5"
+                                   BorderBrush="Black"/>
+                            <Label Content="Bàn trống: " 
+                                   HorizontalAlignment="Left" Margin="56,29,0,98.6" 
+                                   VerticalContentAlignment="Stretch" Height="30" FontSize="14" />
+                        </Grid>
+                    </Border>
                 </Grid>
             </Grid>
         </Grid>
