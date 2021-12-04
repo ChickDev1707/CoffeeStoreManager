@@ -4,77 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource ManageEmployeeVM}"
-        Title="UpdateEmployeeWindow" Height="320" Width="800">
+        Title="UpdateEmployeeWindow" Height="450" Width="680">
+    
     <Window.Resources>
         <ResourceDictionary Source="../Style/Button.xaml"/>
     </Window.Resources>
-    <Grid Margin="20 0 20 20">
+
+    <Border Padding="20">
         <StackPanel>
+            <TextBlock Text="Thêm nhân viên" Style="{StaticResource PageTitle}"/>
+
             <StackPanel>
                 <StackPanel.Resources>
-                    <Style TargetType="Label">
-                        <Setter Property="FontSize" Value="18"/>
-                    </Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Padding" Value="10 5"/>
-                    </Style>
-                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                        <Setter Property="FontSize" Value="14"></Setter>
-                        <Setter Property="Padding" Value="0 8 0 0"></Setter>
-                        <Setter Property="Margin" Value="8 0 0 0"></Setter>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}"></Style>
+                    <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}"></Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="0 0 0 10"/>
                     </Style>
                 </StackPanel.Resources>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Tên nhân viên"/>
-                    <TextBox Grid.Column="1" Text="{Binding SelectedNhanVien.ho_ten}"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Số điện thoại"/>
-                    <TextBox Grid.Column="1" Text="{Binding SelectedNhanVien.sdt}"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Địa chỉ"/>
-                    <TextBox Grid.Column="1" Text="{Binding SelectedNhanVien.dia_chi}"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Ngày vào làm"/>
-                    <DatePicker Grid.Column="1" SelectedDate="{Binding SelectedNhanVien.ngay_vao_lam}"/>
-                </Grid>
-                <Label Content="Loại nhân viên"/>
-                <ComboBox  Margin="5 0 0 0"
-                    ItemsSource="{Binding EmployeeTypeList}" 
-                    DisplayMemberPath="ten_loai_nhan_vien"
-                    SelectedValuePath="ma_loai_nhan_vien"
-                    FontSize="16"
-                    SelectedValue="{Binding SelectedNhanVien.ma_loai_nhan_vien}">
-                </ComboBox>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Margin="0 0 20 0" materialDesign:HintAssist.Hint="Họ và tên" Grid.Column="0" Text="{Binding SelectedNhanVien.ho_ten}"/>
+                        <ComboBox  
+                            Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Loại nhân viên"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding EmployeeTypeList}" 
+                            DisplayMemberPath="ten_loai_nhan_vien"
+                            SelectedValuePath="ma_loai_nhan_vien"
+                            SelectedValue="{Binding SelectedNhanVien.ma_loai_nhan_vien}">
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding SelectedNhanVien.sdt}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Grid.Column="0" materialDesign:HintAssist.Hint="Ngày sinh" Margin="0 0 20 0" />
+                        <DatePicker Grid.Column="1" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding SelectedNhanVien.ngay_vao_lam}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox materialDesign:HintAssist.Hint="Địa chỉ" Height="100" Text="{Binding SelectedNhanVien.dia_chi}"/>
+                </StackPanel>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
-                <Button Content="Update"  Command="{Binding UpdateEmployee}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{StaticResource PrimaryBtn}" Margin="0 0 20 0" Content="Thoát">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
-                <Button Margin="20 0 0 0" Content="Cancel">
-                  
-                </Button>
+                <Button Style="{StaticResource PrimaryBtn}" Content="Cập nhật" Command="{Binding UpdateEmployee}"></Button>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

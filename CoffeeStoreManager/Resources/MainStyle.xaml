@@ -4,11 +4,8 @@
         <Setter Property="Window.FontSize" Value="14"/>
         <Setter Property="Page.FontSize" Value="14"/>
     </Style>
-    <Style x:Key="MainListView" TargetType="ListView">
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
     <Style x:Key="MainBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#dfe6e9"/>
+        <Setter Property="BorderBrush" Value="#d1d8e0"/>
         <Setter Property="BorderThickness" Value="2"/>
     </Style>
     <Style x:Key="PageTitle" TargetType="TextBlock">
@@ -16,4 +13,5 @@
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="Margin" Value="0 0 0 15"/>
     </Style>
+    
 </ResourceDictionary>

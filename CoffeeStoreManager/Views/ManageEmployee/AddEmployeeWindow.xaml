@@ -5,85 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Name="AddWindow"
-        Title="AddEmployeeWindow" Height="370" Width="800">
+        Title="AddEmployeeWindow" Height="450" Width="680">
     <Window.Resources>
         <ResourceDictionary Source="../Style/Button.xaml"/>
     </Window.Resources>
-    <Grid>
+    <Border Padding="20">
         <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="Label">
-                    <Setter Property="FontSize" Value="18"/>
-                    <Setter Property="Margin" Value="20 0 0 0"/>
-                    <Setter Property="Padding" Value="0 0 0 5"/>
-                </Style>
-                <Style TargetType="Button">
-                    <Setter Property="Padding" Value="10 5"/>
-                </Style>
-                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                    <Setter Property="FontSize" Value="14"></Setter>
-                    <Setter Property="Margin" Value="10 0 20 0"></Setter>
-                </Style>
-            </StackPanel.Resources>
-            <Grid Margin="0 10 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Họ và tên"/>
-                <TextBox Grid.Column="1" Text="{Binding AddEmployeeHovaten}"/>
-            </Grid>
-            <Grid Margin="0 10 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Số điện thoại"/>
-                <TextBox  Grid.Column="1" Text="{Binding AddEmployeeSdt}"/>
-            </Grid>
-            <Grid Margin="0 10 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Địa chỉ"/>
-                <TextBox Grid.Column="1" Text="{Binding AddEmployeeDiachi,UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
-            <Grid Margin="0 10 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Margin="20 0 10 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Label Margin="0 0 0 0" Grid.Row="0" Content="Ngày sinh( tháng/ngày/năm )"/>
-                    <DatePicker Grid.Row="1" SelectedDate="{Binding AddEmployeeNgaySinh}"/>
-                </Grid>
-                <Grid Grid.Column="1" Margin="10 0 20 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Label Margin="0 0 0 0" Grid.Row="0" Content="Ngày vào làm( tháng/ngày/năm )"/>
-                    <DatePicker Grid.Row="1" SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
-                </Grid>
-            </Grid>
-            <Label Margin="20 10 0 0" FontSize="18" Content="Loại nhân viên"/>
-            <ComboBox  Margin="20 0 20 20"
-                ItemsSource="{Binding EmployeeTypeList}" 
-                    DisplayMemberPath="ten_loai_nhan_vien"
-                    SelectedValuePath="ma_loai_nhan_vien"
-                    SelectedValue="{Binding AddEmployeeMaloainhanvien}">
-            </ComboBox>
-            <Button Margin="20 0 20 0" Style="{StaticResource PrimaryBtn}" Content="Thêm" Command="{Binding AddEmployee}"
-                     CommandParameter="{Binding ElementName=AddWindow}">
-            </Button>
+            <TextBlock Text="Thêm nhân viên" Style="{StaticResource PageTitle}"/>
+
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}"></Style>
+                    <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}"></Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="0 0 0 10"/>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Margin="0 0 20 0" materialDesign:HintAssist.Hint="Họ và tên" Grid.Column="0" Text="{Binding AddEmployeeHovaten}"/>
+                        <ComboBox  
+                            Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Loại nhân viên"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            ItemsSource="{Binding EmployeeTypeList}" 
+                            DisplayMemberPath="ten_loai_nhan_vien"
+                            SelectedValuePath="ma_loai_nhan_vien"
+                            SelectedValue="{Binding AddEmployeeMaloainhanvien}">
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding AddEmployeeSdt}"/>
+                </StackPanel>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Grid.Column="0" materialDesign:HintAssist.Hint="Ngày sinh" Margin="0 0 20 0" SelectedDate="{Binding AddEmployeeNgaySinh}"/>
+                        <DatePicker Grid.Column="1" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox materialDesign:HintAssist.Hint="Địa chỉ" Height="100" Text="{Binding AddEmployeeDiachi,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{StaticResource PrimaryBtn}" Margin="0 0 20 0" Content="Thoát">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Style="{StaticResource PrimaryBtn}" Content="Thêm" Command="{Binding AddEmployee}" CommandParameter="{Binding ElementName=AddWindow}"></Button>
+            </StackPanel>
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

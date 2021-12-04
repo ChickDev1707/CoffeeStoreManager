@@ -24,6 +24,12 @@
                 <ListView FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding FoodTypeList}" SelectedItem="{Binding SelectedType}">
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn 
+                                Header="STT" 
+                                DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                AncestorType={x:Type ListViewItem}}, 
+                                Converter={StaticResource ListIndexConverter}}"                
+                            ></GridViewColumn>
                             <GridViewColumn Header="ma loai mon" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
                             <GridViewColumn Header="ten loai mon" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
                         </GridView>
@@ -52,7 +58,7 @@
                             Text="{Binding AddFormFoodTypeName}"
                             materialDesign:HintAssist.Hint="Tên loại món mới"
                             />
-                        <Button Command="{Binding AddType}" Content="Thêm loại" CommandParameter="{Binding}"></Button>
+                        <Button Style="{StaticResource PrimaryBtn}" HorizontalAlignment="Right" Command="{Binding AddType}" Content="Thêm loại" CommandParameter="{Binding}"></Button>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Text="Cập nhật loại món" />
@@ -61,8 +67,8 @@
                             materialDesign:HintAssist.Hint="Tên loại"
                             />
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button Command="{Binding DeleteType}" HorizontalAlignment="Right" Margin="0 0 15 0">Xóa</Button>
-                            <Button Command="{Binding UpdateFoodType}" Content="Cập nhật" CommandParameter="{Binding}"></Button>
+                            <Button Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteType}" HorizontalAlignment="Right" Margin="0 0 15 0">Xóa</Button>
+                            <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateFoodType}" Content="Cập nhật" CommandParameter="{Binding}"></Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

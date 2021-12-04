@@ -23,57 +23,59 @@
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" Margin="0 0 0 15">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
+                            <Setter Property="Margin" Value="0 0 10 0"/>
+                        </Style>
+                    </StackPanel.Resources>
                     <Button
                     Command="{Binding RefreshSourceList}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Làm mới danh sách hàng">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Refresh" />
-                            <TextBlock Text="Làm mới"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="Refresh" />
                     </Button>
                     <Button
                     Command="{Binding OpenAddSource}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Thêm hàng nhập">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Add" />
-                            <TextBlock Text="Thêm hàng"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="Add" />
                     </Button>
                     <Button
                     Command="{Binding OpenUpdateSource}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Cập nhật mặt hàng">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="SquareEditOutline" />
-                            <TextBlock Text="Sửa hàng"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="SquareEditOutline" />
                     </Button>
                     <Button
                     Command="{Binding DeleteSource}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Xóa mặt hàng">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="TrashCanOutline" />
-                            <TextBlock Text="Xóa hàng"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="TrashCanOutline" />
                     </Button>
                     <Button
                     Click="Detail_Click"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Xem chi tiết hàng nhập">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="EyeSettingsOutline" />
-                            <TextBlock Text="Xem"/>
+                            <TextBlock Text="Chi tiết" Margin="5 0 0 0"/>
                         </DockPanel>
-                    </Button>
+                     </Button>
                 </StackPanel>
                 <SharedUC:SearchBar HorizontalAlignment="Right"/>
             </DockPanel>
-            <ListView x:Name="SourceList" Grid.Row="1" FontSize="14" ItemsSource="{Binding SourceList}" SelectedItem="{Binding SelectedSourceItem}" >
+            <ListView 
+                Grid.Row="1" 
+                x:Name="SourceList" 
+                FontSize="14" 
+                ItemsSource="{Binding SourceList}" 
+                SelectedItem="{Binding SelectedSourceItem}" 
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                ScrollViewer.CanContentScroll="False"
+                >
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn 
+                            Header="STT" 
+                            DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type ListViewItem}}, 
+                            Converter={StaticResource ListIndexConverter}}"                
+                        ></GridViewColumn>
                         <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding Path=ngay_nhap}"></GridViewColumn>
                         <GridViewColumn Header="Nhà cung cấp" DisplayMemberBinding="{Binding Path=nha_cung_cap}"></GridViewColumn>
                         <GridViewColumn Header="Số lượng mặt hàng" DisplayMemberBinding="{Binding Path=so_luong_mat_hang}"></GridViewColumn>

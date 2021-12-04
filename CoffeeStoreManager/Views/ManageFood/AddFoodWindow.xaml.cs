@@ -15,6 +15,7 @@ namespace CoffeeStoreManager.Views.ManageFood
 
             AddFoodViewModel addFoodVm = new AddFoodViewModel(foodVm);
             this.DataContext = addFoodVm;
+            Style = (Style)FindResource("WindowStyle");
         }
     }
 }

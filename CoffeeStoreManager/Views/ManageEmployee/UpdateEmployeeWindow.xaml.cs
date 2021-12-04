@@ -22,6 +22,8 @@ namespace CoffeeStoreManager.Views.ManageEmployee
         public UpdateEmployeeWindow()
         {
             InitializeComponent();
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

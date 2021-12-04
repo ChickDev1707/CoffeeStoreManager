@@ -105,70 +105,72 @@
 
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <DockPanel HorizontalAlignment="Right" Margin="0 10 20 10">
-                        <Label  Content="Bàn số:" 
+            <Border Grid.Column="1" Style="{StaticResource MainBorder}">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <DockPanel HorizontalAlignment="Right" Margin="0 10 20 10">
+                            <Label  Content="Bàn số:" 
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" 
                                 FontSize="14"/>
-                        <Label  Content="{Binding number}" 
+                            <Label  Content="{Binding number}" 
                                 Padding="20 3"
                                 FontWeight="Bold"
                                 VerticalAlignment="Center"
                                 Background="#FFE5E5E5" 
                                 FontSize="20"/>
-                    </DockPanel>
-                    <Grid Margin="20 0 20 15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
-                            <StackPanel Width="150" Margin="0 0 20 0">
-                                <Label Content="Tên món ăn"/>
-                                <ComboBox 
+                        </DockPanel>
+                        <Grid Margin="20 0 20 15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                <StackPanel Width="150" Margin="0 0 20 0">
+                                    <Label Content="Tên món ăn"/>
+                                    <ComboBox 
                                         FontSize="14"
                                         materialDesign:HintAssist.Hint="Món ăn"
                                         DisplayMemberPath="ten_mon_an" 
                                         ItemsSource="{Binding MonAn}" 
                                         SelectedItem="{Binding SelectedMonAn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                       />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Số lượng"/>
+                                    <syncfusion:UpDown Height="28" Width="100" FontSize="14"/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel>
-                                <Label Content="Số lượng"/>
-                                <syncfusion:UpDown Height="28" Width="100" FontSize="14"/>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Style="{StaticResource PrimaryBtn}"  Command="{Binding AddCommand}" Content="Thêm món" Margin="0 0 15 0"/>
+                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteCommand}" Content="Xóa"/>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Style="{StaticResource PrimaryBtn}"  Command="{Binding AddCommand}" Content="Thêm món" Margin="0 0 15 0"/>
-                            <Button Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteCommand}" Content="Xóa"/>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-                <ListView Grid.Row="1" ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                    <ListView.View >
-                        <GridView>
-                            <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" />
-                            <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien}" Width="150"/>
-                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding so_luong}" Width="135"/>
-                            <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien}" Width="135"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <StackPanel Grid.Row="2" Margin="0 0 0 20">
-                    <DockPanel HorizontalAlignment="Right" Margin="0 10 20 20">
-                        <Label  Content="Tổng tiền:" 
+                        </Grid>
+                    </StackPanel>
+                    <Border Grid.Row="1" Style="{StaticResource MainBorder}" BorderThickness="0 2 0 2">
+                        <ListView ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                            <ListView.View >
+                                <GridView>
+                                    <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" />
+                                    <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien}" Width="150"/>
+                                    <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding so_luong}" Width="135"/>
+                                    <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien}" Width="135"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Border>
+                    <StackPanel Grid.Row="2" Margin="0 0 0 20">
+                        <DockPanel HorizontalAlignment="Right" Margin="0 10 20 20">
+                            <Label  Content="Tổng tiền:" 
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" 
                                 FontSize="14"/>
-                        <Label  Content="{Binding totalmoney}" 
+                            <Label  Content="{Binding totalmoney}" 
                                 Width="175"
                                 Foreground="#ff3838"
                                 Padding="20 3"
@@ -176,14 +178,14 @@
                                 VerticalAlignment="Center"
                                 Background="#FFE5E5E5" 
                                 FontSize="22"/>
-                    </DockPanel>
-                    <Grid Margin="20 0 20 15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal">
-                            <ComboBox 
+                        </DockPanel>
+                        <Grid Margin="20 0 20 15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox 
                                         materialDesign:HintAssist.Hint="Bàn trống"
                                         IsEditable="True"
                                         Width="80"
@@ -192,13 +194,14 @@
                                         SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                         Margin="0 0 15 0"
                                         FontSize="14"/>
-                            <Button Style="{StaticResource PrimaryBtn}" Command="{Binding ChangeTableCommand}" Content="Chuyển bàn"/>
+                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding ChangeTableCommand}" Content="Chuyển bàn"/>
 
-                        </StackPanel>
-                        <Button Grid.Column="1" Style="{StaticResource PrimaryBtn}" Command="{Binding CheckOutCommand}" Content="Thanh toán" HorizontalAlignment="Right"/>
-                    </Grid>
-                </StackPanel>
-            </Grid>
+                            </StackPanel>
+                            <Button Grid.Column="1" Style="{StaticResource PrimaryBtn}" Command="{Binding CheckOutCommand}" Content="Thanh toán" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Window>

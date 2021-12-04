@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee"
       xmlns:ManageEmployeeUC="clr-namespace:CoffeeStoreManager.Views.ManageEmployee.Controls"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="CoffeeStoreManager.Views.ManageEmployee.ManageEmployeeMain"
+      xmlns:SharedUC="clr-namespace:CoffeeStoreManager.Views.SharedControls"
+    
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageEmployeeMain"
@@ -18,73 +20,65 @@
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách nhân viên"/>
-        <Grid>
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Margin="0 15" Orientation="Horizontal">
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Padding" Value="15 5"/>
-                            <Setter Property="Margin" Value="0 0 10 0"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBox Name="txb" Width="360" Margin="0 4 15 4"
-                                materialDesign:HintAssist.Hint="Tìm kiếm"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="KeyUp">
-                                <i:InvokeCommandAction Command="{Binding Find}" CommandParameter="{Binding ElementName=txb}">
-                                </i:InvokeCommandAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-
-                    <!--button-->
-                    <!--#region -->
-                    <Button Command="{Binding OpenAddEmployee}" Style="{StaticResource IconTextBtn}">
-
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                <DockPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
+                        <Setter Property="Margin" Value="0 0 15 0"/>
+                    </Style>
+                </DockPanel.Resources>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <Button
+                ToolTip="Làm mới danh sách nhân viên">
+                        <materialDesign:PackIcon Kind="Refresh" />
+                    </Button>
+                    <Button
+                Command="{Binding OpenAddEmployee}"
+                ToolTip="Thêm nhân viên">
+                        <materialDesign:PackIcon Kind="Add" />
+                    </Button>
+                    <Button
+                Command="{Binding OpenUpdateEmployee}"
+                ToolTip="Cập nhật thông tin nhân viên">
+                        <materialDesign:PackIcon Kind="SquareEditOutline" />
+                    </Button>
+                    <Button
+                Command="{Binding DeleteEmployee}"
+                ToolTip="Xóa nhân viên">
+                        <materialDesign:PackIcon Kind="TrashCanOutline" />
+                    </Button>
+                    <Button
+                ToolTip="Nhập liệu từ file excel">
                         <DockPanel>
-                            <materialDesign:PackIcon Kind="Add" />
-                            <TextBlock Text="Thêm"/>
+                            <materialDesign:PackIcon Kind="Import" />
+                            <TextBlock Text="Import"/>
                         </DockPanel>
                     </Button>
-                    <Button  Command="{Binding OpenUpdateEmployee}" Margin="10 0 0 0" Style="{StaticResource IconTextBtn}">
+                    <Button
+                ToolTip="Xuất file excel">
                         <DockPanel>
-                            <materialDesign:PackIcon Kind="SquareEditOutline" />
-                            <TextBlock Text="Sửa"/>
+                            <materialDesign:PackIcon Kind="FileExcel" />
+                            <TextBlock Text="Export"/>
                         </DockPanel>
                     </Button>
-                    <Button Command="{Binding DeleteEmployee}" Margin="20 0 0 0" Style="{StaticResource IconTextBtn}">
-
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="TrashCanOutline" />
-                            <TextBlock Text="Xóa"/>
-                        </DockPanel>
-                    </Button>
-                    <Button Style="{StaticResource PrimaryBtn}" Command="{Binding OpenSalaryWindow}" Margin="20 0 0 0" Content="Tính lương"/>
-                    <Button Style="{StaticResource PrimaryBtn}" ToolTip="Tăng số ngày nghỉ" x:Name="k" Command="{Binding IncAbsentDay}" Margin="20 0 0 0" CommandParameter="{Binding ElementName=k k}" Content="++"/>
-                    <Button Style="{StaticResource PrimaryBtn}" ToolTip="Giảm số ngày nghỉ" Command="{Binding DecAbsentDay}" Content="--" Margin="20 0 0 0" RenderTransformOrigin="4.619,0.517"/>
-                    <!--#endregion-->
                 </StackPanel>
+                <SharedUC:SearchBar HorizontalAlignment="Right"/>
+            </DockPanel>
+            <Border Style="{StaticResource MainBorder}" Grid.Row="1" Margin="0 0 0 20">
 
-                <Border Style="{StaticResource MainBorder}" Grid.Row="1" Margin="0 20 0 0">
-                    
-                <ListView  FontSize="14" SelectionMode="Multiple" Name="lv"  ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedNhanVien}" >
-
+                <ListView 
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    ScrollViewer.CanContentScroll="False"  
+                    FontSize="14" SelectionMode="Multiple" 
+                    Name="lv"  
+                    ItemsSource="{Binding EmployeeList}" 
+                    SelectedItem="{Binding SelectedNhanVien}" >
                     <i:Interaction.Triggers>
-                        <!-- Thay doi su xuat hien cua checkbox-->
-
-                        <!--<i:EventTrigger EventName="MouseDoubleClick" >
-                                <i:InvokeCommandAction 
-                                        Command="{Binding  CheckListItem}"
-                                        CommandParameter="{Binding ElementName=lv, Path = SelectedItem}"/>
-                            </i:EventTrigger>-->
-
-
-
                         <i:EventTrigger EventName="SelectionChanged" >
                             <i:InvokeCommandAction 
                                         Command="{Binding CheckItem}" 
@@ -93,56 +87,23 @@
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
+
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="{Binding WidthCheckCol}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <CheckBox x:Name="cb" Visibility="Hidden" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListViewItem},Path=IsSelected}" >
-                                                <!--<i:Interaction.Triggers>
-                                                        <i:EventTrigger  EventName ="MouseDoubleClick" >
-                                                            <i:ChangePropertyAction  
-                                                                    PropertyName="IsChecked" Value=" False"
-                                                            >
-                                                            </i:ChangePropertyAction>
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>-->
-                                            </CheckBox>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                                <Grid>
-                                    <CheckBox Visibility="Hidden">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="SelectionChanged" >
-                                                <i:InvokeCommandAction 
-                                                            Command="{Binding CheckItem}" 
-                                                            CommandParameter= "{Binding ElementName =lv,Mode=OneWay}"
-                                                            >
-                                                </i:InvokeCommandAction>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </CheckBox>
-                                </Grid>
-                            </GridViewColumn>
-                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding ho_ten}"/>
-                                <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding sdt}"/>
-                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding dia_chi}"/>
-                                <GridViewColumn Header="Số ngày nghỉ" DisplayMemberBinding="{Binding so_ngay_nghi}"/>
-                                <GridViewColumn Header="Loại nhân viên" DisplayMemberBinding="{Binding loai_nhan_vien}"/>
-                                <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding tien_luong}"/>
-                            </GridView>
-                        </ListView.View>
+                            <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding ho_ten}"/>
+                            <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding sdt}"/>
+                            <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding dia_chi}"/>
+                            <GridViewColumn Header="Số ngày nghỉ" DisplayMemberBinding="{Binding so_ngay_nghi}"/>
+                            <GridViewColumn Header="Loại nhân viên" DisplayMemberBinding="{Binding loai_nhan_vien}"/>
+                            <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding tien_luong}"/>
+                        </GridView>
+                    </ListView.View>
                 </ListView>
-                </Border>
-            </Grid>
+            </Border>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0 0 0 20">
+                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding OpenSalaryWindow}" Margin="20 0 0 0" Content="Tính lương"/>
+            </StackPanel>
         </Grid>
     </DockPanel>
 

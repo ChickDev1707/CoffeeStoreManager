@@ -21,41 +21,44 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                <DockPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
+                        <Setter Property="Margin" Value="0 0 15 0"/>
+                    </Style>
+                </DockPanel.Resources>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <Button
                     Command="{Binding RefreshFoodList}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Làm mới danh sách món ăn">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Refresh" />
-                            <TextBlock Text="Làm mới"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="Refresh" />
                     </Button>
                     <Button
                     Command="{Binding OpenAddFoodWindow}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Thêm món ăn">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Add" />
-                            <TextBlock Text="Thêm món"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="Add" />
                     </Button>
                     <Button
                     Command="{Binding OpenUpdateFoodWindow}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Cập nhật món ăn">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="SquareEditOutline" />
-                            <TextBlock Text="Sửa món"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="SquareEditOutline" />
                     </Button>
                     <Button
                     Command="{Binding DeleteFood}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Xóa món ăn">
+                        <materialDesign:PackIcon Kind="TrashCanOutline" />
+                    </Button>
+                    <Button
+                    ToolTip="Nhập liệu từ file excel">
                         <DockPanel>
-                            <materialDesign:PackIcon Kind="TrashCanOutline" />
-                            <TextBlock Text="Xóa món"/>
+                            <materialDesign:PackIcon Kind="Import" />
+                            <TextBlock Text="Import"/>
+                        </DockPanel>
+                    </Button>
+                    <Button
+                    ToolTip="Xuất file excel">
+                        <DockPanel>
+                            <materialDesign:PackIcon Kind="FileExcel" />
+                            <TextBlock Text="Export"/>
                         </DockPanel>
                     </Button>
                 </StackPanel>
@@ -67,14 +70,20 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Style="{StaticResource MainBorder}">
-                    <ListView HorizontalAlignment="Stretch" FontSize="14" ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}"
-                        VerticalContentAlignment="Top"  
+                    <ListView 
+                        ItemsSource="{Binding FoodList}" SelectedItem="{Binding SelectedFood}"
+                        FontSize="14" 
                         ScrollViewer.VerticalScrollBarVisibility="Visible"
                         ScrollViewer.CanContentScroll="False"
                         >
-                        <ListView.View>
-                            <GridView >
-                                <GridViewColumn Header="STT" DisplayMemberBinding="{Binding Path=STT}"></GridViewColumn>
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn 
+                                    Header="STT" 
+                                    DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                    AncestorType={x:Type ListViewItem}}, 
+                                    Converter={StaticResource ListIndexConverter}}"                
+                                ></GridViewColumn>
                                 <GridViewColumn Header="Ten mon" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
                                 <GridViewColumn Header="Gia" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
                                 <GridViewColumn Header="Loai mon an" DisplayMemberBinding="{Binding Path=LoaiMonAn.ten_loai_mon_an}"></GridViewColumn>

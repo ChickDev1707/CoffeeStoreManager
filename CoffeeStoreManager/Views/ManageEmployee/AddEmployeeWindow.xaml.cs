@@ -25,6 +25,8 @@ namespace CoffeeStoreManager.Views.ManageEmployee
             InitializeComponent();
             AddEmployeeViewModel addVM = new AddEmployeeViewModel(eVM);
             this.DataContext = addVM;
+            Style = (Style)FindResource("WindowStyle");
+
         }
     }
 }

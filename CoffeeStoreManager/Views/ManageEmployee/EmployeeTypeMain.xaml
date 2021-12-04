@@ -20,13 +20,14 @@
             </Grid.ColumnDefinitions>
             <Border  Style="{StaticResource MainBorder}">
                 <ListView HorizontalAlignment="Stretch" FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding TypeEmployeeList}" SelectedItem="{Binding SelectedLoaiNhanVien}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn 
+                                Header="STT" 
+                                DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                AncestorType={x:Type ListViewItem}}, 
+                                Converter={StaticResource ListIndexConverter}}"                
+                            ></GridViewColumn>
                             <GridViewColumn Header="Mã loại nhân viên" DisplayMemberBinding="{Binding Path=ma_loai_nhan_vien}"></GridViewColumn>
                             <GridViewColumn Header="Tên loại nhân viên" DisplayMemberBinding="{Binding Path=ten_loai_nhan_vien}"></GridViewColumn>
                             <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong}"></GridViewColumn>
@@ -34,69 +35,52 @@
                     </ListView.View>
                 </ListView>
             </Border>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto "></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-            <Border Style="{StaticResource MainBorder}" Margin="20 0 0 0" >
-            <StackPanel  Margin="20 20 20 0">
-                <StackPanel.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontSize" Value="18"/>
-                        <Setter Property="Margin" Value="0 0 0 5"/>
-                    </Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                    </Style>
-                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Setter Property="Margin" Value="0 0 0 10"/>
-                        <Setter Property="FontSize" Value="16"/>
-                    </Style>
-                </StackPanel.Resources>
-                <StackPanel Margin="0 0 0 20">
-                    <TextBlock>Tên loại nhân viên</TextBlock>
-                        <TextBox  Text="{Binding TextTypeNameEmployee}"/>
-                    <TextBlock>Tiền lương</TextBlock>
-                        <TextBox  Text="{Binding TextSalary}"/>
-                        <Grid Margin="0 20 0 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0"
-                                Command="{Binding AddType}"
-                                Style="{StaticResource IconTextBtn}">
-
-                                <DockPanel>
-                                    <materialDesign:PackIcon Kind="Add" />
-                                    <TextBlock Text="Thêm"/>
-                                </DockPanel>
-                            </Button>
-                            <Button Grid.Column="1"
-                                Command="{Binding UpdateType}"
-                                Style="{StaticResource IconTextBtn}">
+            <Border Grid.Column="1" Style="{StaticResource MainBorder}" Margin="20 0 0 0" >
+                <StackPanel  Margin="20 20 20 0">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="Margin" Value="0 0 0 5"/>
+                        </Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource IconTextBtn}">
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="Width" Value="100"/>
+                        </Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <Setter Property="Margin" Value="0 0 0 10"/>
+                            <Setter Property="FontSize" Value="16"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <StackPanel Margin="0 0 0 20">
+                        <TextBlock>Loại nhân viên</TextBlock>
+                        <TextBox materialDesign:HintAssist.Hint="Tên loại nhân viên" Text="{Binding TextTypeNameEmployee}"/>
+                        <TextBlock>Tiền lương</TextBlock>
+                        <TextBox materialDesign:HintAssist.Hint="Mức lương" Text="{Binding TextSalary}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button Command="{Binding AddType}" Margin="0 0 0 15">
+                            <DockPanel>
+                                <materialDesign:PackIcon Kind="Add" />
+                                <TextBlock Text="Thêm"/>
+                            </DockPanel>
+                        </Button>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Command="{Binding UpdateType}" Margin="0 0 15 0">
                                 <DockPanel>
                                     <materialDesign:PackIcon Kind="SquareEditOutline" />
                                     <TextBlock Text="Sửa"/>
                                 </DockPanel>
                             </Button>
-                            <Button Grid.Column="2"
-                                Command="{Binding DeleteType}"
-                                Style="{StaticResource IconTextBtn}">
-
+                            <Button Command="{Binding DeleteType}">
                                 <DockPanel>
                                     <materialDesign:PackIcon Kind="TrashCanOutline" />
                                     <TextBlock Text="Xóa"/>
                                 </DockPanel>
                             </Button>
-                        </Grid>
+                        </StackPanel>
                     </StackPanel>
-            </StackPanel>
+                </StackPanel>
             </Border>
-                <Image Margin="20 0 0 0" Stretch="Fill" Grid.Row="1" Source="C:\Users\Administrator\source\repos\CoffeeStoreManager\CoffeeStoreManager\Resources\Assets\Images\coffee-cup-icon.png"></Image>
-            </Grid>
         </Grid>
     </DockPanel>
 </Page>

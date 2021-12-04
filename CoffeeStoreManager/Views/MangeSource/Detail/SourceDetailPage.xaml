@@ -22,42 +22,31 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                <DockPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
+                        <Setter Property="Margin" Value="0 0 15 0"/>
+                    </Style>
+                </DockPanel.Resources>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <Button
                     Command="{Binding RefreshDetail}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Làm mới chi tiết nguồn hàng">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Refresh" />
-                            <TextBlock Text="Làm mới"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="Refresh" />
                     </Button>
                     <Button
                     Click="OpenAddWindow"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Thêm chi tiết nguồn hàng">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="Add" />
-                            <TextBlock Text="Thêm"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="Add" />
                     </Button>
                     <Button
                     Click="OpenUpdateWindow"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Cập nhật chi tiết nguồn hàng">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="SquareEditOutline" />
-                            <TextBlock Text="Sửa"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="SquareEditOutline" />
                     </Button>
                     <Button
                     Command="{Binding DeleteDetail}"
-                    Style="{StaticResource IconTextBtn}"
                     ToolTip="Xóa chi tiết">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="TrashCanOutline" />
-                            <TextBlock Text="Xóa"/>
-                        </DockPanel>
+                        <materialDesign:PackIcon Kind="TrashCanOutline" />
                     </Button>
                 </StackPanel>
                 <SharedUC:SearchBar HorizontalAlignment="Right"/>
@@ -65,6 +54,12 @@
             <ListView Grid.Row="1" FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn 
+                            Header="STT" 
+                            DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type ListViewItem}}, 
+                            Converter={StaticResource ListIndexConverter}}"                
+                        ></GridViewColumn>
                         <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
                         <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
                         <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>

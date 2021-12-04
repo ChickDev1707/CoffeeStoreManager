@@ -14,7 +14,7 @@ namespace CoffeeStoreManager.Views.ManageFood
             InitializeComponent();
             UpdateFoodViewModel updateFoodVm = new UpdateFoodViewModel(foodVm);
             this.DataContext = updateFoodVm;
-
+            Style = (Style)FindResource("WindowStyle");
         }
     }
 }
