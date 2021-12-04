@@ -63,21 +63,38 @@ namespace CoffeeStoreManager.ViewModels
         }
         void SaveRegulation(object p)
         {
-            if (NumberOfTable <= 0 || MinAge <= 0 || MaxAge <= 0 || SpecialOfferCount <= 0 || string.IsNullOrEmpty(NumberOfTable.ToString()) )
+            if (NumberOfTable <= 0 || MinAge <= 0 || MaxAge <= 0 || SpecialOfferCount <= 0 || string.IsNullOrEmpty(NumberOfTable.ToString()) || string.IsNullOrEmpty(MinAge.ToString()) || string.IsNullOrEmpty(MaxAge.ToString()) || string.IsNullOrEmpty(SpecialOfferCount.ToString()) || string.IsNullOrEmpty(SpecialOfferMoney.ToString()))
             {
                 MessageBox.Show("Thông tin không hợp lệ!");
             }
             else
             {
-                var change = DataProvider.Ins.DB.QuyDinhs.SingleOrDefault(x => x.ma_quy_dinh == 1);
-                change.so_ban = NumberOfTable;
-                change.tuoi_toi_thieu_nv = MinAge;
-                change.tuoi_toi_da_nv = MaxAge;
-                change.loai_san_pham_uu_dai = SelectedFoodType.ma_loai_mon_an;
-                change.count_uu_dai = SpecialOfferCount;
-                change.muc_tien_nhan_uu_dai = SpecialOfferMoney;
-                MessageBox.Show("Lưu thành công!");
-                DataProvider.Ins.DB.SaveChanges();
+                try
+                {
+                    var change = DataProvider.Ins.DB.QuyDinhs.SingleOrDefault(x => x.ma_quy_dinh == 1);
+                    change.so_ban = NumberOfTable;
+                    change.tuoi_toi_thieu_nv = MinAge;
+                    change.tuoi_toi_da_nv = MaxAge;
+                    change.loai_san_pham_uu_dai = SelectedFoodType.ma_loai_mon_an;
+                    change.count_uu_dai = SpecialOfferCount;
+                    change.muc_tien_nhan_uu_dai = SpecialOfferMoney;
+                    MessageBox.Show("Lưu thành công!");
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch (NullReferenceException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                //var change = DataProvider.Ins.DB.QuyDinhs.SingleOrDefault(x => x.ma_quy_dinh == 1);
+                //change.so_ban = NumberOfTable;
+                //change.tuoi_toi_thieu_nv = MinAge;
+                //change.tuoi_toi_da_nv = MaxAge;
+                //change.loai_san_pham_uu_dai = SelectedFoodType.ma_loai_mon_an;
+                //change.count_uu_dai = SpecialOfferCount;
+                //change.muc_tien_nhan_uu_dai = SpecialOfferMoney;
+                //MessageBox.Show("Lưu thành công!");
+                //DataProvider.Ins.DB.SaveChanges();
             }              
         }
         void loadFoodTypeList()

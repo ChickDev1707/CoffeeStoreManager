@@ -14,91 +14,136 @@
      Background="White"
      FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="RegulationMain"
       DataContext="{StaticResource RegulationVM}">
 
+    <!--<Page.Resources>
+        <ResourceDictionary>
 
-    <StackPanel>
-        <DockPanel Height="Auto" Width="Auto" Margin="200 80 200 0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" >
+        </ResourceDictionary>
+    </Page.Resources>-->
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Quy định"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Background="#FF9500FF">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" >
-                        <TextBlock Text="Số bàn" FontSize="25" Margin="0 5"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <TextBlock Text="Tuổi tối thiểu nhân viên" FontSize="25" Margin="0 5"/>
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <TextBlock Text="Tuổi tối đa nhân viên" FontSize="25" Margin="0 5"/>
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <TextBlock Text="Sản phẩm ưu đãi" FontSize="25" Margin="0 5"/>
-                    </Grid>
-                    <Grid Grid.Row="4">
-                        <TextBlock Text="Count ưu đãi" FontSize="25" Margin="0 5"/>
-                    </Grid>
-                    <Grid Grid.Row="5">
-                        <TextBlock Text="Mức tiền nhận ưu đãi" FontSize="25" Margin="0 5"/>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Column="1" Width="150">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="200"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBox Text="{Binding NumberOfTable}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                        <materialDesign:PackIcon Kind="Settings" Width="150" Height="150"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke"/>
                     </Grid>
-                    <Grid Grid.Row="1">
-                        <TextBox Text="{Binding MinAge}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                    <Grid Grid.Row="1" Margin="0 20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Text="Thay đổi quy định" FontSize="34" FontWeight="Bold" Foreground="White"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Margin="0 20 0 10">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Text="Quản lý quán cafe của bạn" FontSize="20" Foreground="White"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Text="cách dễ dàng" FontSize="20" Foreground="White"></TextBlock>
+                        </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="2">
-                        <TextBox Text="{Binding MaxAge}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                    <Grid Grid.Row="2" Margin="0 20">
+                        <materialDesign:PackIcon Kind="ArrowRightBoldCircleOutline" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                 Width="100" Height="100"/>
                     </Grid>
-                    <Grid Grid.Row="3">
-                        <ComboBox FontSize="25" Width="150" HorizontalAlignment="Left" Margin="0 5"  
-                            
+                </Grid>
+            </StackPanel>
+            <DockPanel Grid.Column="1">
+                <StackPanel Margin="80 100 10 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0 10 0 0">
+                                <TextBlock Text="Số bàn" FontSize="20" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="0 10 0 0">
+                                <TextBlock Text="Tuổi tối thiểu nhân viên" FontSize="20" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="2" Margin="0 10 0 0">
+                                <TextBlock Text="Tuổi tối đa nhân viên" FontSize="20" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="3" Margin="0 10 0 0">
+                                <TextBlock Text="Sản phẩm ưu đãi" FontSize="20" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="4" Margin="0 10 0 0">
+                                <TextBlock Text="Count ưu đãi" FontSize="20" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="5" Margin="0 10 0 0">
+                                <TextBlock Text="Mức tiền nhận ưu đãi" FontSize="20" Margin="0 5"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" >
+                                <TextBox Text="{Binding NumberOfTable}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="1" >
+                                <TextBox Text="{Binding MinAge}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="2" >
+                                <TextBox Text="{Binding MaxAge}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="3" >
+                                <ComboBox FontSize="25" Width="150" HorizontalAlignment="Left" Margin="0 5"  
+                            materialDesign:HintAssist.Hint="{Binding SpecialOffer}"
                             DisplayMemberPath="ten_loai_mon_an"
                           ItemsSource="{Binding FoodTypeList}"
                           SelectedItem="{Binding SelectedFoodType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        </ComboBox>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Row="4" >
+                                <TextBox Text="{Binding SpecialOfferCount}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
+                            </Grid>
+                            <Grid Grid.Row="5" >
+                                <TextBox Text="{Binding SpecialOfferMoney}" FontSize="25" Width="100" HorizontalAlignment="Left" Margin="0 5"/>
+                            </Grid>
+                            
+                        </Grid>
+                        
                     </Grid>
-                    <Grid Grid.Row="4">
-                        <TextBox Text="{Binding SpecialOfferCount}" FontSize="25" Width="50" HorizontalAlignment="Left" Margin="0 5"/>
-                    </Grid>
-                    <Grid Grid.Row="5">
-                        <TextBox Text="{Binding SpecialOfferMoney}" FontSize="25" Width="100" HorizontalAlignment="Left" Margin="0 5"/>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </DockPanel>
-        <Button Margin="0 20"
-            Style="{StaticResource MaterialDesignRaisedLightButton}"
-            Width="100"
-                Command="{Binding SaveRegulationChange}">
-            <DockPanel>
-                <materialDesign:PackIcon Kind="ContentSave" Height="20" Width="20"/>
-                <TextBlock Text="Lưu" FontSize="20"/>
-            </DockPanel>
-        </Button>
-       
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 10 10 10"
+                            Content="Lưu" Command="{Binding SaveRegulationChange}"></Button>
+                </StackPanel>
 
-    </StackPanel>
+                
+            </DockPanel> 
+        </Grid>
+    </DockPanel>
 </Page>

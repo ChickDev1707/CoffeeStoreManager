@@ -268,9 +268,6 @@
     <Compile Include="Views\Account\AccountMain.xaml.cs">
       <DependentUpon>AccountMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Account\PasswordChangeWindow.xaml.cs">
-      <DependentUpon>PasswordChangeWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Account\AccountChangeWindow.xaml.cs">
       <DependentUpon>AccountChangeWindow.xaml</DependentUpon>
     </Compile>
@@ -397,10 +394,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Account\PasswordChangeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Statistic\StatisticMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -465,6 +458,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\CoffeeManagerModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CoffeeManagerModel.Context.cs</LastGenOutput>
+      <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\CoffeeManagerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
+      <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Resources\Assets\Images\coffee-shop-icon.png" />
+    <Resource Include="Resources\Assets\Images\logout.png" />
+    <Resource Include="Resources\Assets\Images\info.png" />
+    <Resource Include="Resources\Assets\Images\Coffee-shop.png" />
+    <Resource Include="Resources\Assets\Images\wallpapers-image.png" />
     <Resource Include="Resources\Assets\Images\down-angle.png" />
     <Resource Include="Resources\Assets\Images\user.png" />
     <Resource Include="Resources\Assets\Images\admin.png" />

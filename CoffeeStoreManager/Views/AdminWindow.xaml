@@ -103,13 +103,34 @@
                                 <Image Source="../Resources/Assets/Images/admin.png"/>
                                 <TextBlock Text="Admin window" FontWeight="Bold" FontSize="25" VerticalAlignment="Center" Margin="20 0 0 0"/>
                             </StackPanel>
-                            <Button x:Name="AccountNavBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Width="130" Padding="0" Height="40" Background="White" BorderThickness="0" >
-                                <StackPanel Orientation="Horizontal" Width="130">
-                                    <Image Margin="5 0 0 0" Width="28" Height="28" Source="../Resources/Assets/Images/user.png"/>
-                                    <TextBlock Margin="10 0 0 0" FontWeight="Bold" VerticalAlignment="Center" Text="Admin" Foreground="Black"/>
-                                    <Image Margin="5 0 0 0" Width="18" Height="18" Source="../Resources/Assets/Images/down-angle.png"/>
-                                </StackPanel>
-                            </Button>
+                            <syncfusion:DropDownButtonAdv 
+                                Label="Admin" 
+                                FontWeight="DemiBold"
+                                x:Name="AccountNavBtn" 
+                                SizeMode="Normal" 
+                                IconHeight="25"
+                                IconWidth="25"
+                                SmallIcon="../Resources/Assets/Images/user.png"
+                                HorizontalAlignment="Right" 
+                                VerticalAlignment="Center"
+                                Padding="10 3"
+                                Background="White" 
+                                BorderThickness="0" 
+                                >
+                                <syncfusion:DropDownMenuGroup>
+                                    <syncfusion:DropDownMenuItem Padding="10 2" Header="Thông tin" FontWeight="Regular" Click="AccountInfo_Click">
+                                        <syncfusion:DropDownMenuItem.Icon>
+                                            <Image Source="../Resources/Assets/Images/info.png"/>
+                                        </syncfusion:DropDownMenuItem.Icon>
+                                    </syncfusion:DropDownMenuItem>
+                                    <syncfusion:DropDownMenuItem Padding="10 2" Header="Đăng xuất" FontWeight="Regular">
+                                        <syncfusion:DropDownMenuItem.Icon>
+                                            <Image Source="../Resources/Assets/Images/logout.png"/>
+                                        </syncfusion:DropDownMenuItem.Icon>
+                                    </syncfusion:DropDownMenuItem>
+
+                                </syncfusion:DropDownMenuGroup>
+                            </syncfusion:DropDownButtonAdv>
                         </DockPanel>
                     </Border>
                     <Frame Padding="30 10" Grid.Row="1" x:Name="Main" x:FieldModifier="public" NavigationUIVisibility="Hidden"/>
