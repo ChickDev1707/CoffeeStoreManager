@@ -1,0 +1,102 @@
+﻿<Page x:Class="CoffeeStoreManager.Views.ManageEmployee.EmployeeTypeMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      DataContext="{StaticResource EmployeeTypeVM}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EmployeeTypeMain">
+    <Page.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Page.Resources>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách loại nhân viên"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Border  Style="{StaticResource MainBorder}">
+                <ListView HorizontalAlignment="Stretch" FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding TypeEmployeeList}" SelectedItem="{Binding SelectedLoaiNhanVien}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Mã loại nhân viên" DisplayMemberBinding="{Binding Path=ma_loai_nhan_vien}"></GridViewColumn>
+                            <GridViewColumn Header="Tên loại nhân viên" DisplayMemberBinding="{Binding Path=ten_loai_nhan_vien}"></GridViewColumn>
+                            <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto "></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+            <Border Style="{StaticResource MainBorder}" Margin="20 0 0 0" >
+            <StackPanel  Margin="20 20 20 0">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="Margin" Value="0 0 0 5"/>
+                    </Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                    </Style>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <Setter Property="Margin" Value="0 0 0 10"/>
+                        <Setter Property="FontSize" Value="16"/>
+                    </Style>
+                </StackPanel.Resources>
+                <StackPanel Margin="0 0 0 20">
+                    <TextBlock>Tên loại nhân viên</TextBlock>
+                        <TextBox  Text="{Binding TextTypeNameEmployee}"/>
+                    <TextBlock>Tiền lương</TextBlock>
+                        <TextBox  Text="{Binding TextSalary}"/>
+                        <Grid Margin="0 20 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                Command="{Binding AddType}"
+                                Style="{StaticResource IconTextBtn}">
+
+                                <DockPanel>
+                                    <materialDesign:PackIcon Kind="Add" />
+                                    <TextBlock Text="Thêm"/>
+                                </DockPanel>
+                            </Button>
+                            <Button Grid.Column="1"
+                                Command="{Binding UpdateType}"
+                                Style="{StaticResource IconTextBtn}">
+                                <DockPanel>
+                                    <materialDesign:PackIcon Kind="SquareEditOutline" />
+                                    <TextBlock Text="Sửa"/>
+                                </DockPanel>
+                            </Button>
+                            <Button Grid.Column="2"
+                                Command="{Binding DeleteType}"
+                                Style="{StaticResource IconTextBtn}">
+
+                                <DockPanel>
+                                    <materialDesign:PackIcon Kind="TrashCanOutline" />
+                                    <TextBlock Text="Xóa"/>
+                                </DockPanel>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+            </StackPanel>
+            </Border>
+                <Image Margin="20 0 0 0" Stretch="Fill" Grid.Row="1" Source="C:\Users\Administrator\source\repos\CoffeeStoreManager\CoffeeStoreManager\Resources\Assets\Images\coffee-cup-icon.png"></Image>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Page>

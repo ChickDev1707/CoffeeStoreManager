@@ -7,46 +7,72 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         DataContext="{StaticResource ManageEmployeeVM}"
-        Title="UpdateEmployeeWindow" Height="550" Width="800">
-    <Grid Margin="20">
+        Title="UpdateEmployeeWindow" Height="320" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Window.Resources>
+    <Grid Margin="20 0 20 20">
         <StackPanel>
-            <TextBlock Margin="0 0 0 30" Text="Update food" FontSize="30"/>
             <StackPanel>
                 <StackPanel.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontSize" Value="20"/>
-                        <Setter Property="Margin" Value="0 0 0 10"/>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="18"/>
                     </Style>
                     <Style TargetType="Button">
                         <Setter Property="Padding" Value="10 5"/>
                     </Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="Padding" Value="10"/>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                        <Setter Property="FontSize" Value="14"></Setter>
+                        <Setter Property="Padding" Value="0 8 0 0"></Setter>
+                        <Setter Property="Margin" Value="8 0 0 0"></Setter>
                     </Style>
                 </StackPanel.Resources>
-                <TextBlock Text="Ten nhan vien: "/>
-                <TextBox Text="{Binding SelectedNhanVien.ho_ten}"/>
-                <TextBlock Text="SDT: "/>
-                <TextBox Text="{Binding SelectedNhanVien.sdt}"/>
-                <TextBlock Text="Dia chi: "/>
-                <TextBox Text="{Binding SelectedNhanVien.dia_chi}"/>
-                <TextBlock Text="Ngay vao lam "/>
-                <DatePicker SelectedDate="{Binding SelectedNhanVien.ngay_vao_lam}"/>
-
-                <TextBlock Text="Loai nhan vien: "/>
-                <ComboBox  
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Tên nhân viên"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedNhanVien.ho_ten}"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Số điện thoại"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedNhanVien.sdt}"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Địa chỉ"/>
+                    <TextBox Grid.Column="1" Text="{Binding SelectedNhanVien.dia_chi}"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Ngày vào làm"/>
+                    <DatePicker Grid.Column="1" SelectedDate="{Binding SelectedNhanVien.ngay_vao_lam}"/>
+                </Grid>
+                <Label Content="Loại nhân viên"/>
+                <ComboBox  Margin="5 0 0 0"
                     ItemsSource="{Binding EmployeeTypeList}" 
                     DisplayMemberPath="ten_loai_nhan_vien"
                     SelectedValuePath="ma_loai_nhan_vien"
-
+                    FontSize="16"
                     SelectedValue="{Binding SelectedNhanVien.ma_loai_nhan_vien}">
                 </ComboBox>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 20 0 0">
-                <Button Content="Update" Margin="0 0 15 0" Command="{Binding UpdateEmployee}">
+                <Button Content="Update"  Command="{Binding UpdateEmployee}">
                 </Button>
-                <Button Content="Cancel">
-                   
+                <Button Margin="20 0 0 0" Content="Cancel">
+                  
                 </Button>
             </StackPanel>
         </StackPanel>

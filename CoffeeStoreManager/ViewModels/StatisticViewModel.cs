@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using Microsoft.Office.Interop.Excel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-
+using CoffeeStoreManager.Resources.Utils;
 namespace CoffeeStoreManager.ViewModels
 {
     public class StatisticViewModel : BaseViewModel
@@ -164,19 +164,13 @@ namespace CoffeeStoreManager.ViewModels
                     TextBlock b = dtGrid.Columns[i].GetCellContent(dtGrid.Items[j]) as TextBlock;
                     if (b != null)
                     {
+                       
                         Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[j + 2, i + 1];
+                       
                         myRange.Value2 = b.Text;
                     }
                 }
             }
-        }
-
-
-        string convertMoney(string money)
-        {
-            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
-            string a = double.Parse(money).ToString("#,###", cul.NumberFormat);
-            return a;
         }
         void LoadDataListView(object f)
         {
@@ -188,57 +182,59 @@ namespace CoffeeStoreManager.ViewModels
                 int days = DateTime.DaysInMonth(SelectedYear, SelectedMonth + 1);
                 for (int i = 1; i <= days; i++)
                 {
+                    decimal totalHD = 0, totalPNH = 0;
                     DateTime day = new DateTime(SelectedYear, SelectedMonth + 1, i);
                     ViewStatistic view = new ViewStatistic();
                     ViewEmployee t = new ViewEmployee();
-                    HoaDon hd = DataProvider.Ins.DB.HoaDons.Where(p => p.ngay_xuat_hoa_don == day).SingleOrDefault();
-                    PhieuNhapHang a = DataProvider.Ins.DB.PhieuNhapHangs.Where(p => p.ngay_nhap == day).SingleOrDefault();
-                    if (hd == null && a == null)
+                    List<HoaDon> hd = DataProvider.Ins.DB.HoaDons.Where(p => p.ngay_xuat_hoa_don == day).ToList();
+                    List<PhieuNhapHang> a = DataProvider.Ins.DB.PhieuNhapHangs.Where(p => p.ngay_nhap == day).ToList();
+                    if (hd.Count == 0 && a.Count == 0)
                     {
                         continue;
                     }
-                    else if (hd == null && a != null)
+                    for (int j = 0; j < hd.Count; j++)
                     {
-                        view.tien_hoa_don = null;
-                        view.tien_nguon_hang = convertMoney(a.tong_tien.ToString());
-                        view.tong = view.tien_nguon_hang;
-                        total = total + (decimal)a.tong_tien;
+                        totalHD += (decimal)hd[j].tong_tien;
                     }
-                    else if (hd != null && a == null)
+                    for (int j = 0; j < a.Count; j++)
                     {
-                        view.tien_hoa_don = convertMoney(hd.tong_tien.ToString());
-                        view.tien_nguon_hang = null;
-                        view.tong = view.tien_hoa_don;
-                        total = total + (decimal)hd.tong_tien;
-
+                        totalPNH += (decimal)a[j].tong_tien;
                     }
-                    else
-                    {
-
-                        view.tien_hoa_don = convertMoney(hd.tong_tien.ToString());
-                        view.tien_nguon_hang = convertMoney(a.tong_tien.ToString());
-                        total = total + (decimal)(hd.tong_tien + a.tong_tien);
-                        view.tong = convertMoney((hd.tong_tien + a.tong_tien).ToString());
-                    }
+                    view.tien_hoa_don = MoneyConverter.convertMoney(totalHD.ToString());
+                    view.tien_nguon_hang = MoneyConverter.convertMoney(totalPNH.ToString());
+                    total = total + (decimal)(totalHD + totalPNH);
+                    view.tong = MoneyConverter.convertMoney((totalHD + totalPNH).ToString());
                     view.thoi_gian = String.Format("{0:dd/MM/yyyy}", day);
                     b.Add(view);
                 }
             }
             if (b.Count != 0)
             {
-                TotalFee = convertMoney(total.ToString());
-                CheckData = Visibility.Hidden;
+                TotalFee = MoneyConverter.convertMoney(total.ToString());
                 DataListView = b;
-                TotalSalary = DataProvider.Ins.DB.PhieuTinhLuongs
+                PhieuTinhLuong pSalary = DataProvider.Ins.DB.PhieuTinhLuongs
                     .Where(p => p.ngay_tinh_luong.Value.Month == SelectedMonth + 1 &&
-                    p.ngay_tinh_luong.Value.Year == SelectedYear).SingleOrDefault().tong_tien.ToString();
-                TotalSalary = "Tổng tiền lương trả cho nhân viên trong tháng là " + convertMoney(TotalSalary);
+                    p.ngay_tinh_luong.Value.Year == SelectedYear).FirstOrDefault();
+                if(pSalary == null)
+                {
+                    TotalSalary = "0";
+                }
+                else
+                {
+                    TotalSalary = pSalary.tong_tien.ToString();
+                }
+                TotalSalary = "Tổng tiền lương trả cho nhân viên trong tháng " + MoneyConverter.convertMoney(TotalSalary);
             }
             else
             {
-                TotalSalary = "0";
-                CheckData = Visibility.Visible;
+                if(TotalSalary == null)
+                {
+                    CheckData = Visibility.Visible;
+                    return;
+                }
+                TotalSalary = "Tổng tiền lương trả cho nhân viên trong tháng " + MoneyConverter.convertMoney(TotalSalary);
             }
+            CheckData = Visibility.Hidden;
         }
         void LoadDataComboBox()
         {

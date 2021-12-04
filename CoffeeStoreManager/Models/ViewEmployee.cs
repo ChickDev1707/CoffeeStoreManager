@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeStoreManager.Models
 {
-    class ViewEmployee
+    public class ViewEmployee
     {
         public int STT { get; set; }
         public int ma_nv { get; set; }

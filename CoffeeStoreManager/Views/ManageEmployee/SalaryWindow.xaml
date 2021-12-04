@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource ManageEmployeeVM}"
-        Title="SalaryWindow" Height="450" Width="800">
+        DataContext="{StaticResource SalaryEmployeeVM}"
+        Title="SalaryWindow" Height="450" Width="860">
+    <Window.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Window.Resources>
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -17,8 +20,13 @@
             <!--<ComboBox Grid.Column="0" ItemsSource="{Binding DataCbxMonth}" SelectedIndex="{Binding SelectedMonth}"></ComboBox>-->
             <!--<ComboBox Grid.Column="1" ItemsSource="{Binding DataCbxYear}" SelectedIndex="{Binding SelectedYear}"></ComboBox>-->
         </Grid>
-        <Button Margin="0 10 0 0" Content="Tính Lương" Command="{Binding LoadSalary}"></Button>
-        <ListView ItemsSource="{Binding SalaryEmployeeList}" >
+        <Button Margin="0 10 0 0" Style="{StaticResource PrimaryBtn}" Content="Tính Lương" Command="{Binding LoadSalary}"></Button>
+        <ListView ItemsSource="{Binding  SalaryEmployeeList}" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding Path=ho_ten}"></GridViewColumn>

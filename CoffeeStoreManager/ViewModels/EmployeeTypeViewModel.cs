@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-
+using CoffeeStoreManager.Resources.Utils;
 namespace CoffeeStoreManager.ViewModels
 {
     class EmployeeTypeViewModel : BaseViewModel
     {
+        
         private ObservableCollection<ViewTypeEmployee> typeEmployeeList;
         private string textTypeNameEmployee;
         private string textSalary;
@@ -63,12 +64,6 @@ namespace CoffeeStoreManager.ViewModels
             UpdateType = new RelayCommand<object>((p) => { return true; }, (p) => { updateType(p); });
             DeleteType = new RelayCommand<object>((p) => { return true; }, (p) => { deleteType(p); });
         }
-        string convertMoney(string money)
-        {
-            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN"); // try with "en-US"
-            string a = double.Parse(money).ToString("#,###", cul.NumberFormat);
-            return a;
-        }
         void LoadData()
         {
             TypeEmployeeList.Clear();
@@ -83,7 +78,7 @@ namespace CoffeeStoreManager.ViewModels
                 ViewTypeEmployee view = new ViewTypeEmployee();
                 view.ma_loai_nhan_vien = list[i].ma_loai_nhan_vien;
                 view.ten_loai_nhan_vien = list[i].ten_loai_nhan_vien;
-                view.tien_luong = convertMoney(list[i].tien_luong.ToString());
+                view.tien_luong = MoneyConverter.convertMoney(list[i].tien_luong.ToString());
                 Obs.Add(view);
             }
             return Obs;
@@ -91,7 +86,13 @@ namespace CoffeeStoreManager.ViewModels
         void addType(object p)
         {
             decimal check;
-            if (decimal.TryParse(TextSalary, out check) == false)
+            string[] money = TextSalary.Split('.');
+            string salary = "";
+            for (int i = 0; i < money.Length; i++)
+            {
+                salary += money[i];
+            }
+            if (decimal.TryParse(salary, out check) == false)
             {
                 MessageBox.Show("Tien luong khong hop le");
                 return;
@@ -101,8 +102,16 @@ namespace CoffeeStoreManager.ViewModels
                 MessageBox.Show("Tien luong khong hop le");
                 return;
             }
-            DataProvider.Ins.DB.LoaiNhanViens.Add(new LoaiNhanVien() { ten_loai_nhan_vien = TextTypeNameEmployee, tien_luong = decimal.Parse(TextSalary) });
-            DataProvider.Ins.DB.SaveChanges();
+            DataProvider.Ins.DB.LoaiNhanViens.Add(new LoaiNhanVien() { ten_loai_nhan_vien = TextTypeNameEmployee, tien_luong = decimal.Parse(salary) });
+            try
+            {
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("So tien qua lon");
+                return;
+            }
             LoadData();
         }
         void updateType(object p)
@@ -121,6 +130,11 @@ namespace CoffeeStoreManager.ViewModels
                     MessageBox.Show("Tien luong khong hop le");
                     return;
                 }
+                if (check < 0)
+                {
+                    MessageBox.Show("Tien luong khong hop le");
+                    return;
+                }
                 var UpdTypeEmployee = DataProvider.Ins.DB.LoaiNhanViens.
                     Where(t => t.ma_loai_nhan_vien == SelectedLoaiNhanVien.ma_loai_nhan_vien).FirstOrDefault();
                 if (SelectedLoaiNhanVien.ma_loai_nhan_vien != 1)
@@ -128,7 +142,15 @@ namespace CoffeeStoreManager.ViewModels
                     UpdTypeEmployee.ten_loai_nhan_vien = TextTypeNameEmployee;
                 }
                 UpdTypeEmployee.tien_luong = decimal.Parse(salary);
-                DataProvider.Ins.DB.SaveChanges();
+                try
+                {
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch
+                {
+                    MessageBox.Show("So tien qua lon");
+                    return;
+                }
                 LoadData();
             }
         }
@@ -148,6 +170,7 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     if (ListEmployee[i].ma_loai_nhan_vien == ClrTypeEmployee.ma_loai_nhan_vien)
                     {
+                        ListEmployee[i].LoaiNhanVien.tien_luong =0;
                         DataProvider.Ins.DB.NhanViens.Remove(ListEmployee[i]);
                     }
                 }
