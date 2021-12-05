@@ -123,7 +123,7 @@
                                             <Image Source="../Resources/Assets/Images/info.png"/>
                                         </syncfusion:DropDownMenuItem.Icon>
                                     </syncfusion:DropDownMenuItem>
-                                    <syncfusion:DropDownMenuItem Padding="10 2" Header="Đăng xuất" FontWeight="Regular">
+                                    <syncfusion:DropDownMenuItem Padding="10 2" Header="Đăng xuất" FontWeight="Regular" Click="LogOut_Click">
                                         <syncfusion:DropDownMenuItem.Icon>
                                             <Image Source="../Resources/Assets/Images/logout.png"/>
                                         </syncfusion:DropDownMenuItem.Icon>

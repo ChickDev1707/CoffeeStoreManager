@@ -112,7 +112,7 @@ namespace CoffeeStoreManager.ViewModels
             var choose = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ten_dang_nhap == "admin");
             if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(NewPassword) || string.IsNullOrEmpty(RePassword))
             {
-                System.Windows.MessageBox.Show("Chưa điền đủ thông tin!");
+                System.Windows.MessageBox.Show("Chưa điền đủ thông tin!","Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
@@ -121,19 +121,19 @@ namespace CoffeeStoreManager.ViewModels
                     if (NewPassword == RePassword)
                     {
                         var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.mat_khau == Password);
-                        System.Windows.MessageBox.Show("Đổi mật khẩu thành công");
+                        System.Windows.MessageBox.Show("Đổi mật khẩu thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                         change.mat_khau = NewPassword;
                         DataProvider.Ins.DB.SaveChanges();
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Mật khẩu và xác nhận mật khẩu không trùng khớp");
+                        System.Windows.MessageBox.Show("Mật khẩu và xác nhận mật khẩu không trùng khớp", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
 
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Mật khẩu cũ không đúng");
+                    System.Windows.MessageBox.Show("Mật khẩu cũ không đúng", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }

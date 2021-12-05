@@ -27,11 +27,11 @@
                     <StackPanel Grid.Column="0">
                         <Border Style="{StaticResource MainBorder}">
                             <StackPanel>
-                                <Image Source="{Binding Source}" Width="200" Height="240"/>
+                                <Image Source="{Binding Source}" Width="200" Height="240" Stretch="Fill"/>
                             </StackPanel>
                         </Border>
                         <Separator Height="15" Background="Transparent"/>
-                        <Button Command="{Binding UploadFoodImage}" Content="Thêm ảnh"/>
+                        <Button Command="{Binding SavePictureCommand}" Content="Thêm ảnh"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">

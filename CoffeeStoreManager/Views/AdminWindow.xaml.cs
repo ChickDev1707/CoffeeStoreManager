@@ -11,11 +11,11 @@ namespace CoffeeStoreManager.Views
     /// </summary>
     public partial class AdminWindow : Window
     {
+       
         public AdminWindow()
         {
             InitializeComponent();
             Style = (Style)FindResource("WindowStyle");
-
         }
         
         private void navigationDrawer_ItemClicked(object sender, Syncfusion.UI.Xaml.NavigationDrawer.NavigationItemClickedEventArgs e)
@@ -55,6 +55,14 @@ namespace CoffeeStoreManager.Views
         private void AccountInfo_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = Pages.AccountPage;
+        }
+
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            Window mainWindow = new MainWindow();
+            mainWindow.Show();
         }
     }
     
