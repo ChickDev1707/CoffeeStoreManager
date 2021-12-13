@@ -31,7 +31,7 @@
                             </StackPanel>
                         </Border>
                         <Separator Height="15" Background="Transparent"/>
-                        <Button Command="{Binding SavePictureCommand}" Content="Thêm ảnh"/>
+                        <Button Command="{Binding SavePictureCommand}" Content="Thay ảnh"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
@@ -75,16 +75,7 @@
                 </Border>
             </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 30 20 0">
-                <Button Style="{StaticResource PrimaryBtn}" Margin="0 0 20 0" Content="Thoát">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:CallMethodAction MethodName="Close"
-                           TargetObject="{Binding RelativeSource={RelativeSource
-                                                  Mode=FindAncestor,
-                                                  AncestorType=Window}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Button>
+                
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding SaveAccountCommand}" Content="Lưu thông tin">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
