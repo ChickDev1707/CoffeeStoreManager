@@ -6,12 +6,17 @@
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-
+        xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="AddFoodWindow" Height="500" Width="800">
     <Window.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Border Padding="20">
         <StackPanel>
@@ -39,9 +44,20 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox
-                                Text="{Binding FoodName}"
+                                x:Name="FoodName"
                                 materialDesign:HintAssist.Hint="Tên món"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                Style="{StaticResource ValidationTextBox}"
+                            >
+                                <TextBox.Text>
+                                    <Binding Path="FoodName" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                            <rule:TextRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <ComboBox
                                 Grid.Column="1"
                                 HorizontalAlignment="Right"
@@ -55,22 +71,52 @@
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         </Grid>
                         <TextBox
-                            Text="{Binding FoodPrice}"
+                            x:Name="FoodPrice"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Giá tiền"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                            Style="{StaticResource ValidationTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="FoodPrice" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                        <rule:PositiveNumberRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBox
-                            Text="{Binding FoodIngredient}"
+                            x:Name="FoodIngredient"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Nguyên liệu"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                            Style="{StaticResource ValidationTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="FoodIngredient" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                        <rule:TextRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBox
-                            Text="{Binding FoodDescription}"
+                            x:Name="FoodDescription"
                             Margin="0 0 0 10"
                             Height="100"
                             TextWrapping="Wrap"
                             materialDesign:HintAssist.Hint="Mô tả"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                            Style="{StaticResource ValidationTextBox}">
+                            <TextBox.Text>
+                                <Binding Path="FoodDescription" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                        <rule:TextRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -85,7 +131,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding}">
+                <Button Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
@@ -94,6 +140,22 @@
                                                   AncestorType=Window}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <Button.Style >
+                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=FoodName}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=FoodPrice}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=FoodIngredient}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=FoodDescription}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </StackPanel>
         </StackPanel>

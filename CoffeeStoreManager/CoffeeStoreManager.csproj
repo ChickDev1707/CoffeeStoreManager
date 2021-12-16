@@ -194,6 +194,7 @@
     <Compile Include="Resources\Utils\ImageConverterUtil.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="Resources\Utils\MoneyConverter.cs" />
+    <Compile Include="Resources\Utils\Rules.cs" />
     <Compile Include="ViewModels\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModels\AddFoodViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -430,6 +431,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Statistic\MonthReport\MonthReportMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Style\TextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
