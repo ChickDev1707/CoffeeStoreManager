@@ -46,7 +46,7 @@
                 </StackPanel.Resources>
                 <DockPanel Margin="0 0 0 30">
                     <materialDesign:PackIcon Kind="Account" />
-                    <TextBox
+                    <TextBox x:Name="usernameTxb"
                             materialDesign:HintAssist.Hint="Tên đăng nhập" FontSize="16" 
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             Text="{Binding Username}"/>
@@ -54,13 +54,13 @@
                 <DockPanel >
                     <materialDesign:PackIcon Kind="Lock" />
                     <PasswordBox 
-                            x:Name="txtPassword"
+                            x:Name="passwordTxb"
                             materialDesign:HintAssist.Hint="Mật khẩu" FontSize="16"
                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PasswordChanged">
                                 <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                   CommandParameter="{Binding ElementName=txtPassword}"/>
+                                   CommandParameter="{Binding ElementName=passwordTxb}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </PasswordBox>
@@ -74,7 +74,7 @@
                         
                     </Style>
                 </StackPanel.Resources>
-                <Button
+                <Button x:Name="loginBtn"
                          Margin="0 0 20 0"
                          Command="{Binding LoginCommand}"
                          CommandParameter="{Binding ElementName=loginWindow}">
@@ -88,7 +88,8 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Background="{DynamicResource SecondaryHueMidBrush}">
+                <Button x:Name="exitBtn"
+                    Background="{DynamicResource SecondaryHueMidBrush}">
                     Thoát
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">

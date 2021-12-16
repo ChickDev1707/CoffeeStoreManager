@@ -106,7 +106,7 @@
                                     
                                 </StackPanel>
                             </Border>
-                            <Button
+                            <Button x:Name="changeProfileBtn"
                                 Command="{Binding OpenAccountChange}"
                                 HorizontalAlignment="Right"
                                 Height="Auto"
@@ -138,33 +138,33 @@
                                             <Setter Property="Margin" Value="20 0 20 10"/>
                                         </Style>
                                     </StackPanel.Resources>
-                                    <PasswordBox x:Name="txtPassword" materialDesign:HintAssist.Hint="Mật khẩu cũ">
+                                    <PasswordBox x:Name="passwordTxb" materialDesign:HintAssist.Hint="Mật khẩu cũ">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PasswordChanged">
                                                 <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                                    CommandParameter="{Binding ElementName=txtPassword}"/>
+                                                    CommandParameter="{Binding ElementName=passwordTxb}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </PasswordBox>
-                                    <PasswordBox x:Name="txtNewPassword" materialDesign:HintAssist.Hint="Mật khẩu mới">
+                                    <PasswordBox x:Name="newPasswordTxb" materialDesign:HintAssist.Hint="Mật khẩu mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PasswordChanged">
                                                 <i:InvokeCommandAction Command="{Binding NewPasswordChangedCommand}" 
-                                                 CommandParameter="{Binding ElementName=txtNewPassword}"/>
+                                                 CommandParameter="{Binding ElementName=newPasswordTxb}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </PasswordBox>
-                                    <PasswordBox x:Name="txtRePassword" materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới">
+                                    <PasswordBox x:Name="rePasswordTxb" materialDesign:HintAssist.Hint="Xác nhận mật khẩu mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PasswordChanged">
                                                 <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}" 
-                                                CommandParameter="{Binding ElementName=txtRePassword}"/>
+                                                CommandParameter="{Binding ElementName=rePasswordTxb}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </PasswordBox>
                                 </StackPanel>
                             </Border>
-                            <Button
+                            <Button x:Name="savePasswordChangeBtn"
                                 Command="{Binding SavePasswordCommand}"
                                 HorizontalAlignment="Right"
                                 Height="Auto"

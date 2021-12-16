@@ -95,7 +95,7 @@
                             </DockPanel>
                             <StackPanel>
                                 <Label Content="Số bàn ăn"/>
-                                <TextBox Text="{Binding NumberOfTable}" Width="100" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="tableNumTxb" Text="{Binding NumberOfTable}" Width="100" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Style="{StaticResource RuleItem}">
@@ -106,11 +106,11 @@
                             <DockPanel>
                                 <StackPanel Margin="0 0 40 0">
                                     <Label Content="Tuổi tối thiểu"/>
-                                    <TextBox Text="{Binding MinAge}" Width="150" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="minAgeTxb" Text="{Binding MinAge}" Width="150" HorizontalAlignment="Left"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Tuổi tối đa"/>
-                                    <TextBox Text="{Binding MaxAge}" Width="150" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="maxAgeTxb" Text="{Binding MaxAge}" Width="150" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </DockPanel>
                         </StackPanel>
@@ -122,7 +122,7 @@
                             
                             <StackPanel Style="{StaticResource RuleItem}">
                                 <Label Content="Loại món ưu đãi"/>
-                                <ComboBox
+                                <ComboBox Name="specialOfferCbb"
                                     FontSize="18" Width="150" HorizontalAlignment="Left"
                                     materialDesign:HintAssist.Hint="Loại món"
                                     DisplayMemberPath="ten_loai_mon_an"
@@ -135,15 +135,15 @@
                             <DockPanel>
                                 <StackPanel Margin="0 0 40 0">
                                     <Label Content="Định mức ưu đãi"/>
-                                    <TextBox Text="{Binding SpecialOfferCount}" Width="150" HorizontalAlignment="Left"/>
+                                    <TextBox x:Name="specialOfferCountTxb" Text="{Binding SpecialOfferCount}" Width="150" HorizontalAlignment="Left"/>
                                 </StackPanel>
                                 <StackPanel Margin="0 0 40 0">
                                     <Label Content="Giá tiền ưu đãi"/>
-                                    <TextBox Text="{Binding SpecialOfferMoney}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                    <TextBox x:Name="specialOfferMoneyTxb" Text="{Binding SpecialOfferMoney}" Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                                 </StackPanel>
                             </DockPanel>
                         </StackPanel>
-                        <Button Margin="0 40 20 0" Style="{StaticResource PrimaryBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Cập nhật" Command="{Binding SaveRegulationChange}"></Button>
+                        <Button x:Name="saveRegulationChangeBtn" Margin="0 40 20 0" Style="{StaticResource PrimaryBtn}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Cập nhật" Command="{Binding SaveRegulationChange}"></Button>
                     </StackPanel>
                 </Border>
             </Grid>

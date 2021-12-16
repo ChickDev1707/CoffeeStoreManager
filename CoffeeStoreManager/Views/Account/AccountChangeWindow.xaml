@@ -31,7 +31,7 @@
                             </StackPanel>
                         </Border>
                         <Separator Height="15" Background="Transparent"/>
-                        <Button Command="{Binding SavePictureCommand}" Content="Thay ảnh"/>
+                        <Button x:Name="changePicBtn" Command="{Binding SavePictureCommand}" Content="Thay ảnh"/>
                     </StackPanel>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
@@ -57,26 +57,26 @@
                         <TextBlock Text="Thông tin" Margin="0 0 0 15" FontSize="18" FontWeight="DemiBold"/>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="User" />
-                            <TextBox Text="{Binding Name}" materialDesign:HintAssist.Hint="Tên"></TextBox>
+                            <TextBox x:Name="nameTxb" Text="{Binding Name}" materialDesign:HintAssist.Hint="Tên"></TextBox>
                         </DockPanel>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Email" />
-                            <TextBox Text="{Binding Gmail}" materialDesign:HintAssist.Hint="Email"></TextBox>
+                            <TextBox x:Name="emailTxb" Text="{Binding Gmail}" materialDesign:HintAssist.Hint="Email"></TextBox>
                         </DockPanel>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Phone" />
-                            <TextBox Text="{Binding Phone}" materialDesign:HintAssist.Hint="Số điện thoại"></TextBox>
+                            <TextBox x:Name="phoneTxb" Text="{Binding Phone}" materialDesign:HintAssist.Hint="Số điện thoại"></TextBox>
                         </DockPanel>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="AddressMarker" />
-                            <TextBox Text="{Binding Address}" materialDesign:HintAssist.Hint="Địa chỉ"></TextBox>
+                            <TextBox x:Name="addressTxb" Text="{Binding Address}" materialDesign:HintAssist.Hint="Địa chỉ"></TextBox>
                         </DockPanel>
                     </StackPanel>
                 </Border>
             </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 30 20 0">
                 
-                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding SaveAccountCommand}" Content="Lưu thông tin">
+                <Button x:Name="saveProfileChangeBtn" Style="{StaticResource PrimaryBtn}" Command="{Binding SaveAccountCommand}" Content="Lưu thông tin">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
