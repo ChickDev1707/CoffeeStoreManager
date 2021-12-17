@@ -153,6 +153,7 @@
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataProvider.cs" />
+    <Compile Include="Models\FoodTypeChartModel.cs" />
     <Compile Include="Models\HoaDon.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
@@ -180,6 +181,9 @@
     <Compile Include="Models\QuyDinh.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
@@ -197,6 +201,7 @@
     <Compile Include="Resources\Utils\Rules.cs" />
     <Compile Include="ViewModels\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModels\AddFoodViewModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -219,6 +224,9 @@
     <Compile Include="ViewModels\UpdateEmployeeViewModel.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardMain.xaml.cs">
+      <DependentUpon>DashboardMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageEmployee\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
@@ -324,6 +332,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dashboard\DashboardMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -485,6 +497,8 @@
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Assets\Images\dashboard.png" />
+    <Resource Include="Resources\Assets\Images\admin-dashboard.png" />
     <Resource Include="Resources\Assets\Images\rules.png" />
     <Resource Include="Resources\Assets\Images\coffee-shop-icon.png" />
     <Resource Include="Resources\Assets\Images\logout.png" />

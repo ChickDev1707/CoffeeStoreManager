@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using CoffeeStoreManager.Views.Account;
+using CoffeeStoreManager.Views.Dashboard;
 using CoffeeStoreManager.Views.ManageEmployee;
 using CoffeeStoreManager.Views.ManageFood;
 using CoffeeStoreManager.Views.MangeSource.Item;
@@ -25,13 +26,14 @@ namespace CoffeeStoreManager.Views
         public static Page StatisticFoodTypePage { get => pages[7]; }
         public static Page RegulationPage { get => pages[8]; }
         public static Page AccountPage { get => pages[9]; }
+        public static Page DashboardPage { get => pages[10]; }
         static Pages()
         {
             pages.Add(new ManageFoodMain());
             pages.Add(new FoodTypePage());
             //food
             pages.Add(new ManageEmployeeMain());
-            pages.Add(new EmployeeTypeMain());// thay dòng này bằng employee type
+            pages.Add(new EmployeeTypeMain());
 
             pages.Add(new PartTimeSchedulerMain());
             //employee
@@ -43,8 +45,9 @@ namespace CoffeeStoreManager.Views
             pages.Add(new RegulationMain());
             //regulation
             pages.Add(new AccountMain());
-            //pages.Add(new MonthReportMain());
             //account
+            pages.Add(new DashboardMain());
+
         }
 
     }

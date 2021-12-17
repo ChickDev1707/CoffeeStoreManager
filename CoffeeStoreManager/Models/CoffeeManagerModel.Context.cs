@@ -37,6 +37,7 @@ namespace CoffeeStoreManager.Models
         public virtual DbSet<PhieuTinhLuong> PhieuTinhLuongs { get; set; }
         public virtual DbSet<PhieuUuDai> PhieuUuDais { get; set; }
         public virtual DbSet<QuyDinh> QuyDinhs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoanAdmin> TaiKhoanAdmins { get; set; }
     }
 }

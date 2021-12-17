@@ -21,4 +21,5 @@
     <ViewModel:MonthReportViewModel x:Key="MonthReportVM"></ViewModel:MonthReportViewModel>
     <ViewModel:SalaryEmployeeViewModel x:Key="SalaryEmployeeVM"></ViewModel:SalaryEmployeeViewModel>
     <ViewModel:UpdateEmployeeViewModel x:Key="UpdateEmployeeVM"></ViewModel:UpdateEmployeeViewModel>
+    <ViewModel:DashboardViewModel x:Key="DashboardVM"></ViewModel:DashboardViewModel>
 </ResourceDictionary>

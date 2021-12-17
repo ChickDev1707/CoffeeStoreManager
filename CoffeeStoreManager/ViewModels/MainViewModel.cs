@@ -478,7 +478,7 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     tong_tien = tong_tien + BillDetail[i].thanh_tien;
                 }
-                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today, ma_ban_an = number };
+                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today};
                 DataProvider.Ins.DB.HoaDons.Add(bill);
                 DataProvider.Ins.DB.SaveChanges();
                 for (int i = 0; i < Tables[number - 1].billoftable.Count(); i++)
