@@ -18,6 +18,14 @@
                 </syncfusion:NavigationItem.Icon>
             </syncfusion:NavigationItem>
             <syncfusion:NavigationItem ItemType="Separator" />
+            <syncfusion:NavigationItem 
+                Header="Bảng điều khiển"
+                x:Name="NavDashboard"
+            >
+                <syncfusion:NavigationItem.Icon >
+                    <Image Source="../Resources/Assets/Images/Dashboard.png"/>
+                </syncfusion:NavigationItem.Icon>
+            </syncfusion:NavigationItem>
             <syncfusion:NavigationItem
                     Header="Món ăn"
                     x:Name="NavFood"

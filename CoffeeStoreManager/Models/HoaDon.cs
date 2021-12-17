@@ -23,7 +23,6 @@ namespace CoffeeStoreManager.Models
         public int ma_hoa_don { get; set; }
         public Nullable<System.DateTime> ngay_xuat_hoa_don { get; set; }
         public Nullable<decimal> tong_tien { get; set; }
-        public Nullable<int> ma_ban_an { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }

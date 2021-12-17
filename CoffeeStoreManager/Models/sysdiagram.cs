@@ -12,16 +12,12 @@ namespace CoffeeStoreManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class MonAn
+    public partial class sysdiagram
     {
-        public int ma_mon_an { get; set; }
-        public Nullable<decimal> gia_tien { get; set; }
-        public Nullable<int> ma_loai_mon_an { get; set; }
-        public string ten_mon_an { get; set; }
-        public string nguyen_lieu { get; set; }
-        public string mo_ta { get; set; }
-        public byte[] anh { get; set; }
-    
-        public virtual LoaiMonAn LoaiMonAn { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

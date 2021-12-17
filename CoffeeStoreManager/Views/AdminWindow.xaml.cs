@@ -16,6 +16,7 @@ namespace CoffeeStoreManager.Views
         {
             InitializeComponent();
             Style = (Style)FindResource("WindowStyle");
+            Main.Content = Pages.DashboardPage;
         }
         
         private void navigationDrawer_ItemClicked(object sender, Syncfusion.UI.Xaml.NavigationDrawer.NavigationItemClickedEventArgs e)
@@ -48,6 +49,9 @@ namespace CoffeeStoreManager.Views
                     break;
                 case "NavRule":
                     Main.Content = Pages.RegulationPage;
+                    break;
+                case "NavDashboard":
+                    Main.Content = Pages.DashboardPage;
                     break;
             }
         }
