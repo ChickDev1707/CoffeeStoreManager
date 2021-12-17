@@ -11,11 +11,11 @@ using CoffeeStoreManager.Views.Discount_Bill;
 
 namespace CoffeeStoreManager.ViewModels
 {
-    public class MainViewModel: BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         public bool IsLoaded = false;
         public ICommand LoadedWindowCommand { get; set; }
-        
+
         private ObservableCollection<LoaiMonAn> _LoaiMonAn;
         public ObservableCollection<LoaiMonAn> LoaiMonAn
         {
@@ -81,6 +81,16 @@ namespace CoffeeStoreManager.ViewModels
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
+        private QuyDinh _QuyDinh;
+        public QuyDinh QuyDinh
+        {
+            get => _QuyDinh;
+            set
+            {
+                _QuyDinh = value;
+                OnPropertyChanged(nameof(QuyDinh));
+            }
+        }
         private ObservableCollection<Table> _Tables;
         public ObservableCollection<Table> Tables
         {
@@ -88,13 +98,41 @@ namespace CoffeeStoreManager.ViewModels
             set
             {
                 _Tables = value;
-                OnPropertyChanged(nameof(_Tables));
+                OnPropertyChanged(nameof(Tables));
             }
         }
         private int _number;
         public int number { get => _number; set { _number = value; OnPropertyChanged(nameof(number)); } }
         private decimal? _totalmoney;
         public decimal? totalmoney { get => _totalmoney; set { _totalmoney = value; OnPropertyChanged(nameof(totalmoney)); } }
+        //private bool _IsChecked1;
+        //public bool IsChecked1 { get => _IsChecked1; set { _IsChecked1 = value; OnPropertyChanged(nameof(IsChecked1)); } }
+        //private bool _IsChecked2;
+        //public bool IsChecked2 { get => _IsChecked2; set { _IsChecked2 = value; OnPropertyChanged(nameof(IsChecked2)); } }
+        //private bool _IsChecked3;
+        //public bool IsChecked3 { get => _IsChecked3; set { _IsChecked3 = value; OnPropertyChanged(nameof(IsChecked3)); } }
+        //private bool _IsChecked4;
+        //public bool IsChecked4 { get => _IsChecked4; set { _IsChecked4 = value; OnPropertyChanged(nameof(IsChecked4)); } }
+        //private bool _IsChecked5;
+        //public bool IsChecked5 { get => _IsChecked5; set { _IsChecked5 = value; OnPropertyChanged(nameof(IsChecked5)); } }
+        //private bool _IsChecked6;
+        //public bool IsChecked6 { get => _IsChecked6; set { _IsChecked6 = value; OnPropertyChanged(nameof(IsChecked6)); } }
+        //private bool _IsChecked7;
+        //public bool IsChecked7 { get => _IsChecked7; set { _IsChecked7 = value; OnPropertyChanged(nameof(IsChecked7)); } }
+        //private bool _IsChecked8;
+        //public bool IsChecked8 { get => _IsChecked8; set { _IsChecked8 = value; OnPropertyChanged(nameof(IsChecked8)); } }
+        //private bool _IsChecked9;
+        //public bool IsChecked9 { get => _IsChecked9; set { _IsChecked9 = value; OnPropertyChanged(nameof(IsChecked9)); } }
+        private ObservableCollection<ItemcontrolButton> _ItemcontrolButtonList;
+        public ObservableCollection<ItemcontrolButton> ItemcontrolButtonList
+        {
+            get => _ItemcontrolButtonList;
+            set
+            {
+                _ItemcontrolButtonList = value;
+                OnPropertyChanged(nameof(ItemcontrolButtonList));
+            }
+        }
         private ObservableCollection<EmptyTable> _EmptyTables;
         public ObservableCollection<EmptyTable> EmptyTables
         {
@@ -199,6 +237,70 @@ namespace CoffeeStoreManager.ViewModels
             }
             return totalmoney;
         }
+        int FindFirstSpace(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == ' ')
+                    return i;
+            }
+            return -1;
+        }
+        void CheckColor()
+        {
+            ItemcontrolButtonList.Clear();
+            for (int i = 0; i < QuyDinh.so_ban; i++)
+            //for (int i = 0; i < 15; i++)
+            {
+                ItemcontrolButton item = new ItemcontrolButton()
+                {
+                    index = i + 1,
+                    text = "Bàn " + Convert.ToString(i + 1),
+                    isnotempty = false,
+                    isselected = false,
+                    choosetable = ChooseTableCommand
+                };
+                if (Tables[i].status == true)
+                    item.isnotempty = true;
+                if (number == i + 1)
+                    item.isselected = true;
+                ItemcontrolButtonList.Add(item);
+            }
+            //for (int i = 1; i < 2; i++)
+            //{
+            //    ItemcontrolButtonList[i - 1].isnotempty = Tables[i - 1].status;
+            //    //switch (i)
+            //    //{
+            //    //    case 1:
+            //    //        IsChecked1 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 2:
+            //    //        IsChecked2 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 3:
+            //    //        IsChecked3 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 4:
+            //    //        IsChecked4 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 5:
+            //    //        IsChecked5 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 6:
+            //    //        IsChecked6 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 7:
+            //    //        IsChecked7 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 8:
+            //    //        IsChecked8 = Tables[i - 1].status;
+            //    //        break;
+            //    //    case 9:
+            //    //        IsChecked9 = Tables[i - 1].status;
+            //    //        break;
+            //    //}
+            //}
+        }
         int FindMonAn(int ma_mon_an)
         {
             for (int i = 0; i < BillDetail.Count; i++)
@@ -215,7 +317,11 @@ namespace CoffeeStoreManager.ViewModels
             {
                 if (Tables[i].status == false)
                 {
-                    var empty_table = new EmptyTable() { emptytable = "Bàn " + Tables[i].tablenumber };
+                    var empty_table = new EmptyTable()
+                    {
+                        index_emptytable = i + 1,
+                        emptytable = ItemcontrolButtonList[i].text
+                    };
                     EmptyTables.Add(empty_table);
                 }
             }
@@ -234,6 +340,18 @@ namespace CoffeeStoreManager.ViewModels
         }
         public MainViewModel()
         {
+
+            // Chọn bàn
+            ChooseTableCommand = new RelayCommand<object>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                number = Convert.ToInt32(p);
+                CheckColor();
+                LoadListBill(number);
+                LoadEmptyTable();
+            });
             LoadedWindowCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 IsLoaded = true;
@@ -261,20 +379,44 @@ namespace CoffeeStoreManager.ViewModels
             });
             DateTime? today = DateTime.Now;
             BillDetail = new ObservableCollection<ViewBill>();
-            //LoaiMonAn = new ObservableCollection<LoaiMonAn>(DataProvider.Ins.DB.LoaiMonAns);
             MonAn = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns);
-            Tables = new ObservableCollection<Table>()
+            Tables = new ObservableCollection<Table>();
+            QuyDinh = DataProvider.Ins.DB.QuyDinhs.FirstOrDefault();
+            for (int i = 0; i < QuyDinh.so_ban; i++)
+            //for (int i = 0; i < 15; i++)
             {
-                new Table() {tablenumber = 1 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 2 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 3 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 4 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 5 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 6 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 7 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 8 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                new Table() {tablenumber = 9 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()}
+                Table item = new Table()
+                {
+                    tablenumber = i + 1,
+                    status = false,
+                    viewbilloftable = new ObservableCollection<ViewBill>(),
+                    billoftable = new ObservableCollection<CT_HoaDon>()
+                };
+                Tables.Add(item);
+                //new Table() {tablenumber = 2 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 3 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 4 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 5 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 6 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 7 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 8 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 9 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()}
             };
+            ItemcontrolButtonList = new ObservableCollection<ItemcontrolButton>();
+            for (int i = 0; i < QuyDinh.so_ban; i++)
+            //for (int i = 0; i < 15; i++)
+            {
+                ItemcontrolButton item = new ItemcontrolButton()
+                {
+                    index = i + 1,
+                    text = "Bàn " + Convert.ToString(i + 1),
+                    isnotempty = false,
+                    isselected = false,
+                    choosetable = ChooseTableCommand
+                };
+                ItemcontrolButtonList.Add(item);
+            }
+            number = 0;
             EmptyTables = new ObservableCollection<EmptyTable>();
             totalmoney = 0;
             LoadEmptyTable();
@@ -290,6 +432,7 @@ namespace CoffeeStoreManager.ViewModels
                 if (BillDetail.Count() == 0 || BillDetail == null)
                 {
                     AddViewBill(number);
+                    CheckColor();
                     LoadEmptyTable();
                 }
                 else
@@ -299,6 +442,7 @@ namespace CoffeeStoreManager.ViewModels
                         AddViewBill(number);
                     else
                         UpdateViewBill(i, so_luong);
+                    CheckColor();
                     LoadEmptyTable();
                 }
             });
@@ -317,6 +461,7 @@ namespace CoffeeStoreManager.ViewModels
                 Tables[number - 1].billoftable.Remove(Tables[number - 1].billoftable[i]);
                 if (BillDetail.Count == 0)
                     Tables[number - 1].status = false;
+                CheckColor();
                 LoadEmptyTable();
             });
 
@@ -333,7 +478,7 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     tong_tien = tong_tien + BillDetail[i].thanh_tien;
                 }
-                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today };
+                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today, ma_ban_an = number };
                 DataProvider.Ins.DB.HoaDons.Add(bill);
                 DataProvider.Ins.DB.SaveChanges();
                 for (int i = 0; i < Tables[number - 1].billoftable.Count(); i++)
@@ -346,6 +491,7 @@ namespace CoffeeStoreManager.ViewModels
                 Tables[number - 1].viewbilloftable.Clear();
                 Tables[number - 1].billoftable.Clear();
                 Tables[number - 1].status = false;
+                CheckColor();
                 number = 0;
                 LoadEmptyTable();
                 if (totalmoney >= 150000)
@@ -353,122 +499,64 @@ namespace CoffeeStoreManager.ViewModels
                     DiscountWindow discountWindow = new DiscountWindow();
                     discountWindow.ShowDialog();
                 }
+                totalmoney = 0;
             });
 
-            // Chọn bàn
-            ChooseTableCommand = new RelayCommand<Button>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                switch (p.Content)
-                {
-                    case "Bàn 1":
-                        number = 1;
-                        break;
-                    case "Bàn 2":
-                        number = 2;
-                        break;
-                    case "Bàn 3":
-                        number = 3;
-                        break;
-                    case "Bàn 4":
-                        number = 4;
-                        break;
-                    case "Bàn 5":
-                        number = 5;
-                        break;
-                    case "Bàn 6":
-                        number = 6;
-                        break;
-                    case "Bàn 7":
-                        number = 7;
-                        break;
-                    case "Bàn 8":
-                        number = 8;
-                        break;
-                    case "Bàn 9":
-                        number = 9;
-                        break;
-                }
-                if (Tables[number - 1].status == false && p.Background == Brushes.White)
-                {
-                    p.Background = Brushes.LightBlue;
-                    LoadListBill(number);
-                }
-                else if (Tables[number - 1].status == false && p.Background == Brushes.LightBlue)
-                {
-                    p.Background = Brushes.White;
-                    BillDetail.Clear();
-                    number = 0;
-                }
-                else if (Tables[number - 1].status == true && (p.Background == Brushes.LightBlue || p.Background == Brushes.White))
-                {
-                    p.Background = Brushes.Yellow;
-                    LoadListBill(number);
-                }
-                else if (Tables[number - 1].status == false && p.Background == Brushes.Yellow)
-                {
-                    p.Background = Brushes.White;
-                    LoadListBill(number);
-                    number = 0;
-                }
-                else
-                    LoadListBill(number);
-                LoadEmptyTable();
-            });
 
             //Chuyển bàn
-            ChangeTableCommand = new RelayCommand<Button>((p) =>
+            ChangeTableCommand = new RelayCommand<object>((p) =>
             {
-                if (SelectedEmptyTable == null)
+                if (SelectedEmptyTable == null || number == 0)
                     return false;
                 return true;
             }, (p) =>
             {
                 int numberfirst = number;
-                int numbersecond = 0;
-                switch (SelectedEmptyTable.emptytable)
-                {
-                    case "Bàn 1":
-                        numbersecond = 1;
-                        break;
-                    case "Bàn 2":
-                        numbersecond = 2;
-                        break;
-                    case "Bàn 3":
-                        numbersecond = 3;
-                        break;
-                    case "Bàn 4":
-                        numbersecond = 4;
-                        break;
-                    case "Bàn 5":
-                        numbersecond = 5;
-                        break;
-                    case "Bàn 6":
-                        numbersecond = 6;
-                        break;
-                    case "Bàn 7":
-                        numbersecond = 7;
-                        break;
-                    case "Bàn 8":
-                        numbersecond = 8;
-                        break;
-                    case "Bàn 9":
-                        numbersecond = 9;
-                        break;
-                }
+                int numbersecond = SelectedEmptyTable.index_emptytable;
+                //switch (SelectedEmptyTable.emptytable)
+                //{
+                //    case "Bàn 1":
+                //        numbersecond = 1;
+                //        break;
+                //    case "Bàn 2":
+                //        numbersecond = 2;
+                //        break;
+                //    case "Bàn 3":
+                //        numbersecond = 3;
+                //        break;
+                //    case "Bàn 4":
+                //        numbersecond = 4;
+                //        break;
+                //    case "Bàn 5":
+                //        numbersecond = 5;
+                //        break;
+                //    case "Bàn 6":
+                //        numbersecond = 6;
+                //        break;
+                //    case "Bàn 7":
+                //        numbersecond = 7;
+                //        break;
+                //    case "Bàn 8":
+                //        numbersecond = 8;
+                //        break;
+                //    case "Bàn 9":
+                //        numbersecond = 9;
+                //        break;
+                //}
                 TransTable(Tables[numbersecond - 1], Tables[numberfirst - 1]);
                 BillDetail.Clear();
+                totalmoney = 0;
                 Tables[numberfirst - 1].viewbilloftable.Clear();
                 Tables[numberfirst - 1].billoftable.Clear();
                 Tables[numberfirst - 1].status = false;
+                CheckColor();
                 LoadEmptyTable();
             });
         }
     }
     public class EmptyTable
     {
+        public int index_emptytable { get; set; }
         public string emptytable { get; set; }
     }
 }
