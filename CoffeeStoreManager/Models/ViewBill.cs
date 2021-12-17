@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 
 namespace CoffeeStoreManager.Models
@@ -22,5 +23,13 @@ namespace CoffeeStoreManager.Models
         public bool status { get; set; }
         public ObservableCollection<ViewBill> viewbilloftable { get; set; }
         public ObservableCollection<CT_HoaDon> billoftable { get; set; }
+    }
+    public class ItemcontrolButton
+    {
+        public int index { get; set; }
+        public string text { get; set; }
+        public bool isnotempty { get; set; }
+        public bool isselected { get; set; }
+        public ICommand choosetable { get; set; }
     }
 }

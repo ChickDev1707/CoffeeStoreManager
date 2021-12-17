@@ -12,8 +12,8 @@
     <Grid Background="#FFE5E5E5">
         <Button Content="Tra cứu" 
                 HorizontalAlignment="Left" 
-                Height="37" Margin="181,55,0,0" 
-                VerticalAlignment="Top" Width="67" 
+                Height="37" Margin="165,55,0,0" 
+                VerticalAlignment="Top" Width="83" 
                 Background="#FFDD97A6"
                 Command="{Binding FindIDCustomerCommand}"/>
         <Label Content="Mã khách hàng:" 
@@ -44,7 +44,7 @@
         <Button Content="Chọn ưu đãi" 
                 HorizontalAlignment="Left" 
                 Height="31" Margin="227,265,0,0" 
-                VerticalAlignment="Top" Width="77" 
+                VerticalAlignment="Top" Width="88" 
                 Background="#FFDD97A6"
                 Command="{Binding SeleteDiscountCommand}"
                 CommandParameter="{Binding ElementName=discountWindow}"/>

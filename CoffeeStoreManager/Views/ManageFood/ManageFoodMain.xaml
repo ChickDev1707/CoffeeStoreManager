@@ -48,6 +48,7 @@
                         <materialDesign:PackIcon Kind="TrashCanOutline" />
                     </Button>
                     <Button
+                    Command="{Binding ImportExcel}"
                     ToolTip="Nhập liệu từ file excel">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Import" />
@@ -55,6 +56,7 @@
                         </DockPanel>
                     </Button>
                     <Button
+                    Command="{Binding ExportExcel}"
                     ToolTip="Xuất file excel">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="FileExcel" />

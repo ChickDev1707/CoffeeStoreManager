@@ -37,7 +37,7 @@ namespace CoffeeStoreManager.ViewModels
         }
         void Login(object p)
         {
-
+            IsLogin = false;
             if (p == null)
                 return;
             var accCount = DataProvider.Ins.DB.TaiKhoanAdmins.Where(x => x.ten_dang_nhap == Username && x.mat_khau == Password).Count();
@@ -48,7 +48,7 @@ namespace CoffeeStoreManager.ViewModels
             }
             else
             {
-                MessageBox.Show("Sai tài khoản hoặc mật khẩu");
+                MessageBox.Show("Sai tài khoản hoặc mật khẩu", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }                 
         }
 

@@ -11,7 +11,7 @@
     
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1150"
+        Title="Quản lý quán cafe" Height="720" Width="1150"
         DataContext="{StaticResource MainVM}"
         x:Name="mainWindow">
     <Window.Resources>
@@ -46,61 +46,131 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <Label Content="Danh sách bàn của quán" FontSize="20" Margin="10 0 0 5"/>
-                    <WrapPanel >
-                        <Button x:Name="btnTable1" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable1}" Background="White" Foreground="Black"  >
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                    <WrapPanel Height="532" >
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding ItemcontrolButtonList}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Name="btnTable"  Command="{Binding Path=choosetable}" CommandParameter="{Binding Path=index}" Height="99" Width="101" Margin="13" Foreground="Black"  >
+                                            <StackPanel Orientation="Vertical" Height="58" Width="70" >
+                                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Assets/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="{Binding Path=text}" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="White"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding isnotempty}" Value="true">
+                                                            <Setter Property="Background" Value="Yellow"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding isselected}" Value="true">
+                                                            <Setter Property="Background" Value="LightSeaGreen"></Setter>
+                                                        </DataTrigger>
+                                                        <!--<Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="Green"></Setter>
+                                                        </Trigger>-->
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <!--<Button Height="99" Width="101" Margin="13" Foreground="Black"  >
+                                <StackPanel Orientation="Vertical" Height="75" Width="85" >
+                                    <Image Margin="0" Width="28" Height="28" Source="/Resources/Assets/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                                    <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 1" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                                    <CheckBox Content="Có người" Height="17" Margin="4,0" Width="76" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsEnabled="False" Cursor="None" BorderThickness="1" />
+                                </StackPanel>
+                                
+                            </Button>-->
+                        <!--<Button x:Name="{Binding }" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="12" Foreground="Black"  >
+                            <StackPanel Orientation="Vertical" Height="58" Width="77" >
+                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Assets/Images/coffee-table.png" HorizontalAlignment="Center"/>
                                 <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 1" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
                             </StackPanel>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="White"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked1}" Value="true">
+                                            <Setter Property="Background" Value="Yellow"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=labelnumber, Path=Content}" Value="1">
+                                            <Setter Property="Background" Value="LightBlue"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>-->
+                        <!--<Button x:Name="btnTable2" Height="99" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable2}" Foreground="Black">
+                                <StackPanel Orientation="Vertical" Height="75" Width="85" >
+                                    <Image Margin="0" Width="28" Height="28" Source="/Resources/Assets/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                                    <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 2" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                                    <CheckBox Name="checkbill2" Content="Có người" IsChecked="{Binding IsChecked2}" Height="17" Margin="4,0" Width="76" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsEnabled="False" Cursor="None" BorderThickness="1" />
+                                </StackPanel>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="White"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked2}" Value="true">
+                                                <Setter Property="Background" Value="Yellow"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=labelnumber, Path=Content}" Value="2">
+                                                <Setter Property="Background" Value="LightBlue"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>-->
+                        <!--<Button x:Name="btnTable1" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="15"  Foreground="Black"  >
+                            <StackPanel Orientation="Vertical" Height="75" Width="85" >
+                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Assets/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 1" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                                <CheckBox Name="checkbill1" Content="Có người" IsChecked="{Binding IsChecked1}" Height="17" Margin="4,0" Width="76" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsEnabled="False" Cursor="None" BorderThickness="1" />
+                            </StackPanel>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="White"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=checkbill1, Path=IsChecked}" Value="true">
+                                            <Setter Property="Background" Value="Yellow"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=labelnumber, Path=Content}" Value="1">
+                                            <Setter Property="Background" Value="LightBlue"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
-                        <Button x:Name="btnTable2" Height="99" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable2}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
+                        <Button x:Name="btnTable2" Height="99" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable2}" Foreground="Black">
+                            <StackPanel Orientation="Vertical" Height="75" Width="85" >
+                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Assets/Images/coffee-table.png" HorizontalAlignment="Center"/>
                                 <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 2" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
+                                <CheckBox Name="checkbill2" Content="Có người" IsChecked="{Binding IsChecked2}" Height="17" Margin="4,0" Width="76" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsEnabled="False" Cursor="None" BorderThickness="1" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable3" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable3}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 3" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable4" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable4}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 4" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable5" Height="99" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable5}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 5" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable6" Height="99" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable6}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 6" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable7" Height="98" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable7}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 7" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable8" Height="98" Width="99" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable8}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 8" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnTable9" Height="98" Width="101" Margin="13" Command="{Binding ChooseTableCommand}" CommandParameter="{Binding ElementName=btnTable9}" Background="White" Foreground="Black">
-                            <StackPanel Orientation="Vertical" Height="62" Width="66" >
-                                <Image Margin="0" Width="28" Height="28" Source="/Resources/Images/coffee-table.png" HorizontalAlignment="Center"/>
-                                <TextBlock  FontWeight="Bold" VerticalAlignment="Center" Text="Bàn 9" Foreground="Black" FontSize="20" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="White"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=checkbill2, Path=IsChecked}" Value="true">
+                                            <Setter Property="Background" Value="Yellow"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=labelnumber, Path=Content}" Value="2">
+                                            <Setter Property="Background" Value="LightBlue"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>-->
+
+
                     </WrapPanel>
 
                 </StackPanel>
@@ -118,12 +188,12 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" 
                                 FontSize="14"/>
-                            <Label  Content="{Binding number}" 
-                                Padding="20 3"
-                                FontWeight="Bold"
+                            <Label  Content="{Binding number}"
+                                Name="labelNumber"
+                                Padding="10,0"
                                 VerticalAlignment="Center"
                                 Background="#FFE5E5E5" 
-                                FontSize="20"/>
+                                FontSize="16" Height="25" Width="39" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"/>
                         </DockPanel>
                         <Grid Margin="20 0 20 15">
                             <Grid.ColumnDefinitions>
@@ -133,7 +203,7 @@
                             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Orientation="Horizontal">
                                 <StackPanel Width="150" Margin="0 0 20 0">
                                     <Label Content="Tên món ăn"/>
-                                    <ComboBox 
+                                    <ComboBox Name="cbbFood"
                                         FontSize="14"
                                         materialDesign:HintAssist.Hint="Món ăn"
                                         DisplayMemberPath="ten_mon_an" 
@@ -143,17 +213,21 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Số lượng"/>
-                                    <syncfusion:UpDown Height="28" Width="100" FontSize="14"/>
+                                    <!--<syncfusion:UpDown Height="28" Width="100" FontSize="14" />-->
+                                    <xctk:IntegerUpDown Name="updownNumber" 
+                                                Text="{Binding so_luong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                TextAlignment="Left" 
+                                                Height="28" Width="100" FontSize="14"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button Style="{StaticResource PrimaryBtn}"  Command="{Binding AddCommand}" Content="Thêm món" Margin="0 0 15 0"/>
-                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteCommand}" Content="Xóa"/>
+                                <Button Name="btnAdd" Style="{StaticResource PrimaryBtn}"  Command="{Binding AddCommand}" Content="Thêm món" Margin="0 0 15 0"/>
+                                <Button Name="btnDel" Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteCommand}" Content="Xóa"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                     <Border Grid.Row="1" Style="{StaticResource MainBorder}" BorderThickness="0 2 0 2">
-                        <ListView ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                        <ListView Name="listviewBill" ItemsSource="{Binding BillDetail}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                             <ListView.View >
                                 <GridView>
                                     <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" />
@@ -165,19 +239,18 @@
                         </ListView>
                     </Border>
                     <StackPanel Grid.Row="2" Margin="0 0 0 20">
-                        <DockPanel HorizontalAlignment="Right" Margin="0 10 20 20">
+                        <DockPanel HorizontalAlignment="Right" Margin="0,10,19.8,20" Height="22">
                             <Label  Content="Tổng tiền:" 
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" 
-                                FontSize="14"/>
-                            <Label  Content="{Binding totalmoney}" 
-                                Width="175"
+                                FontSize="14" VerticalContentAlignment="Stretch" Padding="4,0"/>
+                            <Label Name="labelMoney"
+                                Content="{Binding totalmoney}" 
+                                Width="121"
                                 Foreground="#ff3838"
-                                Padding="20 3"
-                                FontWeight="Bold"
-                                VerticalAlignment="Center"
+                                Padding="20,0"
                                 Background="#FFE5E5E5" 
-                                FontSize="22"/>
+                                FontSize="16"  VerticalContentAlignment="Stretch" Margin="0" HorizontalContentAlignment="Center"/>
                         </DockPanel>
                         <Grid Margin="20 0 20 15">
                             <Grid.ColumnDefinitions>
@@ -185,7 +258,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Horizontal">
-                                <ComboBox 
+                                <ComboBox Name="cbbEmptyTable"
                                         materialDesign:HintAssist.Hint="Bàn trống"
                                         IsEditable="True"
                                         Width="80"
@@ -194,10 +267,10 @@
                                         SelectedItem="{Binding SelectedEmptyTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                         Margin="0 0 15 0"
                                         FontSize="14"/>
-                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding ChangeTableCommand}" Content="Chuyển bàn"/>
+                                <Button Name="btnChange" Style="{StaticResource PrimaryBtn}" Command="{Binding ChangeTableCommand}" Content="Chuyển bàn"/>
 
                             </StackPanel>
-                            <Button Grid.Column="1" Style="{StaticResource PrimaryBtn}" Command="{Binding CheckOutCommand}" Content="Thanh toán" HorizontalAlignment="Right"/>
+                            <Button Name="btnCheckOut" Grid.Column="1" Style="{StaticResource PrimaryBtn}" Command="{Binding CheckOutCommand}" Content="Thanh toán" HorizontalAlignment="Right"/>
                         </Grid>
                     </StackPanel>
                 </Grid>
