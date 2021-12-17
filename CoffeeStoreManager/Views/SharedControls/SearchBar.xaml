@@ -18,7 +18,6 @@
             DockPanel.Dock="Left"
             materialDesign:HintAssist.Hint="Từ khóa"
             Width="280"
-            Text="{Binding SearchKey}"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         <Button
                 Command="{Binding Search}"
