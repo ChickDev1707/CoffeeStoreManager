@@ -11,24 +11,26 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CoffeeStoreManager.Resources.Utils;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+
 namespace CoffeeStoreManager.ViewModels
 {
     public class EmployeeViewModel : BaseViewModel
     {
         private ObservableCollection<ViewEmployee> employeeList;
+        private ObservableCollection<ViewEmployee> dtg_employeeList;
         private List<LoaiNhanVien> employeeTypeList;
-        private int preMaNhanVien;
-        private bool isSelectedTab;
-        private ViewEmployee selectedNhanVien;
+        private ViewEmployee selectedEmployee;
         private List<string> dataCbxYear;
+        private string searchKey;
 
-        //Su dung trong ham tim kiem nhan vien
-        private ObservableCollection<ViewEmployee> employeeListContainer;
-        public bool IsSelectedTab { get => isSelectedTab; set { isSelectedTab = value; OnPropertyChanged(nameof(isSelectedTab)); loadData(); } }
-        public ViewEmployee SelectedNhanVien { get => selectedNhanVien; set { selectedNhanVien = value; OnPropertyChanged(nameof(selectedNhanVien)); } }
+
+        public string SearchKey { get => searchKey; set { searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
+        public ViewEmployee SelectedEmployee { get => selectedEmployee; set { selectedEmployee = value; OnPropertyChanged(nameof(selectedEmployee)); } }
 
         public ObservableCollection<ViewEmployee> EmployeeList { get => employeeList; set { employeeList = value; OnPropertyChanged(nameof(employeeList)); } }
-
+        public ObservableCollection<ViewEmployee> Dtg_employeeList { get => dtg_employeeList; set { dtg_employeeList = value; OnPropertyChanged(nameof(dtg_employeeList)); } }
         public List<LoaiNhanVien> EmployeeTypeList { get => employeeTypeList; set { employeeTypeList = value; OnPropertyChanged(nameof(employeeTypeList)); } }
         public List<string> DataCbxMonth { get; set; }
         public List<string> DataCbxYear
@@ -38,37 +40,40 @@ namespace CoffeeStoreManager.ViewModels
         #region Command
         public ICommand Search { get; set; }
         public ICommand AddEmployee { get; set; }
-        public ICommand IncAbsentDay { get; set; }
-        public ICommand DecAbsentDay { get; set; }
         public ICommand OpenAddEmployee { get; set; }
         public ICommand DeleteEmployee { get; set; }
-        public ICommand UpdateEmployee { get; set; }
         public ICommand OpenUpdateEmployee { get; set; }
         public ICommand OpenSalaryWindow { get; set; }
         public ICommand CheckItem { get; set; }
-        public ICommand Find { get; set; }
+        public ICommand RefreshData { get; set; }
+        public ICommand ImportExcel { get; set; }
+        public ICommand ExportExcel { get; set; }
+        public ICommand IncreaseDay { get; set; }
+        public ICommand DecreaseDay { get; set; }
+
+
+
         #endregion
 
         public EmployeeViewModel()
         {
             employeeList = new ObservableCollection<ViewEmployee>();
-            employeeListContainer = new ObservableCollection<ViewEmployee>();
             EmployeeTypeList = new List<LoaiNhanVien>();
-            //AddEmployee = new RelayCommand<Window>((p) => { return true; }, (p) => { addEmployee(p); });
-            OpenAddEmployee = new RelayCommand<Window>((p) => { return true; }, (p) => { openAddEmployee(p); });
+            OpenAddEmployee = new RelayCommand<System.Windows.Window>((p) => { return true; }, (p) => { openAddEmployee(p); });
             DeleteEmployee = new RelayCommand<object>((p) => { return true; }, (p) => { deleteEmployee(p); });
-            UpdateEmployee = new RelayCommand<object>((p) => { return true; }, (p) => { updateEmployee(p); });
             OpenUpdateEmployee = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateEmployee(p); });
             OpenSalaryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { openSalaryWindow(p); });
-            IncAbsentDay = new RelayCommand<object>((p) => { return true; }, (p) => { increaseAbsentDay(p); });
-            DecAbsentDay = new RelayCommand<object>((p) => { return true; }, (p) => { decreaseAbsentDay(p); });
             CheckItem = new RelayCommand<ListView>((p) => { return true; }, (p) => { checkSelectItem(p); });
-            Find = new RelayCommand<TextBox>((p) => { return true; }, (p) => { findItem(p); });
+            Search = new RelayCommand<object>((p) => { return true; }, (p) => { searchItem(p); });
+            RefreshData = new RelayCommand<object>((p) => { return true; }, (p) => { refreshListEmployee(p); });
+            IncreaseDay = new RelayCommand<object>((p) => { return true; }, (p) => { increaseDay(p); });
+            DecreaseDay = new RelayCommand<object>((p) => { return true; }, (p) => { decreaseDay(p); });
+            ExportExcel = new RelayCommand<DataGrid>((p) => { return true; }, (p) => { ExportFileExcel(p); });
+            ImportExcel = new RelayCommand<DataGrid>((p) => { return true; }, (p) => { ImportFileExcel(p); });
             loadData();
         }
         void loadData()
         {
-
             loadDataEmployee();
         }
 
@@ -87,47 +92,276 @@ namespace CoffeeStoreManager.ViewModels
                 }
             }
         }
-        void findItem(TextBox p)
+        void refreshListEmployee(object p)
         {
-            EmployeeList.Clear();
-            if (p.Text == "")
+            loadData();
+        }
+        void searchItem(object p)
+        {
+            List<NhanVien> list = DataProvider.Ins.DB.NhanViens.Where(t => t.ho_ten.ToLower().Contains(SearchKey.ToLower())).ToList();
+            EmployeeList = getViewEmployeeFromList(list);
+        }
+        void increaseDay(object p)
+        {
+        
+           for(int i=0;i<EmployeeList.Count;i++)
             {
-                loadDataEmployee();
-            }
-            else
-            {
-                for (int i = 0; i < employeeListContainer.Count; i++)
+                if (SelectedEmployee.ma_loai_nhan_vien == 1)
                 {
-                    string findString = p.Text.ToLower();
-                    if (employeeListContainer[i].ho_ten.ToLower().Contains(findString) == false)
-                    {
-                        EmployeeList.Remove(employeeListContainer[i]);
-                    }
-                    else
-                    {
-                        EmployeeList.Add(employeeListContainer[i]);
-                    }
+                    return;
+                }
+                if (EmployeeList[i].check_selected_item == true)
+                {
+                    int m = EmployeeList[i].ma_nv;
+                    NhanVien nv = DataProvider.Ins.DB.NhanViens.
+                    Where(t => t.ma_nhan_vien == m).SingleOrDefault();
+                    nv.so_ngay_nghi++;
                 }
             }
+            DataProvider.Ins.DB.SaveChanges();
+            loadData();
+        }
+        void decreaseDay(object p)
+        {
+            for (int i = 0; i < EmployeeList.Count; i++)
+            {
+                if (SelectedEmployee.ma_loai_nhan_vien == 1)
+                {
+                    return;
+                }
+                if (EmployeeList[i].check_selected_item == true)
+                {
+                    int m = EmployeeList[i].ma_nv;
+                    NhanVien nv = DataProvider.Ins.DB.NhanViens.
+                      Where(t => t.ma_nhan_vien == m).SingleOrDefault();
+                    if (nv.so_ngay_nghi > 0)
+                    {
+                        if (SelectedEmployee != null)
+                        {
+                            nv.so_ngay_nghi--;
+                        }
+                    }
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+            }
+            loadData();
+        }
+        bool checkNumberOfEmployee()
+        {
+            int countitem = 0;
+            for (int i = 0; i < EmployeeList.Count; i++)
+            {
+                if (EmployeeList[i].check_selected_item == true)
+                {
+                    countitem++;
+                }
+            }
+            if (countitem != 1)
+            {
+                MessageBox.Show("Vui long chon 1 nhan vien");
+                return false;
+            }
+            return true;
         }
         public void loadDataEmployee()
         {
             EmployeeTypeList.Clear();
             List<NhanVien> lNv = DataProvider.Ins.DB.NhanViens.ToList();
             EmployeeList = getViewEmployeeFromList(lNv);
+            Dtg_employeeList = new ObservableCollection<ViewEmployee>(EmployeeList);
             loadDataCbxEmployeeType();
-            employeeListContainer = getViewEmployeeFromList(lNv);
         }
         public void loadDataTypeEmployee(object p)
         {
             EmployeeTypeList.Clear();
             List<NhanVien> lNv = DataProvider.Ins.DB.NhanViens.ToList();
             EmployeeList = getViewEmployeeFromList(lNv);
-            employeeListContainer = getViewEmployeeFromList(lNv);
         }
         void loadDataCbxEmployeeType()
         {
             EmployeeTypeList = DataProvider.Ins.DB.LoaiNhanViens.ToList();
+        }
+        void ImportFileExcel(object p)
+        {
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.Filter = "Excel files|*.xls;*.xlsx;*.xlsm";
+            //Create COM Objects. Create a COM object for everything that is referenced
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(openFileDialog.FileName);
+                Microsoft.Office.Interop.Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+                Microsoft.Office.Interop.Excel.Range xlRange = xlWorksheet.UsedRange;
+
+                int rowCount = xlRange.Rows.Count;
+                int colCount = xlRange.Columns.Count;
+                //iterate over the rows and columns and print to the console as it appears in the file
+                //excel is not zero based!!
+                for (int i = 2; i <= rowCount; i++)
+                {
+                    NhanVien add = new NhanVien();
+                    for (int j = 2; j <= colCount; j++)
+                    {
+                        //write the value to the console
+                        if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                        {
+
+                            switch (j)
+                            {
+                                case 2:
+                                    {
+                                        add.ho_ten = xlRange.Cells[i, j].Value2.ToString();
+                                        break;
+                                    }
+                                case 3:
+                                    {
+
+                                        add.ngay_sinh = DateTime.FromOADate(xlRange.Cells[i, j].Value2);
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        add.sdt = xlRange.Cells[i, j].Value2.ToString();
+                                        break;
+                                    }
+                                case 5:
+                                    {
+                                        add.dia_chi = xlRange.Cells[i, j].Value2.ToString();
+                                        break;
+                                    }
+                                case 6:
+                                    {
+                                        add.so_ngay_nghi = Int32.Parse(xlRange.Cells[i, j].Value2.ToString());
+                                        break;
+                                    }
+                                case 7:
+                                    {
+                                        add.ma_loai_nhan_vien = Int32.Parse(xlRange.Cells[i, j].Value2.ToString());
+                                        break;
+                                    }
+                                case 8:
+                                    {
+                                        add.ngay_vao_lam = DateTime.FromOADate(xlRange.Cells[i, j].Value2);
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+                    AddImportedEmployee(add);
+                }
+                loadData();
+                //cleanup
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Marshal.ReleaseComObject(xlRange);
+                Marshal.ReleaseComObject(xlWorksheet);
+                //close and release
+                xlWorkbook.Close();
+                Marshal.ReleaseComObject(xlWorkbook);
+                //quit and release
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+
+            }
+        }
+        void AddImportedEmployee(NhanVien add)
+        {
+            QuyDinh QDinh = DataProvider.Ins.DB.QuyDinhs.Select(t => t).FirstOrDefault();
+            List<NhanVien> List = DataProvider.Ins.DB.NhanViens.Select(t => t).ToList();
+            bool checktype = false;
+            if (add.ho_ten == null)
+            {
+                return;
+            }
+            if (add.sdt == null)
+            {
+                return;
+            }
+            else
+            {
+                add.sdt = "0" + add.sdt;
+                for (int i = 0; i < EmployeeList.Count; i++)
+                {
+
+                    if (add.sdt == EmployeeList[i].sdt)
+                    {
+                        return;
+                    }
+                }
+            }
+            if (add.ngay_sinh == null)
+            {
+                return;
+            }
+            if (add.sdt.All(char.IsDigit) == false)
+            {
+                return;
+            }
+            if (add.ngay_sinh.Value.Year < 1900)
+            {
+                return;
+            }
+            int tuoi = DateTime.Now.Year - add.ngay_sinh.Value.Year;
+            if (tuoi < QDinh.tuoi_toi_thieu_nv || tuoi > QDinh.tuoi_toi_da_nv)
+            {
+                return;
+            }
+            if (add.ma_loai_nhan_vien == 0)
+            {
+                return;
+            }
+            for (int i = 0; i < EmployeeTypeList.Count; i++)
+            {
+                if(add.ma_loai_nhan_vien == EmployeeTypeList[i].ma_loai_nhan_vien)
+                {
+                    checktype = true;
+                }
+            }
+            if (List.Count == 0)
+            {
+                add.ma_nhan_vien = 1;
+            }
+            else
+            {
+                add.ma_nhan_vien = List[List.Count - 1].ma_nhan_vien + 1;
+            }
+            if (checktype == false)
+            {
+                return;
+            }
+            if (add.ngay_vao_lam.Year < 2000)
+            {
+                return;
+            }
+            DataProvider.Ins.DB.NhanViens.Add(add);
+            DataProvider.Ins.DB.SaveChanges();
+        }
+        void ExportFileExcel(DataGrid dtGrid)
+        {
+            Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
+            excel.Visible = true;
+            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
+            int col = 8;
+            for (int j = 0; j < col; j++)
+            {
+                Range myRange = (Range)sheet1.Cells[1, j + 1];
+                sheet1.Cells[1, j + 1].Font.Bold = true;
+                sheet1.Columns[j + 1].ColumnWidth = 15;
+                myRange.Value2 = dtGrid.Columns[j].Header;
+            }
+            for (int i = 0; i < col; i++)
+            {
+                for (int j = 0; j < dtGrid.Items.Count; j++)
+                {
+                    TextBlock b = dtGrid.Columns[i].GetCellContent(dtGrid.Items[j]) as TextBlock;
+                    if (b != null)
+                    {
+                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[j + 2, i + 1];
+                        myRange.Value2 = b.Text;
+                    }
+                }
+            }
         }
         ObservableCollection<ViewEmployee> getViewEmployeeFromList(List<NhanVien> listNv)
         {
@@ -143,19 +377,22 @@ namespace CoffeeStoreManager.ViewModels
                         STT = index,
                         ho_ten = employee.ho_ten,
                         dia_chi = employee.dia_chi,
+                        ngay_sinh = (DateTime)employee.ngay_sinh,
                         sdt = employee.sdt,
                         ngay_vao_lam = employee.ngay_vao_lam,
                         ma_nv = employee.ma_nhan_vien,
-                        so_ngay_nghi = (employee.so_ngay_nghi == null ? 0 : (int)employee.so_ngay_nghi).ToString(),
+                        so_ngay_nghi = (employee.so_ngay_nghi == null ? 0 : (int)employee.so_ngay_nghi)
                     };
                     if (employeeType != null)
                     {
                         viewEmployee.tien_luong = employeeType.tien_luong.ToString();
                         viewEmployee.tien_luong = MoneyConverter.convertMoney(viewEmployee.tien_luong);
                         viewEmployee.ma_loai_nhan_vien = employeeType.ma_loai_nhan_vien;
+                        viewEmployee.VisiblePartTime = Visibility.Visible;
                         if (employeeType.ma_loai_nhan_vien == 1)
                         {
-                            viewEmployee.so_ngay_nghi = null;
+                            viewEmployee.so_ngay_nghi = 0;
+                            viewEmployee.VisiblePartTime = Visibility.Hidden;
                         }
                         viewEmployee.loai_nhan_vien = employeeType.ten_loai_nhan_vien;
                     }
@@ -165,7 +402,7 @@ namespace CoffeeStoreManager.ViewModels
             }
             return obNv;
         }
-        void openAddEmployee(Window p)
+        void openAddEmployee(System.Windows.Window p)
         {
             var a = new AddEmployeeWindow(this);
             a.ShowDialog();
@@ -197,10 +434,10 @@ namespace CoffeeStoreManager.ViewModels
             }
             else
             {
-                if (SelectedNhanVien != null)
+                if (SelectedEmployee != null)
                 {
                     var delEmployee = DataProvider.Ins.DB.NhanViens.
-                      Where(employee => employee.ma_nhan_vien == SelectedNhanVien.ma_nv).FirstOrDefault();
+                      Where(employee => employee.ma_nhan_vien == SelectedEmployee.ma_nv).FirstOrDefault();
                     List<CaLamPartTime> LCalam = DataProvider.Ins.DB.CaLamPartTimes.Where(t => t.ma_nhan_vien == delEmployee.ma_nhan_vien).ToList();
                     for (int i = 0; i < LCalam.Count; i++)
                     {
@@ -214,70 +451,16 @@ namespace CoffeeStoreManager.ViewModels
             }
 
         }
-        void updateEmployee(object p)
-        {
-            #region Check
-            if (SelectedNhanVien.ho_ten == null)
-            {
-                MessageBox.Show("Ten khong duoc de trong!!!");
-                return;
-            }
-            if (SelectedNhanVien.sdt.All(char.IsDigit) == false)
-            {
-                MessageBox.Show("So dien thoai khong hop le !!! ");
-                return;
-            }
-            else
-            {
-                for (int i = 0; i < EmployeeList.Count; i++)
-                {
-                    if (SelectedNhanVien.sdt == EmployeeList[i].sdt)
-                    {
-                        MessageBox.Show("So dien thoai bi trung!!!");
-                        return;
-                    }
-                }
-            }
-            if (SelectedNhanVien.ngay_vao_lam == null)
-            {
-                MessageBox.Show("Ngay vao lam khong duoc de trong!!!");
-                return;
-            }
-            if (SelectedNhanVien.ngay_vao_lam.Year < 2000)
-            {
-                MessageBox.Show("Ngay vao lam khong hop le!!!");
-                return;
-            }
-            #endregion
-            var updEmployee = DataProvider.Ins.DB.NhanViens.
-              Where(t => t.ma_nhan_vien == preMaNhanVien).FirstOrDefault();
-            updEmployee.ho_ten = SelectedNhanVien.ho_ten;
-            updEmployee.dia_chi = SelectedNhanVien.dia_chi;
-            updEmployee.sdt = SelectedNhanVien.sdt;
-            updEmployee.ngay_vao_lam = SelectedNhanVien.ngay_vao_lam;
-            updEmployee.ma_loai_nhan_vien = SelectedNhanVien.ma_loai_nhan_vien;
-            DataProvider.Ins.DB.SaveChanges();
-            loadDataEmployee();
-        }
         void openUpdateEmployee(object p)
         {
-            int countitem = 0;
-            for (int i = 0; i < EmployeeList.Count; i++)
+            if(checkNumberOfEmployee() == false)
             {
-                if (EmployeeList[i].check_selected_item == true)
-                {
-                    countitem++;
-                }
-            }
-            if (countitem != 1)
-            {
-                MessageBox.Show("Vui long chi chon 1 nhan vien");
                 return;
             }
-            if (SelectedNhanVien != null)
+            if (SelectedEmployee != null)
             {
-                var window = new UpdateEmployeeWindow();
-                preMaNhanVien = SelectedNhanVien.ma_nv;
+                var window = new UpdateEmployeeWindow(this);
+
                 window.ShowDialog();
             }
         }
@@ -287,80 +470,6 @@ namespace CoffeeStoreManager.ViewModels
             Swindow.ShowDialog();
             loadData();
         }
-        void increaseAbsentDay(object p)
-        {
-            bool checkitem = false;
-            for (int i = 0; i < EmployeeList.Count; i++)
-            {
-                if (EmployeeList[i].check_selected_item == true && EmployeeList[i].ma_loai_nhan_vien != 1)
-                {
-                    int v = EmployeeList[i].ma_nv;
-                    NhanVien upd = DataProvider.Ins.DB.NhanViens.Where(t => t.ma_nhan_vien == v).SingleOrDefault();
-                    upd.so_ngay_nghi++;
-                    checkitem = true;
-                    DataProvider.Ins.DB.SaveChanges();
-                }
-            }
-            if (checkitem == true)
-            {
-                loadDataEmployee();
-            }
-            else
-            {
-                if (SelectedNhanVien != null)
-                {
-                    NhanVien upd = DataProvider.Ins.DB.NhanViens.Where(t => t.ma_nhan_vien == SelectedNhanVien.ma_nv).FirstOrDefault();
-                    if (upd.ma_loai_nhan_vien == 1)
-                    {
-                        MessageBox.Show("Day la nhan vien part time");
-                        return;
-                    }
-                    upd.so_ngay_nghi++;
-                    DataProvider.Ins.DB.SaveChanges();
-                    loadDataEmployee();
-                }
-            }
-        }
-        void decreaseAbsentDay(object p)
-        {
-            bool checkitem = false;
-            for (int i = 0; i < EmployeeList.Count; i++)
-            {
-                if (EmployeeList[i].check_selected_item == true && EmployeeList[i].ma_loai_nhan_vien != 1)
-                {
-                    int v = EmployeeList[i].ma_nv;
-                    NhanVien upd = DataProvider.Ins.DB.NhanViens.Where(t => t.ma_nhan_vien == v).SingleOrDefault();
-                    if (Int32.Parse(EmployeeList[i].so_ngay_nghi) > 0)
-                    {
-                        upd.so_ngay_nghi--;
-                        DataProvider.Ins.DB.SaveChanges();
-                        checkitem = true;
-                    }
-                }
-            }
-            if (checkitem == true)
-            {
 
-                loadDataEmployee();
-            }
-            else
-            {
-                if (SelectedNhanVien != null)
-                {
-                    NhanVien upd = DataProvider.Ins.DB.NhanViens.Where(t => t.ma_nhan_vien == SelectedNhanVien.ma_nv).FirstOrDefault();
-                    if (upd.ma_loai_nhan_vien == 1)
-                    {
-                        MessageBox.Show("Day la nhan vien part time");
-                        return;
-                    }
-                    if (Int32.Parse(SelectedNhanVien.so_ngay_nghi) > 0)
-                    {
-                        upd.so_ngay_nghi--;
-                        DataProvider.Ins.DB.SaveChanges();
-                    }
-                    loadDataEmployee();
-                }
-            }
-        }
     }
 }

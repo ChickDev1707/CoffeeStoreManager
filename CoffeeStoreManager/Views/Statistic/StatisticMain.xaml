@@ -22,13 +22,6 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <ComboBox
-                    Width="160"
-                    Margin="0 0 10 0"
-                    materialDesign:HintAssist.Hint="Tháng"
-                    Grid.Column="0" ItemsSource="{Binding DataComboboxMonth}" 
-                    SelectedIndex="{Binding SelectedMonth}"
-                  />
                 <ComboBox   Grid.Column="1" 
                         Width="160"
                         Margin="0 0 10 0"
@@ -62,15 +55,21 @@
                     <Grid>
                         <Grid >
                             <Grid>
-                                <DataGrid Height="Auto" Name="dtg" Visibility="Hidden" ItemsSource="{Binding DataListView}">
+                                <DataGrid Height="Auto" Name="dtg" Visibility="Hidden" ItemsSource="{Binding DataGridView}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Thời gian" Binding="{Binding thoi_gian}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Tiền thu được từ hóa đơn" Binding="{Binding tien_hoa_don}" ></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Tiền nhập nguyên liệu"  Binding="{Binding tien_nguon_hang}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="Tổng" Binding="{Binding tong}" ></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Tiền hóa đơn" Binding="{Binding tien_hoa_don}" ></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Tiền nguyên liệu"  Binding="{Binding tien_nguon_hang}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Tiền lương"  Binding="{Binding tien_luong}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Lợi nhuận" Binding="{Binding tong}" ></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <ListView x:Name="ListViewStatistic"  ItemsSource="{Binding DataListView}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn
@@ -79,9 +78,10 @@
                                                 AncestorType={x:Type ListViewItem}}, 
                                                 Converter={StaticResource ListIndexConverter}}" />
                                             <GridViewColumn Header="Thời gian" DisplayMemberBinding="{Binding thoi_gian}"></GridViewColumn>
-                                            <GridViewColumn Header="Tiền thu được từ hóa đơn" DisplayMemberBinding="{Binding tien_hoa_don}"></GridViewColumn>
-                                            <GridViewColumn Header="Tiền nhập nguyên liệu" DisplayMemberBinding="{Binding tien_nguon_hang}"></GridViewColumn>
-                                            <GridViewColumn Header="Tổng" DisplayMemberBinding="{Binding tong}">
+                                            <GridViewColumn Header="Tiền hóa đơn" DisplayMemberBinding="{Binding tien_hoa_don}"></GridViewColumn>
+                                            <GridViewColumn Header="Tiền nguyên liệu" DisplayMemberBinding="{Binding tien_nguon_hang}"></GridViewColumn>
+                                            <GridViewColumn Header="Tiền lương"  DisplayMemberBinding="{Binding tien_luong}"></GridViewColumn>
+                                            <GridViewColumn Header="Lợi nhuận" DisplayMemberBinding="{Binding tong}">
                                             </GridViewColumn>
                                         </GridView>
                                     </ListView.View>
@@ -97,18 +97,51 @@
                                 </Style>
                             </Grid.Style>
                         </Grid>
-                        <Grid >
-                            <chart:SfChart Visibility="{Binding CheckSelected}" Margin="10,30,0,30" Grid.Row="1" Width="774"  FontSize="20" Foreground="#888" Header="BIỂU ĐỒ DOANH THU" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                                <chart:SfChart.PrimaryAxis >
+                        <Grid>
+                            <chart:SfChart Visibility="{Binding CheckSelected}" Margin="10,30,0,30" Grid.Row="1" Width="774"  FontSize="20" Foreground="#888" Header="BIỂU ĐỒ " HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                                <chart:SfChart.PrimaryAxis>
                                     <chart:CategoryAxis FontSize="12"></chart:CategoryAxis>
                                 </chart:SfChart.PrimaryAxis>
                                 <chart:SfChart.SecondaryAxis>
                                     <chart:NumericalAxis Header="Đơn vị(nghìn VNĐ)" FontSize="11"></chart:NumericalAxis>
                                 </chart:SfChart.SecondaryAxis>
+                                <chart:SfChart.Legend>
+
+                                    <chart:ChartLegend  IconHeight="10" IconWidth="10" 
+
+                        Margin="0,0,0,5"
+
+                        HorizontalAlignment="Center"
+
+                        VerticalAlignment="Center"                                    
+
+                        DockPosition="Top"
+
+
+                        IconVisibility="Visible" CornerRadius="5" 
+
+                        ItemMargin="10">
+
+                                    </chart:ChartLegend>
+
+                                </chart:SfChart.Legend>
                                 <chart:LineSeries
                                     ItemsSource="{Binding DataLineChart}" 
-                                    Interior="Black"
+                                    Interior="PaleVioletRed"
                                     XBindingPath="Month"
+                                    FontWeight="Bold"
+                                    LegendIcon="StraightLine"
+                                    FontSize="10"
+                                    Label="Lợi nhuận"
+                                    YBindingPath="Value">
+                                </chart:LineSeries>
+                                <chart:LineSeries
+                                    ItemsSource="{Binding DataLineChartIncome}" 
+                                    Interior="LightGreen"
+                                    XBindingPath="Month"
+                                    LegendIcon="StraightLine"
+                                    Label="Doanh thu"
+                                    FontWeight="ExtraBold"
                                     YBindingPath="Value">
                                 </chart:LineSeries>
                             </chart:SfChart>
@@ -126,7 +159,7 @@
                 </Border>
             </DockPanel>
             <StackPanel Grid.Row="2">
-                <Button Style="{StaticResource PrimaryBtn}" Content="Xuất excel" Command="{Binding ExportFileExcel}" CommandParameter="{Binding ElementName=dtg}" HorizontalAlignment="Right"></Button>
+                <Button Style="{StaticResource PrimaryBtn}" Content="Xuất excel" Command="{Binding ExportExcel}" CommandParameter="{Binding ElementName=dtg}" HorizontalAlignment="Right"></Button>
             </StackPanel>
         </Grid>
     </DockPanel>

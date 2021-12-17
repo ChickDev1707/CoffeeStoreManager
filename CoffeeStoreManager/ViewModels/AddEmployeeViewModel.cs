@@ -93,7 +93,6 @@ namespace CoffeeStoreManager.ViewModels
                 return;
             }
             #endregion add 
-
             NhanVien add = new NhanVien()
             {
                 ho_ten = addEmployeeHovaten,

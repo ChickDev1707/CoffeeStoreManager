@@ -12,6 +12,7 @@ namespace CoffeeStoreManager.Models
         public string thoi_gian { get; set; }
         public string tien_hoa_don { get; set; }
         public string tien_nguon_hang { get; set; }
+        public string tien_luong { get; set; }
         public string tong { get; set; }
     }
 

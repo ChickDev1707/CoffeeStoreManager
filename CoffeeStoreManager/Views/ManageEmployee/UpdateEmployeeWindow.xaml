@@ -8,7 +8,7 @@
         
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource ManageEmployeeVM}"
+    
         Title="UpdateEmployeeWindow" Height="450" Width="680">
     
     <Window.Resources>
@@ -17,7 +17,7 @@
 
     <Border Padding="20">
         <StackPanel>
-            <TextBlock Text="Thêm nhân viên" Style="{StaticResource PageTitle}"/>
+            <TextBlock Text="Cập nhật thông tin" Style="{StaticResource PageTitle}"/>
 
             <StackPanel>
                 <StackPanel.Resources>
@@ -33,7 +33,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Margin="0 0 20 0" materialDesign:HintAssist.Hint="Họ và tên" Grid.Column="0" Text="{Binding SelectedNhanVien.ho_ten}"/>
+                        <TextBox Margin="0 0 20 0" materialDesign:HintAssist.Hint="Họ và tên" Grid.Column="0" Text="{Binding SelectedEmployee.ho_ten}"/>
                         <ComboBox  
                             Grid.Column="1"
                             materialDesign:HintAssist.Hint="Loại nhân viên"
@@ -41,12 +41,12 @@
                             ItemsSource="{Binding EmployeeTypeList}" 
                             DisplayMemberPath="ten_loai_nhan_vien"
                             SelectedValuePath="ma_loai_nhan_vien"
-                            SelectedValue="{Binding SelectedNhanVien.ma_loai_nhan_vien}">
+                            SelectedValue="{Binding SelectedEmployee.ma_loai_nhan_vien}">
                         </ComboBox>
                     </Grid>
                 </StackPanel>
                 <StackPanel>
-                    <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding SelectedNhanVien.sdt}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding SelectedEmployee.sdt}"/>
                 </StackPanel>
                 <StackPanel>
                     <Grid>
@@ -54,12 +54,12 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <DatePicker Grid.Column="0" materialDesign:HintAssist.Hint="Ngày sinh" Margin="0 0 20 0" />
-                        <DatePicker Grid.Column="1" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding SelectedNhanVien.ngay_vao_lam}"/>
+                        <DatePicker Grid.Column="0" materialDesign:HintAssist.Hint="Ngày sinh" Margin="0 0 20 0" SelectedDate="{Binding SelectedEmployee.ngay_sinh}" />
+                        <DatePicker Grid.Column="1" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding SelectedEmployee.ngay_vao_lam}"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel>
-                    <TextBox materialDesign:HintAssist.Hint="Địa chỉ" Height="100" Text="{Binding SelectedNhanVien.dia_chi}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Địa chỉ" Height="100" Text="{Binding SelectedEmployee.dia_chi}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -73,7 +73,16 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Style="{StaticResource PrimaryBtn}" Content="Cập nhật" Command="{Binding UpdateEmployee}"></Button>
+                <Button Style="{StaticResource PrimaryBtn}" Content="Cập nhật" Command="{Binding UpdateEmployee}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Border>

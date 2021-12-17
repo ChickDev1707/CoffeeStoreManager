@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoffeeStoreManager.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,13 @@ namespace CoffeeStoreManager.Views.ManageEmployee
     /// </summary>
     public partial class UpdateEmployeeWindow : Window
     {
-        public UpdateEmployeeWindow()
+        public UpdateEmployeeWindow(EmployeeViewModel Employeevm)
         {
             InitializeComponent();
             Style = (Style)FindResource("WindowStyle");
+            UpdateEmployeeViewModel UpdateVM= new UpdateEmployeeViewModel(Employeevm);
+            this.DataContext = UpdateVM;
+
 
         }
     }

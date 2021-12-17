@@ -12,9 +12,14 @@ using CoffeeStoreManager.Resources.Utils;
 namespace CoffeeStoreManager.ViewModels
 {
     public class StatisticViewModel : BaseViewModel
-    {  //chart
+    {  
         private List<int> _datacombobox;
+        private int selectedYear;
         private ObservableCollection<LineChartModel> dataLineChart;
+        private ObservableCollection<LineChartModel> dataLineChartIncome;
+        private ObservableCollection<ViewStatistic> dataListView;
+        private ObservableCollection<ViewStatistic> dataGridView;
+
         private Visibility checkSelected;
 
         public Visibility CheckSelected
@@ -38,26 +43,13 @@ namespace CoffeeStoreManager.ViewModels
             get { return dataLineChart; }
             set { dataLineChart = value; OnPropertyChanged(nameof(dataLineChart)); }
         }
-        //end chart
-
-        private int selectedMonth;
-        private Visibility checkData;
-
-        private ObservableCollection<ViewStatistic> dataListView;
-        private string totalSalary;
-        private string totalFee;
-
-        public string TotalFee
+        public ObservableCollection<LineChartModel> DataLineChartIncome
         {
-            get { return totalFee; }
-            set { totalFee = value; OnPropertyChanged(nameof(totalFee)); }
+            get { return dataLineChartIncome; }
+            set { dataLineChartIncome = value; OnPropertyChanged(nameof(dataLineChartIncome)); }
         }
+        
 
-        public string TotalSalary
-        {
-            get { return totalSalary; }
-            set { totalSalary = value; OnPropertyChanged(nameof(totalSalary)); }
-        }
 
 
         public ObservableCollection<ViewStatistic> DataListView
@@ -65,45 +57,37 @@ namespace CoffeeStoreManager.ViewModels
             get { return dataListView; }
             set { dataListView = value; OnPropertyChanged(nameof(dataListView)); }
         }
-
-        public Visibility CheckData
+        public ObservableCollection<ViewStatistic> DataGridView
         {
-            get { return checkData; }
-            set { checkData = value; OnPropertyChanged(nameof(checkData)); }
+            get { return dataGridView; }
+            set { dataGridView = value; OnPropertyChanged(nameof(dataGridView)); }
         }
-        private int selectedYear;
+
 
         public int SelectedYear
         {
             get { return selectedYear; }
             set { selectedYear = value; LoadDataChart(); }
         }
-        public int SelectedMonth
-        {
-            get { return selectedMonth; }
-            set { selectedMonth = value; }
-        }
-
         private List<string> dataComboboxYear;
-        public List<string> DataComboboxMonth { get; set; }
         public List<string> DataComboboxYear
         {
             get { return dataComboboxYear; }
             set { dataComboboxYear = value; OnPropertyChanged(nameof(dataComboboxYear)); }
         }
         public ICommand LoadDataLv { get; set; }
-        public ICommand ExportFileExcel { get; set; }
+        public ICommand ExportExcel { get; set; }
         public StatisticViewModel()
         {
             //chart
             CheckSelected = Visibility.Hidden;
             DataLineChart = new ObservableCollection<LineChartModel>();
+            DataLineChartIncome = new ObservableCollection<LineChartModel>();
             // end chart
-            TotalFee = "";
-            checkData = Visibility.Visible;
             DataListView = new ObservableCollection<ViewStatistic>();
+            DataGridView = new ObservableCollection<ViewStatistic>();
             LoadDataLv = new RelayCommand<object>((p) => { return true; }, (p) => { LoadDataListView(p); });
-            ExportFileExcel = new RelayCommand<DataGrid>((p) => { return true; }, (p) => { exportFileExcel(p); });
+            ExportExcel = new RelayCommand<DataGrid>((p) => { return true; }, (p) => { ExportFileExcel(p); });
             LoadDataComboBox();
         }
         //chart
@@ -111,39 +95,52 @@ namespace CoffeeStoreManager.ViewModels
         {
             CheckSelected = Visibility.Visible;
             DataLineChart.Clear();
-            for (int i = 0; i < 12; i++)
+            DataLineChartIncome.Clear();
+            for (int i = 1; i <= 12; i++)
             {
-                //LineVal.Add(Calculate(i + 1));
-                LineChartModel chartModel = new LineChartModel(Calculate(i + 1), i + 1);
-                DataLineChart.Add(chartModel);
+                LineChartModel IncomeChartModel = new LineChartModel(CalculateInComeChart(i), i);
+                LineChartModel ChartModel = new LineChartModel(Calculate(i), i);
+                DataLineChartIncome.Add(IncomeChartModel);
+                DataLineChart.Add(ChartModel);
             }
+        }
+        decimal CalculateInComeChart(int month)
+        {
+            decimal tong = 0;
+            List<HoaDon> list = DataProvider.Ins.DB.HoaDons
+                .Where(p => p.ngay_xuat_hoa_don.Value.Year == SelectedYear && p.ngay_xuat_hoa_don.Value.Month == month).ToList();
+                for (int i = 0; i <list.Count; i++)
+                {
+                    tong = tong + (decimal)list[i].tong_tien;
+                }
+            tong = tong / 1000;
+            return tong;
         }
         decimal Calculate(int month)
         {
             decimal tong = 0;
             List<HoaDon> list = DataProvider.Ins.DB.HoaDons
-                .Where(p => p.ngay_xuat_hoa_don.Value.Year == SelectedYear && p.ngay_xuat_hoa_don.Value.Month == month).ToList();
+               .Where(p => p.ngay_xuat_hoa_don.Value.Year == SelectedYear && p.ngay_xuat_hoa_don.Value.Month == month).ToList();
             PhieuTinhLuong luong = DataProvider.Ins.DB.PhieuTinhLuongs.
-                Where(p => p.ngay_tinh_luong.Value.Year == SelectedYear && p.ngay_tinh_luong.Value.Month == month).FirstOrDefault();
+                   Where(p => p.ngay_tinh_luong.Value.Year == SelectedYear && p.ngay_tinh_luong.Value.Month == month).FirstOrDefault();
             List<PhieuNhapHang> phieuNhapHang = DataProvider.Ins.DB.PhieuNhapHangs.
                 Where(p => p.ngay_nhap.Value.Year == SelectedYear && p.ngay_nhap.Value.Month == month).ToList();
-            for (int i = 0; i < list.Count; i++)
-            {
-                tong = tong + (decimal)list[i].tong_tien;
-            }
             for (int i = 0; i < phieuNhapHang.Count; i++)
             {
                 tong = tong - (decimal)phieuNhapHang[i].tong_tien;
+            }
+            for (int i = 0; i < list.Count; i++)
+            {
+                tong = tong + (decimal)list[i].tong_tien;
             }
             if (luong != null)
             {
                 tong = tong - (decimal)luong.tong_tien;
             }
-            tong = tong / 1000;
             return tong;
         }
         //end chart
-        void exportFileExcel(DataGrid dtGrid)
+        void ExportFileExcel(DataGrid dtGrid)
         {
             Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
             excel.Visible = true; //www.yazilimkodlama.com
@@ -175,19 +172,32 @@ namespace CoffeeStoreManager.ViewModels
         void LoadDataListView(object f)
         {
             DataListView.Clear();
-            decimal total = 0;
-            ObservableCollection<ViewStatistic> b = new ObservableCollection<ViewStatistic>();
+            DataGridView.Clear();
             if (SelectedYear != 0)
             {
-                int days = DateTime.DaysInMonth(SelectedYear, SelectedMonth + 1);
-                for (int i = 1; i <= days; i++)
+                decimal profit = 0;
+                for (int i = 1; i <= 12; i++)
                 {
-                    decimal totalHD = 0, totalPNH = 0;
-                    DateTime day = new DateTime(SelectedYear, SelectedMonth + 1, i);
+                    decimal totalHD = 0, totalPNH = 0, salary = 0;
                     ViewStatistic view = new ViewStatistic();
-                    ViewEmployee t = new ViewEmployee();
-                    List<HoaDon> hd = DataProvider.Ins.DB.HoaDons.Where(p => p.ngay_xuat_hoa_don == day).ToList();
-                    List<PhieuNhapHang> a = DataProvider.Ins.DB.PhieuNhapHangs.Where(p => p.ngay_nhap == day).ToList();
+                    List<HoaDon> hd = DataProvider.Ins.DB.HoaDons.
+                        Where(p => p.ngay_xuat_hoa_don.Value.Year == SelectedYear && p.ngay_xuat_hoa_don.Value.Month ==i).ToList();
+                    List<PhieuNhapHang> a = DataProvider.Ins.DB.PhieuNhapHangs.
+                        Where(p => p.ngay_nhap.Value.Year == SelectedYear && p.ngay_nhap.Value.Month == i).ToList();
+                    PhieuTinhLuong pSalary = DataProvider.Ins.DB.PhieuTinhLuongs
+                        .Where(p => p.ngay_tinh_luong.Value.Year == SelectedYear && p.ngay_tinh_luong.Value.Month == i).FirstOrDefault();
+                    if(pSalary !=null)
+                    {
+                        salary = (decimal)pSalary.tong_tien;
+                    }
+                    if (pSalary == null)
+                    {
+                        view.tien_luong = "0";
+                    }
+                    else
+                    { 
+                        view.tien_luong = MoneyConverter.convertMoney(pSalary.tong_tien.ToString());
+                    }
                     if (hd.Count == 0 && a.Count == 0)
                     {
                         continue;
@@ -202,47 +212,21 @@ namespace CoffeeStoreManager.ViewModels
                     }
                     view.tien_hoa_don = MoneyConverter.convertMoney(totalHD.ToString());
                     view.tien_nguon_hang = MoneyConverter.convertMoney(totalPNH.ToString());
-                    total = total + (decimal)(totalHD + totalPNH);
-                    view.tong = MoneyConverter.convertMoney((totalHD + totalPNH).ToString());
-                    view.thoi_gian = String.Format("{0:dd/MM/yyyy}", day);
-                    b.Add(view);
+                    profit = (decimal)(totalHD - salary - totalPNH);
+                    if (profit == 0)
+                    {
+                        view.tong = "0";
+                    }
+                    else view.tong = MoneyConverter.convertMoney(profit.ToString());
+                    view.thoi_gian = String.Format("Tháng {0}", i);
+                    DataListView.Add(view);
+                    DataGridView.Add(view);
                 }
             }
-            if (b.Count != 0)
-            {
-                TotalFee = MoneyConverter.convertMoney(total.ToString());
-                DataListView = b;
-                PhieuTinhLuong pSalary = DataProvider.Ins.DB.PhieuTinhLuongs
-                    .Where(p => p.ngay_tinh_luong.Value.Month == SelectedMonth + 1 &&
-                    p.ngay_tinh_luong.Value.Year == SelectedYear).FirstOrDefault();
-                if(pSalary == null)
-                {
-                    TotalSalary = "0";
-                }
-                else
-                {
-                    TotalSalary = pSalary.tong_tien.ToString();
-                }
-                TotalSalary = "Tổng tiền lương trả cho nhân viên trong tháng " + MoneyConverter.convertMoney(TotalSalary);
-            }
-            else
-            {
-                if(TotalSalary == null)
-                {
-                    CheckData = Visibility.Visible;
-                    return;
-                }
-                TotalSalary = "Tổng tiền lương trả cho nhân viên trong tháng " + MoneyConverter.convertMoney(TotalSalary);
-            }
-            CheckData = Visibility.Hidden;
         }
         void LoadDataComboBox()
         {
             DataComboboxYear = new List<string>();
-            DataComboboxMonth = new List<string>() {
-                "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
-                 "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",
-            };
             List<PhieuTinhLuong> checkExist = DataProvider.Ins.DB.PhieuTinhLuongs.ToList();
             if (checkExist.Count != 0)  
             {

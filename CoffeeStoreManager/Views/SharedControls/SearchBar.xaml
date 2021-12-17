@@ -14,6 +14,7 @@
     </UserControl.Resources>
     <DockPanel Width="400">
         <TextBox
+            Text="{Binding SearchKey}"
             DockPanel.Dock="Left"
             materialDesign:HintAssist.Hint="Từ khóa"
             Width="280"

@@ -20,6 +20,11 @@
             </Grid.ColumnDefinitions>
             <Border  Style="{StaticResource MainBorder}">
                 <ListView HorizontalAlignment="Stretch" FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding TypeEmployeeList}" SelectedItem="{Binding SelectedLoaiNhanVien}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn 
@@ -28,8 +33,8 @@
                                 AncestorType={x:Type ListViewItem}}, 
                                 Converter={StaticResource ListIndexConverter}}"                
                             ></GridViewColumn>
-                            <GridViewColumn Header="Mã loại nhân viên" DisplayMemberBinding="{Binding Path=ma_loai_nhan_vien}"></GridViewColumn>
-                            <GridViewColumn Header="Tên loại nhân viên" DisplayMemberBinding="{Binding Path=ten_loai_nhan_vien}"></GridViewColumn>
+                            <GridViewColumn Header="Mã loại" DisplayMemberBinding="{Binding Path=ma_loai_nhan_vien}"></GridViewColumn>
+                            <GridViewColumn Header="Tên loại" DisplayMemberBinding="{Binding Path=ten_loai_nhan_vien}"></GridViewColumn>
                             <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong}"></GridViewColumn>
                         </GridView>
                     </ListView.View>

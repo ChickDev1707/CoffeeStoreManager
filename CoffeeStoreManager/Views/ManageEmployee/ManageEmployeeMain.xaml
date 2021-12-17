@@ -19,6 +19,7 @@
         <ResourceDictionary Source="../Style/Button.xaml"/>
     </Page.Resources>
     <DockPanel>
+  
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách nhân viên"/>
         <Grid >
             <Grid.RowDefinitions>
@@ -34,6 +35,7 @@
                 </DockPanel.Resources>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <Button
+                        Command="{Binding RefreshData}"
                 ToolTip="Làm mới danh sách nhân viên">
                         <materialDesign:PackIcon Kind="Refresh" />
                     </Button>
@@ -53,31 +55,57 @@
                         <materialDesign:PackIcon Kind="TrashCanOutline" />
                     </Button>
                     <Button
+                        Command="{Binding ImportExcel}"
                 ToolTip="Nhập liệu từ file excel">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Import" />
-                            <TextBlock Text="Import"/>
+                            <TextBlock Text=""/>
                         </DockPanel>
                     </Button>
                     <Button
+                        Command="{Binding ExportExcel}" CommandParameter="{Binding ElementName=dtg}" 
                 ToolTip="Xuất file excel">
                         <DockPanel>
                             <materialDesign:PackIcon Kind="FileExcel" />
-                            <TextBlock Text="Export"/>
+                            <TextBlock Text=""/>
                         </DockPanel>
                     </Button>
-                </StackPanel>
-                <SharedUC:SearchBar HorizontalAlignment="Right"/>
+                    <Button Grid.Row="0" Command="{Binding IncreaseDay}" ToolTip="Tăng số ngày nghỉ">
+                        <DockPanel>
+          
+                                <TextBlock Text="+"/>
+                            </DockPanel>
+                        </Button>
+                    <Button Grid.Row="1"  Command="{Binding DecreaseDay}" ToolTip="Tăng số ngày nghỉ">
+                            <DockPanel>
+                
+                                <TextBlock Text="-"/>
+                            </DockPanel>
+                        </Button>
+                    </StackPanel>
+                <SharedUC:SearchBar  HorizontalAlignment="Right"/>
             </DockPanel>
-            <Border Style="{StaticResource MainBorder}" Grid.Row="1" Margin="0 0 0 20">
-
-                <ListView 
+            <DataGrid Height="Auto" Name="dtg" Grid.Row="1" Visibility="Hidden" ItemsSource="{Binding Dtg_employeeList}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="STT" Binding="{Binding STT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Họ và tên" Binding="{Binding ho_ten}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ngày sinh" Binding="{Binding ngay_sinh}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="SĐT"   Binding="{Binding sdt}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Địa chỉ" Binding="{Binding dia_chi}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Số ngày nghỉ" Binding="{Binding so_ngay_nghi}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Mã loại nhân viên" Binding="{Binding ma_loai_nhan_vien}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ngày vào làm" Binding="{Binding ngay_vao_lam}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Border   Style="{StaticResource MainBorder}" Grid.Row="1" Margin="0 0 0 20">
+                <ListView
                     ScrollViewer.VerticalScrollBarVisibility="Visible"
                     ScrollViewer.CanContentScroll="False"  
                     FontSize="14" SelectionMode="Multiple" 
                     Name="lv"  
+          
                     ItemsSource="{Binding EmployeeList}" 
-                    SelectedItem="{Binding SelectedNhanVien}" >
+                    SelectedItem="{Binding SelectedEmployee}" >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged" >
                             <i:InvokeCommandAction 
@@ -87,14 +115,29 @@
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                            <Style.Triggers>
+                                <Trigger  Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                             <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding ho_ten}"/>
                             <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding sdt}"/>
                             <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding dia_chi}"/>
-                            <GridViewColumn Header="Số ngày nghỉ" DisplayMemberBinding="{Binding so_ngay_nghi}"/>
+                            <GridViewColumn Header="Số ngày nghỉ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Visibility="{Binding VisiblePartTime}" Text="{Binding so_ngay_nghi}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="Loại nhân viên" DisplayMemberBinding="{Binding loai_nhan_vien}"/>
                             <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding tien_luong}"/>
                         </GridView>

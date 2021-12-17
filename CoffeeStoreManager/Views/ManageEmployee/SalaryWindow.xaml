@@ -17,13 +17,11 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!--<ComboBox Grid.Column="0" ItemsSource="{Binding DataCbxMonth}" SelectedIndex="{Binding SelectedMonth}"></ComboBox>-->
-            <!--<ComboBox Grid.Column="1" ItemsSource="{Binding DataCbxYear}" SelectedIndex="{Binding SelectedYear}"></ComboBox>-->
         </Grid>
-        <Button Margin="0 10 0 0" Style="{StaticResource PrimaryBtn}" Content="Tính Lương" Command="{Binding LoadSalary}"></Button>
+       
         <ListView ItemsSource="{Binding  SalaryEmployeeList}" >
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
+            <ListView.ItemContainerStyle >
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
                 </Style>
             </ListView.ItemContainerStyle>
@@ -31,7 +29,15 @@
                 <GridView>
                     <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding Path=ho_ten}"></GridViewColumn>
                     <GridViewColumn Header="Ngày vào làm" DisplayMemberBinding="{Binding Path=Sngay_vao_lam}"></GridViewColumn>
-                    <GridViewColumn Header="Số ngày nghỉ" DisplayMemberBinding="{Binding Path=so_ngay_nghi}"></GridViewColumn>
+                    <GridViewColumn Header="Số ngày nghỉ">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Visibility="{Binding VisiblePartTime}" Text="{Binding so_ngay_nghi}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Số giờ làm" DisplayMemberBinding="{Binding Path=so_gio_lam}"></GridViewColumn>
                     <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong}" ></GridViewColumn>
                     <GridViewColumn Header="Lương nhận" DisplayMemberBinding="{Binding Path=luong_nhan}"></GridViewColumn>
