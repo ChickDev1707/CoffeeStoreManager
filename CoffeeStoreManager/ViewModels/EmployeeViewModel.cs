@@ -106,12 +106,12 @@ namespace CoffeeStoreManager.ViewModels
         
            for(int i=0;i<EmployeeList.Count;i++)
             {
-                if (SelectedEmployee.ma_loai_nhan_vien == 1)
-                {
-                    return;
-                }
                 if (EmployeeList[i].check_selected_item == true)
                 {
+                    if (EmployeeList[i].ma_loai_nhan_vien == 1)
+                    {
+                        continue;
+                    }
                     int m = EmployeeList[i].ma_nv;
                     NhanVien nv = DataProvider.Ins.DB.NhanViens.
                     Where(t => t.ma_nhan_vien == m).SingleOrDefault();
