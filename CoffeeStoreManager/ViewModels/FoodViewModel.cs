@@ -219,6 +219,8 @@ namespace CoffeeStoreManager.ViewModels
             DataProvider.Ins.DB.SaveChanges();
 
             FoodList.Remove(FoodList.Where(item => item.ma_mon_an == selectedFoodId).Single());
+            MyMessageQueue.Enqueue("Đã xóa món ăn khỏi hệ thống!");
+
         }
 
         private void search(object p)
