@@ -223,7 +223,6 @@
     <Compile Include="ViewModels\MonthReportViewModel.cs" />
     <Compile Include="ViewModels\UpdateFoodViewModel.cs" />
     <Compile Include="ViewModels\UpdateEmployeeViewModel.cs" />
-    <Compile Include="ViewModels\Validation.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>

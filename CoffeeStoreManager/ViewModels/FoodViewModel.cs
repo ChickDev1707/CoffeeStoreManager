@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Views.ManageFood;
+using MaterialDesignThemes.Wpf;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -22,7 +23,9 @@ namespace CoffeeStoreManager.ViewModels
         private ObservableCollection<MonAn> foodList;
         private MonAn selectedFood;
         private string searchKey;
-        
+
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+        private SnackbarMessageQueue myMessageQueue;
         public ICommand OpenAddFoodWindow { get; set; }
         public ICommand OpenUpdateFoodWindow { get; set; }
         public ICommand Search { get; set; }
@@ -42,6 +45,9 @@ namespace CoffeeStoreManager.ViewModels
             RefreshFoodList = new RelayCommand<object>((p) => { return true; }, (p) => { refreshFoodList(p); });
             ImportExcel = new RelayCommand<object>((p) => { return true; }, (p) => { importExcel(p); });
             ExportExcel = new RelayCommand<object>((p) => { return true; }, (p) => { exportExcel(p); });
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(3000));
+            MyMessageQueue.DiscardDuplicates = true;
         }
 
         private void exportExcel(object p)
@@ -59,7 +65,7 @@ namespace CoffeeStoreManager.ViewModels
             // nếu đường dẫn null hoặc rỗng thì báo không hợp lệ và return hàm
             if (string.IsNullOrEmpty(filePath))
             {
-                MessageBox.Show("Đường dẫn báo cáo không hợp lệ");
+                MyMessageQueue.Enqueue("Lỗi. Đường dẫn báo cáo không hợp lệ.");
                 return;
             }
 
@@ -117,19 +123,20 @@ namespace CoffeeStoreManager.ViewModels
                     Byte[] bin = package.GetAsByteArray();
                     File.WriteAllBytes(filePath, bin);
                 }
-                MessageBox.Show("Xuất excel thành công!");
+                MyMessageQueue.Enqueue("Xuất excel thành công!");
             }
             catch (Exception EE)
             {
-                MessageBox.Show("Có lỗi khi lưu file!");
+                MyMessageQueue.Enqueue("Lỗi. Đã xảy ra lỗi khi xuất file excel.");
             }
+
         }
 
         private void importExcel(object p)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
-            if(dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string fileName = dialog.FileName;
                 handleImportExcelFile(fileName);
@@ -162,17 +169,18 @@ namespace CoffeeStoreManager.ViewModels
                         DataProvider.Ins.DB.MonAns.Add(newFood);
                         DataProvider.Ins.DB.SaveChanges();
                         FoodList.Add(newFood);
+                        MyMessageQueue.Enqueue("Thêm dữ liệu từ file excel thành công!");
 
                     }
                     catch (Exception error)
                     {
-                        MessageBox.Show("error");
+                        MessageBox.Show("Lỗi. Đã xảy ra lỗi khi đọc file excel.");
                     }
                 }
             }
             catch (Exception ee)
             {
-                MessageBox.Show("Đã xảy ra lỗi khi import file excel!");
+                MessageBox.Show("Lỗi. Đã xảy ra lỗi khi import file excel.");
             }
         }
         public void LoadFoodList()
@@ -195,7 +203,7 @@ namespace CoffeeStoreManager.ViewModels
             }
             else
             {
-                MessageBox.Show("Bạn chưa chọn món ăn");
+                MyMessageQueue.Enqueue("Bạn chưa chọn món ăn.");
             }
         }
         private void refreshFoodList(object p)

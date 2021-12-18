@@ -76,11 +76,11 @@ namespace CoffeeStoreManager.ViewModels
                 DataProvider.Ins.DB.SaveChanges();
                 //udpate view
                 foodVm.FoodList.Add(newFood);
-
+                foodVm.MyMessageQueue.Enqueue("Thêm món ăn thành công!");
             }
             else
             {
-                System.Windows.MessageBox.Show("error");
+                foodVm.MyMessageQueue.Enqueue("Lỗi. Thông tin món ăn không hợp lệ");
             }
         }
     }
