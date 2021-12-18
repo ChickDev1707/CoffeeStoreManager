@@ -36,7 +36,7 @@
                     <Button Command="{Binding UploadFoodImage}" Content="Thêm ảnh"/>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
-                    <StackPanel>
+                    <StackPanel x:Name="AddFoodForm">
                         <TextBlock Text="Chi tiết món ăn " Margin="0 0 0 15" FontSize="18" FontWeight="DemiBold"/>
                         <Grid Margin="0 0 0 10">
                             <Grid.ColumnDefinitions>
@@ -50,7 +50,7 @@
                                 Style="{StaticResource ValidationTextBox}"
                             >
                                 <TextBox.Text>
-                                    <Binding Path="FoodName" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding Path="FoodName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
                                             <rule:NonEmptyRule/>
                                             <rule:TextRule/>
@@ -131,7 +131,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding}">
+                <Button Command="{Binding AddFood}" Content="Thêm món" CommandParameter="{Binding ElementName=AddFoodForm}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"

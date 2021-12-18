@@ -199,6 +199,7 @@
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="Resources\Utils\MoneyConverter.cs" />
     <Compile Include="Resources\Utils\Rules.cs" />
+    <Compile Include="Resources\Utils\Validator.cs" />
     <Compile Include="ViewModels\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModels\AddFoodViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="ViewModels\MonthReportViewModel.cs" />
     <Compile Include="ViewModels\UpdateFoodViewModel.cs" />
     <Compile Include="ViewModels\UpdateEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\Validation.cs" />
     <Compile Include="Views\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>

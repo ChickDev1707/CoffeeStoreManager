@@ -2,10 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Resources.Utils;
+using Image = System.Drawing.Image;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -37,7 +39,7 @@ namespace CoffeeStoreManager.ViewModels
 
             loadFoodTypeList();
 
-            AddFood = new RelayCommand<object>((p) => { return true; }, (p) => { addFood(p); });
+            AddFood = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { addFood(p); });
             UploadFoodImage = new RelayCommand<object>((p) => { return true; }, (p) => { uploadFoodImage(p); });
         }
         void loadFoodTypeList()
@@ -55,23 +57,32 @@ namespace CoffeeStoreManager.ViewModels
                 FoodImagePath = dialog.FileName;
             }
         }
-        void addFood(object state)
+        void addFood(StackPanel addFoodForm)
         {
-            Image foodImg = Image.FromFile(FoodImagePath);
-
-            MonAn newFood = new MonAn()
+            if (Validator.IsValid(addFoodForm))
             {
-                ten_mon_an = FoodName,
-                ma_loai_mon_an = FoodType,
-                gia_tien = FoodPrice,
-                nguyen_lieu = FoodIngredient,
-                mo_ta = FoodDescription,
-                anh = ImageConverterUtil.ImageToByteArray(foodImg)
-            };
-            DataProvider.Ins.DB.MonAns.Add(newFood);
-            DataProvider.Ins.DB.SaveChanges();
-            //udpate view
-            foodVm.FoodList.Add(newFood);
+                Image foodImg = Image.FromFile(FoodImagePath);
+
+                MonAn newFood = new MonAn()
+                {
+                    ten_mon_an = FoodName,
+                    ma_loai_mon_an = FoodType,
+                    gia_tien = FoodPrice,
+                    nguyen_lieu = FoodIngredient,
+                    mo_ta = FoodDescription,
+                    anh = ImageConverterUtil.ImageToByteArray(foodImg)
+                };
+                DataProvider.Ins.DB.MonAns.Add(newFood);
+                DataProvider.Ins.DB.SaveChanges();
+                //udpate view
+                foodVm.FoodList.Add(newFood);
+
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("error");
+            }
         }
     }
+    
 }

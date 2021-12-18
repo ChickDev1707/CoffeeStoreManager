@@ -10,7 +10,6 @@
     </ControlTemplate>
     <Style x:Key="ValidationTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="MaxLength" Value="40" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="ToolTip" Value="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource Self}}"/>
