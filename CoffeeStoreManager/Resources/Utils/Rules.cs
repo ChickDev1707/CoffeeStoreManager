@@ -24,7 +24,7 @@ namespace CoffeeStoreManager.Resources.Utils
         {
             try
             {
-                int val = Convert.ToInt32(value);
+                decimal val = Convert.ToDecimal(value);
                 if (val < 0) return new ValidationResult(false, "Giá trị phải lớn hơn 0");
                 return ValidationResult.ValidResult;
             }

@@ -44,7 +44,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBox
-                                x:Name="FoodName"
+                                Name="FoodName"
                                 materialDesign:HintAssist.Hint="Tên món"
                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                 Style="{StaticResource ValidationTextBox}"
@@ -71,7 +71,7 @@
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         </Grid>
                         <TextBox
-                            x:Name="FoodPrice"
+                            Name="FoodPrice"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Giá tiền"
                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
@@ -86,7 +86,7 @@
                             </TextBox.Text>
                         </TextBox>
                         <TextBox
-                            x:Name="FoodIngredient"
+                            Name="FoodIngredient"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Nguyên liệu"
                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
@@ -101,7 +101,7 @@
                             </TextBox.Text>
                         </TextBox>
                         <TextBox
-                            x:Name="FoodDescription"
+                            Name="FoodDescription"
                             Margin="0 0 0 10"
                             Height="100"
                             TextWrapping="Wrap"

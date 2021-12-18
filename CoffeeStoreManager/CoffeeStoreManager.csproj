@@ -498,6 +498,7 @@
       <DependentUpon>CoffeeManagerModel.edmx</DependentUpon>
       <LastGenOutput>CoffeeManagerModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Assets\Images\default-food-avatar.png" />
     <Resource Include="Resources\Assets\Images\dashboard.png" />
     <Resource Include="Resources\Assets\Images\admin-dashboard.png" />
     <Resource Include="Resources\Assets\Images\rules.png" />

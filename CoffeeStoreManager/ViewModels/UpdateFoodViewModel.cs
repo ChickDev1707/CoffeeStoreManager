@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
@@ -37,7 +38,7 @@ namespace CoffeeStoreManager.ViewModels
             loadFoodTypeList();
             loadSelectedFood();
 
-            UpdateSelectedFood = new RelayCommand<object>((p) => { return true; }, (p) => { updateSlectedFood(); });
+            UpdateSelectedFood = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { updateSelectedFood(p); });
             UpLoadFoodImage = new RelayCommand<object>((p) => { return true; }, (p) => { upLoadFoodImage(p); });
 
         }
@@ -47,7 +48,7 @@ namespace CoffeeStoreManager.ViewModels
             dialog.Filter = "Image Only(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                FoodImage = ImageConverterUtil.ImageToByteArray(Image.FromFile(dialog.FileName));
+                FoodImage = ImageConverterUtil.ImageToByteArray(System.Drawing.Image.FromFile(dialog.FileName));
             }
         }
         private void loadSelectedFood()
@@ -59,18 +60,26 @@ namespace CoffeeStoreManager.ViewModels
             FoodDescription = this.foodVm.SelectedFood.mo_ta;
             FoodImage = this.foodVm.SelectedFood.anh;
         }
-        private void updateSlectedFood()
+        private void updateSelectedFood(StackPanel updateFoodForm)
         {
-            var dbSelectedFood = DataProvider.Ins.DB.MonAns.SingleOrDefault(food => food.ma_mon_an == this.foodVm.SelectedFood.ma_mon_an);
-            dbSelectedFood.ten_mon_an = FoodName;
-            dbSelectedFood.ma_loai_mon_an = FoodType;
-            dbSelectedFood.gia_tien = FoodPrice;
-            dbSelectedFood.nguyen_lieu = FoodIngredient;
-            dbSelectedFood.mo_ta = FoodDescription;
-            dbSelectedFood.anh = FoodImage;
-            DataProvider.Ins.DB.SaveChanges();
+            if (Validator.IsValid(updateFoodForm))
+            {
+                var dbSelectedFood = DataProvider.Ins.DB.MonAns.SingleOrDefault(food => food.ma_mon_an == this.foodVm.SelectedFood.ma_mon_an);
+                dbSelectedFood.ten_mon_an = FoodName;
+                dbSelectedFood.ma_loai_mon_an = FoodType;
+                dbSelectedFood.gia_tien = FoodPrice;
+                dbSelectedFood.nguyen_lieu = FoodIngredient;
+                dbSelectedFood.mo_ta = FoodDescription;
+                dbSelectedFood.anh = FoodImage;
+                DataProvider.Ins.DB.SaveChanges();
 
-            this.foodVm.LoadFoodList();
+                this.foodVm.LoadFoodList();
+                foodVm.MyMessageQueue.Enqueue("Cập nhật món ăn thành công!");
+            }
+            else
+            {
+                foodVm.MyMessageQueue.Enqueue("Lỗi. Thông tin món ăn không hợp lệ");
+            }
         }
         void loadFoodTypeList()
         {

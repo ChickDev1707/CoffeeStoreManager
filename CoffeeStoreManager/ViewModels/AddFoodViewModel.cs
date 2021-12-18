@@ -1,7 +1,10 @@
 ﻿
+using System;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -61,7 +64,8 @@ namespace CoffeeStoreManager.ViewModels
         {
             if (Validator.IsValid(addFoodForm))
             {
-                Image foodImg = Image.FromFile(FoodImagePath);
+                string domain = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+                Image foodImg = FoodImagePath == null ? Image.FromFile(domain+ "\\Resources\\Assets\\Images\\default-food-avatar.png") : Image.FromFile(FoodImagePath);
 
                 MonAn newFood = new MonAn()
                 {

@@ -46,7 +46,7 @@ namespace CoffeeStoreManager.ViewModels
             ImportExcel = new RelayCommand<object>((p) => { return true; }, (p) => { importExcel(p); });
             ExportExcel = new RelayCommand<object>((p) => { return true; }, (p) => { exportExcel(p); });
 
-            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(3000));
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
             MyMessageQueue.DiscardDuplicates = true;
         }
 
