@@ -6,13 +6,19 @@
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.Account" 
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        
+        xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         mc:Ignorable="d"
         Title="Chỉnh sửa trang cá nhân" Height="510" Width="800"
         DataContext="{StaticResource AccountVM}"
         x:Name="accountChangeWindow" WindowStartupLocation="CenterScreen">
+    
     <Window.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Border Padding="20">
         <StackPanel>
@@ -35,7 +41,7 @@
                     </StackPanel>
                 </StackPanel>
                 <Border Grid.Column="1" BorderThickness="0" Padding="30 0 0 0">
-                    <StackPanel Margin="10 0 20 0">
+                    <StackPanel x:Name="InfoChangeForm" Margin="10 0 20 0">
                         <StackPanel.Resources>
                             <Style TargetType="DockPanel">
                                 <Setter Property="Margin" Value="0 10"/>
@@ -57,26 +63,69 @@
                         <TextBlock Text="Thông tin" Margin="0 0 0 15" FontSize="18" FontWeight="DemiBold"/>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="User" />
-                            <TextBox x:Name="nameTxb" Text="{Binding Name}" materialDesign:HintAssist.Hint="Tên"></TextBox>
+                            <TextBox x:Name="nameTxb"  
+                                     materialDesign:HintAssist.Hint="Tên" 
+                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                     Style="{StaticResource ValidationTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                            <rule:TextRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </DockPanel>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Email" />
-                            <TextBox x:Name="emailTxb" Text="{Binding Gmail}" materialDesign:HintAssist.Hint="Email"></TextBox>
+                            <TextBox x:Name="emailTxb"  materialDesign:HintAssist.Hint="Email"
+                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                     Style="{StaticResource ValidationTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Gmail" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                            <rule:EmailRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </DockPanel>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Phone" />
-                            <TextBox x:Name="phoneTxb" Text="{Binding Phone}" materialDesign:HintAssist.Hint="Số điện thoại"></TextBox>
+                            <TextBox x:Name="phoneTxb"  materialDesign:HintAssist.Hint="Số điện thoại"
+                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                     Style="{StaticResource ValidationTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </DockPanel>
                         <DockPanel>
                             <materialDesign:PackIcon Kind="AddressMarker" />
-                            <TextBox x:Name="addressTxb" Text="{Binding Address}" materialDesign:HintAssist.Hint="Địa chỉ"></TextBox>
+                            <TextBox x:Name="addressTxb" materialDesign:HintAssist.Hint="Địa chỉ"
+                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                     Style="{StaticResource ValidationTextBox}">
+                                <TextBox.Text>
+                                    <Binding Path="Address" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </DockPanel>
                     </StackPanel>
                 </Border>
             </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 30 20 0">
-                
-                <Button x:Name="saveProfileChangeBtn" Style="{StaticResource PrimaryBtn}" Command="{Binding SaveAccountCommand}" Content="Lưu thông tin">
+
+                <Button x:Name="saveProfileChangeBtn"  Command="{Binding SaveAccountCommand}" CommandParameter="{Binding ElementName=InfoChangeForm}" Content="Lưu thông tin">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
@@ -85,6 +134,22 @@
                                                   AncestorType=Window}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=nameTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=emailTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=phoneTxb}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=addressTxb}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </StackPanel>
         </StackPanel>
