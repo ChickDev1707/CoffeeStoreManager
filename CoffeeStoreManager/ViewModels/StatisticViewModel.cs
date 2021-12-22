@@ -137,6 +137,7 @@ namespace CoffeeStoreManager.ViewModels
             {
                 tong = tong - (decimal)luong.tong_tien;
             }
+            tong = tong / 1000;
             return tong;
         }
         //end chart

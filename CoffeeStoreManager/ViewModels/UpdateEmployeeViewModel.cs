@@ -1,10 +1,12 @@
 ﻿using CoffeeStoreManager.Models;
+using CoffeeStoreManager.Resources.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CoffeeStoreManager.ViewModels
@@ -23,52 +25,27 @@ namespace CoffeeStoreManager.ViewModels
             employeeVM = vm;
             SelectedEmployee = new ViewEmployee(vm.SelectedEmployee); 
             EmployeeTypeList = vm.EmployeeTypeList;
-            UpdateEmployee = new RelayCommand<object>((p) => { return true; }, (p) => { updateEmployee(p); });
+            UpdateEmployee = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { updateEmployee(p); });
         }
-        void updateEmployee(object p)
+        void updateEmployee(StackPanel p)
         {
-            #region Check
-            if (SelectedEmployee.ho_ten == null)
+            if (Validator.IsValid(p))
             {
-                MessageBox.Show("Ten khong duoc de trong!!!");
-                return;
-            }
-            if (SelectedEmployee.sdt.All(char.IsDigit) == false)
-            {
-                MessageBox.Show("So dien thoai khong hop le !!! ");
-                return;
+                var updEmployee = DataProvider.Ins.DB.NhanViens.
+                  Where(t => t.ma_nhan_vien == SelectedEmployee.ma_nv).FirstOrDefault();
+                updEmployee.ho_ten = SelectedEmployee.ho_ten;
+                updEmployee.dia_chi = SelectedEmployee.dia_chi;
+                updEmployee.sdt = SelectedEmployee.sdt;
+                updEmployee.ngay_vao_lam = SelectedEmployee.ngay_vao_lam;
+                updEmployee.ma_loai_nhan_vien = SelectedEmployee.ma_loai_nhan_vien;
+                DataProvider.Ins.DB.SaveChanges();
+                employeeVM.loadDataEmployee();
+                employeeVM.MyMessageQueue.Enqueue("Sửa thông tin thành công!");
             }
             else
             {
-                for (int i = 0; i < employeeVM.EmployeeList.Count; i++)
-                {
-                    if (SelectedEmployee.sdt == employeeVM.EmployeeList[i].sdt && SelectedEmployee.ma_nv != employeeVM.EmployeeList[i].ma_nv)
-                    {
-                        MessageBox.Show("So dien thoai bi trung!!!");
-                        return;
-                    }
-                }
+                employeeVM.MyMessageQueue.Enqueue("Lỗi. Thông tin nhân viên không hợp lệ");
             }
-            if (SelectedEmployee.ngay_vao_lam == null)
-            {
-                MessageBox.Show("Ngay vao lam khong duoc de trong!!!");
-                return;
-            }
-            if (SelectedEmployee.ngay_vao_lam.Year < 2000)
-            {
-                MessageBox.Show("Ngay vao lam khong hop le!!!");
-                return;
-            }
-            #endregion
-            var updEmployee = DataProvider.Ins.DB.NhanViens.
-              Where(t => t.ma_nhan_vien == SelectedEmployee.ma_nv).FirstOrDefault();
-            updEmployee.ho_ten = SelectedEmployee.ho_ten;
-            updEmployee.dia_chi = SelectedEmployee.dia_chi;
-            updEmployee.sdt = SelectedEmployee.sdt;
-            updEmployee.ngay_vao_lam = SelectedEmployee.ngay_vao_lam;
-            updEmployee.ma_loai_nhan_vien = SelectedEmployee.ma_loai_nhan_vien;
-            DataProvider.Ins.DB.SaveChanges();
-            employeeVM.loadDataEmployee();
         }
     }
 }

@@ -6,19 +6,27 @@
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        
+        xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Name="AddWindow"
         Title="AddEmployeeWindow" Height="450" Width="680">
     <Window.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+                <ResourceDictionary Source="../Style/DatePicker.xaml"/>
+                <ResourceDictionary Source="../Style/Combobox.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Border Padding="20">
         <StackPanel>
             <TextBlock Text="Thêm nhân viên" Style="{StaticResource PageTitle}"/>
 
-            <StackPanel>
+            <StackPanel x:Name="AddEmployeeForm">
                 <StackPanel.Resources>
                     <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}"></Style>
                     <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}"></Style>
@@ -32,33 +40,98 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Margin="0 0 20 0" materialDesign:HintAssist.Hint="Họ và tên" Grid.Column="0" Text="{Binding AddEmployeeHovaten}"/>
+                        <TextBox 
+                                 Name="EmployeeName"
+                                 Margin="0 0 20 0" 
+                                 materialDesign:HintAssist.Hint="Họ và tên" 
+                                 Grid.Column="0" 
+                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                 Style="{StaticResource ValidationTextBox}"
+                            >
+                            <TextBox.Text>
+                                <Binding  Path="AddEmployeeHovaten" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                        <rule:TextRule/>
+                                        <rule:NameRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <ComboBox  
                             Grid.Column="1"
+                            x:Name="TypeEmployeeCombobox"
                             materialDesign:HintAssist.Hint="Loại nhân viên"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                             ItemsSource="{Binding EmployeeTypeList}" 
                             DisplayMemberPath="ten_loai_nhan_vien"
                             SelectedValuePath="ma_loai_nhan_vien"
-                            SelectedValue="{Binding AddEmployeeMaloainhanvien}">
+                            Style="{StaticResource ValidationCombobox}"
+                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                           >
+                            <ComboBox.SelectedValue>
+                                <Binding Path="AddEmployeeMaloainhanvien" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True" >
+                                    <Binding.ValidationRules>
+                                        <rule:IsSelectedType/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.SelectedValue>
                         </ComboBox>
                     </Grid>
                 </StackPanel>
                 <StackPanel>
-                    <TextBox materialDesign:HintAssist.Hint="Số điện thoại" Text="{Binding AddEmployeeSdt}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Số điện thoại" 
+                             Name="EmployeePhoneNumber"
+                              Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                              Style="{StaticResource ValidationTextBox}">
+                        <TextBox.Text>
+                            <Binding  Path="AddEmployeeSdt" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:PhoneNumberRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
                 <StackPanel>
-                    <Grid>
+                    <Grid Margin="0 10 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <DatePicker Grid.Column="0" materialDesign:HintAssist.Hint="Ngày sinh" Margin="0 0 20 0" SelectedDate="{Binding AddEmployeeNgaySinh}"/>
-                        <DatePicker Grid.Column="1" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
+                        <DatePicker Grid.Column="0" 
+                                    Name="DateofBirthPicker"
+                                    materialDesign:HintAssist.Hint="Ngày sinh" 
+                                    Margin="0 0 20 0" 
+                                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                     Style="{StaticResource ValidationDatePicker}"
+                                   >
+                            <DatePicker.SelectedDate>
+                                <Binding Path="AddEmployeeNgaySinh" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding.ValidationRules>
+                                        <rule:DateOfBirth/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </DatePicker.SelectedDate>
+                        </DatePicker>
+                        <DatePicker Grid.Column="1" Style="{StaticResource MaterialDesignDatePicker}" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel>
-                    <TextBox materialDesign:HintAssist.Hint="Địa chỉ" Height="100" Text="{Binding AddEmployeeDiachi,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox materialDesign:HintAssist.Hint="Địa chỉ" 
+                             Height="100" 
+                             Name="EmployeeAddress"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                             Style="{StaticResource ValidationTextBox}"
+                             >
+                        <TextBox.Text>
+                            <Binding  Path="AddEmployeeDiachi" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -72,7 +145,33 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Style="{StaticResource PrimaryBtn}" Content="Thêm" Command="{Binding AddEmployee}" CommandParameter="{Binding ElementName=AddWindow}"></Button>
+                <Button  Content="Thêm"  Command="{Binding AddEmployee}" CommandParameter="{Binding ElementName=AddEmployeeForm}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Button.Style >
+                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeeName}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeePhoneNumber}" Value="False"/> 
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeeAddress}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=TypeEmployeeCombobox}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=DateofBirthPicker}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Border>

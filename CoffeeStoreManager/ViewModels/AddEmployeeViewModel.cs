@@ -1,10 +1,12 @@
 ﻿using CoffeeStoreManager.Models;
+using CoffeeStoreManager.Resources.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CoffeeStoreManager.ViewModels
@@ -33,81 +35,32 @@ namespace CoffeeStoreManager.ViewModels
             employeeVM = VM;
             employeeVM.loadDataEmployee();
             employeeTypeList = VM.EmployeeTypeList;
-            AddEmployee = new RelayCommand<Window>((p) => { return true; }, (p) => { addEmployee(p); });
+            AddEmployee = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { addEmployee(p); });
         }
-        void addEmployee(Window p)
+        void addEmployee(StackPanel p)
         {
-        
-            QuyDinh QDinh = DataProvider.Ins.DB.QuyDinhs.Select(t => t).FirstOrDefault();
-            #region Check
-            if (AddEmployeeHovaten == null)
+            if (Validator.IsValid(p))
             {
-                MessageBox.Show("Ten khong duoc de trong!!!");
-                return;
-            }
-            if (AddEmployeeSdt == null)
-            {
-                MessageBox.Show("So dien thoai khong duoc de trong!!!");
-                return;
+                NhanVien add = new NhanVien()
+                {
+                    ho_ten = AddEmployeeHovaten,
+                    ngay_vao_lam = AddEmployeeNgayvaolam,
+                    sdt = AddEmployeeSdt,
+                    dia_chi = AddEmployeeDiachi,
+                    ma_loai_nhan_vien = AddEmployeeMaloainhanvien,
+                    so_ngay_nghi = 0,
+                    ngay_sinh = AddEmployeeNgaySinh,
+                };
+                DataProvider.Ins.DB.NhanViens.Add(add);
+                DataProvider.Ins.DB.SaveChanges();
+                employeeVM.loadDataEmployee();
+                clearAddEmployeeForm();
+                employeeVM.MyMessageQueue.Enqueue("Thêm nhân viên thành công!");
             }
             else
             {
-                for (int i = 0; i < employeeVM.EmployeeList.Count; i++)
-                {
-                    if (AddEmployeeSdt == employeeVM.EmployeeList[i].sdt)
-                    {
-                        MessageBox.Show("So dien thoai bi trung!!!");
-                        return;
-                    }
-                }
+                employeeVM.MyMessageQueue.Enqueue("Lỗi. Thông tin nhân viên không hợp lệ");
             }
-            if (AddEmployeeNgaySinh == null)
-            {
-                MessageBox.Show("Ngay sinh khong duoc de trong!!!");
-                return;
-            }
-            if (AddEmployeeSdt.All(char.IsDigit) == false)
-            {
-                MessageBox.Show("So dien thoai khong hop le !!! ");
-                return;
-            }
-            if (AddEmployeeNgaySinh.Year < 1900)
-            {
-                MessageBox.Show("Ngay vao lam khong hop le !!! ");
-                return;
-            }
-            int tuoi = DateTime.Now.Year - AddEmployeeNgaySinh.Year;
-            if (tuoi < QDinh.tuoi_toi_thieu_nv || tuoi > QDinh.tuoi_toi_da_nv)
-            {
-                MessageBox.Show("Do tuoi khong hop le!!! ");
-                return;
-            }
-            if (AddEmployeeMaloainhanvien == 0)
-            {
-                MessageBox.Show("Vui long chon loai nhan vien !!! ");
-                return;
-            }
-            if (AddEmployeeNgayvaolam.Year < 2000)
-            {
-                MessageBox.Show("Ngay vao lam khong hop le!!!");
-                return;
-            }
-            #endregion add 
-            NhanVien add = new NhanVien()
-            {
-                ho_ten = addEmployeeHovaten,
-                ngay_vao_lam = addEmployeeNgayvaolam,
-                sdt = addEmployeeSdt,
-                dia_chi = addEmployeeDiachi,
-                ma_loai_nhan_vien = addEmployeeMaloainhanvien,
-                so_ngay_nghi = 0,
-                ngay_sinh = AddEmployeeNgaySinh,
-            };
-            DataProvider.Ins.DB.NhanViens.Add(add);
-            DataProvider.Ins.DB.SaveChanges();
-            employeeVM.loadDataEmployee();
-            clearAddEmployeeForm();
-            p.Close();
         }
         void clearAddEmployeeForm()
         {

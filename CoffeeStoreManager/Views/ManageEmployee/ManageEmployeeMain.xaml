@@ -19,9 +19,11 @@
         <ResourceDictionary Source="../Style/Button.xaml"/>
     </Page.Resources>
     <DockPanel>
-  
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách nhân viên"/>
-        <Grid >
+        <Grid>
+            <Grid>
+                
+         
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
@@ -147,6 +149,12 @@
             <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0 0 0 20">
                 <Button Style="{StaticResource PrimaryBtn}" Command="{Binding OpenSalaryWindow}" Margin="20 0 0 0" Content="Tính lương"/>
             </StackPanel>
+            </Grid>
+            <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
 
