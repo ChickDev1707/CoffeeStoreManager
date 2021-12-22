@@ -3,4 +3,5 @@
                     xmlns:Utils="clr-namespace:CoffeeStoreManager.Resources.Utils"
                     >
     <Utils:IndexConverter x:Key="ListIndexConverter"></Utils:IndexConverter>
+    <Utils:UIMoneyConverter x:Key="UIMoneyConverter"></Utils:UIMoneyConverter>
 </ResourceDictionary>
