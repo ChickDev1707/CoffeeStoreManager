@@ -181,9 +181,6 @@
     <Compile Include="Models\QuyDinh.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>

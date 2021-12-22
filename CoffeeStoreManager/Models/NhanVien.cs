@@ -26,7 +26,7 @@ namespace CoffeeStoreManager.Models
         public string sdt { get; set; }
         public Nullable<int> so_ngay_nghi { get; set; }
         public string dia_chi { get; set; }
-        public Nullable<int> ma_loai_nhan_vien { get; set; }
+        public int ma_loai_nhan_vien { get; set; }
         public Nullable<System.DateTime> ngay_sinh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

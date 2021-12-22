@@ -15,7 +15,7 @@ namespace CoffeeStoreManager.Models
     public partial class CaLamPartTime
     {
         public int ma_ca_partTime { get; set; }
-        public Nullable<int> ma_nhan_vien { get; set; }
+        public int ma_nhan_vien { get; set; }
         public Nullable<System.DateTime> ngay_lam { get; set; }
         public Nullable<System.TimeSpan> gio_bat_dau { get; set; }
         public Nullable<System.TimeSpan> gio_ket_thuc { get; set; }
