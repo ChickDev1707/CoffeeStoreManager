@@ -4,39 +4,39 @@ using System.Linq;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Views.MangeSource.Item;
+using MaterialDesignThemes.Wpf;
 
 namespace CoffeeStoreManager.ViewModels
 {
-    class SourceViewModel: BaseViewModel
+    public class SourceViewModel: BaseViewModel
     {
         public ObservableCollection<ViewSource> SourceList { get => sourceList; set { sourceList = value; OnPropertyChanged(nameof(SourceList)); } }
-
         private ObservableCollection<ViewSource> sourceList;
-
+        public ViewSource SelectedSourceItem { get => selectedSourceItem; set { selectedSourceItem = value; OnPropertyChanged(nameof(SelectedSourceItem)); } }
         private ViewSource selectedSourceItem;
-        
+        public string SearchKey { get; set; }
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+        private SnackbarMessageQueue myMessageQueue;
 
         public ICommand OpenAddSource { get; set; }
         public ICommand OpenUpdateSource { get; set; }
-        public ICommand UpdateSource { get; set; }
-
         public ICommand DeleteSource { get; set; }
         public ICommand RefreshSourceList { get; set; }
         public ICommand Search { get; set; }
 
-        public ViewSource SelectedSourceItem { get => selectedSourceItem; set { selectedSourceItem = value; OnPropertyChanged(nameof(SelectedSourceItem)); } }
-        public string SearchKey { get; set; }
         public SourceViewModel()
         {
-            OpenAddSource = new RelayCommand<object>((p) => { return true; }, (p) => { openAddSource(p); });
-            OpenUpdateSource = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateSource(p); });
+            OpenAddSource = new RelayCommand<object>((p) => { return true; }, (p) => { openAddSource(); });
+            OpenUpdateSource = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateSource(); });
 
-            UpdateSource = new RelayCommand<object>((p) => { return true; }, (p) => { updateSource(p); });
             DeleteSource = new RelayCommand<object>((p) => { return true; }, (p) => { deleteSource(p); });
-            RefreshSourceList = new RelayCommand<object>((p) => { return true; }, (p) => { loadSourceList(); });
+            RefreshSourceList = new RelayCommand<object>((p) => { return true; }, (p) => { LoadSourceList(); });
             Search = new RelayCommand<object>((p) => { return true; }, (p) => { search(p); });
 
-            loadSourceList();
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
+
+            LoadSourceList();
         }
 
         private void search(object p)
@@ -52,30 +52,28 @@ namespace CoffeeStoreManager.ViewModels
             DataProvider.Ins.DB.Database.ExecuteSqlCommand(sqlDeleteSourceDetailString);
             DataProvider.Ins.DB.Database.ExecuteSqlCommand(sqlDeleteSourceString);
 
-            loadSourceList();
+            LoadSourceList();
+            MyMessageQueue.Enqueue("Đã xóa thành công phiếu nhập hàng!");
+        }
+        private void openUpdateSource()
+        {
+            if(SelectedSourceItem != null)
+            {
+                UpdateSourceWindow updateWindow = new UpdateSourceWindow(this);
+                updateWindow.ShowDialog();
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Bạn chưa chọn phiếu nhập hàng.");
+            }
         }
 
-
-        private void updateSource(object p)
+        private void openAddSource()
         {
-            var dbSelectedSourceItem = DataProvider.Ins.DB.PhieuNhapHangs.SingleOrDefault(source => source.ma_phieu_nhap_hang == SelectedSourceItem.ma_phieu_nhap_hang);
-            dbSelectedSourceItem.nha_cung_cap = selectedSourceItem.nha_cung_cap;
-            dbSelectedSourceItem.ngay_nhap = selectedSourceItem.ngay_nhap;
-            DataProvider.Ins.DB.SaveChanges();
-        }
-
-        private void openUpdateSource(object p)
-        {
-            UpdateSourceWindow updateWindow = new UpdateSourceWindow();
-            updateWindow.ShowDialog();
-        }
-
-        private void openAddSource(object p)
-        {
-            AddSourceWindow addSourceWindow = new AddSourceWindow();
+            AddSourceWindow addSourceWindow = new AddSourceWindow(this);
             addSourceWindow.ShowDialog();
         }
-        void loadSourceList()
+        public void LoadSourceList()
         {
 
             var db = DataProvider.Ins.DB;

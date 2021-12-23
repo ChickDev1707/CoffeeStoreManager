@@ -9,11 +9,13 @@ namespace CoffeeStoreManager.Views.MangeSource.Item
     /// </summary>
     public partial class AddSourceWindow : Window
     {
-        public AddSourceWindow()
+        public AddSourceWindow(SourceViewModel sourceViewModel)
         {
             InitializeComponent();
-            Style = (Style)FindResource("WindowStyle");
+            AddSourceViewModel addSourceVM = new AddSourceViewModel(sourceViewModel);
 
+            this.DataContext = addSourceVM;
+            Style = (Style)FindResource("WindowStyle");
         }
     }
 }
