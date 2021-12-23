@@ -2,46 +2,78 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
+using CoffeeStoreManager.Resources.Utils;
+using CoffeeStoreManager.Views.MangeSource.Detail;
+using MaterialDesignThemes.Wpf;
 
 namespace CoffeeStoreManager.ViewModels
 {
     public class SourceDetailViewModel : BaseViewModel
     {
-        private ObservableCollection<CT_PhieuNhapHang> detail;
         public ObservableCollection<CT_PhieuNhapHang> Detail { get => detail; set { detail = value; OnPropertyChanged(nameof(Detail)); } }
-        private CT_PhieuNhapHang selectedDetailItem;
+        private ObservableCollection<CT_PhieuNhapHang> detail;
         public CT_PhieuNhapHang SelectedDetailItem { get => selectedDetailItem; set => selectedDetailItem = value; }
+        private CT_PhieuNhapHang selectedDetailItem;
+        public string AddSourceName { get => addSourceName; set { addSourceName = value; OnPropertyChanged(nameof(AddSourceName)); } }
+        private string addSourceName;
+        public decimal? AddSourcePrice { get => addSourcePrice; set { addSourcePrice = value; OnPropertyChanged(nameof(AddSourcePrice)); } }
+        private decimal? addSourcePrice;
+        public int? AddSourceCount { get => addSourceCount; set { addSourceCount = value; OnPropertyChanged(nameof(AddSourceCount)); } }
+        private int? addSourceCount;
+
+        public string UpdateSourceName { get => updateSourceName; set { updateSourceName = value; OnPropertyChanged(nameof(UpdateSourceName)); } }
+        private string updateSourceName;
+        public decimal? UpdateSourcePrice { get => updateSourcePrice; set { updateSourcePrice = value; OnPropertyChanged(nameof(UpdateSourcePrice)); } }
+        private decimal? updateSourcePrice;
+        public int? UpdateSourceCount { get => updateSourceCount; set { updateSourceCount = value; OnPropertyChanged(nameof(UpdateSourceCount)); } }
+        private int? updateSourceCount;
+        public string SearchKey { get; set; }
+
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+        private SnackbarMessageQueue myMessageQueue;
 
         private int selectedSourceItemIndex;
         public ICommand UpdateDetail { get; set; }
+        public ICommand OpenAddWindow { get; set; }
+        public ICommand OpenUpdateWindow { get; set; }
         public ICommand AddDetail { get; set; }
         public ICommand DeleteDetail { get; set; }
         public ICommand Search { get; set; }
         public ICommand RefreshDetail { get; set; }
 
-        private string sourceName;
-        private int sourcePrice;
-        private int sourceCount;
-        public string SourceName { get => sourceName; set { sourceName = value; OnPropertyChanged(nameof(SourceName)); } }
-        public int SourcePrice { get => sourcePrice; set { sourcePrice = value; OnPropertyChanged(nameof(SourcePrice)); } }
-        public int SourceCount { get => sourceCount; set { sourceCount = value; OnPropertyChanged(nameof(SourceCount)); } }
-        public string SearchKey { get; set; }
-
-        //add detail form field binding 
-
         public SourceDetailViewModel(int sourceItemIndex)
         {
             this.selectedSourceItemIndex = sourceItemIndex;
             loadDetail();
-
-            UpdateDetail = new RelayCommand<object>((p) => { return true; }, (p) => { updateDetail(p); });
-            AddDetail = new RelayCommand<object>((p) => { return true; }, (p) => { addDetail(p); });
-            DeleteDetail = new RelayCommand<object>((p) => { return true; }, (p) => { deleteDetail(p); });
+            
+            OpenAddWindow = new RelayCommand<object>((p) => { return true; }, (p) => { openAddWindow(p); });
+            OpenUpdateWindow = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateWindow(p); });
+            UpdateDetail = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { updateDetail(p); });
+            AddDetail = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { addDetail(p); });
+            DeleteDetail = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { deleteDetail(p); });
             RefreshDetail = new RelayCommand<object>((p) => { return true; }, (p) => { loadDetail(); });
             Search = new RelayCommand<object>((p) => { return true; }, (p) => { search(p); });
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
         }
+
+        private void openUpdateWindow(object p)
+        {
+            loadSelectedDetail();
+            UpdateDetailWindow updateWindow = new UpdateDetailWindow(this);
+            updateWindow.ShowDialog();
+        }
+
+        private void openAddWindow(object p)
+        {
+            AddDetailWindow addWindow = new AddDetailWindow(this);
+            addWindow.ShowDialog();
+        }
+
         private void loadDetail()
         {
             var dbDetailList = DataProvider.Ins.DB.CT_PhieuNhapHang.Where(detail => detail.ma_phieu_nhap_hang == this.selectedSourceItemIndex).ToList();
@@ -59,33 +91,56 @@ namespace CoffeeStoreManager.ViewModels
             DataProvider.Ins.DB.SaveChanges();
 
             Detail.Remove(Detail.Where(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang).Single());
+            MyMessageQueue.Enqueue("Xóa chi tiết hàng thành công!");
         }
 
-        private void addDetail(object p)
+        private void addDetail(StackPanel addDetailForm)
         {
-            CT_PhieuNhapHang newDetail = new CT_PhieuNhapHang()
+            if (Validator.IsValid(addDetailForm))
             {
-                ma_phieu_nhap_hang = selectedSourceItemIndex,
-                ten_mat_hang = SourceName,
-                so_luong = SourceCount,
-                gia_tien = SourcePrice,
-                tong_tien = SourcePrice * sourceCount
-            };
-            DataProvider.Ins.DB.CT_PhieuNhapHang.Add(newDetail);
-            DataProvider.Ins.DB.SaveChanges();
+                CT_PhieuNhapHang newDetail = new CT_PhieuNhapHang()
+                {
+                    ma_phieu_nhap_hang = selectedSourceItemIndex,
+                    ten_mat_hang = AddSourceName,
+                    so_luong = AddSourceCount,
+                    gia_tien = AddSourcePrice,
+                    tong_tien = AddSourcePrice * AddSourceCount
+                };
+                DataProvider.Ins.DB.CT_PhieuNhapHang.Add(newDetail);
+                DataProvider.Ins.DB.SaveChanges();
 
-            Detail.Add(newDetail);
+                Detail.Add(newDetail);
+                MyMessageQueue.Enqueue("Thêm chi tiết hàng thành công!");
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Lỗi. Thông tin chi tiết hàng không hợp lệ.");
+            }
         }
 
-        private void updateDetail(object p)
+        private void updateDetail(StackPanel updateDetailForm)
         {
-            var dbSelectedDetailItem = DataProvider.Ins.DB.CT_PhieuNhapHang.SingleOrDefault(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang);
-            dbSelectedDetailItem.ten_mat_hang = selectedDetailItem.ten_mat_hang;
-            dbSelectedDetailItem.so_luong = selectedDetailItem.so_luong;
-            dbSelectedDetailItem.gia_tien = selectedDetailItem.gia_tien;
-            dbSelectedDetailItem.tong_tien = selectedDetailItem.gia_tien * selectedDetailItem.so_luong;
-            DataProvider.Ins.DB.SaveChanges();
-
+            if (Validator.IsValid(updateDetailForm))
+            {
+                var dbSelectedDetailItem = DataProvider.Ins.DB.CT_PhieuNhapHang.SingleOrDefault(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang);
+                dbSelectedDetailItem.ten_mat_hang = UpdateSourceName;
+                dbSelectedDetailItem.so_luong = UpdateSourceCount;
+                dbSelectedDetailItem.gia_tien = UpdateSourcePrice;
+                dbSelectedDetailItem.tong_tien = UpdateSourcePrice * UpdateSourceCount;
+                DataProvider.Ins.DB.SaveChanges();
+                loadDetail();
+                MyMessageQueue.Enqueue("Cập nhật chi tiết hàng thành công!");
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Lỗi. Thông tin cập nhật chi tiết hàng không hợp lệ.");
+            }
+        }
+        private void loadSelectedDetail()
+        {
+            UpdateSourceName = SelectedDetailItem.ten_mat_hang;
+            UpdateSourcePrice = SelectedDetailItem.gia_tien;
+            UpdateSourceCount = SelectedDetailItem.so_luong;
         }
 
     }

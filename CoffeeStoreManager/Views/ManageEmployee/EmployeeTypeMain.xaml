@@ -5,15 +5,22 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageEmployee" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
+      xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
       DataContext="{StaticResource EmployeeTypeVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EmployeeTypeMain">
     <Page.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách loại nhân viên"/>
         <Grid>
+            <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="2*"/>
@@ -41,7 +48,7 @@
                 </ListView>
             </Border>
             <Border Grid.Column="1" Style="{StaticResource MainBorder}" Margin="20 0 0 0" >
-                <StackPanel  Margin="20 20 20 0">
+                <StackPanel x:Name="EmployeeTypeForm" Margin="20 20 20 0">
                     <StackPanel.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="FontSize" Value="18"/>
@@ -58,25 +65,85 @@
                     </StackPanel.Resources>
                     <StackPanel Margin="0 0 0 20">
                         <TextBlock>Loại nhân viên</TextBlock>
-                        <TextBox materialDesign:HintAssist.Hint="Tên loại nhân viên" Text="{Binding TextTypeNameEmployee}"/>
+                        <TextBox materialDesign:HintAssist.Hint="Tên loại nhân viên" 
+                                 Name="EmployeeTypeName"
+                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                 Style="{StaticResource ValidationTextBox}"
+                                 >
+                            <TextBox.Text>
+                                <Binding  Path="TextTypeNameEmployee" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <TextBlock>Tiền lương</TextBlock>
-                        <TextBox materialDesign:HintAssist.Hint="Mức lương" Text="{Binding TextSalary}"/>
+                        <TextBox materialDesign:HintAssist.Hint="Mức lương" 
+                                 Name="EmployeeTypeSalary"
+                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                 Style="{StaticResource ValidationTextBox}"
+                                 >
+                            <TextBox.Text>
+                                <Binding  Path="TextSalary" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding.ValidationRules>
+                                        <rule:NonEmptyRule/>
+                                         <rule:MoneyRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            
+                        </TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Button Command="{Binding AddType}" Margin="0 0 0 15">
+                        <Button HorizontalAlignment="Right" 
+                                Width="80" 
+                                Command="{Binding AddType}" 
+                                Margin="0 0 0 15"
+                                CommandParameter="{Binding ElementName=EmployeeTypeForm}"
+                                >
+                            
                             <DockPanel>
                                 <materialDesign:PackIcon Kind="Add" />
                                 <TextBlock Text="Thêm"/>
                             </DockPanel>
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource IconTextBtn}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeeTypeSalary}" Value="False"/>
+                                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeeTypeName}" Value="False"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
                         </Button>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Command="{Binding UpdateType}" Margin="0 0 15 0">
+                            <Button  Command="{Binding UpdateType}" Margin="0 0 15 0" CommandParameter="{Binding ElementName=EmployeeTypeForm}">
                                 <DockPanel>
                                     <materialDesign:PackIcon Kind="SquareEditOutline" />
                                     <TextBlock Text="Sửa"/>
                                 </DockPanel>
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource IconTextBtn}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeeTypeSalary}" Value="False"/>
+                                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=EmployeeTypeName}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
                             </Button>
-                            <Button Command="{Binding DeleteType}">
+                            <Button Command="{Binding DeleteType}" Width="80" Style="{StaticResource IconTextBtn}">
                                 <DockPanel>
                                     <materialDesign:PackIcon Kind="TrashCanOutline" />
                                     <TextBlock Text="Xóa"/>
@@ -86,6 +153,12 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
+        </Grid>
+        <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+        </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
 </Page>

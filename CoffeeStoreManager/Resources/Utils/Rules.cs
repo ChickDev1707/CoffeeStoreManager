@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoffeeStoreManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -44,6 +45,75 @@ namespace CoffeeStoreManager.Resources.Utils
             return ValidationResult.ValidResult;
         }
     }
+    public class NameRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+
+            if (value.ToString().Any(char.IsDigit) == true)
+                return new ValidationResult(false, "Tên không hợp lệ");
+            return ValidationResult.ValidResult;
+        }
+    }
+    public class PhoneNumberRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            string phonenumber = value.ToString();
+            if (phonenumber.Length != 10 || phonenumber.All(char.IsDigit) == false || phonenumber[0] != '0')
+            {
+                return new ValidationResult(false, "Số điện thoại không hợp lệ");
+            }
+            return ValidationResult.ValidResult;
+        }
+    }
+    public class MoneyRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            decimal check;
+            string[] moneyArr = value.ToString().Split('.');
+            string salary = "";
+            for (int i = 0; i < moneyArr.Length; i++)
+            {
+                salary += moneyArr[i];
+            }
+            if (decimal.TryParse(salary, out check) == false)
+            {
+                return new ValidationResult(false, "Số tiền không hợp lệ");
+            }
+            return ValidationResult.ValidResult;
+        }
+    }
+    public class DateOfBirth : ValidationRule
+    {
+        private QuyDinh qd = DataProvider.Ins.DB.QuyDinhs.Select(p => p).SingleOrDefault();
+       
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (qd != null)
+            {
+                DateTime date = (DateTime)value;
+                if (DateTime.Now.Year - date.Year < qd.tuoi_toi_thieu_nv || DateTime.Now.Year - date.Year > qd.tuoi_toi_da_nv)
+                {
+                    return new ValidationResult(false, "Độ tuổi không hợp lệ");
+                }
+            }
+            return ValidationResult.ValidResult;
+        }
+    }
+    public class IsSelectedType : ValidationRule
+    {
+
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            if (value == null)
+            { 
+                return new ValidationResult(false, "Vui lòng chọn loại nhân viên"); 
+            }
+            return ValidationResult.ValidResult;
+        }
+    }
     public class EmailRule : ValidationRule
     {
         private static readonly Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
@@ -53,5 +123,4 @@ namespace CoffeeStoreManager.Resources.Utils
             return ValidationResult.ValidResult;
         }
     }
-
 }

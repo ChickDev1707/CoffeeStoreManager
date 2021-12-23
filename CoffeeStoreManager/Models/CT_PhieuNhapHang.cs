@@ -15,7 +15,7 @@ namespace CoffeeStoreManager.Models
     public partial class CT_PhieuNhapHang
     {
         public int ma_ct_phieu_nhap_hang { get; set; }
-        public Nullable<int> ma_phieu_nhap_hang { get; set; }
+        public int ma_phieu_nhap_hang { get; set; }
         public string ten_mat_hang { get; set; }
         public Nullable<decimal> gia_tien { get; set; }
         public Nullable<int> so_luong { get; set; }

@@ -23,7 +23,11 @@ namespace CoffeeStoreManager.Models
         public int ma_mon_an { get; set; }
         public string ten_mon_an { get; set; }
         public Nullable<decimal> gia_tien { get; set; }
+<<<<<<< HEAD
         public Nullable<int> ma_loai_mon_an { get; set; }
+=======
+        public int ma_loai_mon_an { get; set; }
+>>>>>>> 025f1cb9bd249f32bf8a2ebbb20dc8c50c363272
         public string nguyen_lieu { get; set; }
         public string mo_ta { get; set; }
         public byte[] anh { get; set; }

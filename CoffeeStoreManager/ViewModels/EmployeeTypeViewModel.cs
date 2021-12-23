@@ -1,4 +1,4 @@
-using CoffeeStoreManager.Models;
+﻿using CoffeeStoreManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using CoffeeStoreManager.Resources.Utils;
+using MaterialDesignThemes.Wpf;
+using System.Windows.Controls;
+
 namespace CoffeeStoreManager.ViewModels
 {
     class EmployeeTypeViewModel : BaseViewModel
@@ -18,6 +21,9 @@ namespace CoffeeStoreManager.ViewModels
         private string textTypeNameEmployee;
         private string textSalary;
         private ViewTypeEmployee selectedLoaiNhanVien;
+        private SnackbarMessageQueue myMessageQueue;
+
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         public ObservableCollection<ViewTypeEmployee> TypeEmployeeList { get => typeEmployeeList; set { typeEmployeeList = value; OnPropertyChanged(nameof(typeEmployeeList)); } }
         public ViewTypeEmployee SelectedLoaiNhanVien
         {
@@ -60,9 +66,13 @@ namespace CoffeeStoreManager.ViewModels
         {
             TypeEmployeeList = new ObservableCollection<ViewTypeEmployee>();
             LoadData();
-            AddType = new RelayCommand<object>((p) => { return true; }, (p) => { addType(p); });
-            UpdateType = new RelayCommand<object>((p) => { return true; }, (p) => { updateType(p); });
+            AddType = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { addType(p); });
+            UpdateType = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { updateType(p); });
             DeleteType = new RelayCommand<object>((p) => { return true; }, (p) => { deleteType(p); });
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
+
         }
         void LoadData()
         {
@@ -83,56 +93,49 @@ namespace CoffeeStoreManager.ViewModels
             }
             return Obs;
         }
-        void addType(object p)
+        void addType(StackPanel p)
         {
-            decimal check;
-            string[] money = TextSalary.Split('.');
-            string salary = "";
-            for (int i = 0; i < money.Length; i++)
+            if (Validator.IsValid(p))
             {
-                salary += money[i];
-            }
-            if (decimal.TryParse(salary, out check) == false)
-            {
-                MessageBox.Show("Tien luong khong hop le");
-                return;
-            }
-            if (check < 0)
-            {
-                MessageBox.Show("Tien luong khong hop le");
-                return;
-            }
-            DataProvider.Ins.DB.LoaiNhanViens.Add(new LoaiNhanVien() { ten_loai_nhan_vien = TextTypeNameEmployee, tien_luong = decimal.Parse(salary) });
-            try
-            {
-                DataProvider.Ins.DB.SaveChanges();
-            }
-            catch
-            {
-                MessageBox.Show("So tien qua lon");
-                return;
-            }
-            LoadData();
-        }
-        void updateType(object p)
-        {
-            if (SelectedLoaiNhanVien != null)
-            {
-                decimal check;
                 string[] money = TextSalary.Split('.');
                 string salary = "";
                 for (int i = 0; i < money.Length; i++)
                 {
                     salary += money[i];
                 }
-                if (decimal.TryParse(salary, out check) == false)
+                DataProvider.Ins.DB.LoaiNhanViens.Add(new LoaiNhanVien() { ten_loai_nhan_vien = TextTypeNameEmployee, tien_luong = decimal.Parse(salary) });
+                try
                 {
-                    MessageBox.Show("Tien luong khong hop le");
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch
+                {
                     return;
                 }
-                if (check < 0)
+                LoadData();
+                TextSalary = "";
+                TextTypeNameEmployee = "";
+                this.MyMessageQueue.Enqueue("Thêm thành công!");
+            }
+            else
+            {
+                this.MyMessageQueue.Enqueue("Lỗi. thông tin không hợp lệ");
+            }
+        }
+        void updateType(StackPanel p)
+        {
+
+            if (Validator.IsValid(p))
+            {
+                string[] money = TextSalary.Split('.');
+                string salary = "";
+                for (int i = 0; i < money.Length; i++)
                 {
-                    MessageBox.Show("Tien luong khong hop le");
+                    salary += money[i];
+                }
+                if (SelectedLoaiNhanVien == null)
+                {
+                    this.MyMessageQueue.Enqueue("Lỗi. Vui lòng chọn 1 nhân viên");
                     return;
                 }
                 var UpdTypeEmployee = DataProvider.Ins.DB.LoaiNhanViens.
@@ -148,10 +151,17 @@ namespace CoffeeStoreManager.ViewModels
                 }
                 catch
                 {
-                    MessageBox.Show("So tien qua lon");
+                    this.MyMessageQueue.Enqueue("Lỗi. Số tiền quá lớn");
                     return;
                 }
                 LoadData();
+                TextSalary = "";
+                TextTypeNameEmployee = "";
+                this.MyMessageQueue.Enqueue("Sửa thông tin thành công!");
+            }
+            else
+            {
+                this.MyMessageQueue.Enqueue("Lỗi. Thông tin không hợp lệ");
             }
         }
         void deleteType(object p)
@@ -160,7 +170,6 @@ namespace CoffeeStoreManager.ViewModels
             {
                 if (SelectedLoaiNhanVien.ma_loai_nhan_vien == 1) //Ma nv part-time = 1
                 {
-                    MessageBox.Show("Khong the xoa loai nhan vien nay!!!");
                     return;
                 }
                 var ClrTypeEmployee = DataProvider.Ins.DB.LoaiNhanViens.

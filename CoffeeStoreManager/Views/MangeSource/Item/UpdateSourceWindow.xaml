@@ -6,24 +6,31 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Item"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-
+        xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource SourceVM}"
         mc:Ignorable="d"
         Title="UpdateSourceWindow" Height="300" Width="450">
     <Window.Resources>
         <ResourceDictionary Source="../../Style/Button.xaml"/>
     </Window.Resources>
     <Border Padding="20">
-        <StackPanel>
+        <StackPanel x:Name="UpdateSourceForm">
             <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Cập nhật phiếu nhập hàng"/>
             <TextBox
                 Margin="0 0 0 10"
-                Text="{Binding SelectedSourceItem.nha_cung_cap}"
                 materialDesign:HintAssist.Hint="Nhà cung cấp"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding Path="Provider" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <rule:NonEmptyRule/>
+                            <rule:TextRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <DatePicker
-                SelectedDate="{Binding SelectedSourceItem.ngay_nhap}"
+                SelectedDate="{Binding ImportDate}"
                 HorizontalAlignment="Left"
                 Width="130"
                 materialDesign:HintAssist.Hint="Ngày nhập"
@@ -39,7 +46,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateSource}" Content="Cập nhật">
+                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateSource}" CommandParameter="{Binding ElementName=UpdateSourceForm}" Content="Cập nhật">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"

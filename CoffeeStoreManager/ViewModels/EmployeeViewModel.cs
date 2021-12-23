@@ -1,18 +1,16 @@
-using CoffeeStoreManager.Models;
+﻿using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Views.ManageEmployee;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CoffeeStoreManager.Resources.Utils;
-using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
+using MaterialDesignThemes.Wpf;
+using OfficeOpenXml;
+using System.IO;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -25,6 +23,9 @@ namespace CoffeeStoreManager.ViewModels
         private List<string> dataCbxYear;
         private string searchKey;
 
+        private SnackbarMessageQueue myMessageQueue;
+
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
 
         public string SearchKey { get => searchKey; set { searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         public ViewEmployee SelectedEmployee { get => selectedEmployee; set { selectedEmployee = value; OnPropertyChanged(nameof(selectedEmployee)); } }
@@ -70,6 +71,11 @@ namespace CoffeeStoreManager.ViewModels
             DecreaseDay = new RelayCommand<object>((p) => { return true; }, (p) => { decreaseDay(p); });
             ExportExcel = new RelayCommand<DataGrid>((p) => { return true; }, (p) => { ExportFileExcel(p); });
             ImportExcel = new RelayCommand<DataGrid>((p) => { return true; }, (p) => { ImportFileExcel(p); });
+
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
+
             loadData();
         }
         void loadData()
@@ -158,7 +164,6 @@ namespace CoffeeStoreManager.ViewModels
             }
             if (countitem != 1)
             {
-                MessageBox.Show("Vui long chon 1 nhan vien");
                 return false;
             }
             return true;
@@ -183,185 +188,151 @@ namespace CoffeeStoreManager.ViewModels
         }
         void ImportFileExcel(object p)
         {
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.Filter = "Excel files|*.xls;*.xlsx;*.xlsm";
-            //Create COM Objects. Create a COM object for everything that is referenced
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
+            dialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-                Microsoft.Office.Interop.Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(openFileDialog.FileName);
-                Microsoft.Office.Interop.Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-                Microsoft.Office.Interop.Excel.Range xlRange = xlWorksheet.UsedRange;
-
-                int rowCount = xlRange.Rows.Count;
-                int colCount = xlRange.Columns.Count;
-                //iterate over the rows and columns and print to the console as it appears in the file
-                //excel is not zero based!!
-                for (int i = 2; i <= rowCount; i++)
-                {
-                    NhanVien add = new NhanVien();
-                    for (int j = 2; j <= colCount; j++)
-                    {
-                        //write the value to the console
-                        if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
-                        {
-
-                            switch (j)
-                            {
-                                case 2:
-                                    {
-                                        add.ho_ten = xlRange.Cells[i, j].Value2.ToString();
-                                        break;
-                                    }
-                                case 3:
-                                    {
-
-                                        add.ngay_sinh = DateTime.FromOADate(xlRange.Cells[i, j].Value2);
-                                        break;
-                                    }
-                                case 4:
-                                    {
-                                        add.sdt = xlRange.Cells[i, j].Value2.ToString();
-                                        break;
-                                    }
-                                case 5:
-                                    {
-                                        add.dia_chi = xlRange.Cells[i, j].Value2.ToString();
-                                        break;
-                                    }
-                                case 6:
-                                    {
-                                        add.so_ngay_nghi = Int32.Parse(xlRange.Cells[i, j].Value2.ToString());
-                                        break;
-                                    }
-                                case 7:
-                                    {
-                                        add.ma_loai_nhan_vien = Int32.Parse(xlRange.Cells[i, j].Value2.ToString());
-                                        break;
-                                    }
-                                case 8:
-                                    {
-                                        add.ngay_vao_lam = DateTime.FromOADate(xlRange.Cells[i, j].Value2);
-                                        break;
-                                    }
-                            }
-                        }
-                    }
-                    AddImportedEmployee(add);
-                }
-                loadData();
-                //cleanup
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                Marshal.ReleaseComObject(xlRange);
-                Marshal.ReleaseComObject(xlWorksheet);
-                //close and release
-                xlWorkbook.Close();
-                Marshal.ReleaseComObject(xlWorkbook);
-                //quit and release
-                xlApp.Quit();
-                Marshal.ReleaseComObject(xlApp);
-
+                string fileName = dialog.FileName;
+                AddImportedEmployees(fileName);
             }
         }
-        void AddImportedEmployee(NhanVien add)
+        void AddImportedEmployees(string fileName)
         {
-            QuyDinh QDinh = DataProvider.Ins.DB.QuyDinhs.Select(t => t).FirstOrDefault();
-            List<NhanVien> List = DataProvider.Ins.DB.NhanViens.Select(t => t).ToList();
-            bool checktype = false;
-            if (add.ho_ten == null)
+            try
             {
-                return;
-            }
-            if (add.sdt == null)
-            {
-                return;
-            }
-            else
-            {
-                add.sdt = "0" + add.sdt;
-                for (int i = 0; i < EmployeeList.Count; i++)
-                {
+                var package = new ExcelPackage(new FileInfo(fileName));
+                ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
 
-                    if (add.sdt == EmployeeList[i].sdt)
+                for (int i = workSheet.Dimension.Start.Row + 1; i <= workSheet.Dimension.End.Row; i++)
+                {
+                    try
                     {
-                        return;
+                        // biến j biểu thị cho một column trong file
+                        int j = 1;
+                        bool check = true;
+                        NhanVien newEmployee = new NhanVien()
+                        {
+                            ma_nhan_vien = Convert.ToInt32(workSheet.Cells[i, j++].Value),
+                            ma_loai_nhan_vien = Convert.ToInt32(workSheet.Cells[i, j++].Value),
+                            ho_ten = workSheet.Cells[i, j++].Value.ToString(),
+                            ngay_sinh = DateTime.FromOADate((double)(workSheet.Cells[i, j++].Value)),
+                            ngay_vao_lam = DateTime.FromOADate((double)(workSheet.Cells[i, j++].Value)),
+                            sdt = workSheet.Cells[i, j++].Value.ToString(),
+                            dia_chi = workSheet.Cells[i, j++].Value.ToString(),
+                        };
+                        for(int g=0;g<EmployeeList.Count;g++)
+                        {
+                            if(newEmployee.sdt == EmployeeList[g].sdt)
+                            {
+                                check = false ;
+                            }
+                        }
+                        // add UserInfo vào danh sách userList◘
+                        if (check == true)
+                        {
+                            DataProvider.Ins.DB.NhanViens.Add(newEmployee);
+                            DataProvider.Ins.DB.SaveChanges();
+                        }
+                        MyMessageQueue.Enqueue("Thêm dữ liệu từ file excel thành công!");
+
+                    }
+                    catch (Exception error)
+                    {
+                        MessageBox.Show("Lỗi. Đã xảy ra lỗi khi đọc file excel.");
                     }
                 }
+                loadData();
             }
-            if (add.ngay_sinh == null)
+            catch (Exception ee)
             {
-                return;
+                MessageBox.Show("Lỗi. Đã xảy ra lỗi khi import file excel.");
             }
-            if (add.sdt.All(char.IsDigit) == false)
-            {
-                return;
-            }
-            if (add.ngay_sinh.Value.Year < 1900)
-            {
-                return;
-            }
-            int tuoi = DateTime.Now.Year - add.ngay_sinh.Value.Year;
-            if (tuoi < QDinh.tuoi_toi_thieu_nv || tuoi > QDinh.tuoi_toi_da_nv)
-            {
-                return;
-            }
-            if (add.ma_loai_nhan_vien == 0)
-            {
-                return;
-            }
-            for (int i = 0; i < EmployeeTypeList.Count; i++)
-            {
-                if(add.ma_loai_nhan_vien == EmployeeTypeList[i].ma_loai_nhan_vien)
-                {
-                    checktype = true;
-                }
-            }
-            if (List.Count == 0)
-            {
-                add.ma_nhan_vien = 1;
-            }
-            else
-            {
-                add.ma_nhan_vien = List[List.Count - 1].ma_nhan_vien + 1;
-            }
-            if (checktype == false)
-            {
-                return;
-            }
-            if (add.ngay_vao_lam.Year < 2000)
-            {
-                return;
-            }
-            DataProvider.Ins.DB.NhanViens.Add(add);
-            DataProvider.Ins.DB.SaveChanges();
         }
         void ExportFileExcel(DataGrid dtGrid)
         {
-            Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            excel.Visible = true;
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            int col = 8;
-            for (int j = 0; j < col; j++)
+            string filePath = "";
+            System.Windows.Forms.SaveFileDialog dialog = new System.Windows.Forms.SaveFileDialog();
+            dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
+
+            // Nếu mở file và chọn nơi lưu file thành công sẽ lưu đường dẫn lại dùng
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Range myRange = (Range)sheet1.Cells[1, j + 1];
-                sheet1.Cells[1, j + 1].Font.Bold = true;
-                sheet1.Columns[j + 1].ColumnWidth = 15;
-                myRange.Value2 = dtGrid.Columns[j].Header;
+                filePath = dialog.FileName;
             }
-            for (int i = 0; i < col; i++)
+
+            // nếu đường dẫn null hoặc rỗng thì báo không hợp lệ và return hàm
+            if (string.IsNullOrEmpty(filePath))
             {
-                for (int j = 0; j < dtGrid.Items.Count; j++)
+                MyMessageQueue.Enqueue("Lỗi. Đường dẫn báo cáo không hợp lệ.");
+                return;
+            }
+
+            try
+            {
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    TextBlock b = dtGrid.Columns[i].GetCellContent(dtGrid.Items[j]) as TextBlock;
-                    if (b != null)
+                    package.Workbook.Properties.Author = "Admin";
+                    package.Workbook.Properties.Title = "Danh sách món ăn";
+                    package.Workbook.Worksheets.Add("Sheet 1");
+
+                    ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+                    //add sheet
+                    workSheet.Name = "Sheet 1";
+                    workSheet.Cells.Style.Font.Size = 12;
+                    workSheet.Cells.Style.Font.Name = "Calibri";
+                    // Tạo danh sách các column header
+                    string[] arrColumnHeader = {
+                        "Mã nhân viên",
+                        "Mã loại",
+                        "Họ tên",
+                        "Ngày sinh",
+                        "Ngày vào làm",
+                        "SĐT",
+                        "Địa chỉ"
+                    };
+
+                    var countColHeader = arrColumnHeader.Count();
+
+                    int colIndex = 1;
+                    int rowIndex = 2;
+
+                    //tạo các header từ column header đã tạo từ bên trên
+                    foreach (var item in arrColumnHeader)
                     {
-                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[j + 2, i + 1];
-                        myRange.Value2 = b.Text;
+                        var cell = workSheet.Cells[rowIndex, colIndex];
+
+                        //gán giá trị
+                        cell.Value = item;
+
+                        colIndex++;
                     }
+
+                    foreach (var item in EmployeeList)
+                    {
+                        colIndex = 1;
+                        rowIndex++;
+
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.ma_nv;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.ma_loai_nhan_vien;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.ho_ten;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.ngay_sinh;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.ngay_vao_lam;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.sdt;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.dia_chi;
+
+                    }
+
+                    //Lưu file lại
+                    Byte[] bin = package.GetAsByteArray();
+                    File.WriteAllBytes(filePath, bin);
                 }
+                MyMessageQueue.Enqueue("Xuất excel thành công!");
             }
+            catch (Exception EE)
+            {
+                MyMessageQueue.Enqueue("Lỗi. Đã xảy ra lỗi khi xuất file excel.");
+            }
+
         }
         ObservableCollection<ViewEmployee> getViewEmployeeFromList(List<NhanVien> listNv)
         {
@@ -455,6 +426,7 @@ namespace CoffeeStoreManager.ViewModels
         {
             if(checkNumberOfEmployee() == false)
             {
+                this.MyMessageQueue.Enqueue("Vui lòng chỉ chọn 1 nhân viên");
                 return;
             }
             if (SelectedEmployee != null)

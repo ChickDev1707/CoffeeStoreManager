@@ -16,60 +16,67 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Chi tiết nguồn hàng"/>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <DockPanel Grid.Row="0" Margin="0 0 0 15">
-                <DockPanel.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
-                        <Setter Property="Margin" Value="0 0 15 0"/>
-                    </Style>
-                </DockPanel.Resources>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <Button
-                    Command="{Binding RefreshDetail}"
-                    ToolTip="Làm mới chi tiết nguồn hàng">
-                        <materialDesign:PackIcon Kind="Refresh" />
-                    </Button>
-                    <Button
-                    Click="OpenAddWindow"
-                    ToolTip="Thêm chi tiết nguồn hàng">
-                        <materialDesign:PackIcon Kind="Add" />
-                    </Button>
-                    <Button
-                    Click="OpenUpdateWindow"
-                    ToolTip="Cập nhật chi tiết nguồn hàng">
-                        <materialDesign:PackIcon Kind="SquareEditOutline" />
-                    </Button>
-                    <Button
-                    Command="{Binding DeleteDetail}"
-                    ToolTip="Xóa chi tiết">
-                        <materialDesign:PackIcon Kind="TrashCanOutline" />
-                    </Button>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                    <DockPanel.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
+                            <Setter Property="Margin" Value="0 0 15 0"/>
+                        </Style>
+                    </DockPanel.Resources>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Button
+                        Command="{Binding RefreshDetail}"
+                        ToolTip="Làm mới chi tiết nguồn hàng">
+                            <materialDesign:PackIcon Kind="Refresh" />
+                        </Button>
+                        <Button
+                        Command="{Binding OpenAddWindow}"
+                        ToolTip="Thêm chi tiết nguồn hàng">
+                            <materialDesign:PackIcon Kind="Add" />
+                        </Button>
+                        <Button
+                        Command="{Binding OpenUpdateWindow}"
+                        ToolTip="Cập nhật chi tiết nguồn hàng">
+                            <materialDesign:PackIcon Kind="SquareEditOutline" />
+                        </Button>
+                        <Button
+                        Command="{Binding DeleteDetail}"
+                        ToolTip="Xóa chi tiết">
+                            <materialDesign:PackIcon Kind="TrashCanOutline" />
+                        </Button>
+                    </StackPanel>
+                    <SharedUC:SearchBar HorizontalAlignment="Right"/>
+                </DockPanel>
+                <ListView Grid.Row="1" FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn 
+                                Header="STT" 
+                                DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                AncestorType={x:Type ListViewItem}}, 
+                                Converter={StaticResource ListIndexConverter}}"                
+                            ></GridViewColumn>
+                            <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
+                            <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
+                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
+                            <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Grid.Row="2" Margin="0 0 20 20" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Trở lại" Click="Back_Click"/>
                 </StackPanel>
-                <SharedUC:SearchBar HorizontalAlignment="Right"/>
-            </DockPanel>
-            <ListView Grid.Row="1" FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn 
-                            Header="STT" 
-                            DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
-                            AncestorType={x:Type ListViewItem}}, 
-                            Converter={StaticResource ListIndexConverter}}"                
-                        ></GridViewColumn>
-                        <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
-                        <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
-                        <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
-                        <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien}"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <StackPanel Grid.Row="2" Margin="0 0 20 20" HorizontalAlignment="Right">
-                <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Back" Click="Back_Click"/>
-            </StackPanel>
+            </Grid>
+            <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
 </Page>

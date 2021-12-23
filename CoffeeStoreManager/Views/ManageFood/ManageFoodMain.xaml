@@ -88,7 +88,7 @@
                                         Converter={StaticResource ListIndexConverter}}"                
                                     ></GridViewColumn>
                                     <GridViewColumn Header="Ten mon" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
-                                    <GridViewColumn Header="Gia" DisplayMemberBinding="{Binding Path=gia_tien}"></GridViewColumn>
+                                    <GridViewColumn Header="Gia" DisplayMemberBinding="{Binding Path=gia_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
                                     <GridViewColumn Header="Loai mon an" DisplayMemberBinding="{Binding Path=LoaiMonAn.ten_loai_mon_an}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>

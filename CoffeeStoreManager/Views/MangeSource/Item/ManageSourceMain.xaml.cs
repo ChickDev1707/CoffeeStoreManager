@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using CoffeeStoreManager.Models;
+using CoffeeStoreManager.ViewModels;
 using CoffeeStoreManager.Views.MangeSource.Detail;
 
 namespace CoffeeStoreManager.Views.MangeSource.Item
@@ -11,11 +12,14 @@ namespace CoffeeStoreManager.Views.MangeSource.Item
     /// </summary>
     public partial class ManageSourceMain : Page
     {
+        private SourceViewModel sourceVm;
         public ManageSourceMain()
         {
             InitializeComponent();
-            Style = (Style)FindResource("WindowStyle");
+            this.sourceVm = new SourceViewModel();
 
+            this.DataContext = sourceVm;
+            Style = (Style)FindResource("WindowStyle");
         }
         private void Detail_Click(object sender, RoutedEventArgs e)
         {
@@ -23,7 +27,7 @@ namespace CoffeeStoreManager.Views.MangeSource.Item
             if(adminWindow!= null && SourceList.SelectedItem!=null)
             {
                 ViewSource sourceCard = (ViewSource)SourceList.SelectedItem;
-                adminWindow.Main.Content = new SourceDetailPage(this, sourceCard.ma_phieu_nhap_hang);
+                adminWindow.Main.Content = new SourceDetailPage(this, sourceCard.ma_phieu_nhap_hang, sourceVm);
             }
         }
         private AdminWindow findAddMinWindow()

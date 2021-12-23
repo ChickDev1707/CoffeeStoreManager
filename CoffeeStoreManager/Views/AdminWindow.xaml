@@ -11,8 +11,7 @@
         DataContext="{StaticResource AccountVM}">
     <DockPanel>
         <syncfusion:SfNavigationDrawer x:Name="navigationDrawer" DisplayMode="Expanded" ItemClicked="navigationDrawer_ItemClicked">
-
-            <syncfusion:NavigationItem Header="Coffee Store" ItemType="Button" FontSize="26" Height="70">
+            <syncfusion:NavigationItem Header="Quán Cafe" ItemType="Button" FontSize="26" Height="70">
                 <syncfusion:NavigationItem.Icon>
                     <Image Source="../Resources/Assets/Images/coffee-cup.png"/>
                 </syncfusion:NavigationItem.Icon>
@@ -109,7 +108,7 @@
                         <DockPanel x:Name="Header">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="../Resources/Assets/Images/admin.png"/>
-                                <TextBlock Text="Admin window" FontWeight="Bold" FontSize="25" VerticalAlignment="Center" Margin="20 0 0 0"/>
+                                <TextBlock Text="Trang quản lý" FontWeight="Bold" FontSize="25" VerticalAlignment="Center" Margin="20 0 0 0"/>
                             </StackPanel>
                             <syncfusion:DropDownButtonAdv 
                                 Label="Admin" 

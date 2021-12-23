@@ -25,11 +25,12 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <ComboBox
+                    SelectedItem="{Binding Month}"
                     Width="120"
                     Margin="0 0 10 0"
                     materialDesign:HintAssist.Hint="Tháng"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                    <ComboBoxItem>1</ComboBoxItem>
                     <ComboBoxItem>2</ComboBoxItem>
                     <ComboBoxItem>3</ComboBoxItem>
                     <ComboBoxItem>4</ComboBoxItem>
@@ -43,6 +44,7 @@
                     <ComboBoxItem>12</ComboBoxItem>
                 </ComboBox>
                 <TextBox
+                    Text="{Binding Year}"
                     Width="120"
                     Margin="0 0 10 0"
                     materialDesign:HintAssist.Hint="Năm"

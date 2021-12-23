@@ -7,21 +7,30 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         WindowStartupLocation="CenterScreen" 
-        
         mc:Ignorable="d"
         Title="UpdateDetailWindow" Height="340" Width="500">
     <Window.Resources>
         <ResourceDictionary Source="../../Style/Button.xaml"/>
     </Window.Resources>
     <Border Padding="20">
-        <StackPanel>
+        <StackPanel x:Name="UpdateDetailForm">
             <TextBlock Style="{StaticResource PageTitle}" Text="Cập nhật chi tiết nguồn hàng"/>
             <TextBox
+                x:Name="ItemName"
                 Margin="0 0 0 20"
-                Text="{Binding SelectedDetailItem.ten_mat_hang}"
                 materialDesign:HintAssist.Hint="Tên mặt hàng"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <TextBox.Text>
+                    <Binding Path="UpdateSourceName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                        <Binding.ValidationRules>
+                            <rule:NonEmptyRule/>
+                            <rule:TextRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Grid Margin="0 0 0 40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -42,14 +51,26 @@
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Số lượng: "/>
                     <syncfusion:UpDown 
-                        Value="{Binding SelectedDetailItem.so_luong}"
+                        MinValue="1"
+                        Value="{Binding UpdateSourceCount}"
                     />
                 </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="Giá tiền: "/>
-                    <syncfusion:UpDown 
-                        Value="{Binding SelectedDetailItem.gia_tien}"
-                    />
+                <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <TextBox
+                        x:Name="ItemPrice"
+                        materialDesign:HintAssist.Hint="Giá tiền"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Width="150"
+                        >
+                        <TextBox.Text>
+                            <Binding Path="UpdateSourcePrice" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:PositiveNumberRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -63,7 +84,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateDetail}" Content="Cập nhật">
+                <Button Command="{Binding UpdateDetail}" CommandParameter="{Binding ElementName=UpdateDetailForm}" Content="Cập nhật">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:CallMethodAction MethodName="Close"
@@ -72,6 +93,20 @@
                                                   AncestorType=Window}}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ItemName}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=ItemPrice}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </StackPanel>
         </StackPanel>
