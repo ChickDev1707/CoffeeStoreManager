@@ -130,7 +130,7 @@
                         </StackPanel>
                         <StackPanel>
                             <TextBlock Style="{StaticResource CardTitle}" Text="Tiền thu"/>
-                            <TextBlock Style="{StaticResource CardValue}" Text="{Binding DayRevenue}"/>
+                            <TextBlock Style="{StaticResource CardValue}" Text="{Binding DayRevenue, Converter={StaticResource UIMoneyConverter}}"/>
                         </StackPanel>
                     </DockPanel>
                 </Border>
@@ -143,7 +143,7 @@
                         </StackPanel>
                         <StackPanel>
                             <TextBlock Style="{StaticResource CardTitle}" Text="Tiền chi"/>
-                            <TextBlock Style="{StaticResource CardValue}" Text="{Binding DaySpend}"/>
+                            <TextBlock Style="{StaticResource CardValue}" Text="{Binding DaySpend, Converter={StaticResource UIMoneyConverter}}"/>
                         </StackPanel>
                     </DockPanel>
                 </Border>

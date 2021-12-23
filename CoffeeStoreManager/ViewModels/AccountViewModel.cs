@@ -1,5 +1,7 @@
 ﻿using CoffeeStoreManager.Models;
+using CoffeeStoreManager.Resources.Utils;
 using CoffeeStoreManager.Views.Account;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +27,8 @@ namespace CoffeeStoreManager.ViewModels
         private string _password;
         private string _newPassword;
         private string _rePassword;
-        
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
+        private SnackbarMessageQueue myMessageQueue;
         public int Id { get => _id; set => _id = value; }
         public string Name { get => _name; set { _name = value; OnPropertyChanged(); } }
         public string Address { get => _address; set { _address = value; OnPropertyChanged(); } }
@@ -58,25 +61,24 @@ namespace CoffeeStoreManager.ViewModels
             }
               
             OpenAccountChange = new RelayCommand<object>((p) => { return true; }, (p) => { openAccountChangeWindow(p); });
-            SaveAccountCommand = new RelayCommand<object>((p) => { return true; }, (p) => { SaveAccount(p); });
+            SaveAccountCommand = new RelayCommand<StackPanel>((p) => { return true; }, (p) => { SaveAccount(p); });
             SavePictureCommand = new RelayCommand<object>((p) => { return true; }, (p) => { SavePicture(p); });
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
             NewPasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { NewPassword = p.Password; });
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { RePassword = p.Password; });
             SavePasswordCommand = new RelayCommand<object>((p) => { return true; },(p)=>{ SavePassword(p); });
+
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
         }
         void openAccountChangeWindow(object p)
         {
             var window = new AccountChangeWindow();
             window.ShowDialog();
         }
-        void SaveAccount(object p)
+        void SaveAccount(StackPanel infoChangeForm)
         {
-            if (Phone.All(char.IsDigit) == false)
-            {
-                System.Windows.MessageBox.Show("Số điện thoại không hơp lệ");
-            }
-            else
+            if (Validator.IsValid(infoChangeForm))
             {
                 var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ma_tai_khoan == 1);
                 change.ho_ten = Name;
@@ -84,7 +86,9 @@ namespace CoffeeStoreManager.ViewModels
                 change.gmail = Gmail;
                 change.so_dien_thoai = Phone;
                 DataProvider.Ins.DB.SaveChanges();
-            }          
+                MyMessageQueue.Enqueue("Thay đổi thông tin thành công!");
+            }    
+                   
         }
         void SavePicture(object p)
         {
@@ -112,7 +116,7 @@ namespace CoffeeStoreManager.ViewModels
             var choose = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.ten_dang_nhap == "admin");
             if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(NewPassword) || string.IsNullOrEmpty(RePassword))
             {
-                System.Windows.MessageBox.Show("Chưa điền đủ thông tin!","Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MyMessageQueue.Enqueue("Lỗi. Chưa điền đầy đủ thông tin");
             }
             else
             {
@@ -120,20 +124,20 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     if (NewPassword == RePassword)
                     {
-                        var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.mat_khau == Password);
-                        System.Windows.MessageBox.Show("Đổi mật khẩu thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        var change = DataProvider.Ins.DB.TaiKhoanAdmins.SingleOrDefault(x => x.mat_khau == Password);                      
                         change.mat_khau = NewPassword;
                         DataProvider.Ins.DB.SaveChanges();
+                        MyMessageQueue.Enqueue("Thay đổi mật khẩu thành công");
                     }
                     else
                     {
-                        System.Windows.MessageBox.Show("Mật khẩu và xác nhận mật khẩu không trùng khớp", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MyMessageQueue.Enqueue("Lỗi. Mật khẩu và xác nhận mật khẩu không trùng khớp");
                     }
 
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Mật khẩu cũ không đúng", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MyMessageQueue.Enqueue("Lỗi. Mật khẩu cũ không đúng");
                 }
             }
         }

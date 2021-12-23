@@ -8,7 +8,6 @@
       
       xmlns:SharedUC="clr-namespace:CoffeeStoreManager.Views.SharedControls"
       mc:Ignorable="d" 
-      DataContext="{StaticResource SourceVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageSourceMain">
     <Page.Resources>
@@ -17,56 +16,57 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Quản lý nguồn hàng"/>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <DockPanel Grid.Row="0" Margin="0 0 0 15">
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
-                            <Setter Property="Margin" Value="0 0 10 0"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <Button
-                    Command="{Binding RefreshSourceList}"
-                    ToolTip="Làm mới danh sách hàng">
-                        <materialDesign:PackIcon Kind="Refresh" />
-                    </Button>
-                    <Button
-                    Command="{Binding OpenAddSource}"
-                    ToolTip="Thêm hàng nhập">
-                        <materialDesign:PackIcon Kind="Add" />
-                    </Button>
-                    <Button
-                    Command="{Binding OpenUpdateSource}"
-                    ToolTip="Cập nhật mặt hàng">
-                        <materialDesign:PackIcon Kind="SquareEditOutline" />
-                    </Button>
-                    <Button
-                    Command="{Binding DeleteSource}"
-                    ToolTip="Xóa mặt hàng">
-                        <materialDesign:PackIcon Kind="TrashCanOutline" />
-                    </Button>
-                    <Button
-                    Click="Detail_Click"
-                    ToolTip="Xem chi tiết hàng nhập">
-                        <DockPanel>
-                            <materialDesign:PackIcon Kind="EyeSettingsOutline" />
-                            <TextBlock Text="Chi tiết" Margin="5 0 0 0"/>
-                        </DockPanel>
-                     </Button>
-                </StackPanel>
-                <SharedUC:SearchBar HorizontalAlignment="Right"/>
-            </DockPanel>
-            <ListView 
-                Grid.Row="1" 
-                x:Name="SourceList" 
-                FontSize="14" 
-                ItemsSource="{Binding SourceList}" 
-                SelectedItem="{Binding SelectedSourceItem}" 
-                ScrollViewer.VerticalScrollBarVisibility="Visible"
-                ScrollViewer.CanContentScroll="False"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0" Margin="0 0 0 15">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <StackPanel.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource IconBtn}">
+                                <Setter Property="Margin" Value="0 0 10 0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button
+                        Command="{Binding RefreshSourceList}"
+                        ToolTip="Làm mới danh sách hàng">
+                            <materialDesign:PackIcon Kind="Refresh" />
+                        </Button>
+                        <Button
+                        Command="{Binding OpenAddSource}"
+                        ToolTip="Thêm hàng nhập">
+                            <materialDesign:PackIcon Kind="Add" />
+                        </Button>
+                        <Button
+                        Command="{Binding OpenUpdateSource}"
+                        ToolTip="Cập nhật mặt hàng">
+                            <materialDesign:PackIcon Kind="SquareEditOutline" />
+                        </Button>
+                        <Button
+                        Command="{Binding DeleteSource}"
+                        ToolTip="Xóa mặt hàng">
+                            <materialDesign:PackIcon Kind="TrashCanOutline" />
+                        </Button>
+                        <Button
+                        Click="Detail_Click"
+                        ToolTip="Xem chi tiết hàng nhập">
+                            <DockPanel>
+                                <materialDesign:PackIcon Kind="EyeSettingsOutline" />
+                                <TextBlock Text="Chi tiết" Margin="5 0 0 0"/>
+                            </DockPanel>
+                         </Button>
+                    </StackPanel>
+                    <SharedUC:SearchBar HorizontalAlignment="Right"/>
+                </DockPanel>
+                <ListView 
+                    Grid.Row="1" 
+                    x:Name="SourceList" 
+                    FontSize="14" 
+                    ItemsSource="{Binding SourceList}" 
+                    SelectedItem="{Binding SelectedSourceItem}" 
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                    ScrollViewer.CanContentScroll="False"
                 >
                 <ListView.View>
                     <GridView>
@@ -79,10 +79,16 @@
                         <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding Path=ngay_nhap}"></GridViewColumn>
                         <GridViewColumn Header="Nhà cung cấp" DisplayMemberBinding="{Binding Path=nha_cung_cap}"></GridViewColumn>
                         <GridViewColumn Header="Số lượng mặt hàng" DisplayMemberBinding="{Binding Path=so_luong_mat_hang}"></GridViewColumn>
-                        <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien}"></GridViewColumn>
+                        <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
+            </Grid>
+            <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
 </Page>

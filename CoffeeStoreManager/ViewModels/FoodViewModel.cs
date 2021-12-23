@@ -17,11 +17,10 @@ namespace CoffeeStoreManager.ViewModels
     public class FoodViewModel: BaseViewModel
     {
         public ObservableCollection<MonAn> FoodList { get => foodList; set { foodList = value; OnPropertyChanged(nameof(FoodList)); } }
-        public MonAn SelectedFood { get => selectedFood; set { selectedFood = value; OnPropertyChanged(nameof(SelectedFood)); } }
-        public string SearchKey { get => searchKey; set { searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
-        
         private ObservableCollection<MonAn> foodList;
+        public MonAn SelectedFood { get => selectedFood; set { selectedFood = value; OnPropertyChanged(nameof(SelectedFood)); } }
         private MonAn selectedFood;
+        public string SearchKey { get => searchKey; set { searchKey = value; OnPropertyChanged(nameof(SearchKey)); } }
         private string searchKey;
 
         public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
@@ -219,6 +218,8 @@ namespace CoffeeStoreManager.ViewModels
             DataProvider.Ins.DB.SaveChanges();
 
             FoodList.Remove(FoodList.Where(item => item.ma_mon_an == selectedFoodId).Single());
+            MyMessageQueue.Enqueue("Đã xóa món ăn khỏi hệ thống!");
+
         }
 
         private void search(object p)

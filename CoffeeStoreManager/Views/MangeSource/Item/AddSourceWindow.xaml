@@ -6,9 +6,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:CoffeeStoreManager.Views.MangeSource.Item"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        DataContext="{StaticResource AddSourceVM}"
+        xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"        
         WindowStartupLocation="CenterScreen"
-       
         mc:Ignorable="d"
         Title="AddSourceWindow" Height="640" Width="850">
     <Window.Resources>
@@ -21,10 +20,20 @@
                 <TextBlock Text="Thêm Phiếu Hàng" Style="{StaticResource PageTitle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
                     <TextBox
+                        x:Name="Provider"
                         Margin="0 0 20 0"
-                        Text="{Binding Provider}" Width="250"
+                        Width="250"
                         materialDesign:HintAssist.Hint="Nhà cung cấp"
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="Provider" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:TextRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <DatePicker
                         Width="120"
                         SelectedDate="{Binding ImportDate}"
@@ -48,20 +57,37 @@
                                             Grid.Column="0"
                                             VerticalAlignment="Center"
                                             Margin="0 0 15 0"
-                                            Text="{Binding Path=Name}"
                                             materialDesign:HintAssist.Hint="Tên mặt hàng"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                            <TextBox.Text>
+                                                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                                    <Binding.ValidationRules>
+                                                        <rule:NonEmptyRule/>
+                                                        <rule:TextRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                         <TextBox
                                             Grid.Column="1"
                                             Margin="0 0 15 0"
                                             VerticalAlignment="Center"
-                                            Text="{Binding Path=Price}"
                                             materialDesign:HintAssist.Hint="Giá tiền"
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                            <TextBox.Text>
+                                                <Binding Path="Price" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                                    <Binding.ValidationRules>
+                                                        <rule:NonEmptyRule/>
+                                                        <rule:PositiveNumberRule/>
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                         <StackPanel Grid.Column="2">
                                             <TextBlock Text="Số lượng" FontSize="12" Margin="0 0 0 3" Foreground="Gray"/>
                                             <syncfusion:UpDown 
                                                 Value="{Binding Path=Count}"
+                                                MinValue="1"
                                                 NumberDecimalDigits="0"
                                                 Margin="0 0 15 0"
                                                 VerticalAlignment="Bottom"
@@ -102,7 +128,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <Button Style="{StaticResource PrimaryBtn}" Command="{Binding SaveSource}" Margin="10 0 0 0" Content="Thêm hàng">
+                    <Button Command="{Binding SaveSource}" CommandParameter="{Binding ElementName=ItemsContianer}" Margin="10 0 0 0" Content="Thêm hàng">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:CallMethodAction MethodName="Close"

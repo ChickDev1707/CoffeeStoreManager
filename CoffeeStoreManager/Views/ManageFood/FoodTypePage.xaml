@@ -5,74 +5,125 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.ManageFood"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      
+      xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"  
       mc:Ignorable="d" 
       DataContext="{StaticResource FoodTypeVM}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FoodTypePage">
     <Page.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Loại món ăn"/>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Border Style="{StaticResource MainBorder}">
-                <ListView FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding FoodTypeList}" SelectedItem="{Binding SelectedType}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn 
-                                Header="STT" 
-                                DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                AncestorType={x:Type ListViewItem}}, 
-                                Converter={StaticResource ListIndexConverter}}"                
-                            ></GridViewColumn>
-                            <GridViewColumn Header="ma loai mon" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
-                            <GridViewColumn Header="ten loai mon" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Border>
-            <Border Margin="20 0 0 0" Grid.Column="1" Style="{StaticResource MainBorder}">
-                <StackPanel  Margin="20 0 20 0">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="FontSize" Value="18"/>
-                            <Setter Property="Margin" Value="0 0 0 5"/>
-                        </Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                        </Style>
-                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                            <Setter Property="Margin" Value="0 0 0 10"/>
-                            <Setter Property="FontSize" Value="16"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock Text="Quản lý loại món" FontWeight="Bold" FontSize="20" Margin="0 10 0 10"/>
-                    <StackPanel Margin="0 0 0 20">
-                        <TextBlock Text="Thêm loại món" />
-                        <TextBox 
-                            Text="{Binding AddFormFoodTypeName}"
-                            materialDesign:HintAssist.Hint="Tên loại món mới"
-                            />
-                        <Button Style="{StaticResource PrimaryBtn}" HorizontalAlignment="Right" Command="{Binding AddType}" Content="Thêm loại" CommandParameter="{Binding}"></Button>
-                    </StackPanel>
-                    <StackPanel>
-                        <TextBlock Text="Cập nhật loại món" />
-                        <TextBox 
-                            Text="{Binding SelectedType.ten_loai_mon_an}"
-                            materialDesign:HintAssist.Hint="Tên loại"
-                            />
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteType}" HorizontalAlignment="Right" Margin="0 0 15 0">Xóa</Button>
-                            <Button Style="{StaticResource PrimaryBtn}" Command="{Binding UpdateFoodType}" Content="Cập nhật" CommandParameter="{Binding}"></Button>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource MainBorder}">
+                    <ListView FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding FoodTypeList}" SelectedItem="{Binding SelectedType}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn 
+                                    Header="STT" 
+                                    DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                    AncestorType={x:Type ListViewItem}}, 
+                                    Converter={StaticResource ListIndexConverter}}"                
+                                ></GridViewColumn>
+                                <GridViewColumn Header="ma loai mon" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
+                                <GridViewColumn Header="ten loai mon" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+                <Border Margin="20 0 0 0" Grid.Column="1" Style="{StaticResource MainBorder}">
+                    <StackPanel  Margin="20 0 20 0">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="Margin" Value="0 0 0 5"/>
+                            </Style>
+                            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                <Setter Property="Margin" Value="0 0 0 10"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock Text="Quản lý loại món" FontWeight="Bold" FontSize="20" Margin="0 10 0 10"/>
+                        <StackPanel x:Name="AddTypeForm" Margin="0 0 0 20">
+                            <TextBlock Text="Thêm loại món" />
+                            <TextBox 
+                                x:Name="NewFoodTypeName"
+                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                Style="{StaticResource ValidationTextBox}"
+                                materialDesign:HintAssist.Hint="Tên loại món mới">
+                                <TextBox.Text>
+                                    <Binding Path="NewFoodTypeName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                            <rule:TextRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Margin="0 20 0 0" HorizontalAlignment="Right" Command="{Binding AddType}" CommandParameter="{Binding ElementName=AddTypeForm}" Content="Thêm loại">
+                                <Button.Style >
+                                    <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=NewFoodTypeName}" Value="False">
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel x:Name="UpdateTypeForm">
+                            <TextBlock Text="Cập nhật loại món" />
+                            <TextBox 
+                                x:Name="SelectedUpdateFoodTypeName"
+                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                Style="{StaticResource ValidationTextBox}"
+                                materialDesign:HintAssist.Hint="Tên loại món">
+                                <TextBox.Text>
+                                    <Binding Path="SelectedUpdateFoodTypeName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                                        <Binding.ValidationRules>
+                                            <rule:NonEmptyRule/>
+                                            <rule:TextRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding DeleteType}" HorizontalAlignment="Right" Margin="0 0 15 0">Xóa</Button>
+                                <Button Command="{Binding UpdateType}" CommandParameter="{Binding ElementName=UpdateTypeForm}" Content="Cập nhật">
+                                    <Button.Style >
+                                        <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=SelectedUpdateFoodTypeName}" Value="False">
+                                                    <Setter Property="IsEnabled" Value="True"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
+            </Grid>
+            <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
 </Page>
