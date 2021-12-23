@@ -69,7 +69,7 @@
                     </ListView.View>
                 </ListView>
                 <StackPanel Grid.Row="2" Margin="0 0 20 20" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Back" Click="Back_Click"/>
+                    <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Trở lại" Click="Back_Click"/>
                 </StackPanel>
             </Grid>
             <materialDesign:Snackbar
