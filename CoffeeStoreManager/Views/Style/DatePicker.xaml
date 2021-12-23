@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="ValidationTemplate">
+        <DockPanel>
+            <TextBlock VerticalAlignment="Bottom" Margin="0 0 2 0" Foreground="#ff4d4d"><materialDesign:PackIcon Width="20" Height="20" Kind="WarningCircle" /></TextBlock>
+            <!--<Separator Width="10"></Separator>-->
+            <AdornedElementPlaceholder/>
+        </DockPanel>
+    </ControlTemplate>
+    <Style x:Key="ValidationDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+        <Setter Property="FontSize" Value="14" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip" Value="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

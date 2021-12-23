@@ -98,7 +98,7 @@
                             </Grid.Style>
                         </Grid>
                         <Grid>
-                            <chart:SfChart Visibility="{Binding CheckSelected}" Margin="10,30,0,30" Grid.Row="1" Width="774"  FontSize="20" Foreground="#888" Header="BIỂU ĐỒ " HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                            <chart:SfChart Visibility="{Binding CheckSelected}" Margin="10,30,0,30" Grid.Row="1" Width="774"  FontSize="20" Foreground="#888" Header="BIỂU ĐỒ DOANH THU VÀ LỢI NHUẬN CỦA QUÁN " HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                                 <chart:SfChart.PrimaryAxis>
                                     <chart:CategoryAxis FontSize="12"></chart:CategoryAxis>
                                 </chart:SfChart.PrimaryAxis>

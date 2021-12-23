@@ -113,6 +113,8 @@ namespace CoffeeStoreManager.ViewModels
                     return;
                 }
                 LoadData();
+                TextSalary = "";
+                TextTypeNameEmployee = "";
                 this.MyMessageQueue.Enqueue("Thêm thành công!");
             }
             else
@@ -131,6 +133,11 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     salary += money[i];
                 }
+                if (SelectedLoaiNhanVien == null)
+                {
+                    this.MyMessageQueue.Enqueue("Lỗi. Vui lòng chọn 1 nhân viên");
+                    return;
+                }
                 var UpdTypeEmployee = DataProvider.Ins.DB.LoaiNhanViens.
                     Where(t => t.ma_loai_nhan_vien == SelectedLoaiNhanVien.ma_loai_nhan_vien).FirstOrDefault();
                 if (SelectedLoaiNhanVien.ma_loai_nhan_vien != 1)
@@ -144,14 +151,17 @@ namespace CoffeeStoreManager.ViewModels
                 }
                 catch
                 {
+                    this.MyMessageQueue.Enqueue("Lỗi. Số tiền quá lớn");
                     return;
                 }
                 LoadData();
+                TextSalary = "";
+                TextTypeNameEmployee = "";
                 this.MyMessageQueue.Enqueue("Sửa thông tin thành công!");
             }
             else
             {
-                this.MyMessageQueue.Enqueue("Sửa thông tin thất bại");
+                this.MyMessageQueue.Enqueue("Lỗi. Thông tin không hợp lệ");
             }
         }
         void deleteType(object p)
