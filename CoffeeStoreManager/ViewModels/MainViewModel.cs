@@ -8,6 +8,7 @@ using System.Windows;
 using System;
 using CoffeeStoreManager.Views;
 using CoffeeStoreManager.Views.Discount_Bill;
+using MaterialDesignThemes.Wpf;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -16,6 +17,10 @@ namespace CoffeeStoreManager.ViewModels
         public bool IsLoaded = false;
         public ICommand LoadedWindowCommand { get; set; }
 
+        //private int _statusload;
+        //public int statusload { get => _statusload; set { _statusload = value; OnPropertyChanged(nameof(statusload)); } }
+        //private DateTime? _today;
+        //public DateTime? today { get => _today; set { _today = value; OnPropertyChanged(nameof(today)); } }
         private ObservableCollection<LoaiMonAn> _LoaiMonAn;
         public ObservableCollection<LoaiMonAn> LoaiMonAn
         {
@@ -91,6 +96,8 @@ namespace CoffeeStoreManager.ViewModels
                 OnPropertyChanged(nameof(QuyDinh));
             }
         }
+        private int? _soban;
+        public int? soban { get => _soban; set { _soban = value; OnPropertyChanged(nameof(soban)); } }
         private ObservableCollection<Table> _Tables;
         public ObservableCollection<Table> Tables
         {
@@ -105,24 +112,6 @@ namespace CoffeeStoreManager.ViewModels
         public int number { get => _number; set { _number = value; OnPropertyChanged(nameof(number)); } }
         private decimal? _totalmoney;
         public decimal? totalmoney { get => _totalmoney; set { _totalmoney = value; OnPropertyChanged(nameof(totalmoney)); } }
-        //private bool _IsChecked1;
-        //public bool IsChecked1 { get => _IsChecked1; set { _IsChecked1 = value; OnPropertyChanged(nameof(IsChecked1)); } }
-        //private bool _IsChecked2;
-        //public bool IsChecked2 { get => _IsChecked2; set { _IsChecked2 = value; OnPropertyChanged(nameof(IsChecked2)); } }
-        //private bool _IsChecked3;
-        //public bool IsChecked3 { get => _IsChecked3; set { _IsChecked3 = value; OnPropertyChanged(nameof(IsChecked3)); } }
-        //private bool _IsChecked4;
-        //public bool IsChecked4 { get => _IsChecked4; set { _IsChecked4 = value; OnPropertyChanged(nameof(IsChecked4)); } }
-        //private bool _IsChecked5;
-        //public bool IsChecked5 { get => _IsChecked5; set { _IsChecked5 = value; OnPropertyChanged(nameof(IsChecked5)); } }
-        //private bool _IsChecked6;
-        //public bool IsChecked6 { get => _IsChecked6; set { _IsChecked6 = value; OnPropertyChanged(nameof(IsChecked6)); } }
-        //private bool _IsChecked7;
-        //public bool IsChecked7 { get => _IsChecked7; set { _IsChecked7 = value; OnPropertyChanged(nameof(IsChecked7)); } }
-        //private bool _IsChecked8;
-        //public bool IsChecked8 { get => _IsChecked8; set { _IsChecked8 = value; OnPropertyChanged(nameof(IsChecked8)); } }
-        //private bool _IsChecked9;
-        //public bool IsChecked9 { get => _IsChecked9; set { _IsChecked9 = value; OnPropertyChanged(nameof(IsChecked9)); } }
         private ObservableCollection<ItemcontrolButton> _ItemcontrolButtonList;
         public ObservableCollection<ItemcontrolButton> ItemcontrolButtonList
         {
@@ -153,24 +142,61 @@ namespace CoffeeStoreManager.ViewModels
                 OnPropertyChanged(nameof(SelectedEmptyTable));
             }
         }
+        private SnackbarMessageQueue myMessageQueue;
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         public ICommand AddCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand CheckOutCommand { get; set; }
         public ICommand ChooseTableCommand { get; set; }
         public ICommand ChangeTableCommand { get; set; }
         public ICommand DiscountCommand { get; set; }
-        void LoadFood()
+        
+        void LoadInfor()
         {
-            ObservableCollection<MonAn> food = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns); ;
-            if (SelectedLoaiMonAn != null)
+            DateTime? today = DateTime.Now;
+            BillDetail = new ObservableCollection<ViewBill>();
+            MonAn = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns);
+            QuyDinh = DataProvider.Ins.DB.QuyDinhs.FirstOrDefault();
+            Tables = new ObservableCollection<Table>();
+            //soban = QuyDinh.so_ban;
+            for (int i = 0; i < QuyDinh.so_ban; i++)
+            //for (int i = 0; i < 15; i++)
             {
-                MonAn.Clear();
-                foreach (var item in food)
+                Table item = new Table()
                 {
-                    if (item.ma_loai_mon_an == SelectedLoaiMonAn.ma_loai_mon_an)
-                        MonAn.Add(item);
-                }
+                    tablenumber = i + 1,
+                    status = false,
+                    viewbilloftable = new ObservableCollection<ViewBill>(),
+                    billoftable = new ObservableCollection<CT_HoaDon>()
+                };
+                Tables.Add(item);
+                //new Table() {tablenumber = 2 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 3 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 4 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 5 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 6 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 7 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 8 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
+                //new Table() {tablenumber = 9 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()}
+            };
+            ItemcontrolButtonList = new ObservableCollection<ItemcontrolButton>();
+            for (int i = 0; i < QuyDinh.so_ban; i++)
+            //for (int i = 0; i < 15; i++)
+            {
+                ItemcontrolButton item = new ItemcontrolButton()
+                {
+                    index = i + 1,
+                    text = "Bàn " + Convert.ToString(i + 1),
+                    isnotempty = false,
+                    isselected = false,
+                    choosetable = ChooseTableCommand
+                };
+                ItemcontrolButtonList.Add(item);
             }
+            number = 0;
+            EmptyTables = new ObservableCollection<EmptyTable>();
+            totalmoney = 0;
+            LoadEmptyTable();
         }
         void AddViewBill(int number)
         {
@@ -266,40 +292,6 @@ namespace CoffeeStoreManager.ViewModels
                     item.isselected = true;
                 ItemcontrolButtonList.Add(item);
             }
-            //for (int i = 1; i < 2; i++)
-            //{
-            //    ItemcontrolButtonList[i - 1].isnotempty = Tables[i - 1].status;
-            //    //switch (i)
-            //    //{
-            //    //    case 1:
-            //    //        IsChecked1 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 2:
-            //    //        IsChecked2 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 3:
-            //    //        IsChecked3 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 4:
-            //    //        IsChecked4 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 5:
-            //    //        IsChecked5 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 6:
-            //    //        IsChecked6 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 7:
-            //    //        IsChecked7 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 8:
-            //    //        IsChecked8 = Tables[i - 1].status;
-            //    //        break;
-            //    //    case 9:
-            //    //        IsChecked9 = Tables[i - 1].status;
-            //    //        break;
-            //    //}
-            //}
         }
         int FindMonAn(int ma_mon_an)
         {
@@ -317,7 +309,7 @@ namespace CoffeeStoreManager.ViewModels
             {
                 if (Tables[i].status == false)
                 {
-                    var empty_table = new EmptyTable()
+                    EmptyTable empty_table = new EmptyTable()
                     {
                         index_emptytable = i + 1,
                         emptytable = ItemcontrolButtonList[i].text
@@ -340,7 +332,6 @@ namespace CoffeeStoreManager.ViewModels
         }
         public MainViewModel()
         {
-
             // Chọn bàn
             ChooseTableCommand = new RelayCommand<object>((p) =>
             {
@@ -368,20 +359,21 @@ namespace CoffeeStoreManager.ViewModels
                 if (loginVM.IsLogin)
                 {
                     AdminWindow adminWindow = new AdminWindow();
-                    adminWindow.Show();
-                    loginWindow.Hide();
+                    adminWindow.ShowDialog();
+                    loginWindow.Close();
                 }
                 else
                 {
-                    p.Show();
+                    p.ShowDialog();
                     loginWindow.Close();
                 }
             });
             DateTime? today = DateTime.Now;
             BillDetail = new ObservableCollection<ViewBill>();
             MonAn = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns);
-            Tables = new ObservableCollection<Table>();
             QuyDinh = DataProvider.Ins.DB.QuyDinhs.FirstOrDefault();
+            Tables = new ObservableCollection<Table>();
+            //soban = QuyDinh.so_ban;
             for (int i = 0; i < QuyDinh.so_ban; i++)
             //for (int i = 0; i < 15; i++)
             {
@@ -420,6 +412,11 @@ namespace CoffeeStoreManager.ViewModels
             EmptyTables = new ObservableCollection<EmptyTable>();
             totalmoney = 0;
             LoadEmptyTable();
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
+            //LoadInfor();
+            //if (statusload == 1)
+            //    MessageBox.Show("11111");
 
             // Thêm món vào hóa đơn (chưa lưu vào database) 
             AddCommand = new RelayCommand<object>((p) =>
@@ -491,15 +488,18 @@ namespace CoffeeStoreManager.ViewModels
                 Tables[number - 1].viewbilloftable.Clear();
                 Tables[number - 1].billoftable.Clear();
                 Tables[number - 1].status = false;
-                CheckColor();
                 number = 0;
+                CheckColor();
                 LoadEmptyTable();
-                if (totalmoney >= 150000)
+                MyMessageQueue.Enqueue("Thanh toán thành công! ");
+                
+                if (totalmoney >= QuyDinh.muc_tien_nhan_uu_dai)
                 {
                     DiscountWindow discountWindow = new DiscountWindow();
                     discountWindow.ShowDialog();
                 }
                 totalmoney = 0;
+                MyMessageQueue.Enqueue("Xử lý ưu đãi thành công!");
             });
 
 
