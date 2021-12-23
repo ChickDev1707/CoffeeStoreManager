@@ -18,10 +18,7 @@ namespace CoffeeStoreManager.Models
         public Nullable<int> so_ban { get; set; }
         public Nullable<int> tuoi_toi_thieu_nv { get; set; }
         public Nullable<int> tuoi_toi_da_nv { get; set; }
-<<<<<<< HEAD
-=======
         public int loai_san_pham_uu_dai { get; set; }
->>>>>>> 025f1cb9bd249f32bf8a2ebbb20dc8c50c363272
         public Nullable<int> count_uu_dai { get; set; }
         public Nullable<decimal> muc_tien_nhan_uu_dai { get; set; }
         public Nullable<int> loai_san_pham_uu_dai { get; set; }
