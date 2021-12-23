@@ -20,7 +20,7 @@ namespace CoffeeStoreManager.ViewModels
         public string AddSourceName { get => addSourceName; set { addSourceName = value; OnPropertyChanged(nameof(AddSourceName)); } }
         private string addSourceName;
         public decimal? AddSourcePrice { get => addSourcePrice; set { addSourcePrice = value; OnPropertyChanged(nameof(AddSourcePrice)); } }
-        private decimal? addSourcePrice;
+        private decimal? addSourcePrice= 0;
         public int? AddSourceCount { get => addSourceCount; set { addSourceCount = value; OnPropertyChanged(nameof(AddSourceCount)); } }
         private int? addSourceCount;
 

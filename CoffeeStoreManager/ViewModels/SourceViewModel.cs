@@ -26,6 +26,7 @@ namespace CoffeeStoreManager.ViewModels
 
         public SourceViewModel()
         {
+            
             OpenAddSource = new RelayCommand<object>((p) => { return true; }, (p) => { openAddSource(); });
             OpenUpdateSource = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateSource(); });
 

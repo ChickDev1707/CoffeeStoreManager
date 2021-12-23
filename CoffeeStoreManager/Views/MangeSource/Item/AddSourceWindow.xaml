@@ -76,6 +76,9 @@
                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                             <TextBox.Text>
                                                 <Binding Path="Price" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                                    <Binding.Converter>
+                                                        <rule:UIMoneyConverter/>
+                                                    </Binding.Converter>
                                                     <Binding.ValidationRules>
                                                         <rule:NonEmptyRule/>
                                                         <rule:PositiveNumberRule/>
