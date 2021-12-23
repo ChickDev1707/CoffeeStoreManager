@@ -152,8 +152,6 @@
     <Compile Include="Models\CT_PhieuNhapHang.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataProvider.cs" />
-    <Compile Include="Models\FoodTypeChartModel.cs" />
     <Compile Include="Models\HoaDon.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
@@ -184,14 +182,16 @@
     <Compile Include="Models\TaiKhoanAdmin.cs">
       <DependentUpon>CoffeeManagerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewSource.cs" />
-    <Compile Include="Models\ViewBill.cs" />
+    <Compile Include="Models\DataProvider.cs" />
+    <Compile Include="Models\FoodTypeChartModel.cs" />
     <Compile Include="Models\LineChartModel.cs" />
+    <Compile Include="Models\MonthReport.cs" />
+    <Compile Include="Models\PartTimeShift.cs" />
+    <Compile Include="Models\ViewBill.cs" />
     <Compile Include="Models\ViewEmployee.cs" />
     <Compile Include="Models\ViewTypeEmployee.cs" />
     <Compile Include="Models\ViewStatistic.cs" />
-    <Compile Include="Models\PartTimeShift.cs" />
-    <Compile Include="Models\MonthReport.cs" />
+    <Compile Include="Models\ViewSource.cs" />
     <Compile Include="Resources\Utils\ImageConverterUtil.cs" />
     <Compile Include="Resources\Utils\IndexConverter.cs" />
     <Compile Include="Resources\Utils\MoneyConverter.cs" />
