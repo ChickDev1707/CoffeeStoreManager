@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using CoffeeStoreManager.Views;
+using System.Windows;
 using CoffeeStoreManager.ViewModels;
 using CoffeeStoreManager.Views.Discount_Bill;
 

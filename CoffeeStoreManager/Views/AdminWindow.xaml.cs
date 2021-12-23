@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Media;
 using Syncfusion.UI.Xaml.NavigationDrawer;
+using CoffeeStoreManager.ViewModels;
 
 namespace CoffeeStoreManager.Views
 {
@@ -66,7 +67,7 @@ namespace CoffeeStoreManager.Views
         {
             this.Close();
             Window mainWindow = new MainWindow();
-            mainWindow.Show();
+            mainWindow.ShowDialog();
         }
     }
     
