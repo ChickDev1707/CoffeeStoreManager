@@ -190,7 +190,7 @@
                                              Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                             Style="{StaticResource ValidationTextBox}">
                                             <TextBox.Text>
-                                                <Binding Path="SpecialOfferMoney" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                                <Binding Path="SpecialOfferMoney" Converter="{StaticResource UIMoneyConverter}" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
                                                         <rule:NonEmptyRule/>
                                                         <rule:PositiveNumberRule/>

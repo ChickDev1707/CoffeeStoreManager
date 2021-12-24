@@ -71,7 +71,7 @@
                                     <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
                                             <rule:NonEmptyRule/>
-                                            <rule:TextRule/>
+                                            <rule:NameRule/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
@@ -101,6 +101,7 @@
                                     <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
                                             <rule:NonEmptyRule/>
+                                            <rule:PhoneNumberRule/>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
