@@ -48,15 +48,11 @@
                 </ListView>
             </Border>
             <Border Grid.Column="1" Style="{StaticResource MainBorder}" Margin="20 0 0 0" >
-                <StackPanel x:Name="EmployeeTypeForm" Margin="20 20 20 0">
+                <StackPanel x:Name="EmployeeTypeForm" Margin="20 0 20 0">
                     <StackPanel.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="FontSize" Value="18"/>
                             <Setter Property="Margin" Value="0 0 0 5"/>
-                        </Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource IconTextBtn}">
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                            <Setter Property="Width" Value="100"/>
                         </Style>
                         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <Setter Property="Margin" Value="0 0 0 10"/>
@@ -64,10 +60,11 @@
                         </Style>
                     </StackPanel.Resources>
                     <StackPanel Margin="0 0 0 20">
+                        <TextBlock Text="Quản lý loại nhân viên" FontWeight="Bold" FontSize="20" Margin="0 10 0 10"/>
                         <TextBlock>Loại nhân viên</TextBlock>
-                        <TextBox materialDesign:HintAssist.Hint="Tên loại nhân viên" 
-                                 Name="EmployeeTypeName"
-                                   
+                            <TextBox materialDesign:HintAssist.Hint="Tên loại nhân viên" 
+                                 Margin="0 0 0 40"
+                                 Name="EmployeeTypeName"                                
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  >
                             <TextBox.Text>
@@ -80,35 +77,29 @@
                         </TextBox>
                         <TextBlock>Tiền lương</TextBlock>
                         <TextBox materialDesign:HintAssist.Hint="Mức lương" 
-                                 Name="EmployeeTypeSalary"
-                                   
+                                 Name="EmployeeTypeSalary"                                  
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  >
                             <TextBox.Text>
                                 <Binding  Path="TextSalary" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
-                                         <rule:MoneyRule/>
+                                        <rule:MoneyRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
-                            
                         </TextBox>
                     </StackPanel>
                     <StackPanel>
-                        <Button HorizontalAlignment="Right" 
+                            <Button HorizontalAlignment="Right" 
                                 Width="80" 
                                 Command="{Binding AddType}" 
                                 Margin="0 0 0 15"
+                                Content="Thêm"
                                 CommandParameter="{Binding ElementName=EmployeeTypeForm}"
                                 >
-                            
-                            <DockPanel>
-                                <materialDesign:PackIcon Kind="Add" />
-                                <TextBlock Text="Thêm"/>
-                            </DockPanel>
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource IconTextBtn}">
+                                <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
                                     <Setter Property="IsEnabled" Value="False"/>
                                     <Style.Triggers>
                                         <MultiDataTrigger>
@@ -123,13 +114,9 @@
                             </Button.Style>
                         </Button>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button  Command="{Binding UpdateType}" Margin="0 0 15 0" CommandParameter="{Binding ElementName=EmployeeTypeForm}">
-                                <DockPanel>
-                                    <materialDesign:PackIcon Kind="SquareEditOutline" />
-                                    <TextBlock Text="Sửa"/>
-                                </DockPanel>
+                            <Button  Command="{Binding UpdateType}" Content="Cập nhật" Margin="0 0 15 0" CommandParameter="{Binding ElementName=EmployeeTypeForm}">
                                 <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource IconTextBtn}">
+                                    <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
                                         <Setter Property="IsEnabled" Value="False"/>
                                         <Style.Triggers>
                                             <MultiDataTrigger>
@@ -143,12 +130,7 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
-                            <Button Command="{Binding DeleteType}" Width="80" Style="{StaticResource IconTextBtn}">
-                                <DockPanel>
-                                    <materialDesign:PackIcon Kind="TrashCanOutline" />
-                                    <TextBlock Text="Xóa"/>
-                                </DockPanel>
-                            </Button>
+                            <Button Command="{Binding DeleteType}" Content="Xóa" Width="80" Style="{StaticResource PrimaryBtn}"></Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

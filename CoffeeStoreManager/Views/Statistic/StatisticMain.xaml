@@ -64,7 +64,7 @@
                                         <DataGridTextColumn Header="Lợi nhuận" Binding="{Binding tong}" ></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
-                                <ListView x:Name="ListViewStatistic"  ItemsSource="{Binding DataListView}">
+                                <ListView FontSize="14" x:Name="ListViewStatistic"  ItemsSource="{Binding DataListView}">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                                             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
