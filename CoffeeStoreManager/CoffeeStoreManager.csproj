@@ -200,6 +200,7 @@
     <Compile Include="Resources\Utils\Validator.cs" />
     <Compile Include="ViewModels\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModels\AddFoodViewModel.cs" />
+    <Compile Include="ViewModels\CreateDiscountViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="ViewModels\RegulationViewModel.cs" />
     <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MonthReportViewModel.cs" />
+    <Compile Include="ViewModels\UpdateDiscountViewModel.cs" />
     <Compile Include="ViewModels\UpdateFoodViewModel.cs" />
     <Compile Include="ViewModels\UpdateEmployeeViewModel.cs" />
     <Compile Include="ViewModels\UpdateSourceViewModel.cs" />
@@ -227,6 +229,12 @@
     </Compile>
     <Compile Include="Views\Dashboard\DashboardMain.xaml.cs">
       <DependentUpon>DashboardMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Discount_Bill\CreateDiscountWindow.xaml.cs">
+      <DependentUpon>CreateDiscountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Discount_Bill\UpdateDiscountWindow.xaml.cs">
+      <DependentUpon>UpdateDiscountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageEmployee\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
@@ -336,6 +344,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dashboard\DashboardMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Discount_Bill\CreateDiscountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Discount_Bill\UpdateDiscountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

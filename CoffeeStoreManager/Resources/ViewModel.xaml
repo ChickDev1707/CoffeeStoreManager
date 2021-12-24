@@ -22,4 +22,6 @@
     <ViewModel:SalaryEmployeeViewModel x:Key="SalaryEmployeeVM"></ViewModel:SalaryEmployeeViewModel>
     <ViewModel:UpdateEmployeeViewModel x:Key="UpdateEmployeeVM"></ViewModel:UpdateEmployeeViewModel>
     <ViewModel:DashboardViewModel x:Key="DashboardVM"></ViewModel:DashboardViewModel>
+    <ViewModel:UpdateDiscountViewModel x:Key="UpdateDiscountVM"></ViewModel:UpdateDiscountViewModel>
+    <ViewModel:CreateDiscountViewModel x:Key="CreateDiscountVM"></ViewModel:CreateDiscountViewModel>
 </ResourceDictionary>

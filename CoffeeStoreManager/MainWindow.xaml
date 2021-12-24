@@ -140,9 +140,9 @@
                                 <ListView.View >
                                     <GridView>
                                         <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding ten_mon_an}" Width="300" />
-                                        <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien}" Width="150"/>
+                                        <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding gia_tien, Converter={StaticResource UIMoneyConverter}}" Width="150"/>
                                         <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding so_luong}" Width="135"/>
-                                        <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien}" Width="135"/>
+                                        <GridViewColumn Header="Thành tiền" DisplayMemberBinding="{Binding thanh_tien, Converter={StaticResource UIMoneyConverter}}" Width="135"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -153,7 +153,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center" 
                                 FontSize="14"/>
-                                <Label  Content="{Binding totalmoney}" 
+                                <Label  Content="{Binding totalmoney, Converter={StaticResource UIMoneyConverter}}" 
                                 Width="175"
                                 Foreground="#ff3838"
                                 Padding="20 3"

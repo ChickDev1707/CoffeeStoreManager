@@ -9,6 +9,7 @@ using System;
 using CoffeeStoreManager.Views;
 using CoffeeStoreManager.Views.Discount_Bill;
 using MaterialDesignThemes.Wpf;
+using System.Windows.Forms;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -150,7 +151,7 @@ namespace CoffeeStoreManager.ViewModels
         public ICommand ChooseTableCommand { get; set; }
         public ICommand ChangeTableCommand { get; set; }
         public ICommand DiscountCommand { get; set; }
-        
+
         void LoadInfor()
         {
             DateTime? today = DateTime.Now;
@@ -200,7 +201,7 @@ namespace CoffeeStoreManager.ViewModels
         }
         void AddViewBill(int number)
         {
-            var billdetail = new CT_HoaDon() { ma_mon_an = SelectedMonAn.ma_mon_an, so_luong = so_luong, thanh_tien = SelectedMonAn.gia_tien * so_luong };
+            var billdetail = new CT_HoaDon() { ma_mon_an = SelectedMonAn.ma_mon_an, so_luong = so_luong, gia_tien = SelectedMonAn.gia_tien, thanh_tien = SelectedMonAn.gia_tien * so_luong };
             var viewbill = new ViewBill()
             {
                 ma_mon_an = billdetail.ma_mon_an,
@@ -373,9 +374,7 @@ namespace CoffeeStoreManager.ViewModels
             MonAn = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns);
             QuyDinh = DataProvider.Ins.DB.QuyDinhs.FirstOrDefault();
             Tables = new ObservableCollection<Table>();
-            //soban = QuyDinh.so_ban;
             for (int i = 0; i < QuyDinh.so_ban; i++)
-            //for (int i = 0; i < 15; i++)
             {
                 Table item = new Table()
                 {
@@ -385,14 +384,6 @@ namespace CoffeeStoreManager.ViewModels
                     billoftable = new ObservableCollection<CT_HoaDon>()
                 };
                 Tables.Add(item);
-                //new Table() {tablenumber = 2 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 3 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 4 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 5 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 6 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 7 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 8 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()},
-                //new Table() {tablenumber = 9 ,status = false,viewbilloftable = new ObservableCollection<ViewBill>(),billoftable = new ObservableCollection<CT_HoaDon>()}
             };
             ItemcontrolButtonList = new ObservableCollection<ItemcontrolButton>();
             for (int i = 0; i < QuyDinh.so_ban; i++)
@@ -428,7 +419,13 @@ namespace CoffeeStoreManager.ViewModels
             {
                 if (BillDetail.Count() == 0 || BillDetail == null)
                 {
-                    AddViewBill(number);
+                    if (so_luong < 0)
+                    {
+                        MyMessageQueue.Enqueue("Số lượng món nhỏ hơn 0 nên đã bị xóa!");
+                        so_luong = 0;
+                    }
+                    else
+                        AddViewBill(number);
                     CheckColor();
                     LoadEmptyTable();
                 }
@@ -436,9 +433,24 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     int i = FindMonAn(SelectedMonAn.ma_mon_an);
                     if (i == -1)
-                        AddViewBill(number);
+                    {
+                        if (so_luong < 0)
+                        {
+                            MyMessageQueue.Enqueue("Số lượng món nhỏ hơn 0 nên đã bị xóa!");
+                            so_luong = 0;
+                        }
+                        else
+                            AddViewBill(number);
+                    }
                     else
+                    {
                         UpdateViewBill(i, so_luong);
+                        if ((BillDetail[i].so_luong + so_luong) <= 0)
+                        {
+                            MyMessageQueue.Enqueue("Số lượng món nhỏ hơn 0 nên đã bị xóa!");
+                        }
+                        so_luong = 0;
+                    }
                     CheckColor();
                     LoadEmptyTable();
                 }
@@ -475,7 +487,7 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     tong_tien = tong_tien + BillDetail[i].thanh_tien;
                 }
-                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today};
+                var bill = new HoaDon() { tong_tien = tong_tien, ngay_xuat_hoa_don = today, ma_ban_an = number };
                 DataProvider.Ins.DB.HoaDons.Add(bill);
                 DataProvider.Ins.DB.SaveChanges();
                 for (int i = 0; i < Tables[number - 1].billoftable.Count(); i++)
@@ -492,14 +504,27 @@ namespace CoffeeStoreManager.ViewModels
                 CheckColor();
                 LoadEmptyTable();
                 MyMessageQueue.Enqueue("Thanh toán thành công! ");
-                
-                if (totalmoney >= QuyDinh.muc_tien_nhan_uu_dai)
+                MessageBoxButton buttons = MessageBoxButton.YesNo;
+                DialogResult result = (DialogResult)System.Windows.MessageBox.Show("Bạn đã có phiếu ưu đãi hay chưa? ", "Kiểm tra", buttons);
+                if (result == DialogResult.Yes)
                 {
-                    DiscountWindow discountWindow = new DiscountWindow();
-                    discountWindow.ShowDialog();
+                    UpdateDiscountWindow updatediscountWindow = new UpdateDiscountWindow();
+                    updatediscountWindow.ShowDialog();
+                    MyMessageQueue.Enqueue("Xử lý ưu đãi thành công!");
                 }
+                else
+                {
+                    if (totalmoney >= QuyDinh.muc_tien_nhan_uu_dai)
+                    {
+                        CreateDiscountWindow creatediscountWindow = new CreateDiscountWindow();
+                        creatediscountWindow.ShowDialog();
+                        MyMessageQueue.Enqueue("Tạo phiếu ưu đãi thành công!");
+                    }
+
+                }
+                SelectedMonAn = null;
+                so_luong = 0;
                 totalmoney = 0;
-                MyMessageQueue.Enqueue("Xử lý ưu đãi thành công!");
             });
 
 
@@ -513,36 +538,6 @@ namespace CoffeeStoreManager.ViewModels
             {
                 int numberfirst = number;
                 int numbersecond = SelectedEmptyTable.index_emptytable;
-                //switch (SelectedEmptyTable.emptytable)
-                //{
-                //    case "Bàn 1":
-                //        numbersecond = 1;
-                //        break;
-                //    case "Bàn 2":
-                //        numbersecond = 2;
-                //        break;
-                //    case "Bàn 3":
-                //        numbersecond = 3;
-                //        break;
-                //    case "Bàn 4":
-                //        numbersecond = 4;
-                //        break;
-                //    case "Bàn 5":
-                //        numbersecond = 5;
-                //        break;
-                //    case "Bàn 6":
-                //        numbersecond = 6;
-                //        break;
-                //    case "Bàn 7":
-                //        numbersecond = 7;
-                //        break;
-                //    case "Bàn 8":
-                //        numbersecond = 8;
-                //        break;
-                //    case "Bàn 9":
-                //        numbersecond = 9;
-                //        break;
-                //}
                 TransTable(Tables[numbersecond - 1], Tables[numberfirst - 1]);
                 BillDetail.Clear();
                 totalmoney = 0;
