@@ -193,7 +193,7 @@
                                                 <Binding Path="SpecialOfferMoney" Converter="{StaticResource UIMoneyConverter}" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
                                                         <rule:NonEmptyRule/>
-                                                        <rule:PositiveNumberRule/>
+                                                        <rule:MoneyRule/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>
@@ -201,7 +201,7 @@
                                     </StackPanel>
                                 </DockPanel>
                             </StackPanel>
-                            <Button x:Name="saveRegulationChangeBtn" Margin="0 0 20 0" 
+                            <Button x:Name="saveRegulationChangeBtn" Margin="0 15 20 0" 
                                 HorizontalAlignment="Right" 
                                 VerticalAlignment="Bottom" 
                                 Content="Cập nhật" 
