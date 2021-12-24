@@ -16,6 +16,8 @@ namespace CoffeeStoreManager
         public MainWindow()
         {
             InitializeComponent();
+            MainViewModel mainViewModel = new MainViewModel();
+            this.DataContext = mainViewModel;
         }
 
         private void OpenAdminWindow(object sender, RoutedEventArgs e)

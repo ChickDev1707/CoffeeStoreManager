@@ -65,9 +65,9 @@ namespace CoffeeStoreManager.Views
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             Window mainWindow = new MainWindow();
-            mainWindow.ShowDialog();
+            mainWindow.Show();
+            this.Close();
         }
     }
     

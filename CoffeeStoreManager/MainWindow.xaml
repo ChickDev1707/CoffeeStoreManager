@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Title="Quản lý quán cafe" Height="720" Width="1150"
-        DataContext="{StaticResource MainVM}"
+        
         x:Name="mainWindow">
     <Window.Resources>
         <ResourceDictionary Source="./Views/Style/Button.xaml"/>
