@@ -65,8 +65,8 @@
                             <materialDesign:PackIcon Kind="User" />
                             <TextBox x:Name="nameTxb"  
                                      materialDesign:HintAssist.Hint="Tên" 
-                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                     Style="{StaticResource ValidationTextBox}">
+                                      
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 <TextBox.Text>
                                     <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
@@ -80,8 +80,8 @@
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Email" />
                             <TextBox x:Name="emailTxb"  materialDesign:HintAssist.Hint="Email"
-                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                     Style="{StaticResource ValidationTextBox}">
+                                      
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 <TextBox.Text>
                                     <Binding Path="Gmail" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
@@ -95,8 +95,8 @@
                         <DockPanel>
                             <materialDesign:PackIcon Kind="Phone" />
                             <TextBox x:Name="phoneTxb"  materialDesign:HintAssist.Hint="Số điện thoại"
-                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                     Style="{StaticResource ValidationTextBox}">
+                                      
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 <TextBox.Text>
                                     <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
@@ -109,8 +109,8 @@
                         <DockPanel>
                             <materialDesign:PackIcon Kind="AddressMarker" />
                             <TextBox x:Name="addressTxb" materialDesign:HintAssist.Hint="Địa chỉ"
-                                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                     Style="{StaticResource ValidationTextBox}">
+                                      
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 <TextBox.Text>
                                     <Binding Path="Address" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>

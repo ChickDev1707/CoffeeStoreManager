@@ -45,8 +45,8 @@
                                  Margin="0 0 20 0" 
                                  materialDesign:HintAssist.Hint="Họ và tên" 
                                  Grid.Column="0" 
-                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                 Style="{StaticResource ValidationTextBox}"
+                                  
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             >
                             <TextBox.Text>
                                 <Binding  Path="AddEmployeeHovaten" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
@@ -66,7 +66,7 @@
                             DisplayMemberPath="ten_loai_nhan_vien"
                             SelectedValuePath="ma_loai_nhan_vien"
                             Style="{StaticResource ValidationCombobox}"
-                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                             
                            >
                             <ComboBox.SelectedValue>
                                 <Binding Path="AddEmployeeMaloainhanvien" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True" >
@@ -81,8 +81,8 @@
                 <StackPanel>
                     <TextBox materialDesign:HintAssist.Hint="Số điện thoại" 
                              Name="EmployeePhoneNumber"
-                              Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                              Style="{StaticResource ValidationTextBox}">
+                               
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                         <TextBox.Text>
                             <Binding  Path="AddEmployeeSdt" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                 <Binding.ValidationRules>
@@ -103,7 +103,7 @@
                                     Name="DateofBirthPicker"
                                     materialDesign:HintAssist.Hint="Ngày sinh" 
                                     Margin="0 0 20 0" 
-                                    Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                     
                                      Style="{StaticResource ValidationDatePicker}"
                                    >
                             <DatePicker.SelectedDate>
@@ -121,8 +121,8 @@
                     <TextBox materialDesign:HintAssist.Hint="Địa chỉ" 
                              Height="100" 
                              Name="EmployeeAddress"
-                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                             Style="{StaticResource ValidationTextBox}"
+                              
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              >
                         <TextBox.Text>
                             <Binding  Path="AddEmployeeDiachi" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">

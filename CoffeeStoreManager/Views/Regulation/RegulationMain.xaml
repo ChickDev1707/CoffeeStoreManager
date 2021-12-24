@@ -98,8 +98,8 @@
                                 <StackPanel>
                                     <Label Content="Số bàn ăn"/>
                                     <TextBox x:Name="tableNumTxb"  Width="100" HorizontalAlignment="Left"
-                                         Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                         Style="{StaticResource ValidationTextBox}">
+                                          
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                         <TextBox.Text>
                                             <Binding Path="NumberOfTable" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                 <Binding.ValidationRules>
@@ -120,8 +120,8 @@
                                     <StackPanel Margin="0 0 40 0">
                                         <Label Content="Tuổi tối thiểu"/>
                                         <TextBox x:Name="minAgeTxb"  Width="150" HorizontalAlignment="Left"
-                                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                            Style="{StaticResource ValidationTextBox}">
+                                              
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                             <TextBox.Text>
                                                 <Binding Path="MinAge" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
@@ -135,8 +135,8 @@
                                     <StackPanel>
                                         <Label Content="Tuổi tối đa"/>
                                         <TextBox x:Name="maxAgeTxb"  Width="150" HorizontalAlignment="Left"
-                                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                            Style="{StaticResource ValidationTextBox}">
+                                              
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                             <TextBox.Text>
                                                 <Binding Path="MaxAge" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
@@ -172,8 +172,8 @@
                                     <StackPanel Margin="0 0 40 0">
                                         <Label Content="Định mức ưu đãi"/>
                                         <TextBox x:Name="specialOfferCountTxb"  Width="150" HorizontalAlignment="Left"
-                                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                            Style="{StaticResource ValidationTextBox}">
+                                              
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                             <TextBox.Text>
                                                 <Binding Path="SpecialOfferCount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
@@ -187,8 +187,8 @@
                                     <StackPanel Margin="0 0 40 0">
                                         <Label Content="Giá tiền ưu đãi"/>
                                         <TextBox x:Name="specialOfferMoneyTxb"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                            Style="{StaticResource ValidationTextBox}">
+                                              
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                             <TextBox.Text>
                                                 <Binding Path="SpecialOfferMoney" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
