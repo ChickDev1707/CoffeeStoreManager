@@ -141,14 +141,15 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Loại nhân viên" DisplayMemberBinding="{Binding loai_nhan_vien}"/>
-                            <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding tien_luong}"/>
+                                <GridViewColumn 
+                                Header="Tiền lương" 
+                                DisplayMemberBinding="{Binding tien_luong, Converter={StaticResource UIMoneyConverter}}">
+                                    
+                                </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </Border>
-            <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0 0 0 20">
-                <Button Style="{StaticResource PrimaryBtn}" Command="{Binding OpenSalaryWindow}" Margin="20 0 0 0" Content="Tính lương"/>
-            </StackPanel>
             </Grid>
             <materialDesign:Snackbar
                 HorizontalAlignment="Stretch"

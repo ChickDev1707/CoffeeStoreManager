@@ -10,6 +10,6 @@ namespace CoffeeStoreManager.Models
     {
         public int ma_loai_nhan_vien { get; set; }
         public string ten_loai_nhan_vien { get; set; }
-        public string tien_luong { get; set; }
+        public decimal tien_luong { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace CoffeeStoreManager.ViewModels
         public ICommand OpenAddEmployee { get; set; }
         public ICommand DeleteEmployee { get; set; }
         public ICommand OpenUpdateEmployee { get; set; }
-        public ICommand OpenSalaryWindow { get; set; }
+       
         public ICommand CheckItem { get; set; }
         public ICommand RefreshData { get; set; }
         public ICommand ImportExcel { get; set; }
@@ -63,7 +63,7 @@ namespace CoffeeStoreManager.ViewModels
             OpenAddEmployee = new RelayCommand<System.Windows.Window>((p) => { return true; }, (p) => { openAddEmployee(p); });
             DeleteEmployee = new RelayCommand<object>((p) => { return true; }, (p) => { deleteEmployee(p); });
             OpenUpdateEmployee = new RelayCommand<object>((p) => { return true; }, (p) => { openUpdateEmployee(p); });
-            OpenSalaryWindow = new RelayCommand<object>((p) => { return true; }, (p) => { openSalaryWindow(p); });
+            
             CheckItem = new RelayCommand<ListView>((p) => { return true; }, (p) => { checkSelectItem(p); });
             Search = new RelayCommand<object>((p) => { return true; }, (p) => { searchItem(p); });
             RefreshData = new RelayCommand<object>((p) => { return true; }, (p) => { refreshListEmployee(p); });
@@ -76,8 +76,107 @@ namespace CoffeeStoreManager.ViewModels
             MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
             MyMessageQueue.DiscardDuplicates = true;
 
+            MessageSalary();
             loadData();
         }
+        void MessageSalary()
+        {
+            int daysInM = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            if (DateTime.Now.Day == daysInM)
+            {
+                SolveSalary();
+                MyMessageQueue.Enqueue("Đã tính lương cho nhân viên");
+            }
+            else
+            {
+                string s = (daysInM - DateTime.Now.Day).ToString();
+                MyMessageQueue.Enqueue("Còn " + s + " ngày nữa sẽ tới ngày tính lương");
+            }    
+        }
+        void SolveSalary()
+        {
+            int month = DateTime.Today.Month;
+            int year = DateTime.Today.Year;
+            int days = DateTime.DaysInMonth(year, month);
+            decimal salary_per_day,totalSalary = 0;
+               
+
+            DateTime selectedDate = new DateTime(year, month, days);
+            List<NhanVien> list = DataProvider.Ins.DB.NhanViens.
+                Where(p => p.ngay_vao_lam <= selectedDate).
+                ToList();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                int manv = list[i].ma_nhan_vien;
+                int maloainv = (int)list[i].ma_loai_nhan_vien;
+                LoaiNhanVien lnv = DataProvider.Ins.DB.LoaiNhanViens.
+                    Where(p => p.ma_loai_nhan_vien == maloainv).SingleOrDefault();
+                salary_per_day = (decimal)lnv.tien_luong / days;   
+                if (maloainv == 1)
+                {
+                    DateTime now = DateTime.Now;
+                    CaLamPartTime calam = DataProvider.Ins.DB.CaLamPartTimes.
+                        Where(t => t.ma_nhan_vien == manv &&
+                                   now.Year == t.ngay_lam.Value.Year &&
+                                    now.Month == t.ngay_lam.Value.Month).FirstOrDefault();
+                    if (calam != null)
+                    {
+                        totalSalary += (decimal)(calam.so_gio_lam * lnv.tien_luong);
+                    }
+                    else
+                    {
+                        totalSalary += 0;
+                    }
+                }
+                else
+                {
+                    //viewE.VisiblePartTime = System.Windows.Visibility.Visible;
+                    //viewE.so_gio_lam = null;
+                    //viewE.so_ngay_nghi = (int)list[i].so_ngay_nghi;
+                    if (list[i].ngay_vao_lam.Month == month)
+                    {
+                        int workdays = (int)(selectedDate - list[i].ngay_vao_lam).TotalDays + 1;
+                        totalSalary = (decimal)(lnv.tien_luong - salary_per_day * (days - workdays + list[i].so_ngay_nghi));
+                    }
+                    else
+                    {
+                        if (list[i].so_ngay_nghi >= days)
+                        {
+                            totalSalary += 0;
+                        }
+                        totalSalary += (decimal)(lnv.tien_luong - (salary_per_day * list[i].so_ngay_nghi));
+                    }
+                }
+                NhanVien nv = DataProvider.Ins.DB.NhanViens.Where(t => t.ma_nhan_vien == manv).SingleOrDefault();
+                nv.so_ngay_nghi = 0;
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            SaveSalary(totalSalary);
+        }
+        void SaveSalary(decimal totalSalary)
+        {
+            DateTime now = DateTime.Now;
+            PhieuTinhLuong check = DataProvider.Ins.DB.PhieuTinhLuongs.
+                            Where(p => p.ngay_tinh_luong.Value.Year == now.Year && p.ngay_tinh_luong.Value.Month == now.Month)
+                            .FirstOrDefault();
+            if (check == null)
+            {
+                PhieuTinhLuong Sal = new PhieuTinhLuong()
+                {
+                    ngay_tinh_luong = new DateTime(now.Year, now.Month, 1),
+                    tong_tien = totalSalary,
+                };
+                DataProvider.Ins.DB.PhieuTinhLuongs.Add(Sal);
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            else
+            {
+                check.tong_tien = totalSalary;
+                DataProvider.Ins.DB.SaveChanges();
+            }
+        }
+
         void loadData()
         {
             loadDataEmployee();
@@ -356,8 +455,7 @@ namespace CoffeeStoreManager.ViewModels
                     };
                     if (employeeType != null)
                     {
-                        viewEmployee.tien_luong = employeeType.tien_luong.ToString();
-                        viewEmployee.tien_luong = MoneyConverter.convertMoney(viewEmployee.tien_luong);
+                        viewEmployee.tien_luong = (decimal)employeeType.tien_luong;
                         viewEmployee.ma_loai_nhan_vien = employeeType.ma_loai_nhan_vien;
                         viewEmployee.VisiblePartTime = Visibility.Visible;
                         if (employeeType.ma_loai_nhan_vien == 1)
@@ -436,12 +534,5 @@ namespace CoffeeStoreManager.ViewModels
                 window.ShowDialog();
             }
         }
-        void openSalaryWindow(object p)
-        {
-            SalaryWindow Swindow = new SalaryWindow();
-            Swindow.ShowDialog();
-            loadData();
-        }
-
     }
 }

@@ -36,8 +36,8 @@
                                     AncestorType={x:Type ListViewItem}}, 
                                     Converter={StaticResource ListIndexConverter}}"                
                                 ></GridViewColumn>
-                                <GridViewColumn Header="ma loai mon" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
-                                <GridViewColumn Header="ten loai mon" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
+                                <GridViewColumn Header="Mã loại món" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
+                                <GridViewColumn Header="Tên loại món" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

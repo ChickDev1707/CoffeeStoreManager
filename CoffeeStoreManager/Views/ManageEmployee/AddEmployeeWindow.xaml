@@ -103,8 +103,7 @@
                                     Name="DateofBirthPicker"
                                     materialDesign:HintAssist.Hint="Ngày sinh" 
                                     Margin="0 0 20 0" 
-                                     
-                                     Style="{StaticResource ValidationDatePicker}"
+                        
                                    >
                             <DatePicker.SelectedDate>
                                 <Binding Path="AddEmployeeNgaySinh" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
@@ -114,7 +113,11 @@
                                 </Binding>
                             </DatePicker.SelectedDate>
                         </DatePicker>
-                        <DatePicker Grid.Column="1" Style="{StaticResource MaterialDesignDatePicker}" materialDesign:HintAssist.Hint="Ngày vào làm" SelectedDate="{Binding AddEmployeeNgayvaolam}"/>
+                        <DatePicker Grid.Column="1" 
+                                    materialDesign:HintAssist.Hint="Ngày vào làm" 
+                                    SelectedDate="{Binding AddEmployeeNgayvaolam}">
+                           
+                        </DatePicker>
                     </Grid>
                 </StackPanel>
                 <StackPanel>

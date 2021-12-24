@@ -19,7 +19,7 @@ namespace CoffeeStoreManager.ViewModels
         
         private ObservableCollection<ViewTypeEmployee> typeEmployeeList;
         private string textTypeNameEmployee;
-        private string textSalary;
+        private long salary;
         private ViewTypeEmployee selectedLoaiNhanVien;
         private SnackbarMessageQueue myMessageQueue;
 
@@ -34,18 +34,18 @@ namespace CoffeeStoreManager.ViewModels
                 OnPropertyChanged(nameof(selectedLoaiNhanVien));
                 if (SelectedLoaiNhanVien != null)
                 {
-                    TextSalary = SelectedLoaiNhanVien.tien_luong.ToString();
+                    Salary = (long)SelectedLoaiNhanVien.tien_luong;
                     TextTypeNameEmployee = SelectedLoaiNhanVien.ten_loai_nhan_vien;
                 }
             }
         }
-        public string TextSalary
+        public long Salary
         {
-            get { return textSalary; }
+            get { return salary; }
             set
             {
-                textSalary = value;
-                OnPropertyChanged(nameof(textSalary));
+                salary = value;
+                OnPropertyChanged(nameof(salary));
             }
         }
         public string TextTypeNameEmployee
@@ -88,7 +88,7 @@ namespace CoffeeStoreManager.ViewModels
                 ViewTypeEmployee view = new ViewTypeEmployee();
                 view.ma_loai_nhan_vien = list[i].ma_loai_nhan_vien;
                 view.ten_loai_nhan_vien = list[i].ten_loai_nhan_vien;
-                view.tien_luong = MoneyConverter.convertMoney(list[i].tien_luong.ToString());
+                view.tien_luong = (decimal)list[i].tien_luong;
                 Obs.Add(view);
             }
             return Obs;
@@ -97,13 +97,8 @@ namespace CoffeeStoreManager.ViewModels
         {
             if (Validator.IsValid(p))
             {
-                string[] money = TextSalary.Split('.');
-                string salary = "";
-                for (int i = 0; i < money.Length; i++)
-                {
-                    salary += money[i];
-                }
-                DataProvider.Ins.DB.LoaiNhanViens.Add(new LoaiNhanVien() { ten_loai_nhan_vien = TextTypeNameEmployee, tien_luong = decimal.Parse(salary) });
+              
+                DataProvider.Ins.DB.LoaiNhanViens.Add(new LoaiNhanVien() { ten_loai_nhan_vien = TextTypeNameEmployee, tien_luong = Salary });
                 try
                 {
                     DataProvider.Ins.DB.SaveChanges();
@@ -113,7 +108,7 @@ namespace CoffeeStoreManager.ViewModels
                     return;
                 }
                 LoadData();
-                TextSalary = "";
+                Salary = 0;
                 TextTypeNameEmployee = "";
                 this.MyMessageQueue.Enqueue("Thêm thành công!");
             }
@@ -127,12 +122,7 @@ namespace CoffeeStoreManager.ViewModels
 
             if (Validator.IsValid(p))
             {
-                string[] money = TextSalary.Split('.');
-                string salary = "";
-                for (int i = 0; i < money.Length; i++)
-                {
-                    salary += money[i];
-                }
+               
                 if (SelectedLoaiNhanVien == null)
                 {
                     this.MyMessageQueue.Enqueue("Lỗi. Vui lòng chọn 1 nhân viên");
@@ -144,7 +134,7 @@ namespace CoffeeStoreManager.ViewModels
                 {
                     UpdTypeEmployee.ten_loai_nhan_vien = TextTypeNameEmployee;
                 }
-                UpdTypeEmployee.tien_luong = decimal.Parse(salary);
+                UpdTypeEmployee.tien_luong = Salary;
                 try
                 {
                     DataProvider.Ins.DB.SaveChanges();
@@ -155,7 +145,7 @@ namespace CoffeeStoreManager.ViewModels
                     return;
                 }
                 LoadData();
-                TextSalary = "";
+                Salary = 0;
                 TextTypeNameEmployee = "";
                 this.MyMessageQueue.Enqueue("Sửa thông tin thành công!");
             }
@@ -168,24 +158,34 @@ namespace CoffeeStoreManager.ViewModels
         {
             if (SelectedLoaiNhanVien != null)
             {
+                List<NhanVien> ListEmployee = DataProvider.Ins.DB.NhanViens.Where(t => t.ma_loai_nhan_vien == SelectedLoaiNhanVien.ma_loai_nhan_vien).ToList();
                 if (SelectedLoaiNhanVien.ma_loai_nhan_vien == 1) //Ma nv part-time = 1
                 {
+                    this.MyMessageQueue.Enqueue("Lỗi. không thể xóa loại nhân viên này");
                     return;
                 }
-                var ClrTypeEmployee = DataProvider.Ins.DB.LoaiNhanViens.
-                   Where(t => t.ma_loai_nhan_vien == SelectedLoaiNhanVien.ma_loai_nhan_vien).FirstOrDefault();
-                List<NhanVien> ListEmployee = DataProvider.Ins.DB.NhanViens.ToList();
-                for (int i = 0; i < ListEmployee.Count; i++)
+                else
                 {
-                    if (ListEmployee[i].ma_loai_nhan_vien == ClrTypeEmployee.ma_loai_nhan_vien)
+                    if (ListEmployee.Count != 0)
                     {
-                        ListEmployee[i].LoaiNhanVien.tien_luong =0;
-                        DataProvider.Ins.DB.NhanViens.Remove(ListEmployee[i]);
+                        this.MyMessageQueue.Enqueue("Lỗi. không thể xóa vì loại nhân viên đang được sử dụng");
+                        return;
                     }
+                    var ClrTypeEmployee = DataProvider.Ins.DB.LoaiNhanViens.
+                       Where(t => t.ma_loai_nhan_vien == SelectedLoaiNhanVien.ma_loai_nhan_vien).FirstOrDefault();
+                    for (int i = 0; i < ListEmployee.Count; i++)
+                    {
+                        if (ListEmployee[i].ma_loai_nhan_vien == ClrTypeEmployee.ma_loai_nhan_vien)
+                        {
+                            ListEmployee[i].LoaiNhanVien.tien_luong = 0;
+                            DataProvider.Ins.DB.NhanViens.Remove(ListEmployee[i]);
+                        }
+                    }
+                    DataProvider.Ins.DB.LoaiNhanViens.Remove(ClrTypeEmployee);
+                    DataProvider.Ins.DB.SaveChanges();
+                    LoadData();
+                    this.MyMessageQueue.Enqueue("Xóa thành công");
                 }
-                DataProvider.Ins.DB.LoaiNhanViens.Remove(ClrTypeEmployee);
-                DataProvider.Ins.DB.SaveChanges();
-                LoadData();
             }
         }
     }

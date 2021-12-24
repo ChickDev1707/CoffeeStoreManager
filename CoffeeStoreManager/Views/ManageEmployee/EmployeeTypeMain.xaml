@@ -42,7 +42,8 @@
                             ></GridViewColumn>
                             <GridViewColumn Header="Mã loại" DisplayMemberBinding="{Binding Path=ma_loai_nhan_vien}"></GridViewColumn>
                             <GridViewColumn Header="Tên loại" DisplayMemberBinding="{Binding Path=ten_loai_nhan_vien}"></GridViewColumn>
-                            <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong}"></GridViewColumn>
+                                <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong, Converter={StaticResource UIMoneyConverter}}">
+                                </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -72,7 +73,9 @@
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
                                     </Binding.ValidationRules>
+                                     
                                 </Binding>
+                                
                             </TextBox.Text>
                         </TextBox>
                         <TextBlock>Tiền lương</TextBlock>
@@ -81,12 +84,13 @@
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  >
                             <TextBox.Text>
-                                <Binding  Path="TextSalary" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                    <Binding  Path="Salary" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
-                                        <rule:MoneyRule/>
+                                        <rule:PositiveNumberRule/>
                                     </Binding.ValidationRules>
-                                </Binding>
+       
+                                    </Binding>
                             </TextBox.Text>
                         </TextBox>
                     </StackPanel>

@@ -20,8 +20,7 @@ namespace CoffeeStoreManager.Models
         public bool check_selected_item { get; set; }
         //
         public Visibility VisiblePartTime { get; set; }
-        public string tien_luong { get; set; }
-        public string luong_nhan { get; set; }
+        public decimal tien_luong { get; set; }
         public int so_ngay_nghi { get; set; }
         public string so_gio_lam { get; set; }
         public string sdt { get; set; }
@@ -46,7 +45,6 @@ namespace CoffeeStoreManager.Models
             check_selected_item = b.check_selected_item;
             VisiblePartTime = b.VisiblePartTime;
             tien_luong = b.tien_luong;
-            luong_nhan = b.luong_nhan;
             so_ngay_nghi = b.so_ngay_nghi;
             so_gio_lam = b.so_gio_lam;
             loai_nhan_vien = b.loai_nhan_vien;
