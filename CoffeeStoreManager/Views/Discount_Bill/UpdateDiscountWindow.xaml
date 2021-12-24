@@ -8,61 +8,88 @@
         xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Ưu đãi khách hàng" Height="360" Width="353.6"
+        Title="Ưu đãi khách hàng" Height="400" Width="380"
         x:Name="updatediscountWindow">
-    <Grid Background="White" HorizontalAlignment="Left"  >
-        <Button Content="Tra cứu" 
-                HorizontalAlignment="Left" 
-                Height="31" Margin="165,73,0,0" 
-                VerticalAlignment="Top" Width="83" 
-                Background="#FFDD97A6"
-                Command="{Binding FindIDCustomerCommand}"/>
-        <Label Content="Mã khách hàng:" 
-               HorizontalAlignment="Left" Height="31" Margin="49,14,0,0" 
-               VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.5,0.5"/>
-        <TextBox x:Name="IdFirst" HorizontalAlignment="Left" 
-                 Height="38" Margin="142,5,0,0" 
-                 TextWrapping="Wrap" 
-                 materialDesign:HintAssist.Hint="Số CMND hoặc số CCCD"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 VerticalAlignment="Top" Width="153">
-            <TextBox.Text>
-                <Binding Path="IdFirst" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
-                    <Binding.ValidationRules>
-                        <rule:NonEmptyRule/>
-                        <rule:PositiveNumberRule/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-        <!--<Label Content="Mã khách hàng:" 
-               HorizontalAlignment="Left" Height="31" Margin="55,142,0,0" VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.5,0.5"/>
-        <Label HorizontalAlignment="Left" Height="24" Margin="149,144,0,0"  Content="{Binding IdResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="129" BorderBrush="Black" Foreground="Black" Background="#FFF4EFEF" />-->
-        <Label Content="Số lần đã mua:" HorizontalAlignment="Left" Height="31" Margin="31,144,0,0" VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.5,0.5"/>
-        <Label HorizontalAlignment="Left" Height="24" Margin="125,146,0,0" Content="{Binding NumberResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190" BorderBrush="Black" Foreground="Black" Background="#FFF4EFEF" />
-        <Button Content="Thêm" 
-                HorizontalAlignment="Left" 
-                Height="31" Margin="263,73,0,0" 
-                VerticalAlignment="Top" Width="67" 
-                Background="#FFDD97A6"
-                Command="{Binding AddCustomerCommand}"
-                CommandParameter="{Binding ElementName=updatediscountWindow}"/>
-        <Label Content="Danh sách món được ưu đãi:" HorizontalAlignment="Left" Height="27" Margin="35,227,0,0" VerticalAlignment="Top" Width="168"/>
-        <ComboBox DisplayMemberPath="ten_mon_an" 
-                  materialDesign:HintAssist.Hint="Món ăn"
-                  ItemsSource="{Binding DiscountFood}" 
-                  SelectedItem="{Binding SelectedDiscountFood, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  Margin="45,264,167.2,35.4" />
-        <Button Content="Chọn ưu đãi" 
-                HorizontalAlignment="Left" 
-                Height="31" Margin="207,264,0,0" 
-                VerticalAlignment="Top" Width="103" 
-                Background="#FFDD97A6"
-                Command="{Binding SeleteDiscountCommand}"
-                CommandParameter="{Binding ElementName=updatediscountWindow}" Padding="10,4"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,122,-5.8,0" VerticalAlignment="Top" Width="353"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="0,204,-6.8,0" VerticalAlignment="Top" Width="354"/>
-        <!--<Label Content="Kết quả tra cứu: " HorizontalAlignment="Left" Height="31" Margin="55,116,0,0" VerticalAlignment="Top" Width="136"/>-->
+    <Window.Resources>
+        <ResourceDictionary Source="../Style/Button.xaml"/>
+    </Window.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Border" x:Key="Container">
+                <Setter Property="Padding" Value="20 10"/>
+            </Style>
+            <Style TargetType="Border" x:Key="Line">
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Height" Value="1.5"/>
+            </Style>
+            <Style x:Key="Title" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="Margin" Value="0 0 0 5"/>
+            </Style>
+        </Grid.Resources>
+        <Border Grid.Row="0" Style="{StaticResource Container}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource Title}" Text="Phiếu ưu đãi"/>
+                <TextBox x:Name="IdFirst"
+                     TextWrapping="Wrap" 
+                     Margin="0 0 0 15"
+                     materialDesign:HintAssist.Hint="Số CMND hoặc số CCCD"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="IdFirst" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                            <Binding.ValidationRules>
+                                <rule:NonEmptyRule/>
+                                <rule:PositiveNumberRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Tra cứu" Style="{StaticResource PrimaryBtn}" Command="{Binding FindIDCustomerCommand}" Margin="0 0 20 0"/>
+                    <Button Content="Cập nhật" 
+                        Style="{StaticResource PrimaryBtn}"
+                        Command="{Binding AddCustomerCommand}"
+                        CommandParameter="{Binding ElementName=updatediscountWindow}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Style="{StaticResource Line}"/>
+        <Border Grid.Row="2" Style="{StaticResource Container}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource Title}" Text="Thông tin ưu đãi"/>
+                <DockPanel>
+                    <Label Content="Số lần đã mua:" HorizontalAlignment="Left" FontSize="14"/>
+                    <Label HorizontalAlignment="Right" FontSize="14" Height="30" Content="{Binding NumberResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" BorderBrush="Black" Foreground="Black" Background="#FFF4EFEF" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="3" Style="{StaticResource Line}"/>
+        <Border Grid.Row="4" Style="{StaticResource Container}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource Title}" Text="Chọn sản phẩm"/>
+
+                <ComboBox 
+                    Margin="0 0 0 15"
+                    FontSize="14"
+                    DisplayMemberPath="ten_mon_an" 
+                    materialDesign:HintAssist.Hint="Món ăn"
+                    ItemsSource="{Binding DiscountFood}" 
+                    SelectedItem="{Binding SelectedDiscountFood, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Chọn ưu đãi" 
+                    Style="{StaticResource PrimaryBtn}"                    
+                    HorizontalAlignment="Right" 
+                    Command="{Binding SeleteDiscountCommand}"
+                    CommandParameter="{Binding ElementName=updatediscountWindow}"/>
+            </StackPanel>
+        </Border>
         <materialDesign:Snackbar
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom"
