@@ -103,13 +103,6 @@ namespace CoffeeStoreManager.ViewModels
             }
             return false;
         }
-        void Closeform()
-        {
-            count = num = numcheck = 0;
-            SelectedDiscountFood = null;
-            IdFirst = NumberResult = "";
-
-        }
         void CheckOut(HoaDon bill)
         {
             for (int i = 0; i < billdetail.Count(); i++)
@@ -132,9 +125,15 @@ namespace CoffeeStoreManager.ViewModels
         {
             numcheck = 0;
             num = 0;
+            count = 0;
             IdFirst = "";
             IdResult = NumberResult = "";
-            DiscountList = new ObservableCollection<PhieuUuDai>(DataProvider.Ins.DB.PhieuUuDais);
+            DiscountList = new ObservableCollection<PhieuUuDai>();
+            var list = new ObservableCollection<PhieuUuDai>(DataProvider.Ins.DB.PhieuUuDais);
+            foreach (var item in list)
+            {
+                DiscountList.Add(item);
+            }
             QuyDinh = DataProvider.Ins.DB.QuyDinhs.FirstOrDefault();
             DiscountFood = new ObservableCollection<MonAn>();
             var discountfood = new ObservableCollection<MonAn>(DataProvider.Ins.DB.MonAns);
@@ -201,13 +200,8 @@ namespace CoffeeStoreManager.ViewModels
                         if (i == -1)
                         {
                             var discount = new PhieuUuDai() { ma_uu_dai = IdFirst };
-                            if (count > numfood)
+                            if (count >= numfood)
                             {
-                                //while (count >= numfood)
-                                //{
-                                //    num++;
-                                //    count -= (int)numfood;
-                                //}
                                 IdResult = IdFirst;
                                 //if (count < numfood)
                                 count = 0;
@@ -216,6 +210,7 @@ namespace CoffeeStoreManager.ViewModels
                                 discount.so_luot_mua = count;
                                 DataProvider.Ins.DB.PhieuUuDais.Add(discount);
                                 DataProvider.Ins.DB.SaveChanges();
+
                             }
                             else
                             {
@@ -224,23 +219,6 @@ namespace CoffeeStoreManager.ViewModels
                                 count = num = 0;
                                 p.Close();
                             }
-                            //else if (count == numfood)
-                            //{
-                            //    num = 1;
-                            //    discount.so_luot_mua = 0;
-                            //    NumberResult = " 0 (còn " + Convert.ToString(num) + " lượt ưu đãi)";
-                            //    DataProvider.Ins.DB.PhieuUuDais.Add(discount);
-                            //    DataProvider.Ins.DB.SaveChanges();
-                            //}
-                            //else
-                            //{
-                            //    IdFirst = IdResult = NumberResult = "";
-                            //    discount.so_luot_mua = count;
-                            //    DataProvider.Ins.DB.PhieuUuDais.Add(discount);
-                            //    DataProvider.Ins.DB.SaveChanges();
-                            //    //CheckOut(bill);
-                            //    p.Close();
-                            //}
                         }
                         else
                         {
@@ -252,7 +230,9 @@ namespace CoffeeStoreManager.ViewModels
                             // NumberResult = Convert.ToString(discount.so_luot_mua);
                             if (count < numfood)
                             {
-                                Closeform();
+                                count = num = numcheck = 0;
+                                SelectedDiscountFood = null;
+                                IdFirst = NumberResult = "";
                                 p.Close();
                             }
                             else
@@ -260,17 +240,12 @@ namespace CoffeeStoreManager.ViewModels
                                 count = 0;
                                 num = 1;
                                 NumberResult = Convert.ToString(count) + " (còn " + Convert.ToString(num) + " lượt ưu đãi)";
-                                //while (count >= numfood)
-                                //{
-                                //    num++;
-                                //    count -= (int)numfood;
-                                //}
-                                //NumberResult = Convert.ToString(count) + " (còn " + Convert.ToString(num) + " lượt ưu đãi)";
                                 discount.so_luot_mua = count;
                                 DataProvider.Ins.DB.SaveChanges();
                             }
                         }
                         MyMessageQueue.Enqueue("Thêm ưu đãi thành công!");
+
                     }
                     else
                         MyMessageQueue.Enqueue("Error, hóa đơn đã được xử lý ưu đãi!");
@@ -316,7 +291,9 @@ namespace CoffeeStoreManager.ViewModels
                 }
                 else
                 {
-                    Closeform();
+                    count = num = numcheck = 0;
+                    SelectedDiscountFood = null;
+                    IdFirst = NumberResult = "";
                     p.Close();
                 }
             });

@@ -360,12 +360,12 @@ namespace CoffeeStoreManager.ViewModels
                 if (loginVM.IsLogin)
                 {
                     AdminWindow adminWindow = new AdminWindow();
-                    adminWindow.ShowDialog();
-                    loginWindow.Close();
+                    adminWindow.Show();
+                    p.Close();
                 }
                 else
                 {
-                    p.ShowDialog();
+                    p.Show();
                     loginWindow.Close();
                 }
             });

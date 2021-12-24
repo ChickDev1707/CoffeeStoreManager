@@ -9,7 +9,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Ưu đãi khách hàng" Height="360" Width="353.6"
-        DataContext="{StaticResource UpdateDiscountVM}"
         x:Name="updatediscountWindow">
     <Grid Background="White" HorizontalAlignment="Left"  >
         <Button Content="Tra cứu" 

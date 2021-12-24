@@ -8,7 +8,6 @@
         xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        DataContext="{StaticResource CreateDiscountVM}"
         Title="Tạo ưu đãi khách hàng" Height="300" Width="353.6"
         x:Name="creatediscountWindow">
     <Grid Background="White" HorizontalAlignment="Left"  >

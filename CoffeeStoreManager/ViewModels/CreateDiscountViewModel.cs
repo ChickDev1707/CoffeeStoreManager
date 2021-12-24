@@ -26,8 +26,6 @@ namespace CoffeeStoreManager.ViewModels
         }
         private string _IdFirst;
         public string IdFirst { get => _IdFirst; set { _IdFirst = value; OnPropertyChanged(nameof(IdFirst)); } }
-        //private string _IdResult;
-        //public string IdResult { get => _IdResult; set { _IdResult = value; OnPropertyChanged(nameof(IdResult)); } }
         private string _NumberResult;
         public string NumberResult { get => _NumberResult; set { _NumberResult = value; OnPropertyChanged(nameof(NumberResult)); } }
         private QuyDinh _QuyDinh;
@@ -103,30 +101,6 @@ namespace CoffeeStoreManager.ViewModels
             }
             return false;
         }
-        void Closeform()
-        {
-            count = num = numcheck = 0;
-            SelectedDiscountFood = null;
-            IdFirst = NumberResult = "";
-
-        }
-        void CheckOut(HoaDon bill)
-        {
-            for (int i = 0; i < billdetail.Count(); i++)
-            {
-                var item = new CT_HoaDon()
-                {
-                    ma_hoa_don = bill.ma_hoa_don,
-                    ma_mon_an = billdetail[i].ma_mon_an,
-                    so_luong = billdetail[i].so_luong,
-                    //gia_tien = billdetail[i].gia_tien,
-                    //thanh_tien = billdetail[i].so_luong * billdetail[i].gia_tien
-                };
-                DataProvider.Ins.DB.CT_HoaDon.Add(item);
-                DataProvider.Ins.DB.SaveChanges();
-            }
-            billdetail.Clear();
-        }
         public List<CT_HoaDon> billdetail;
         public CreateDiscountViewModel()
         {
@@ -150,34 +124,6 @@ namespace CoffeeStoreManager.ViewModels
             MyMessageQueue.DiscardDuplicates = true;
             int? numfood = QuyDinh.count_uu_dai;
 
-
-            ////Tra cứu mã khách hàng trong database
-            //FindIDCustomerCommand = new RelayCommand<object>((p) =>
-            //{
-            //    if (String.IsNullOrEmpty(IdFirst))
-            //        return false;
-            //    return true;
-            //}, (p) =>
-            //{
-            //    if (IdFirst.Length == 9 || IdFirst.Length == 12)
-            //    {
-            //        int i = FindIDCustomer(IdFirst);
-            //        if (i == -1)
-            //        {
-            //            IdResult = NumberResult = "Chưa có dữ liệu";
-            //        }
-            //        else
-            //        {
-            //            //IdResult = Convert.ToString(DiscountList[i].ma_uu_dai);
-            //            NumberResult = Convert.ToString(DiscountList[i].so_luot_mua);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        MyMessageQueue.Enqueue("Error, Số không hợp lệ!");
-            //        NumberResult = "";
-            //    }
-            //});
 
             //Tạo phiếu mua hàng cho khách
             AddCustomerCommand = new RelayCommand<Window>((p) =>
@@ -212,26 +158,11 @@ namespace CoffeeStoreManager.ViewModels
                                 DataProvider.Ins.DB.PhieuUuDais.Add(discount);
                                 DataProvider.Ins.DB.SaveChanges();
                             }
-                            //else if (count == numfood)
-                            //{
-                            //    num = 1;
-                            //    discount.so_luot_mua = 0;
-                            //    NumberResult = " 0 (còn " + Convert.ToString(num) + " lượt ưu đãi)";
-                            //    DataProvider.Ins.DB.PhieuUuDais.Add(discount);
-                            //    DataProvider.Ins.DB.SaveChanges();
-                            //}
-                            //else
-                            //{
-                            //    IdFirst = NumberResult = "";
-                            //    discount.so_luot_mua = count;
-                            //    DataProvider.Ins.DB.PhieuUuDais.Add(discount);
-                            //    DataProvider.Ins.DB.SaveChanges();
-                            //    //CheckOut(bill);
-                            //    p.Close();
-                            //}
                             else
                             {
-                                Closeform();
+                                discount.so_luot_mua = count;
+                                DataProvider.Ins.DB.PhieuUuDais.Add(discount);
+                                DataProvider.Ins.DB.SaveChanges();
                                 p.Close();
                             }
                         }
@@ -246,17 +177,10 @@ namespace CoffeeStoreManager.ViewModels
                             // NumberResult = Convert.ToString(discount.so_luot_mua);
                             if (count < numfood)
                             {
-                                IdFirst = NumberResult = "";
                                 p.Close();
                             }
                             else
                             {
-                                //while (count >= numfood)
-                                //{
-                                //    num++;
-                                //    count -= (int)numfood;
-                                //}
-                                //NumberResult = Convert.ToString(count) + " (còn " + Convert.ToString(num) + " lượt ưu đãi)";
                                 count = 0;
                                 num = 1;
                                 MyMessageQueue.Enqueue("Hãy chọn món ưu đãi.");
@@ -310,57 +234,8 @@ namespace CoffeeStoreManager.ViewModels
                 }
                 else
                 {
-                    Closeform();
                     p.Close();
                 }
-                /*else if (num == 0 && discount.so_luot_mua == numfood)
-                {
-                    var discountbill = (from u in DataProvider.Ins.DB.CT_HoaDon where u.ma_mon_an == SelectedDiscountFood.ma_mon_an select u).FirstOrDefault();
-                    if (discountbill != null)
-                    {
-                        discountbill.so_luong++;
-                        DataProvider.Ins.DB.SaveChanges();
-                    }
-                    else if (discountbill == null)
-                    {
-                        var item = new CT_HoaDon()
-                        {
-                            ma_hoa_don = bill[bill.Count() - 1].ma_hoa_don,
-                            ma_mon_an = SelectedDiscountFood.ma_mon_an,
-                            so_luong = 1,
-                            //gia_tien = 0,
-                            thanh_tien = 0
-                        };
-                        DataProvider.Ins.DB.CT_HoaDon.Add(item);
-                        DataProvider.Ins.DB.SaveChanges();
-                    }
-                    DataProvider.Ins.DB.PhieuUuDais.Remove(discount);
-                    DataProvider.Ins.DB.SaveChanges();
-                }
-                else if (num == 0 && discount.so_luot_mua < numfood)
-                {
-                    var discountbill = (from u in DataProvider.Ins.DB.CT_HoaDon where u.ma_mon_an == SelectedDiscountFood.ma_mon_an select u).FirstOrDefault();
-                    if (discountbill != null)
-                    {
-                        discountbill.so_luong++;
-                        DataProvider.Ins.DB.SaveChanges();
-                    }
-                    else if (discountbill == null)
-                    {
-                        var item = new CT_HoaDon()
-                        {
-                            ma_hoa_don = bill[bill.Count() - 1].ma_hoa_don,
-                            ma_mon_an = SelectedDiscountFood.ma_mon_an,
-                            so_luong = 1,
-                            //gia_tien = 0,
-                            thanh_tien = 0
-                        };
-                        DataProvider.Ins.DB.CT_HoaDon.Add(item);
-                        DataProvider.Ins.DB.SaveChanges();
-                    }
-                    IdFirst = IdResult = NumberResult = "";
-                    p.Close();
-                }*/
             });
         }
     }

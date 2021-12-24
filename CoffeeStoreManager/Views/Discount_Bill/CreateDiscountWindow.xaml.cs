@@ -22,6 +22,8 @@ namespace CoffeeStoreManager.Views.Discount_Bill
         public CreateDiscountWindow()
         {
             InitializeComponent();
+            CreateDiscountViewModel createdicountvm = new CreateDiscountViewModel();
+            this.DataContext = createdicountvm;
         }
     }
 }

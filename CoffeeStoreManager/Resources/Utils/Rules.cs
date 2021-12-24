@@ -78,11 +78,15 @@ namespace CoffeeStoreManager.Resources.Utils
             {
                 salary += moneyArr[i];
             }
-            if (decimal.TryParse(salary, out check) == false)
+            if (decimal.TryParse(salary, out check) == true)
+            {
+                if(check< 0) return new ValidationResult(false, "Số tiền không được nhỏ hơn 0");
+                return ValidationResult.ValidResult;
+            }
+            else
             {
                 return new ValidationResult(false, "Số tiền không hợp lệ");
             }
-            return ValidationResult.ValidResult;
         }
     }
     public class DateOfBirth : ValidationRule
