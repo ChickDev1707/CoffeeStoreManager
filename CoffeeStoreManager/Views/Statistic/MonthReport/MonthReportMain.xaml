@@ -112,17 +112,17 @@
                             <Grid >
                                 <syncfusion:SfChart Header="Chart" Palette="Metro">
                                     <syncfusion:SfChart.PrimaryAxis>
-                                        <syncfusion:CategoryAxis Header="Loai mon an" FontSize="14"/>
+                                        <syncfusion:CategoryAxis Header="Loại món ăn" FontSize="14"/>
                                     </syncfusion:SfChart.PrimaryAxis>
 
                                     <syncfusion:SfChart.SecondaryAxis>
-                                        <syncfusion:NumericalAxis Header="So luong" FontSize="14"/>
+                                        <syncfusion:NumericalAxis Header="Số lượng" FontSize="14"/>
                                     </syncfusion:SfChart.SecondaryAxis>
 
                                     <syncfusion:SfChart.Legend>
                                         <syncfusion:ChartLegend/>
                                     </syncfusion:SfChart.Legend>
-                                    <syncfusion:ColumnSeries Label="So luong" ItemsSource="{Binding Report}" XBindingPath="ten_loai_mon_an" YBindingPath="tong_so_luong" ShowTooltip="True" >
+                                    <syncfusion:ColumnSeries Label="Số lượng" ItemsSource="{Binding Report}" XBindingPath="ten_loai_mon_an" YBindingPath="tong_so_luong" ShowTooltip="True" >
                                         <syncfusion:ColumnSeries.AdornmentsInfo>
                                             <syncfusion:ChartAdornmentInfo ShowLabel="True" >
                                             </syncfusion:ChartAdornmentInfo>

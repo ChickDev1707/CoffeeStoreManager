@@ -59,30 +59,31 @@
                     </StackPanel>
                     <SharedUC:SearchBar HorizontalAlignment="Right"/>
                 </DockPanel>
-                <ListView 
-                    Grid.Row="1" 
-                    x:Name="SourceList" 
-                    FontSize="14" 
-                    ItemsSource="{Binding SourceList}" 
-                    SelectedItem="{Binding SelectedSourceItem}" 
-                    ScrollViewer.VerticalScrollBarVisibility="Visible"
-                    ScrollViewer.CanContentScroll="False"
-                >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn 
+                <Border Grid.Row="1" Style="{StaticResource MainBorder}">
+                    <ListView                         
+                        x:Name="SourceList" 
+                        FontSize="14" 
+                        ItemsSource="{Binding SourceList}" 
+                        SelectedItem="{Binding SelectedSourceItem}" 
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        ScrollViewer.CanContentScroll="False"
+                    >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn 
                             Header="STT" 
                             DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type ListViewItem}}, 
                             Converter={StaticResource ListIndexConverter}}"                
                         ></GridViewColumn>
-                        <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding Path=ngay_nhap}"></GridViewColumn>
-                        <GridViewColumn Header="Nhà cung cấp" DisplayMemberBinding="{Binding Path=nha_cung_cap}"></GridViewColumn>
-                        <GridViewColumn Header="Số lượng mặt hàng" DisplayMemberBinding="{Binding Path=so_luong_mat_hang}"></GridViewColumn>
-                        <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                                <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding Path=ngay_nhap}"></GridViewColumn>
+                                <GridViewColumn Header="Nhà cung cấp" DisplayMemberBinding="{Binding Path=nha_cung_cap}"></GridViewColumn>
+                                <GridViewColumn Header="Số lượng mặt hàng" DisplayMemberBinding="{Binding Path=so_luong_mat_hang}"></GridViewColumn>
+                                <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
             </Grid>
             <materialDesign:Snackbar
                 HorizontalAlignment="Stretch"

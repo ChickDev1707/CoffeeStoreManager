@@ -73,11 +73,12 @@
                         <Setter Property="Height" Value="40"/>
                         
                     </Style>
-                </StackPanel.Resources>            
-                <Button x:Name="exitBtn"
-                    Margin="0 0 20 0"
-                    Background="{DynamicResource SecondaryHueMidBrush}">
-                    Thoát
+                </StackPanel.Resources>
+                <Button x:Name="loginBtn" 
+                        Margin="0 0 20 0"
+                         Command="{Binding LoginCommand}"
+                         CommandParameter="{Binding ElementName=loginWindow}">
+                    Đăng nhập
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i1:CallMethodAction MethodName="Close"
@@ -87,10 +88,9 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button x:Name="loginBtn"                      
-                         Command="{Binding LoginCommand}"
-                         CommandParameter="{Binding ElementName=loginWindow}">
-                    Đăng nhập
+                <Button x:Name="exitBtn"                  
+                    Background="{DynamicResource SecondaryHueMidBrush}">
+                    Thoát
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i1:CallMethodAction MethodName="Close"

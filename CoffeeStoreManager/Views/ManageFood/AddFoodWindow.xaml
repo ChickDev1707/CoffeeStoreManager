@@ -45,8 +45,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBox
                                 Name="FoodName"
-                                materialDesign:HintAssist.Hint="Tên món"
-                                 
+                                materialDesign:HintAssist.Hint="Tên món"                                
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             >
                                 <TextBox.Text>
@@ -74,7 +73,6 @@
                             Name="FoodPrice"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Giá tiền"
-
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <TextBox.Text>
                                 <Binding Path="FoodPrice" UpdateSourceTrigger="PropertyChanged">

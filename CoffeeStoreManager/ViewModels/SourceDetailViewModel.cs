@@ -108,7 +108,7 @@ namespace CoffeeStoreManager.ViewModels
                 };
                 DataProvider.Ins.DB.CT_PhieuNhapHang.Add(newDetail);
                 DataProvider.Ins.DB.SaveChanges();
-
+                updateSourceCardMoney();
                 Detail.Add(newDetail);
                 MyMessageQueue.Enqueue("Thêm chi tiết hàng thành công!");
             }
@@ -128,6 +128,7 @@ namespace CoffeeStoreManager.ViewModels
                 dbSelectedDetailItem.gia_tien = UpdateSourcePrice;
                 dbSelectedDetailItem.tong_tien = UpdateSourcePrice * UpdateSourceCount;
                 DataProvider.Ins.DB.SaveChanges();
+                updateSourceCardMoney();
                 loadDetail();
                 MyMessageQueue.Enqueue("Cập nhật chi tiết hàng thành công!");
             }
@@ -135,6 +136,17 @@ namespace CoffeeStoreManager.ViewModels
             {
                 MyMessageQueue.Enqueue("Lỗi. Thông tin cập nhật chi tiết hàng không hợp lệ.");
             }
+        }
+        private void updateSourceCardMoney()
+        {
+            decimal? total = 0;
+            var sourceCard = DataProvider.Ins.DB.PhieuNhapHangs.SingleOrDefault(source => source.ma_phieu_nhap_hang == selectedSourceItemIndex);
+            foreach(var item in sourceCard.CT_PhieuNhapHang)
+            {
+                total += item.tong_tien;
+            }
+            sourceCard.tong_tien = total;
+            DataProvider.Ins.DB.SaveChanges();
         }
         private void loadSelectedDetail()
         {

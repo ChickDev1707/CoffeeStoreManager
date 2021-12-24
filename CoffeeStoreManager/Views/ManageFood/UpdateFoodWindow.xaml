@@ -45,8 +45,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBox
                                 Name="FoodName"
-                                materialDesign:HintAssist.Hint="Tên món"
-                                 
+                                materialDesign:HintAssist.Hint="Tên món"                                
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 <TextBox.Text>
                                     <Binding Path="FoodName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
@@ -72,8 +71,7 @@
                         <TextBox
                             Name="FoodPrice"
                             Margin="0 0 0 10"
-                            materialDesign:HintAssist.Hint="Giá tiền"
-                             
+                            materialDesign:HintAssist.Hint="Giá tiền"                           
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             >
                             <TextBox.Text>
@@ -83,7 +81,7 @@
                                     </Binding.Converter>
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
-                                        <rule:PositiveNumberRule/>
+                                        <rule:MoneyRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
@@ -158,7 +156,6 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                
             </StackPanel>
         </StackPanel>
     </Border>

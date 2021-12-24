@@ -86,7 +86,7 @@
                                                     </Binding.Converter>
                                                     <Binding.ValidationRules>
                                                         <rule:NonEmptyRule/>
-                                                        <rule:PositiveNumberRule/>
+                                                        <rule:MoneyRule/>
                                                     </Binding.ValidationRules>
                                                 </Binding>
                                             </TextBox.Text>

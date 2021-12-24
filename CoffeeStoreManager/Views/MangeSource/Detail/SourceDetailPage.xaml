@@ -52,22 +52,24 @@
                     </StackPanel>
                     <SharedUC:SearchBar HorizontalAlignment="Right"/>
                 </DockPanel>
-                <ListView Grid.Row="1" FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn 
+                <Border Grid.Row="1" Style="{StaticResource MainBorder}">
+                    <ListView FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn 
                                 Header="STT" 
                                 DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
                                 AncestorType={x:Type ListViewItem}}, 
                                 Converter={StaticResource ListIndexConverter}}"                
                             ></GridViewColumn>
-                            <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
-                            <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
-                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
-                            <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                                <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding Path=ten_mat_hang}"></GridViewColumn>
+                                <GridViewColumn Header="Giá tiền" DisplayMemberBinding="{Binding Path=gia_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
+                                <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding Path=so_luong}"></GridViewColumn>
+                                <GridViewColumn Header="Tổng tiền" DisplayMemberBinding="{Binding Path=tong_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
                 <StackPanel Grid.Row="2" Margin="0 0 20 20" HorizontalAlignment="Right">
                     <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Trở lại" Click="Back_Click"/>
                 </StackPanel>

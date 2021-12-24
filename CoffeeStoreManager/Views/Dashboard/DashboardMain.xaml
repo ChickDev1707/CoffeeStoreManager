@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.Dashboard"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      DataContext="{StaticResource DashboardVM}"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF" x:Class="CoffeeStoreManager.Views.Dashboard.DashboardMain"
       UseLayoutRounding="True"
       mc:Ignorable="d" 
