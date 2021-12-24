@@ -15,7 +15,13 @@ namespace CoffeeStoreManager.Resources.Utils
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+            decimal result;
+            bool convt = decimal.TryParse(value.ToString(), NumberStyles.Currency,
+              cul.NumberFormat, out result);
+            if (convt)
+                return result;
+            else return null;
         }
     }
 }

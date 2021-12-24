@@ -26,7 +26,7 @@ namespace CoffeeStoreManager.Views
         public static Page StatisticFoodTypePage { get => pages[7]; }
         public static Page RegulationPage { get => pages[8]; }
         public static Page AccountPage { get => pages[9]; }
-        public static Page DashboardPage { get => pages[10]; }
+        public static Page DashboardPage { get => new DashboardMain(); }
         static Pages()
         {
             pages.Add(new ManageFoodMain());
@@ -46,7 +46,7 @@ namespace CoffeeStoreManager.Views
             //regulation
             pages.Add(new AccountMain());
             //account
-            pages.Add(new DashboardMain());
+            //pages.Add(new DashboardMain());
 
         }
 

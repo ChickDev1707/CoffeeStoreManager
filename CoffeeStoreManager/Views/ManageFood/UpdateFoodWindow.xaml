@@ -46,8 +46,8 @@
                             <TextBox
                                 Name="FoodName"
                                 materialDesign:HintAssist.Hint="Tên món"
-                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                Style="{StaticResource ValidationTextBox}">
+                                 
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                 <TextBox.Text>
                                     <Binding Path="FoodName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                         <Binding.ValidationRules>
@@ -73,11 +73,14 @@
                             Name="FoodPrice"
                             Margin="0 0 0 10"
                             materialDesign:HintAssist.Hint="Giá tiền"
-                            Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                            Style="{StaticResource ValidationTextBox}" 
+                             
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                             >
                             <TextBox.Text>
                                 <Binding Path="FoodPrice" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.Converter>
+                                        <rule:UIMoneyConverter/>
+                                    </Binding.Converter>
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
                                         <rule:PositiveNumberRule/>

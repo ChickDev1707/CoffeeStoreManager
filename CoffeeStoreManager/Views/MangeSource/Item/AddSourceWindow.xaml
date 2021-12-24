@@ -11,7 +11,12 @@
         mc:Ignorable="d"
         Title="AddSourceWindow" Height="640" Width="850">
     <Window.Resources>
-        <ResourceDictionary Source="../../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Style/Button.xaml"/>
+                <ResourceDictionary Source="../../Style/TextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Border Padding="20">
         <ScrollViewer>
@@ -76,6 +81,9 @@
                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                                             <TextBox.Text>
                                                 <Binding Path="Price" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                                    <Binding.Converter>
+                                                        <rule:UIMoneyConverter/>
+                                                    </Binding.Converter>
                                                     <Binding.ValidationRules>
                                                         <rule:NonEmptyRule/>
                                                         <rule:PositiveNumberRule/>
@@ -128,7 +136,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <Button Command="{Binding SaveSource}" CommandParameter="{Binding ElementName=ItemsContianer}" Margin="10 0 0 0" Content="Thêm hàng">
+                    <Button Style="{StaticResource PrimaryBtn}" Command="{Binding SaveSource}" CommandParameter="{Binding ElementName=ItemsContianer}" Margin="10 0 0 0" Content="Thêm hàng">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:CallMethodAction MethodName="Close"

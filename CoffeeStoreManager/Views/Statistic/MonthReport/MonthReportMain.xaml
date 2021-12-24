@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.MonthReport"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="CoffeeStoreManager.Views.MonthReport.MonthReportMain"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-
+      xmlns:rule="clr-namespace:CoffeeStoreManager.Resources.Utils"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MonthReportMain"
@@ -18,121 +18,139 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Thống kê loại món ăn"/>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <ComboBox
-                    SelectedItem="{Binding Month}"
-                    Width="120"
-                    Margin="0 0 10 0"
-                    materialDesign:HintAssist.Hint="Tháng"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <ComboBoxItem>1</ComboBoxItem>
-                    <ComboBoxItem>2</ComboBoxItem>
-                    <ComboBoxItem>3</ComboBoxItem>
-                    <ComboBoxItem>4</ComboBoxItem>
-                    <ComboBoxItem>5</ComboBoxItem>
-                    <ComboBoxItem>6</ComboBoxItem>
-                    <ComboBoxItem>7</ComboBoxItem>
-                    <ComboBoxItem>8</ComboBoxItem>
-                    <ComboBoxItem>9</ComboBoxItem>
-                    <ComboBoxItem>10</ComboBoxItem>
-                    <ComboBoxItem>11</ComboBoxItem>
-                    <ComboBoxItem>12</ComboBoxItem>
-                </ComboBox>
-                <TextBox
-                    Text="{Binding Year}"
-                    Width="120"
-                    Margin="0 0 10 0"
-                    materialDesign:HintAssist.Hint="Năm"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <Button Style="{StaticResource PrimaryBtn}" Content="Tạo báo cáo" Command="{Binding RenderReport}"/>
-            </StackPanel>
-            <DockPanel Grid.Row="1" Margin="0 0 0 20">
-                <StackPanel
-                    DockPanel.Dock="Top"
-                    Orientation="Horizontal"
-                    Margin="0 0 0 10">
-                    <RadioButton
-                        x:Name="ListRadBtn"
-                        Style="{StaticResource MaterialDesignTabRadioButton}"
-                        GroupName="MonthReportDisplayMode"
-                        IsChecked="True"
-                        Content="Danh sách" >
-                    </RadioButton>
-                    <RadioButton
-                        x:Name="ChartRadBtn"
-                        Style="{StaticResource MaterialDesignTabRadioButton}"
-                        GroupName="MonthReportDisplayMode"
-                        IsChecked="False"
-                        Content="Biểu đồ" /> 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Name="ReportForm">
+                    <ComboBox
+                        Width="120"
+                        Margin="0 0 10 0"
+                        materialDesign:HintAssist.Hint="Tháng"
+                        SelectedItem="{Binding SelectedMonth}"
+                        ItemsSource="{Binding Months}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    <TextBox
+                        x:Name="Year"
+                        Width="120"
+                        Margin="0 0 10 0"
+                        materialDesign:HintAssist.Hint="Năm"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Text>
+                            <Binding Path="SelectedYear" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <rule:NonEmptyRule/>
+                                    <rule:PositiveNumberRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Button Content="Tạo báo cáo" Command="{Binding RenderReport}" CommandParameter="{Binding ElementName=ReportForm}">
+                        <Button.Style >
+                            <Style TargetType="Button" BasedOn="{StaticResource PrimaryBtn}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Year}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
-                <Border Style="{StaticResource MainBorder}" Padding="10">
-                    <Grid>
-                        <Grid >
-                            <ListView ItemsSource="{Binding Report}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn
-                                            Header="STT"
-                                            DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                            AncestorType={x:Type ListViewItem}}, 
-                                            Converter={StaticResource ListIndexConverter}}" />
-                                        <GridViewColumn Header="Ten loai mon" DisplayMemberBinding="{Binding ten_loai_mon_an}"/>
-                                        <GridViewColumn Header="So luong" DisplayMemberBinding="{Binding tong_so_luong}"/>
-                                        <GridViewColumn Header="Tong so tien thu" DisplayMemberBinding="{Binding tong_so_tien}"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=ListRadBtn}" Value="False">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
-                        </Grid>
-                        <Grid >
-                            <syncfusion:SfChart Header="Chart">
-                                <syncfusion:SfChart.PrimaryAxis>
-                                    <syncfusion:CategoryAxis Header="Loai mon an" FontSize="14"/>
-                                </syncfusion:SfChart.PrimaryAxis>
+                <DockPanel Grid.Row="1" Margin="0 0 0 20">
+                    <StackPanel
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal"
+                        Margin="0 0 0 10">
+                        <RadioButton
+                            x:Name="ListRadBtn"
+                            Style="{StaticResource MaterialDesignTabRadioButton}"
+                            GroupName="MonthReportDisplayMode"
+                            IsChecked="True"
+                            Content="Danh sách" >
+                        </RadioButton>
+                        <RadioButton
+                            x:Name="ChartRadBtn"
+                            Style="{StaticResource MaterialDesignTabRadioButton}"
+                            GroupName="MonthReportDisplayMode"
+                            IsChecked="False"
+                            Content="Biểu đồ" />
+                    </StackPanel>
+                    <Border Style="{StaticResource MainBorder}" Padding="10">
+                        <Grid>
+                            <Grid >
+                                <ListView FontSize="14" ItemsSource="{Binding Report}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn
+                                                Header="STT"
+                                                DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                AncestorType={x:Type ListViewItem}}, 
+                                                Converter={StaticResource ListIndexConverter}}" />
+                                            <GridViewColumn Header="Tên loại món" DisplayMemberBinding="{Binding ten_loai_mon_an}"/>
+                                            <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding tong_so_luong}"/>
+                                            <GridViewColumn Header="Tổng số tiền thu" DisplayMemberBinding="{Binding tong_so_tien, Converter={StaticResource UIMoneyConverter}}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=ListRadBtn}" Value="False">
+                                                <Setter Property="Visibility" Value="Hidden" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                            </Grid>
+                            <Grid >
+                                <syncfusion:SfChart Header="Chart" Palette="Metro">
+                                    <syncfusion:SfChart.PrimaryAxis>
+                                        <syncfusion:CategoryAxis Header="Loai mon an" FontSize="14"/>
+                                    </syncfusion:SfChart.PrimaryAxis>
 
-                                <syncfusion:SfChart.SecondaryAxis>
-                                    <syncfusion:NumericalAxis Header="So luong" FontSize="14"/>
-                                </syncfusion:SfChart.SecondaryAxis>
+                                    <syncfusion:SfChart.SecondaryAxis>
+                                        <syncfusion:NumericalAxis Header="So luong" FontSize="14"/>
+                                    </syncfusion:SfChart.SecondaryAxis>
 
-                                <syncfusion:SfChart.Legend>
-                                    <syncfusion:ChartLegend/>
-                                </syncfusion:SfChart.Legend>
-                                <syncfusion:ColumnSeries Label="So luong" ItemsSource="{Binding Report}" XBindingPath="ten_loai_mon_an" YBindingPath="tong_so_luong" ShowTooltip="True" >
-                                    <syncfusion:ColumnSeries.AdornmentsInfo>
-                                        <syncfusion:ChartAdornmentInfo ShowLabel="True" >
-                                        </syncfusion:ChartAdornmentInfo>
-                                    </syncfusion:ColumnSeries.AdornmentsInfo>
-                                </syncfusion:ColumnSeries>
-                            </syncfusion:SfChart>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsChecked, ElementName=ChartRadBtn}" Value="False">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
+                                    <syncfusion:SfChart.Legend>
+                                        <syncfusion:ChartLegend/>
+                                    </syncfusion:SfChart.Legend>
+                                    <syncfusion:ColumnSeries Label="So luong" ItemsSource="{Binding Report}" XBindingPath="ten_loai_mon_an" YBindingPath="tong_so_luong" ShowTooltip="True" >
+                                        <syncfusion:ColumnSeries.AdornmentsInfo>
+                                            <syncfusion:ChartAdornmentInfo ShowLabel="True" >
+                                            </syncfusion:ChartAdornmentInfo>
+                                        </syncfusion:ColumnSeries.AdornmentsInfo>
+                                    </syncfusion:ColumnSeries>
+                                </syncfusion:SfChart>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=ChartRadBtn}" Value="False">
+                                                <Setter Property="Visibility" Value="Hidden" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </DockPanel>
-            <StackPanel Grid.Row="2">
-                <Button Style="{StaticResource PrimaryBtn}" Content="Xuất excel" HorizontalAlignment="Right"/>
-            </StackPanel>
+                    </Border>
+                </DockPanel>
+                <StackPanel Grid.Row="2">
+                    <Button Style="{StaticResource PrimaryBtn}" Command="{Binding ExportExcel}" Content="Xuất excel" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Grid>
+            <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
     

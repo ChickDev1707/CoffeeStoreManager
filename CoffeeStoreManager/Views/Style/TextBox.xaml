@@ -8,7 +8,7 @@
             <AdornedElementPlaceholder/>
         </DockPanel>
     </ControlTemplate>
-    <Style x:Key="ValidationTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+    <Style x:Key="MaterialDesignFloatingHintTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
         <Setter Property="FontSize" Value="14" />
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">

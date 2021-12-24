@@ -67,8 +67,8 @@
                         <TextBlock>Loại nhân viên</TextBlock>
                         <TextBox materialDesign:HintAssist.Hint="Tên loại nhân viên" 
                                  Name="EmployeeTypeName"
-                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                 Style="{StaticResource ValidationTextBox}"
+                                   
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  >
                             <TextBox.Text>
                                 <Binding  Path="TextTypeNameEmployee" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
@@ -81,8 +81,8 @@
                         <TextBlock>Tiền lương</TextBlock>
                         <TextBox materialDesign:HintAssist.Hint="Mức lương" 
                                  Name="EmployeeTypeSalary"
-                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                 Style="{StaticResource ValidationTextBox}"
+                                   
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  >
                             <TextBox.Text>
                                 <Binding  Path="TextSalary" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">

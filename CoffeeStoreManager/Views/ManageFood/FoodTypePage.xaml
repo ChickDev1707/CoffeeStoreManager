@@ -59,8 +59,8 @@
                             <TextBlock Text="Thêm loại món" />
                             <TextBox 
                                 x:Name="NewFoodTypeName"
-                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                Style="{StaticResource ValidationTextBox}"
+                                 
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 materialDesign:HintAssist.Hint="Tên loại món mới">
                                 <TextBox.Text>
                                     <Binding Path="NewFoodTypeName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
@@ -88,8 +88,8 @@
                             <TextBlock Text="Cập nhật loại món" />
                             <TextBox 
                                 x:Name="SelectedUpdateFoodTypeName"
-                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
-                                Style="{StaticResource ValidationTextBox}"
+                                 
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 materialDesign:HintAssist.Hint="Tên loại món">
                                 <TextBox.Text>
                                     <Binding Path="SelectedUpdateFoodTypeName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
