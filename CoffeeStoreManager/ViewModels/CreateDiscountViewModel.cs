@@ -231,6 +231,9 @@ namespace CoffeeStoreManager.ViewModels
                             //}
                             else
                             {
+                                discount.so_luot_mua = count;
+                                DataProvider.Ins.DB.PhieuUuDais.Add(discount);
+                                DataProvider.Ins.DB.SaveChanges();
                                 Closeform();
                                 p.Close();
                             }
@@ -246,7 +249,7 @@ namespace CoffeeStoreManager.ViewModels
                             // NumberResult = Convert.ToString(discount.so_luot_mua);
                             if (count < numfood)
                             {
-                                IdFirst = NumberResult = "";
+                                Closeform();
                                 p.Close();
                             }
                             else
