@@ -14,7 +14,7 @@ namespace CoffeeStoreManager.Models
     
     public partial class PhieuUuDai
     {
-        public int ma_uu_dai { get; set; }
+        public string ma_uu_dai { get; set; }
         public Nullable<int> so_luot_mua { get; set; }
     }
 }

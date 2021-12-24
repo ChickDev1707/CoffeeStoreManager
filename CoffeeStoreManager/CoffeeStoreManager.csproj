@@ -218,7 +218,6 @@
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="ViewModels\RegulationViewModel.cs" />
-    <Compile Include="ViewModels\DiscountViewModel.cs" />
     <Compile Include="ViewModels\MonthReportViewModel.cs" />
     <Compile Include="ViewModels\UpdateDiscountViewModel.cs" />
     <Compile Include="ViewModels\UpdateFoodViewModel.cs" />
@@ -305,9 +304,6 @@
     </Compile>
     <Compile Include="Views\Regulation\RegulationMain.xaml.cs">
       <DependentUpon>RegulationMain.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Discount_Bill\DiscountWindow.xaml.cs">
-      <DependentUpon>DiscountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageFood\FoodTypePage.xaml.cs">
       <DependentUpon>FoodTypePage.xaml</DependentUpon>
@@ -440,10 +436,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Regulation\RegulationMain.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Discount_Bill\DiscountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
