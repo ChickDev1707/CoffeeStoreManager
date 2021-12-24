@@ -211,7 +211,6 @@
     <Compile Include="ViewModels\FoodViewModel.cs" />
     <Compile Include="ViewModels\PartTimeScheduleViewModel.cs" />
     <Compile Include="ViewModels\PartTimeShiftEditorViewModel.cs" />
-    <Compile Include="ViewModels\SalaryEmployeeViewModel.cs" />
     <Compile Include="ViewModels\SourceDetailViewModel.cs" />
     <Compile Include="ViewModels\SourceViewModel.cs" />
     <Compile Include="ViewModels\EmployeeTypeViewModel.cs" />
@@ -246,9 +245,6 @@
     </Compile>
     <Compile Include="Views\ManageEmployee\ManageEmployeeMain.xaml.cs">
       <DependentUpon>ManageEmployeeMain.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ManageEmployee\SalaryWindow.xaml.cs">
-      <DependentUpon>SalaryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManageEmployee\UpdateEmployeeWindow.xaml.cs">
       <DependentUpon>UpdateEmployeeWindow.xaml</DependentUpon>
@@ -364,10 +360,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManageEmployee\ManageEmployeeMain.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManageEmployee\SalaryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
