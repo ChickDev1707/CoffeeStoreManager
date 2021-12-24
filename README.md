@@ -9,9 +9,13 @@ CoffeeStoreManager là phần mềm giúp chủ sở hữu hoặc người quả
 
 **ĐIỀU KIỆN**
 
+Thiết lập file database theo file [docx](https://docs.google.com/document/d/1omH-9nghcgK9ok7s1X4YNy2XQJ0YOPWBXRHRdkWHt88/edit)
+
 ***
 
 **CÁCH CÀI ĐẶT**
+
+
 
 ***
 
@@ -21,11 +25,20 @@ CoffeeStoreManager là phần mềm giúp chủ sở hữu hoặc người quả
 
 **CONTRIBUTORS**
 
-ChickDev1707
+Nhan Hữu Thuận - ChickDev1707 
 
-ngxuantai
+Nguyễn Xuân Tài - ngxuantai
 
-lancer2672
+Trần Quốc Khánh - lancer2672
 
-20520846
+Nguyễn Thanh Tuấn - 20520846
 
+***
+
+**CÔNG CỤ**
+
+WPF - C#
+
+MaterialDesign
+
+SyncfusionWPF
