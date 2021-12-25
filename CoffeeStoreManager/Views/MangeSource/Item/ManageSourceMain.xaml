@@ -11,7 +11,12 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ManageSourceMain">
     <Page.Resources>
-        <ResourceDictionary Source="../../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Style/Button.xaml"/>
+                <ResourceDictionary Source="../../Style/ListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Quản lý nguồn hàng"/>
@@ -63,6 +68,7 @@
                     <ListView                         
                         x:Name="SourceList" 
                         FontSize="14" 
+                        ItemContainerStyle="{StaticResource ListItemContainer}"
                         ItemsSource="{Binding SourceList}" 
                         SelectedItem="{Binding SelectedSourceItem}" 
                         ScrollViewer.VerticalScrollBarVisibility="Visible"

@@ -11,7 +11,12 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SourceDetailPage">
     <Page.Resources>
-        <ResourceDictionary Source="../../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Style/Button.xaml"/>
+                <ResourceDictionary Source="../../Style/ListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Chi tiết nguồn hàng"/>
@@ -53,7 +58,7 @@
                     <SharedUC:SearchBar HorizontalAlignment="Right"/>
                 </DockPanel>
                 <Border Grid.Row="1" Style="{StaticResource MainBorder}">
-                    <ListView FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}">
+                    <ListView FontSize="14" ItemsSource="{Binding Detail}" SelectedItem="{Binding SelectedDetailItem}" ItemContainerStyle="{StaticResource ListItemContainer}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn 

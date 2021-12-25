@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
       xmlns:local="clr-namespace:CoffeeStoreManager.Views.Statistic"
       mc:Ignorable="d" 
@@ -11,7 +12,12 @@
       DataContext="{StaticResource StatisticVM}"
       Title="StatisticMain">
     <Page.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/ListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Thống kê doanh thu"/>
@@ -64,12 +70,7 @@
                                         <DataGridTextColumn Header="Lợi nhuận" Binding="{Binding tong}" ></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
-                                <ListView FontSize="14" x:Name="ListViewStatistic"  ItemsSource="{Binding DataListView}">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
+                                <ListView FontSize="14" x:Name="ListViewStatistic"  ItemsSource="{Binding DataListView}" ItemContainerStyle="{StaticResource ListItemContainer}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn
@@ -98,7 +99,7 @@
                             </Grid.Style>
                         </Grid>
                         <Grid>
-                            <chart:SfChart Visibility="{Binding CheckSelected}" Margin="10,30,0,30" Grid.Row="1" Width="774"  FontSize="20" Foreground="#888" Header="BIỂU ĐỒ DOANH THU VÀ LỢI NHUẬN CỦA QUÁN " HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                            <chart:SfChart Visibility="{Binding CheckSelected}" Palette="Metro" Margin="10,30,0,30" Grid.Row="1" FontSize="20" Header="BIỂU ĐỒ DOANH THU VÀ LỢI NHUẬN CỦA QUÁN " HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                                 <chart:SfChart.PrimaryAxis>
                                     <chart:CategoryAxis FontSize="12"></chart:CategoryAxis>
                                 </chart:SfChart.PrimaryAxis>
@@ -108,41 +109,39 @@
                                 <chart:SfChart.Legend>
 
                                     <chart:ChartLegend  IconHeight="10" IconWidth="10" 
-
-                        Margin="0,0,0,5"
-
-                        HorizontalAlignment="Center"
-
-                        VerticalAlignment="Center"                                    
-
-                        DockPosition="Top"
-
-
-                        IconVisibility="Visible" CornerRadius="5" 
-
-                        ItemMargin="10">
-
+                                        Margin="0,0,0,5"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"                                    
+                                        DockPosition="Top"
+                                        IconVisibility="Visible" CornerRadius="5" 
+                                        ItemMargin="10">
                                     </chart:ChartLegend>
 
                                 </chart:SfChart.Legend>
                                 <chart:LineSeries
                                     ItemsSource="{Binding DataLineChart}" 
-                                    Interior="PaleVioletRed"
                                     XBindingPath="Month"
                                     FontWeight="Bold"
                                     LegendIcon="StraightLine"
                                     FontSize="10"
                                     Label="Lợi nhuận"
                                     YBindingPath="Value">
+                                    <syncfusion:LineSeries.AdornmentsInfo>
+                                        <syncfusion:ChartAdornmentInfo ShowMarker="True" Symbol="Ellipse">
+                                        </syncfusion:ChartAdornmentInfo>
+                                    </syncfusion:LineSeries.AdornmentsInfo>
                                 </chart:LineSeries>
                                 <chart:LineSeries
                                     ItemsSource="{Binding DataLineChartIncome}" 
-                                    Interior="LightGreen"
                                     XBindingPath="Month"
                                     LegendIcon="StraightLine"
                                     Label="Doanh thu"
                                     FontWeight="ExtraBold"
                                     YBindingPath="Value">
+                                    <syncfusion:LineSeries.AdornmentsInfo>
+                                        <syncfusion:ChartAdornmentInfo ShowMarker="True" Symbol="Ellipse">
+                                        </syncfusion:ChartAdornmentInfo>
+                                    </syncfusion:LineSeries.AdornmentsInfo>
                                 </chart:LineSeries>
                             </chart:SfChart>
                             <Grid.Style>

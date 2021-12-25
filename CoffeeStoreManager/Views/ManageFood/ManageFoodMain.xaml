@@ -11,7 +11,12 @@
       mc:Ignorable="d" 
       Title="ManageFoodMain">
     <Page.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/ListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Menu món ăn"/>
@@ -78,18 +83,19 @@
                             FontSize="14" 
                             ScrollViewer.VerticalScrollBarVisibility="Visible"
                             ScrollViewer.CanContentScroll="False"
+                            ItemContainerStyle="{StaticResource ListItemContainer}"
                             >
                             <ListView.View >
                                 <GridView>
                                     <GridViewColumn 
                                         Header="STT" 
                                         DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                        AncestorType={x:Type ListViewItem}}, 
-                                        Converter={StaticResource ListIndexConverter}}"                
+                                                    AncestorType={x:Type ListViewItem}}, 
+                                                    Converter={StaticResource ListIndexConverter}}"
                                     ></GridViewColumn>
                                     <GridViewColumn Header="Tên món" DisplayMemberBinding="{Binding Path=ten_mon_an}"></GridViewColumn>
                                     <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding Path=gia_tien, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
-                                    <GridViewColumn Header="Loại món ăn" DisplayMemberBinding="{Binding Path=LoaiMonAn.ten_loai_mon_an}"></GridViewColumn>
+                                    <GridViewColumn Header="Loại món ăn" DisplayMemberBinding="{Binding LoaiMonAn.ten_loai_mon_an}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -120,7 +126,7 @@
                                 <TextBlock FontWeight="DemiBold"><materialDesign:PackIcon Kind="InfoOutline"/> Thêm chi tiết</TextBlock>
                                 <TextBlock Text="{Binding Path=SelectedFood.ten_mon_an, StringFormat='Tên món: {0}'}" FontWeight="Bold"/>
                                 <TextBlock Text="{Binding SelectedFood.LoaiMonAn.ten_loai_mon_an, StringFormat='Loại món: {0}'}"/>
-                                <TextBlock Text="{Binding SelectedFood.gia_tien, StringFormat='Giá tiền: {0}'}" FontSize="18" Foreground="red"/>
+                                <TextBlock Text="{Binding SelectedFood.gia_tien, Converter={StaticResource UIMoneyConverter}}" FontSize="18" Foreground="red"/>
                                 <TextBlock Text="{Binding SelectedFood.nguyen_lieu, StringFormat='Nguyên liệu: {0}'}"/>
                                 <TextBlock Text="{Binding SelectedFood.mo_ta, StringFormat='Mô tả: {0}'}"/>
                             </StackPanel>

@@ -13,7 +13,12 @@
       DataContext="{StaticResource MonthReportVM}"
       >
     <Page.Resources>
-        <ResourceDictionary Source="../../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Style/Button.xaml"/>
+                <ResourceDictionary Source="../../Style/ListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Thống kê loại món ăn"/>
@@ -85,7 +90,7 @@
                     <Border Style="{StaticResource MainBorder}" Padding="10">
                         <Grid>
                             <Grid >
-                                <ListView FontSize="14" ItemsSource="{Binding Report}">
+                                <ListView FontSize="14" ItemsSource="{Binding Report}" ItemContainerStyle="{StaticResource ListItemContainer}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn
@@ -126,6 +131,7 @@
                                         <syncfusion:ColumnSeries.AdornmentsInfo>
                                             <syncfusion:ChartAdornmentInfo ShowLabel="True" >
                                             </syncfusion:ChartAdornmentInfo>
+                                            
                                         </syncfusion:ColumnSeries.AdornmentsInfo>
                                     </syncfusion:ColumnSeries>
                                 </syncfusion:SfChart>
