@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Style/Button.xaml"/>
-                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+                <ResourceDictionary Source="../Style/ListView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -26,13 +26,8 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Border  Style="{StaticResource MainBorder}">
-                <ListView HorizontalAlignment="Stretch" FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding TypeEmployeeList}" SelectedItem="{Binding SelectedLoaiNhanVien}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.View>
+                    <ListView HorizontalAlignment="Stretch" FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemContainerStyle="{StaticResource ListItemContainer}" ItemsSource="{Binding TypeEmployeeList}" SelectedItem="{Binding SelectedLoaiNhanVien}">
+                        <ListView.View>
                         <GridView>
                             <GridViewColumn 
                                 Header="STT" 
@@ -42,8 +37,7 @@
                             ></GridViewColumn>
                             <GridViewColumn Header="Mã loại" DisplayMemberBinding="{Binding Path=ma_loai_nhan_vien}"></GridViewColumn>
                             <GridViewColumn Header="Tên loại" DisplayMemberBinding="{Binding Path=ten_loai_nhan_vien}"></GridViewColumn>
-                                <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong, Converter={StaticResource UIMoneyConverter}}">
-                                </GridViewColumn>
+                                <GridViewColumn Header="Tiền lương" DisplayMemberBinding="{Binding Path=tien_luong, Converter={StaticResource UIMoneyConverter}}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

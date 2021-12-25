@@ -16,7 +16,12 @@
       DataContext="{StaticResource ManageEmployeeVM}"
       >
     <Page.Resources>
-        <ResourceDictionary Source="../Style/Button.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Style/Button.xaml"/>
+                <ResourceDictionary Source="../Style/ListView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Danh sách nhân viên"/>
@@ -105,29 +110,19 @@
                     ScrollViewer.CanContentScroll="False"  
                     FontSize="14" SelectionMode="Multiple" 
                     Name="lv"  
-          
+                    ItemContainerStyle="{StaticResource ListItemContainer}"                    
                     ItemsSource="{Binding EmployeeList}" 
                     SelectedItem="{Binding SelectedEmployee}" >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged" >
-                            <i:InvokeCommandAction 
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged" >
+                                <i:InvokeCommandAction 
                                         Command="{Binding CheckItem}" 
                                     CommandParameter="{Binding ElementName=lv,Mode=OneWay}"
                                     >
-                            </i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                            <Style.Triggers>
-                                <Trigger  Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="LightGray"></Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.View>
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListView.View>
                         <GridView>
                             <GridViewColumn Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                             <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding ho_ten}"/>

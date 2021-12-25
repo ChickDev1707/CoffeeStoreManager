@@ -14,7 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Style/Button.xaml"/>
-                <ResourceDictionary Source="../Style/TextBox.xaml"/>
+                <ResourceDictionary Source="../Style/ListView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -27,17 +27,17 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border Style="{StaticResource MainBorder}">
-                    <ListView FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemsSource="{Binding FoodTypeList}" SelectedItem="{Binding SelectedType}">
+                    <ListView FontSize="14" x:Name="ListOfAddFormFoodTypes" ItemContainerStyle="{StaticResource ListItemContainer}" ItemsSource="{Binding FoodTypeList}" SelectedItem="{Binding SelectedType}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn 
-                                    Header="STT" 
+                                    Header="STT"    
                                     DisplayMemberBinding="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                    AncestorType={x:Type ListViewItem}}, 
-                                    Converter={StaticResource ListIndexConverter}}"                
+                                                    AncestorType={x:Type ListViewItem}}, 
+                                                    Converter={StaticResource ListIndexConverter}}"
                                 ></GridViewColumn>
-                                <GridViewColumn Header="Mã loại món" DisplayMemberBinding="{Binding Path=ma_loai_mon_an}"></GridViewColumn>
-                                <GridViewColumn Header="Tên loại món" DisplayMemberBinding="{Binding Path=ten_loai_mon_an}"></GridViewColumn>
+                                <GridViewColumn Header="Mã loại món" DisplayMemberBinding="{Binding ma_loai_mon_an}"></GridViewColumn>
+                                <GridViewColumn Header="Tên loại món" DisplayMemberBinding="{Binding ten_loai_mon_an}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
