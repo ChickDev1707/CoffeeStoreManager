@@ -15,13 +15,31 @@ Thiết lập file database theo file [docx](https://docs.google.com/document/d/
 
 **CÁCH CÀI ĐẶT**
 
+Chạy file CoffeeManager.msi
 
+<img src="CoffeeStoreManager/HowToUse/Install/1.png">
+<img src="CoffeeStoreManager/HowToUse/Install/2.png">
+<img src="CoffeeStoreManager/HowToUse/Install/3.png">
+<img src="CoffeeStoreManager/HowToUse/Install/4.png">
 
 ***
 
 **CÁCH SỬ DỤNG**
 
-![MainWindow](https://drive.google.com/drive/folders/1ccTabS17eXKCE-vXgRuyadmNumQFk5nm)
+<img src="CoffeeStoreManager/HowToUse/MainWindow.png">
+<img src="CoffeeStoreManager/HowToUse/AdminWindow.png">
+<img src="CoffeeStoreManager/HowToUse/ManageFoodMaini.png">
+<img src="CoffeeStoreManager/HowToUse/FoodTypePage.png">
+<img src="CoffeeStoreManager/HowToUse/ManageEmplyeeMain.png">
+<img src="CoffeeStoreManager/HowToUse/EmployeeTypeMain.png">
+<img src="CoffeeStoreManager/HowToUse/PartTimeSchedulerMain.png">
+<img src="CoffeeStoreManager/HowToUse/ManageSourceMain.png">
+<img src="CoffeeStoreManager/HowToUse/StatisticMain.png">
+<img src="CoffeeStoreManager/HowToUse/StatisticMain2.png">
+<img src="CoffeeStoreManager/HowToUse/RegulationMain.png">
+<img src="CoffeeStoreManager/HowToUse/AccountMain.png">
+
+
 
 ***
 
