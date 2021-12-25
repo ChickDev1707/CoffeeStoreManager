@@ -52,7 +52,16 @@ namespace CoffeeStoreManager.ViewModels
                     ngay_sinh = AddEmployeeNgaySinh,
                 };
                 DataProvider.Ins.DB.NhanViens.Add(add);
-                DataProvider.Ins.DB.SaveChanges();
+                try
+                {
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch
+                {
+                    employeeVM.MyMessageQueue.Enqueue("Lỗi. Thông tin nhân viên không hợp lệ");
+                    return;
+                }
+              
                 employeeVM.loadDataEmployee();
                 clearAddEmployeeForm();
                 employeeVM.MyMessageQueue.Enqueue("Thêm nhân viên thành công!");

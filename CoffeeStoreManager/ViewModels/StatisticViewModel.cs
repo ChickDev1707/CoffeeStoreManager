@@ -9,6 +9,10 @@ using Microsoft.Office.Interop.Excel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CoffeeStoreManager.Resources.Utils;
+using OfficeOpenXml;
+using MaterialDesignThemes.Wpf;
+using System.IO;
+
 namespace CoffeeStoreManager.ViewModels
 {
     public class StatisticViewModel : BaseViewModel
@@ -21,7 +25,9 @@ namespace CoffeeStoreManager.ViewModels
         private ObservableCollection<ViewStatistic> dataGridView;
 
         private Visibility checkSelected;
+        private SnackbarMessageQueue myMessageQueue;
 
+        public SnackbarMessageQueue MyMessageQueue { get => myMessageQueue; set { myMessageQueue = value; OnPropertyChanged(nameof(MyMessageQueue)); } }
         public Visibility CheckSelected
         {
             get { return checkSelected; }
@@ -84,6 +90,8 @@ namespace CoffeeStoreManager.ViewModels
             DataLineChart = new ObservableCollection<LineChartModel>();
             DataLineChartIncome = new ObservableCollection<LineChartModel>();
             // end chart
+            MyMessageQueue = new SnackbarMessageQueue(TimeSpan.FromMilliseconds(4000));
+            MyMessageQueue.DiscardDuplicates = true;
             DataListView = new ObservableCollection<ViewStatistic>();
             DataGridView = new ObservableCollection<ViewStatistic>();
             LoadDataLv = new RelayCommand<object>((p) => { return true; }, (p) => { LoadDataListView(p); });
@@ -143,32 +151,85 @@ namespace CoffeeStoreManager.ViewModels
         //end chart
         void ExportFileExcel(DataGrid dtGrid)
         {
-            Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
-            excel.Visible = true; //www.yazilimkodlama.com
-            Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-            Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-            int col = dtGrid.Columns.Count / 2;
-            for (int j = 0; j < col; j++) //Başlıklar için
+            string filePath = "";
+            System.Windows.Forms.SaveFileDialog dialog = new System.Windows.Forms.SaveFileDialog();
+            dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
+
+            // Nếu mở file và chọn nơi lưu file thành công sẽ lưu đường dẫn lại dùng
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Range myRange = (Range)sheet1.Cells[1, j + 1];
-                sheet1.Cells[1, j + 1].Font.Bold = true; //Başlığın Kalın olması için
-                sheet1.Columns[j + 1].ColumnWidth = 15; //Sütun genişliği ayarı
-                myRange.Value2 = dtGrid.Columns[j].Header;
+                filePath = dialog.FileName;
             }
-            for (int i = 0; i < col; i++)
-            { //www.yazilimkodlama.com
-                for (int j = 0; j < dtGrid.Items.Count; j++)
+
+            // nếu đường dẫn null hoặc rỗng thì báo không hợp lệ và return hàm
+            if (string.IsNullOrEmpty(filePath))
+            {
+                MyMessageQueue.Enqueue("Lỗi. Đường dẫn báo cáo không hợp lệ.");
+                return;
+            }
+
+            try
+            {
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    TextBlock b = dtGrid.Columns[i].GetCellContent(dtGrid.Items[j]) as TextBlock;
-                    if (b != null)
+                    package.Workbook.Properties.Author = "Admin";
+                    package.Workbook.Properties.Title = "Doanh thu";
+                    package.Workbook.Worksheets.Add("Sheet 1");
+
+                    ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+                    //add sheet
+                    workSheet.Name = "Sheet 1";
+                    workSheet.Cells.Style.Font.Size = 12;
+                    workSheet.Cells.Style.Font.Name = "Calibri";
+                    // Tạo danh sách các column header
+                    string[] arrColumnHeader = {
+                        "Thời gian",
+                        "Tiền hóa đơn",
+                        "Tiền hàng",
+                        "Tiền lương",
+                        "Lợi nhuận",
+                    };
+
+                    var countColHeader = arrColumnHeader.Count();
+
+                    int colIndex = 1;
+                    int rowIndex = 2;
+
+                    //tạo các header từ column header đã tạo từ bên trên
+                    foreach (var item in arrColumnHeader)
                     {
-                       
-                        Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[j + 2, i + 1];
-                       
-                        myRange.Value2 = b.Text;
+                        var cell = workSheet.Cells[rowIndex, colIndex];
+
+                        //gán giá trị
+                        cell.Value = item;
+
+                        colIndex++;
                     }
+
+                    foreach (var item in DataListView)
+                    {
+                        colIndex = 1;
+                        rowIndex++;
+
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.thoi_gian;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.tien_hoa_don;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.tien_nguon_hang;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.tien_luong;
+                        workSheet.Cells[rowIndex, colIndex++].Value = item.tong;
+
+                    }
+
+                    //Lưu file lại
+                    Byte[] bin = package.GetAsByteArray();
+                    File.WriteAllBytes(filePath, bin);
                 }
+                MyMessageQueue.Enqueue("Xuất excel thành công!");
             }
+            catch (Exception EE)
+            {
+                MyMessageQueue.Enqueue("Lỗi. Đã xảy ra lỗi khi xuất file excel.");
+            }
+
         }
         void LoadDataListView(object f)
         {

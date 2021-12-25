@@ -38,7 +38,15 @@ namespace CoffeeStoreManager.ViewModels
                 updEmployee.sdt = SelectedEmployee.sdt;
                 updEmployee.ngay_vao_lam = SelectedEmployee.ngay_vao_lam;
                 updEmployee.ma_loai_nhan_vien = SelectedEmployee.ma_loai_nhan_vien;
+                try
+                {
                 DataProvider.Ins.DB.SaveChanges();
+                }
+                catch
+                {
+                    employeeVM.MyMessageQueue.Enqueue("Lỗi. Thông tin nhân viên không hợp lệ");
+                    return;
+                }
                 employeeVM.loadDataEmployee();
                 employeeVM.MyMessageQueue.Enqueue("Sửa thông tin thành công!");
             }

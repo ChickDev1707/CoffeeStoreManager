@@ -81,9 +81,11 @@
                                     <Binding  Path="Salary" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                     <Binding.ValidationRules>
                                         <rule:NonEmptyRule/>
-                                        <rule:PositiveNumberRule/>
-                                    </Binding.ValidationRules>
-       
+                                            <rule:MoneyRule/>
+                                        </Binding.ValidationRules>
+                                        <Binding.Converter>
+                                            <rule:UIMoneyConverter></rule:UIMoneyConverter>
+                                        </Binding.Converter>
                                     </Binding>
                             </TextBox.Text>
                         </TextBox>

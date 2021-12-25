@@ -208,48 +208,48 @@ namespace CoffeeStoreManager.ViewModels
         }
         void increaseDay(object p)
         {
-        
-           for(int i=0;i<EmployeeList.Count;i++)
-            {
-                if (EmployeeList[i].check_selected_item == true)
+                for (int i = 0; i < EmployeeList.Count; i++)
                 {
-                    if (EmployeeList[i].ma_loai_nhan_vien == 1)
+                    if (EmployeeList[i].check_selected_item == true)
                     {
-                        continue;
+                        if (EmployeeList[i].ma_loai_nhan_vien == 1)
+                        {
+                            continue;
+                        }
+                        int m = EmployeeList[i].ma_nv;
+                        NhanVien nv = DataProvider.Ins.DB.NhanViens.
+                        Where(t => t.ma_nhan_vien == m).SingleOrDefault();
+                        nv.so_ngay_nghi++;
                     }
-                    int m = EmployeeList[i].ma_nv;
-                    NhanVien nv = DataProvider.Ins.DB.NhanViens.
-                    Where(t => t.ma_nhan_vien == m).SingleOrDefault();
-                    nv.so_ngay_nghi++;
                 }
-            }
-            DataProvider.Ins.DB.SaveChanges();
-            loadData();
+                DataProvider.Ins.DB.SaveChanges();
+                loadData();
         }
         void decreaseDay(object p)
         {
-            for (int i = 0; i < EmployeeList.Count; i++)
-            {
-                if (SelectedEmployee.ma_loai_nhan_vien == 1)
+                for (int i = 0; i < EmployeeList.Count; i++)
                 {
-                    return;
-                }
-                if (EmployeeList[i].check_selected_item == true)
-                {
-                    int m = EmployeeList[i].ma_nv;
-                    NhanVien nv = DataProvider.Ins.DB.NhanViens.
-                      Where(t => t.ma_nhan_vien == m).SingleOrDefault();
-                    if (nv.so_ngay_nghi > 0)
+                   
+                    if (EmployeeList[i].check_selected_item == true)
                     {
-                        if (SelectedEmployee != null)
+                        if (EmployeeList[i].ma_loai_nhan_vien == 1)
                         {
-                            nv.so_ngay_nghi--;
+                            continue;
                         }
+                        int m = EmployeeList[i].ma_nv;
+                        NhanVien nv = DataProvider.Ins.DB.NhanViens.
+                          Where(t => t.ma_nhan_vien == m).SingleOrDefault();
+                        if (nv.so_ngay_nghi > 0)
+                        {
+                            if (SelectedEmployee != null)
+                            {
+                                nv.so_ngay_nghi--;
+                            }
+                        }
+                        DataProvider.Ins.DB.SaveChanges();
                     }
-                    DataProvider.Ins.DB.SaveChanges();
                 }
-            }
-            loadData();
+                loadData();
         }
         bool checkNumberOfEmployee()
         {
@@ -337,14 +337,14 @@ namespace CoffeeStoreManager.ViewModels
                     }
                     catch (Exception error)
                     {
-                        MessageBox.Show("Lỗi. Đã xảy ra lỗi khi đọc file excel.");
+                        MyMessageQueue.Enqueue("Lỗi. Đã xảy ra lỗi khi đọc file excel.");
                     }
                 }
                 loadData();
             }
             catch (Exception ee)
             {
-                MessageBox.Show("Lỗi. Đã xảy ra lỗi khi import file excel.");
+                MyMessageQueue.Enqueue("Lỗi. Đã xảy ra lỗi khi import file excel.");
             }
         }
         void ExportFileExcel(DataGrid dtGrid)
@@ -478,47 +478,47 @@ namespace CoffeeStoreManager.ViewModels
         }
         void deleteEmployee(object p)
         {
-            bool checkitem = false;
+            bool check = true;
             for (int i = 0; i < EmployeeList.Count; i++)
             {
                 if (EmployeeList[i].check_selected_item == true)
                 {
                     int v = EmployeeList[i].ma_nv;
-                    var delEmployee = DataProvider.Ins.DB.NhanViens.
-                        Where(employee => employee.ma_nhan_vien == v).FirstOrDefault();
-                    List<CaLamPartTime> LCalam = DataProvider.Ins.DB.CaLamPartTimes.Where(t => t.ma_nhan_vien == delEmployee.ma_nhan_vien).ToList();
-                    for (int j = 0; j < LCalam.Count; j++)
+                    if (CanDelete(v) == true)
                     {
-                        DataProvider.Ins.DB.CaLamPartTimes.Remove(LCalam[j]);
+                        
+                        var delEmployee = DataProvider.Ins.DB.NhanViens.
+                          Where(employee => employee.ma_nhan_vien == v).FirstOrDefault();
+                        DataProvider.Ins.DB.NhanViens.Remove(delEmployee);
                         DataProvider.Ins.DB.SaveChanges();
                     }
-                    DataProvider.Ins.DB.NhanViens.Remove(delEmployee);
-                    DataProvider.Ins.DB.SaveChanges();
-                    checkitem = true;
+                    else
+                    {
+                        check = false;
+                    }
                 }
             }
-            if (checkitem == true)
+            if(check == false)
             {
-                loadDataEmployee();
+                MyMessageQueue.Enqueue("Lỗi. Nhân viên còn lịch làm việc không thể xóa");
             }
             else
             {
-                if (SelectedEmployee != null)
-                {
-                    var delEmployee = DataProvider.Ins.DB.NhanViens.
-                      Where(employee => employee.ma_nhan_vien == SelectedEmployee.ma_nv).FirstOrDefault();
-                    List<CaLamPartTime> LCalam = DataProvider.Ins.DB.CaLamPartTimes.Where(t => t.ma_nhan_vien == delEmployee.ma_nhan_vien).ToList();
-                    for (int i = 0; i < LCalam.Count; i++)
-                    {
-                        DataProvider.Ins.DB.CaLamPartTimes.Remove(LCalam[i]);
-                        DataProvider.Ins.DB.SaveChanges();
-                    }
-                    DataProvider.Ins.DB.NhanViens.Remove(delEmployee);
-                    DataProvider.Ins.DB.SaveChanges();
-                    loadDataEmployee();
-                }
+                MyMessageQueue.Enqueue("Xóa thành công");
+            }    
+                loadDataEmployee();
+        }
+        bool CanDelete(int manv)
+        {
+            bool check = true;
+            List<CaLamPartTime> LCalam = DataProvider.Ins.DB.CaLamPartTimes.
+                Where(t => t.ma_nhan_vien == manv && t.ngay_lam.Value.Month == DateTime.Now.Month && t.ngay_lam.Value.Year == DateTime.Now.Year)
+                .ToList();
+            if(LCalam.Count !=0)
+            {
+                check = false;
             }
-
+            return check;
         }
         void openUpdateEmployee(object p)
         {

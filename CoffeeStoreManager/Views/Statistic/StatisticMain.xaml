@@ -22,6 +22,7 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource PageTitle}" Text="Thống kê doanh thu"/>
         <Grid>
+            <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -29,8 +30,8 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <ComboBox   Grid.Column="1" 
-                        Width="160"
-                        Margin="0 0 10 0"
+                        Width="80"
+                        Margin="0 10 10 0"
                         materialDesign:HintAssist.Hint="Năm"
                         ItemsSource="{Binding DataComboboxYear}" 
                         SelectedValue="{Binding SelectedYear}"
@@ -160,6 +161,12 @@
             <StackPanel Grid.Row="2">
                 <Button Style="{StaticResource PrimaryBtn}" Content="Xuất excel" Command="{Binding ExportExcel}" CommandParameter="{Binding ElementName=dtg}" HorizontalAlignment="Right"></Button>
             </StackPanel>
+        </Grid>
+            <materialDesign:Snackbar
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                MessageQueue="{Binding MyMessageQueue}">
+            </materialDesign:Snackbar>
         </Grid>
     </DockPanel>
 </Page>
