@@ -54,7 +54,7 @@ Nguyễn Thanh Tuấn - 20520846 - 20520846
 
 ## CÔNG CỤ, THƯ VIỆN
 
-.NETFrameWork
+Entity FrameWork
 
 WPF - C#
 
