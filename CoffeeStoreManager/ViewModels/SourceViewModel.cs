@@ -48,13 +48,20 @@ namespace CoffeeStoreManager.ViewModels
 
         private void deleteSource(object p)
         {
-            var sqlDeleteSourceString = String.Format("delete from PhieuNhapHang where ma_phieu_nhap_hang = {0}", SelectedSourceItem.ma_phieu_nhap_hang.ToString());
-            var sqlDeleteSourceDetailString = String.Format("delete from CT_PhieuNhapHang where ma_phieu_nhap_hang = {0}", SelectedSourceItem.ma_phieu_nhap_hang.ToString());
-            DataProvider.Ins.DB.Database.ExecuteSqlCommand(sqlDeleteSourceDetailString);
-            DataProvider.Ins.DB.Database.ExecuteSqlCommand(sqlDeleteSourceString);
+            if(SelectedSourceItem != null)
+            {
+                var sqlDeleteSourceString = String.Format("delete from PhieuNhapHang where ma_phieu_nhap_hang = {0}", SelectedSourceItem.ma_phieu_nhap_hang.ToString());
+                var sqlDeleteSourceDetailString = String.Format("delete from CT_PhieuNhapHang where ma_phieu_nhap_hang = {0}", SelectedSourceItem.ma_phieu_nhap_hang.ToString());
+                DataProvider.Ins.DB.Database.ExecuteSqlCommand(sqlDeleteSourceDetailString);
+                DataProvider.Ins.DB.Database.ExecuteSqlCommand(sqlDeleteSourceString);
 
-            LoadSourceList();
-            MyMessageQueue.Enqueue("Đã xóa thành công phiếu nhập hàng!");
+                LoadSourceList();
+                MyMessageQueue.Enqueue("Đã xóa thành công phiếu nhập hàng!");
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Bạn chưa chọn phiếu nhập hàng.");
+            }
         }
         private void openUpdateSource()
         {
