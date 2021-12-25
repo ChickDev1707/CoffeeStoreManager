@@ -1,19 +1,18 @@
 # CoffeeStoreManager
 ___
 
-**GIỚI THIỆU**
+## GIỚI THIỆU
 
 CoffeeStoreManager là phần mềm giúp chủ sở hữu hoặc người quản lý những quán cafe vừa và nhỏ quản lý quán một cách tiện lợi và dễ dàng hơn.
 
-***
 
-**ĐIỀU KIỆN**
+## ĐIỀU KIỆN
 
 Thiết lập file database theo file [docx](https://docs.google.com/document/d/1omH-9nghcgK9ok7s1X4YNy2XQJ0YOPWBXRHRdkWHt88/edit)
 
-***
 
-**CÁCH CÀI ĐẶT**
+
+## CÁCH CÀI ĐẶT
 
 Chạy file CoffeeManager.msi
 
@@ -22,9 +21,9 @@ Chạy file CoffeeManager.msi
 <img src="CoffeeStoreManager/HowToUse/Install/3.png">
 <img src="CoffeeStoreManager/HowToUse/Install/4.png">
 
-***
 
-**CÁCH SỬ DỤNG**
+
+## CÁCH SỬ DỤNG
 
 <img src="CoffeeStoreManager/HowToUse/MainWindow.png">
 <img src="CoffeeStoreManager/HowToUse/AdminWindow.png">
@@ -40,10 +39,7 @@ Chạy file CoffeeManager.msi
 <img src="CoffeeStoreManager/HowToUse/AccountMain.png">
 
 
-
-***
-
-**CONTRIBUTORS**
+## CONTRIBUTORS
 
 Nhan Hữu Thuận - ChickDev1707 
 
@@ -53,9 +49,9 @@ Trần Quốc Khánh - lancer2672
 
 Nguyễn Thanh Tuấn - 20520846
 
-***
 
-**CÔNG CỤ, THƯ VIỆN**
+
+## CÔNG CỤ, THƯ VIỆN
 
 WPF - C#
 
