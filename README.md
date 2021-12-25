@@ -22,8 +22,9 @@ Chạy file CoffeeManager.msi
 <img src="CoffeeStoreManager/HowToUse/Install/4.png">
 
 
-
 ## CÁCH SỬ DỤNG
+
+Tài khoản mặc định để đăng nhập vào adminWindow: admin/123456
 
 <img src="CoffeeStoreManager/HowToUse/MainWindow.png">
 <img src="CoffeeStoreManager/HowToUse/AdminWindow.png">
@@ -41,20 +42,28 @@ Chạy file CoffeeManager.msi
 
 ## CONTRIBUTORS
 
-Nhan Hữu Thuận - ChickDev1707 
+Nhan Hữu Thuận - 19522318 - ChickDev1707 
 
-Nguyễn Xuân Tài - ngxuantai
+Nguyễn Xuân Tài - 20520744 - ngxuantai
 
-Trần Quốc Khánh - lancer2672
+Trần Quốc Khánh - 20520578 - lancer2672
 
-Nguyễn Thanh Tuấn - 20520846
+Nguyễn Thanh Tuấn - 20520846 - 20520846
 
 
 
 ## CÔNG CỤ, THƯ VIỆN
 
+.NETFrameWork
+
 WPF - C#
 
-MaterialDesign
+Microsoft Visual Studio 2019
+
+Microsoft Visual Studio Code
+
+SQL server
+
+MaterialDesignXAML
 
 SyncfusionWPF
