@@ -63,9 +63,16 @@ namespace CoffeeStoreManager.ViewModels
 
         private void openUpdateWindow(object p)
         {
-            loadSelectedDetail();
-            UpdateDetailWindow updateWindow = new UpdateDetailWindow(this);
-            updateWindow.ShowDialog();
+            if (SelectedDetailItem != null)
+            {
+                loadSelectedDetail();
+                UpdateDetailWindow updateWindow = new UpdateDetailWindow(this);
+                updateWindow.ShowDialog();
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Bạn chưa chọn chi tiết phiếu hàng.");
+            }
         }
 
         private void openAddWindow(object p)
@@ -86,12 +93,19 @@ namespace CoffeeStoreManager.ViewModels
         }
         private void deleteDetail(object p)
         {
-            var dbSelectedDetailItem = DataProvider.Ins.DB.CT_PhieuNhapHang.SingleOrDefault(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang);
-            DataProvider.Ins.DB.CT_PhieuNhapHang.Remove(dbSelectedDetailItem);
-            DataProvider.Ins.DB.SaveChanges();
+            if(SelectedDetailItem != null)
+            {
+                var dbSelectedDetailItem = DataProvider.Ins.DB.CT_PhieuNhapHang.SingleOrDefault(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang);
+                DataProvider.Ins.DB.CT_PhieuNhapHang.Remove(dbSelectedDetailItem);
+                DataProvider.Ins.DB.SaveChanges();
 
-            Detail.Remove(Detail.Where(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang).Single());
-            MyMessageQueue.Enqueue("Xóa chi tiết hàng thành công!");
+                Detail.Remove(Detail.Where(detail => detail.ma_ct_phieu_nhap_hang == SelectedDetailItem.ma_ct_phieu_nhap_hang).Single());
+                MyMessageQueue.Enqueue("Xóa chi tiết hàng thành công!");
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Bạn chưa chọn chi tiết phiếu hàng.");
+            }
         }
 
         private void addDetail(StackPanel addDetailForm)
@@ -136,6 +150,7 @@ namespace CoffeeStoreManager.ViewModels
             {
                 MyMessageQueue.Enqueue("Lỗi. Thông tin cập nhật chi tiết hàng không hợp lệ.");
             }
+            
         }
         private void updateSourceCardMoney()
         {

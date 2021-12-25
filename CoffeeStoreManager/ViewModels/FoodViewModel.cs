@@ -212,14 +212,21 @@ namespace CoffeeStoreManager.ViewModels
 
         private void deleteFood(object p)
         {
-            var selectedFoodId = SelectedFood.ma_mon_an;
-            var selectedFood = DataProvider.Ins.DB.MonAns.Where(food => food.ma_mon_an == selectedFoodId).First();
-            DataProvider.Ins.DB.MonAns.Remove(selectedFood);
-            DataProvider.Ins.DB.SaveChanges();
+            if(SelectedFood != null)
+            {
+                var selectedFoodId = SelectedFood.ma_mon_an;
+                var selectedFood = DataProvider.Ins.DB.MonAns.Where(food => food.ma_mon_an == selectedFoodId).First();
+                DataProvider.Ins.DB.MonAns.Remove(selectedFood);
+                DataProvider.Ins.DB.SaveChanges();
 
-            FoodList.Remove(FoodList.Where(item => item.ma_mon_an == selectedFoodId).Single());
-            MyMessageQueue.Enqueue("Đã xóa món ăn khỏi hệ thống!");
+                FoodList.Remove(FoodList.Where(item => item.ma_mon_an == selectedFoodId).Single());
+                MyMessageQueue.Enqueue("Đã xóa món ăn khỏi hệ thống!");
+            }
+            else
+            {
+                MyMessageQueue.Enqueue("Bạn chưa chọn món ăn.");
 
+            }
         }
 
         private void search(object p)

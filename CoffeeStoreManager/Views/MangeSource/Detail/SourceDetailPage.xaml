@@ -75,7 +75,7 @@
                         </ListView.View>
                     </ListView>
                 </Border>
-                <StackPanel Grid.Row="2" Margin="0 0 20 20" HorizontalAlignment="Right">
+                <StackPanel Grid.Row="2" Margin="0 10 0 0" HorizontalAlignment="Right">
                     <Button Style="{StaticResource PrimaryBtn}" Padding="20 10" Content="Trở lại" Click="Back_Click"/>
                 </StackPanel>
             </Grid>

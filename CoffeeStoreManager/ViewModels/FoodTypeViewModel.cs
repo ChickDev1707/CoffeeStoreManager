@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using CoffeeStoreManager.Models;
 using CoffeeStoreManager.Resources.Utils;
 using MaterialDesignThemes.Wpf;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace CoffeeStoreManager.ViewModels
 {
@@ -50,22 +46,30 @@ namespace CoffeeStoreManager.ViewModels
 
         private void deleteType()
         {
-            try
+            if (SelectedType !=null)
             {
-                var dbSelectedType = DataProvider.Ins.DB.LoaiMonAns.SingleOrDefault(type => type.ma_loai_mon_an == SelectedType.ma_loai_mon_an);
-                DataProvider.Ins.DB.LoaiMonAns.Remove(dbSelectedType);
-                DataProvider.Ins.DB.SaveChanges();
-                loadFoodTypeList();
-                MyMessageQueue.Enqueue("Xóa loại món ăn thành công!");
+                try
+                {
+                    var dbSelectedType = DataProvider.Ins.DB.LoaiMonAns.SingleOrDefault(type => type.ma_loai_mon_an == SelectedType.ma_loai_mon_an);
+                    DataProvider.Ins.DB.LoaiMonAns.Remove(dbSelectedType);
+                    DataProvider.Ins.DB.SaveChanges();
+                    loadFoodTypeList();
+                    MyMessageQueue.Enqueue("Xóa loại món ăn thành công!");
+                }
+                catch (Exception err)
+                {
+                    MyMessageQueue.Enqueue("Lỗi. Không thể xóa loại món ăn vì loại món đang được sử dụng.");
+                }
             }
-            catch (Exception err)
+            else
             {
-                MyMessageQueue.Enqueue("Lỗi. Không thể xóa loại món ăn vì loại món đang được sử dụng.");
+                MyMessageQueue.Enqueue("Bạn chưa chọn loại món ăn.");
             }
         }
 
         private void updateType(StackPanel updateTypeForm)
         {
+
             if (Validator.IsValid(updateTypeForm))
             {
                 var dbSelectedType = DataProvider.Ins.DB.LoaiMonAns.SingleOrDefault(type => type.ma_loai_mon_an == SelectedType.ma_loai_mon_an);
