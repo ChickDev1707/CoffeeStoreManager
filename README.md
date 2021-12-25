@@ -21,6 +21,8 @@ Thiết lập file database theo file [docx](https://docs.google.com/document/d/
 
 **CÁCH SỬ DỤNG**
 
+![MainWindow](https://drive.google.com/drive/folders/1ccTabS17eXKCE-vXgRuyadmNumQFk5nm)
+
 ***
 
 **CONTRIBUTORS**
@@ -35,7 +37,7 @@ Nguyễn Thanh Tuấn - 20520846
 
 ***
 
-**CÔNG CỤ**
+**CÔNG CỤ, THƯ VIỆN**
 
 WPF - C#
 
