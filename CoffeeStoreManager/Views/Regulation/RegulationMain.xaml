@@ -97,9 +97,7 @@
                                 </DockPanel>
                                 <StackPanel>
                                     <Label Content="Số bàn ăn"/>
-                                    <TextBox x:Name="tableNumTxb"  Width="100" HorizontalAlignment="Left"
-                                          
-                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                    <TextBox x:Name="tableNumTxb"  Width="100" HorizontalAlignment="Left">
                                         <TextBox.Text>
                                             <Binding Path="NumberOfTable" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                 <Binding.ValidationRules>
@@ -119,9 +117,7 @@
                                 <DockPanel>
                                     <StackPanel Margin="0 0 40 0">
                                         <Label Content="Tuổi tối thiểu"/>
-                                        <TextBox x:Name="minAgeTxb"  Width="150" HorizontalAlignment="Left"
-                                              
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                        <TextBox x:Name="minAgeTxb"  Width="150" HorizontalAlignment="Left">
                                             <TextBox.Text>
                                                 <Binding Path="MinAge" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
@@ -134,9 +130,7 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Tuổi tối đa"/>
-                                        <TextBox x:Name="maxAgeTxb"  Width="150" HorizontalAlignment="Left"
-                                              
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                        <TextBox x:Name="maxAgeTxb"  Width="150" HorizontalAlignment="Left">
                                             <TextBox.Text>
                                                 <Binding Path="MaxAge" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
@@ -163,7 +157,7 @@
                                     DisplayMemberPath="ten_loai_mon_an"
                                     SelectedValuePath="ma_loai_mon_an"
                                     ItemsSource="{Binding FoodTypeList}"
-                                       SelectedValue="{Binding SpecialOffer}"       
+                                    SelectedValue="{Binding SpecialOffer}"       
                                     
                                     >
                                     </ComboBox>
@@ -172,8 +166,7 @@
                                     <StackPanel Margin="0 0 40 0">
                                         <Label Content="Định mức ưu đãi"/>
                                         <TextBox x:Name="specialOfferCountTxb"  Width="150" HorizontalAlignment="Left"
-                                              
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                            >
                                             <TextBox.Text>
                                                 <Binding Path="SpecialOfferCount" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
@@ -186,9 +179,7 @@
                                     </StackPanel>
                                     <StackPanel Margin="0 0 40 0">
                                         <Label Content="Giá tiền ưu đãi"/>
-                                        <TextBox x:Name="specialOfferMoneyTxb"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                                              
-                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                        <TextBox x:Name="specialOfferMoneyTxb"  Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                                             <TextBox.Text>
                                                 <Binding Path="SpecialOfferMoney" Converter="{StaticResource UIMoneyConverter}" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True" ValidatesOnExceptions="True">
                                                     <Binding.ValidationRules>
